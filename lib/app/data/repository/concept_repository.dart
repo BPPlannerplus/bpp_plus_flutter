@@ -9,70 +9,68 @@ class ConceptRepository {
       concepts: [
         Concept(
             id: 1,
-            profile: '1',
+            profile: 'studio1',
             shop: IdNamePair(id: 1, name: 'studio1'),
             like: true),
         Concept(
-            id: 1,
-            profile: '1',
-            shop: IdNamePair(id: 1, name: 'studio1'),
+            id: 2,
+            profile: 'studio2',
+            shop: IdNamePair(id: 1, name: 'studio2'),
             like: true),
         Concept(
-            id: 1,
-            profile: '1',
-            shop: IdNamePair(id: 1, name: 'studio1'),
+            id: 3,
+            profile: 'studio3',
+            shop: IdNamePair(id: 1, name: 'studio3'),
             like: true),
         Concept(
-            id: 1,
-            profile: '1',
-            shop: IdNamePair(id: 1, name: 'studio1'),
+            id: 4,
+            profile: 'studio4',
+            shop: IdNamePair(id: 1, name: 'studio4'),
             like: true),
         Concept(
-            id: 1,
-            profile: '1',
-            shop: IdNamePair(id: 1, name: 'studio1'),
+            id: 5,
+            profile: 'studio5',
+            shop: IdNamePair(id: 1, name: 'studio5'),
             like: true),
         Concept(
-            id: 1,
-            profile: '1',
-            shop: IdNamePair(id: 1, name: 'studio1'),
+            id: 6,
+            profile: 'studio6',
+            shop: IdNamePair(id: 1, name: 'studio6'),
             like: true),
         Concept(
-            id: 1,
-            profile: '1',
-            shop: IdNamePair(id: 1, name: 'studio1'),
+            id: 7,
+            profile: 'studio7',
+            shop: IdNamePair(id: 1, name: 'studio7'),
             like: false),
         Concept(
-            id: 1,
-            profile: '1',
-            shop: IdNamePair(id: 1, name: 'studio1'),
+            id: 8,
+            profile: 'studio8',
+            shop: IdNamePair(id: 1, name: 'studio8'),
             like: false),
         Concept(
-            id: 1,
-            profile: '1',
-            shop: IdNamePair(id: 1, name: 'studio1'),
+            id: 9,
+            profile: 'studio9',
+            shop: IdNamePair(id: 1, name: 'studio9'),
             like: false),
         Concept(
-            id: 1,
-            profile: '1',
-            shop: IdNamePair(id: 1, name: 'studio1'),
+            id: 10,
+            profile: 'studio10',
+            shop: IdNamePair(id: 1, name: 'studio10'),
             like: false),
         Concept(
-            id: 1,
-            profile: '1',
-            shop: IdNamePair(id: 1, name: 'studio1'),
+            id: 11,
+            profile: 'studio11',
+            shop: IdNamePair(id: 1, name: 'studio11'),
             like: false),
         Concept(
-            id: 1,
-            profile: '1',
-            shop: IdNamePair(id: 1, name: 'studio1'),
+            id: 12,
+            profile: 'studio12',
+            shop: IdNamePair(id: 1, name: 'studio12'),
             like: false),
       ],
       next: 'true',
     );
   }
 
-  setLike(int id, bool like) {
-    print('좋아요');
-  }
+  setLike(int id, bool like) {}
 }

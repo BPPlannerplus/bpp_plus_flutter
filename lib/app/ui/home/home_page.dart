@@ -1,4 +1,4 @@
-import 'package:bpp_plus_flutter/app/controller/bottom_scroll_controller.dart';
+import 'package:bpp_plus_flutter/app/controller/bottom_navigation_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -6,12 +6,12 @@ import 'package:get/get.dart';
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
-  final bottomScrollController = Get.find<BottomScrollController>();
+  final bottomNavigationController = Get.find<BottomNavigationController>();
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
-      controller: bottomScrollController.scrollController,
+      controller: bottomNavigationController.scrollController,
       slivers: [
         SliverToBoxAdapter(
           child: SizedBox(

@@ -8,14 +8,14 @@ class ConceptPaint extends CustomPainter {
     final sideY = bubbleSize.height / 2;
 
     final bubblePath = Path()
-      ..moveTo(sideX * 2, 0)
-      ..arcTo(const Offset(0, 0) & Size(sideX * 4, sideY * 2), -1.5, -3, false)
-      ..lineTo(sideX * 2, bubbleSize.height)
-      ..arcTo(Offset(sideX * 4, 0) & Size(sideX * 4, sideY * 2), 1.5, -3, false)
-      ..lineTo(sideX * 2, 0);
+      ..moveTo(sideX + 30, 0)
+      ..arcTo(const Offset(0, 0) & Size(30, sideY * 2), -1.5, -3, false)
+      ..lineTo(sideX * 4, bubbleSize.height)
+      ..arcTo(Offset(sideX * 8 - 30, 0) & Size(30, sideY * 2), 1.5, -3, false)
+      ..lineTo(sideX + 30, 0);
 
     final paint = Paint()
-      ..color = Colors.lightBlueAccent
+      ..color = const Color(0xff3B75FF)
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
 
