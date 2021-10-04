@@ -1,4 +1,5 @@
 import 'package:bpp_plus_flutter/app/controller/concept_controller.dart';
+import 'package:bpp_plus_flutter/app/controller/concept_filter_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -6,13 +7,14 @@ import 'package:get/get.dart';
 class ConceptBottomSheet extends StatelessWidget {
   ConceptBottomSheet({Key? key}) : super(key: key);
 
-  final controller = Get.find<ConceptController>();
+  final conceptController = Get.find<ConceptController>();
+  final conceptFilterController = Get.find<ConceptFilterController>();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: 15.h, left: 20.w, right: 20.w),
-      height: 500.h,
+      height: 520.h,
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -33,10 +35,12 @@ class ConceptBottomSheet extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  controller.refreshFilterState();
+                  conceptFilterController.refreshFilterState();
                 },
-                child: const Image(
-                  image: AssetImage('assets/icons/ic_reset.png'),
+                child: Image(
+                  image: const AssetImage('assets/icons/ic_reset.png'),
+                  width: 30.h,
+                  height: 30.h,
                 ),
               ),
             ],
@@ -46,16 +50,35 @@ class ConceptBottomSheet extends StatelessWidget {
           filterColumn('배경', 2),
           filterColumn('소품', 3),
           filterColumn('의상', 4),
-          ElevatedButton(
-            onPressed: () {
-              controller.makeFilter();
-              Get.back();
-            },
-            child: Container(
-              width: 328.w,
-              height: 48.h,
-              child: const Center(
-                child: Text('선택완료'),
+          GetBuilder(
+            init: conceptFilterController,
+            builder: (_) => SizedBox(
+              width: Get.size.width,
+              height: 44.h,
+              child: ElevatedButton(
+                onPressed: conceptFilterController.isFilterEmpty
+                    ? () {
+                        conceptFilterController.setFilter();
+                        conceptController
+                            .setFilter(conceptFilterController.filter);
+                        Get.back();
+                      }
+                    : null,
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith((states) {
+                    if (states.contains(MaterialState.disabled)) {
+                      return const Color(0xfff2f2f2);
+                    } else {
+                      return const Color(0xFF3b75ff);
+                    }
+                  }),
+                ),
+                child: const Text(
+                  '선택완료',
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
               ),
             ),
           ),
@@ -66,10 +89,11 @@ class ConceptBottomSheet extends StatelessWidget {
 
   Widget filterColumn(String title, int num) {
     return GetBuilder(
-      init: controller,
+      init: conceptFilterController,
       builder: (_) => Container(
         padding: EdgeInsets.all(5.w),
-        height: 70.h,
+        height: 80.h,
+        width: Get.size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -80,40 +104,84 @@ class ConceptBottomSheet extends StatelessWidget {
               ),
             ),
             SizedBox(height: 8.h),
-            ToggleButtons(
-              children: [
-                for (var i = 0; i < controller.filters[num].length; i++)
-                  Container(
-                    height: 25.h,
-                    width: 20.w * controller.filters[num][i].id.length,
-                    decoration: BoxDecoration(
-                      color: controller.filters[num][i].check
-                          ? Colors.lightBlueAccent
-                          : Colors.grey.shade100,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Center(
-                      child: Text(
-                        controller.filters[num][i].id,
-                        style: TextStyle(
-                          fontSize: 18.sp,
-                        ),
+            num != 2
+                ? Row(
+                    children: [
+                      for (var i = 0;
+                          i < conceptFilterController.filters[num].length;
+                          i++)
+                        InkWell(
+                          onTap: () {
+                            conceptFilterController.toggleFilterState(num, i);
+                          },
+                          child: toggleIcon(
+                            conceptFilterController.filters[num][i].id,
+                            conceptFilterController.filters[num][i].check,
+                          ),
+                        )
+                    ],
+                  )
+                : Column(
+                    children: [
+                      Row(
+                        children: [
+                          for (var i = 0; i < 3; i++)
+                            InkWell(
+                              onTap: () {
+                                conceptFilterController.toggleFilterState(
+                                    num, i);
+                              },
+                              child: toggleIcon(
+                                conceptFilterController.filters[num][i].id,
+                                conceptFilterController.filters[num][i].check,
+                              ),
+                            )
+                        ],
                       ),
-                    ),
+                      SizedBox(height: 5.h),
+                      Row(
+                        children: [
+                          for (var i = 3; i < 5; i++)
+                            InkWell(
+                              onTap: () {
+                                conceptFilterController.toggleFilterState(
+                                    num, i);
+                              },
+                              child: toggleIcon(
+                                conceptFilterController.filters[num][i].id,
+                                conceptFilterController.filters[num][i].check,
+                              ),
+                            )
+                        ],
+                      ),
+                    ],
                   ),
-              ],
-              onPressed: (index) {
-                controller.toggleFilterState(num, index);
-              },
-              isSelected: [
-                for (var filter in controller.filters[num]) filter.check
-              ],
-              renderBorder: false,
-              selectedColor: Colors.white,
-              fillColor: Colors.white,
-              splashColor: Colors.white,
-            )
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget toggleIcon(String text, bool isCheck) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        right: 6.0,
+        left: 6.0,
+      ),
+      child: Container(
+        height: 20.h,
+        width: 10.w * text.length + 30,
+        decoration: BoxDecoration(
+          color: isCheck ? const Color(0xff3B75FF) : Colors.grey.shade100,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+                fontSize: 18.sp,
+                color: isCheck ? Colors.white : const Color(0xff595959)),
+          ),
         ),
       ),
     );

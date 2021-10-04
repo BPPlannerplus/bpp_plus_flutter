@@ -41,21 +41,7 @@ class ConceptGridView extends GetView<ConceptController> {
                 ),
               );
             }
-            if (controller.hasMore || controller.isLoading) {
-              return const Center(
-                child: RefreshProgressIndicator(),
-              );
-            }
-            return Container(
-              padding: const EdgeInsets.all(10.0),
-              child: Center(
-                child: Column(
-                  children: const [
-                    Text('데이터의 마지막 입니다'),
-                  ],
-                ),
-              ),
-            );
+            return Container();
           },
         ),
       ),

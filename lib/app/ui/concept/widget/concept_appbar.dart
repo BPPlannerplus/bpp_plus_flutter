@@ -1,4 +1,5 @@
 import 'package:bpp_plus_flutter/app/controller/concept_controller.dart';
+import 'package:bpp_plus_flutter/app/controller/concept_filter_controller.dart';
 import 'package:bpp_plus_flutter/app/ui/concept/widget/concept_bottom_sheet.dart';
 import 'package:bpp_plus_flutter/app/ui/concept/widget/filter_paint.dart';
 import 'package:flutter/material.dart';
@@ -8,99 +9,114 @@ import 'package:get/get.dart';
 class ConceptAppBar extends StatelessWidget {
   ConceptAppBar({Key? key}) : super(key: key);
 
-  final controller = Get.find<ConceptController>();
+  final conceptController = Get.find<ConceptController>();
+  final conceptFilterController = Get.find<ConceptFilterController>();
 
   @override
   Widget build(BuildContext context) {
-    return SliverAppBar(
-      elevation: 0,
-      pinned: true,
-      backgroundColor: Colors.white,
-      expandedHeight: 110.h,
-      toolbarHeight: 110.h,
-      title: Container(
-        padding: EdgeInsets.only(
-          top: 15.h,
-        ),
-        child: Text(
-          '원하는 컨셉의\n스튜디오를 찾아보세요',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 25.sp,
-          ),
-        ),
+    return Container(
+      padding: EdgeInsets.only(
+        top: 44.h,
+        right: 16.w,
+        left: 16.w,
       ),
-      actions: [
-        Padding(
-          padding: EdgeInsets.only(right: 16.w, top: 30.h),
-          child: Row(
+      color: Colors.white,
+      height: 146.h,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                height: 40.w,
-                width: 40.w,
-                color: Colors.white,
-                child: CircleAvatar(
-                  radius: 20.w,
-                  backgroundColor: Colors.grey.shade100,
-                  child: Image(
-                    image:
-                        const AssetImage('assets/icons/ic_like_small_off.png'),
-                    width: 25.w,
-                    height: 25.h,
-                  ),
+                padding: EdgeInsets.only(
+                  top: 15.h,
+                ),
+                child: Text(
+                  '원하는 컨셉의\n스튜디오를 찾아보세요',
+                  style: Theme.of(context).textTheme.headline2,
                 ),
               ),
-              SizedBox(
-                width: 5.w,
-              ),
-              InkWell(
-                onTap: () {
-                  Get.bottomSheet(
-                    ConceptBottomSheet(),
-                    ignoreSafeArea: false,
-                    isScrollControlled: true,
-                  );
-                },
-                child: Container(
-                  height: 40.w,
-                  width: 40.w,
-                  color: Colors.white,
-                  child: CircleAvatar(
-                    radius: 20.w,
-                    backgroundColor: Colors.grey.shade100,
-                    child: Image(
-                      image: const AssetImage('assets/icons/ic_filter.png'),
-                      width: 25.w,
-                      height: 25.h,
+              Row(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      conceptController.setLikeFilter();
+                    },
+                    child: GetBuilder(
+                        init: conceptController,
+                        builder: (_) {
+                          return Container(
+                            height: 40.h,
+                            width: 40.w,
+                            color: Colors.white,
+                            child: CircleAvatar(
+                              radius: 20.w,
+                              backgroundColor: Colors.grey.shade100,
+                              child: Image(
+                                image: !conceptController.likeFilter
+                                    ? const AssetImage(
+                                        'assets/icons/ic_like_small_off.png')
+                                    : const AssetImage(
+                                        'assets/icons/ic_like_on.png'),
+                                width: 30.w,
+                                height: 30.h,
+                              ),
+                            ),
+                          );
+                        }),
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.bottomSheet(
+                        ConceptBottomSheet(),
+                        ignoreSafeArea: false,
+                        isScrollControlled: true,
+                      );
+                    },
+                    child: Container(
+                      height: 40.h,
+                      width: 40.w,
+                      color: Colors.white,
+                      child: CircleAvatar(
+                        radius: 20.w,
+                        backgroundColor: Colors.grey.shade100,
+                        child: Image(
+                          image: const AssetImage('assets/icons/ic_filter.png'),
+                          width: 30.w,
+                          height: 30.h,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
             ],
           ),
-        ),
-      ],
-      bottom: PreferredSize(
-        preferredSize: Size.fromHeight(41.h),
-        child: Container(
-          margin: EdgeInsets.only(right: 16.w, left: 16.w),
-          height: 41.h,
-          width: Get.size.width,
-          decoration: const BoxDecoration(
-              border: Border(top: BorderSide(color: Colors.grey))),
-          child: GetBuilder(
-            init: controller,
-            builder: (_) => Row(
-              children: [
-                filterCard(controller.conceptFilter.headNum[0]),
-                filterCard(controller.conceptFilter.gender[0]),
-                filterCard(controller.conceptFilter.background[0]),
-                filterCard(controller.conceptFilter.prop[0]),
-                filterCard(controller.conceptFilter.cloth[0]),
-              ],
+          SizedBox(
+            height: 8.h,
+          ),
+          Container(
+            height: 40.h,
+            width: Get.size.width,
+            decoration: const BoxDecoration(
+                border: Border(top: BorderSide(color: Colors.grey))),
+            child: GetBuilder(
+              init: conceptFilterController,
+              builder: (_) => Row(
+                children: [
+                  filterCard(conceptController.filter.headNum[0]),
+                  filterCard(conceptController.filter.gender[0]),
+                  filterCard(conceptController.filter.background[0]),
+                  filterCard(conceptController.filter.prop[0]),
+                  filterCard(conceptController.filter.cloth[0]),
+                ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -110,9 +126,9 @@ class ConceptAppBar extends StatelessWidget {
       return Container();
     }
     return Container(
-      padding: const EdgeInsets.all(4),
-      height: 26.h,
-      width: 10.w * title.length + 30,
+      padding: EdgeInsets.only(top: 10.h, left: 5.w, right: 5.w),
+      height: 35.h,
+      width: 5.w * title.length + 45.w,
       child: CustomPaint(
         painter: ConceptPaint(),
         child: Center(
@@ -120,7 +136,7 @@ class ConceptAppBar extends StatelessWidget {
             title,
             style: TextStyle(
               fontSize: 14.sp,
-              color: Colors.lightBlueAccent,
+              color: const Color(0xff3B75FF),
               fontWeight: FontWeight.bold,
             ),
           ),
