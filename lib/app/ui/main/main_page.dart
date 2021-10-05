@@ -1,6 +1,7 @@
 import 'package:bpp_plus_flutter/app/controller/bottom_navigation_controller.dart';
 import 'package:bpp_plus_flutter/app/ui/concept/concept_page.dart';
 import 'package:bpp_plus_flutter/app/ui/home/home_page.dart';
+import 'package:bpp_plus_flutter/app/ui/like/like_page.dart';
 import 'package:bpp_plus_flutter/app/ui/mypage/my_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,6 +15,7 @@ class MainPage extends StatelessWidget {
   final List<Widget> _pages = [
     HomePage(),
     ConceptPage(),
+    LikePage(),
     MyPage(),
   ];
 
@@ -47,6 +49,12 @@ class MainPage extends StatelessWidget {
               ),
               bottomIcon(
                 index: 2,
+                selectedImage: 'assets/icons/ic_like_bt_on.png',
+                unselectedImage: 'assets/icons/ic_like_bt_off.png',
+                title: '찜페이지',
+              ),
+              bottomIcon(
+                index: 3,
                 selectedImage: 'assets/icons/ic_mypage_on.png',
                 unselectedImage: 'assets/icons/ic_mypage_off.png',
                 title: '마이페이지',
@@ -75,13 +83,15 @@ class MainPage extends StatelessWidget {
             bottomNavigationController.index == index
                 ? Image(
                     image: AssetImage(selectedImage),
-                    width: 44.w,
-                    height: 44.h,
+                    width: 35.w,
+                    height: 35.h,
+                    fit: BoxFit.cover,
                   )
                 : Image(
                     image: AssetImage(unselectedImage),
-                    width: 44.w,
-                    height: 44.h,
+                    width: 35.w,
+                    height: 35.h,
+                    fit: BoxFit.cover,
                   ),
             Text(
               title,
@@ -89,6 +99,7 @@ class MainPage extends StatelessWidget {
                 color: bottomNavigationController.index == index
                     ? const Color(0xff3B75FF)
                     : Colors.black,
+                fontSize: 13.sp,
               ),
             ),
           ],
