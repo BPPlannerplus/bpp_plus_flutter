@@ -30,7 +30,7 @@ class ConceptBottomSheet extends StatelessWidget {
               Text(
                 '컨셉필터',
                 style: TextStyle(
-                  fontSize: 22.sp,
+                  fontSize: 20.sp,
                 ),
               ),
               InkWell(
@@ -39,12 +39,13 @@ class ConceptBottomSheet extends StatelessWidget {
                 },
                 child: Image(
                   image: const AssetImage('assets/icons/ic_reset.png'),
-                  width: 30.h,
-                  height: 30.h,
+                  width: 40.h,
+                  height: 40.h,
                 ),
               ),
             ],
           ),
+          SizedBox(height: 10.h),
           filterColumn('인원', 0),
           filterColumn('성별', 1),
           filterColumn('배경', 2),
@@ -90,9 +91,8 @@ class ConceptBottomSheet extends StatelessWidget {
   Widget filterColumn(String title, int num) {
     return GetBuilder(
       init: conceptFilterController,
-      builder: (_) => Container(
-        padding: EdgeInsets.all(5.w),
-        height: 80.h,
+      builder: (_) => SizedBox(
+        height: num != 2 ? 75.h : 80.h,
         width: Get.size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,7 +100,7 @@ class ConceptBottomSheet extends StatelessWidget {
             Text(
               title,
               style: TextStyle(
-                fontSize: 18.sp,
+                fontSize: 14.sp,
               ),
             ),
             SizedBox(height: 8.h),
@@ -138,7 +138,7 @@ class ConceptBottomSheet extends StatelessWidget {
                             )
                         ],
                       ),
-                      SizedBox(height: 5.h),
+                      SizedBox(height: 10.h),
                       Row(
                         children: [
                           for (var i = 3; i < 5; i++)
@@ -179,7 +179,7 @@ class ConceptBottomSheet extends StatelessWidget {
           child: Text(
             text,
             style: TextStyle(
-                fontSize: 18.sp,
+                fontSize: 13.sp,
                 color: isCheck ? Colors.white : const Color(0xff595959)),
           ),
         ),

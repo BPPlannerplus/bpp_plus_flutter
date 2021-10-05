@@ -24,8 +24,8 @@ class ConceptDialog extends StatelessWidget {
             ),
           ),
         ),
-        height: 296.h,
-        width: 296.w,
+        height: 387.h,
+        width: 360.w,
         child: Stack(
           alignment: AlignmentDirectional.bottomCenter,
           children: [
@@ -39,7 +39,7 @@ class ConceptDialog extends StatelessWidget {
               opacity: 0.3,
               child: Container(
                 height: 30.h,
-                color: Colors.grey.shade300,
+                color: Colors.grey,
               ),
             ),
             Row(
