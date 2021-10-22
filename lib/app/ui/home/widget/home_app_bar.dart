@@ -1,5 +1,6 @@
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/ui/home/widget/home_bottom_sheet.dart';
+import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,10 +25,10 @@ class HomeAppBar extends StatelessWidget {
       centerTitle: false,
       title: Row(
         children: [
-          tabButton('스튜디오', context, 0),
-          tabButton('헤어메이크업', context, 1),
-          tabButton('왁싱', context, 2),
-          tabButton('태닝', context, 3),
+          tabButton('스튜디오', 0),
+          tabButton('헤어메이크업', 1),
+          tabButton('왁싱', 2),
+          tabButton('태닝', 3),
           Expanded(
             child: Container(
               height: 48,
@@ -81,18 +82,14 @@ class HomeAppBar extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SvgPicture.asset(
-                        'assets/icon/Frame.svg',
+                        'assets/icon/ic_filter.svg',
                         width: 30,
                         height: 30,
-                        color: const Color(0xff3b75ff),
+                        // color: const Color(0xff3b75ff),
                       ),
                       const Text(
                         '필터',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: BppTextStyle.filterText,
                       ),
                     ],
                   ),
@@ -105,11 +102,11 @@ class HomeAppBar extends StatelessWidget {
     );
   }
 
-  Widget tabButton(String title, BuildContext context, int index) {
+  Widget tabButton(String title, int index) {
     return Consumer(builder: (context, ref, _) {
       return InkWell(
         onTap: () {
-          ref.watch(homeTabProvider).state = index;
+          ref.read(homeTabProvider).state = index;
         },
         child: Container(
           width: 15.0 * title.length,
@@ -131,11 +128,9 @@ class HomeAppBar extends StatelessWidget {
             child: Center(
               child: Text(
                 title,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: ref.watch(homeTabProvider).state == index
+                    ? BppTextStyle.tabText
+                    : BppTextStyle.defaultText,
               ),
             ),
           ),

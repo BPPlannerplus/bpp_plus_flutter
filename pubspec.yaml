@@ -39,15 +39,17 @@ flutter:
     - assets/icon/
     - assets/video/
 
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
+  fonts:
+    - family: Noto_Sans_KR
+      fonts:
+        - asset: fonts/Noto_Sans_KR/NotoSansKR-Bold.otf
+          weight: 700
+        - asset: fonts/Noto_Sans_KR/NotoSansKR-Medium.otf
+          weight: 500
+        - asset: fonts/Noto_Sans_KR/NotoSansKR-Regular.otf
+          weight: 400
+
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto/Roboto-Medium.ttf
+          weight: 500

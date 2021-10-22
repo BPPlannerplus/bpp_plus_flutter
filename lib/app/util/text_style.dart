@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class BppTextStyle {
   static const bigScreenText = TextStyle(
     fontSize: 22,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w700,
     color: Colors.black,
   );
   static const screenText = TextStyle(
@@ -13,12 +13,12 @@ class BppTextStyle {
   );
   static const dialogText = TextStyle(
     fontSize: 18,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w700,
     color: Colors.white,
   );
   static const tabText = TextStyle(
     fontSize: 16,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w700,
     color: Colors.black,
   );
   static const defaultText = TextStyle(
@@ -35,5 +35,11 @@ class BppTextStyle {
     fontSize: 13,
     fontWeight: FontWeight.w400,
     color: Colors.black,
+  );
+  static const engShopNameText = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: Colors.black,
+    fontFamily: 'Roboto',
   );
 }

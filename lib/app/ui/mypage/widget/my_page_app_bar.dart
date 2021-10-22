@@ -1,17 +1,19 @@
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MyPageAppBar extends StatelessWidget {
+class MyPageAppBar extends ConsumerWidget {
   const MyPageAppBar({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final tabIndex = ref.watch(myPageTabProvider).state;
     return Container(
-      height: 252,
+      height: tabIndex == 0 ? 252 : 208,
       padding: const EdgeInsets.only(top: 72),
-      color: Colors.white,
+      color: const Color(0xffffffff),
       child: Column(
         children: [
           Row(
@@ -19,14 +21,13 @@ class MyPageAppBar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                color: Colors.white,
+                color: const Color(0xffffffff),
                 height: 56,
-                child: const Center(
+                child: Center(
                   child: Text(
                     '서현님\n환영합니다!',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                    style: BppTextStyle.screenText.copyWith(
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),
@@ -42,7 +43,7 @@ class MyPageAppBar extends StatelessWidget {
             height: 24,
           ),
           Container(
-            color: Colors.white,
+            color: const Color(0xffffffff),
             height: 31,
             child: Row(
               children: [
@@ -65,17 +66,19 @@ class MyPageAppBar extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: Row(
-              children: [
-                studioCard('스튜디오', 0),
-                studioCard('헤어메이크업', 1),
-                studioCard('왁싱', 2),
-                studioCard('태닝', 3),
-              ],
-            ),
-          ),
+          tabIndex == 0
+              ? Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Row(
+                    children: [
+                      studioCard('스튜디오', 0),
+                      studioCard('헤어메이크업', 1),
+                      studioCard('왁싱', 2),
+                      studioCard('태닝', 3),
+                    ],
+                  ),
+                )
+              : const SizedBox(),
         ],
       ),
     );
@@ -106,8 +109,9 @@ class MyPageAppBar extends StatelessWidget {
                 title,
                 style: BppTextStyle.filterText.copyWith(
                   color: idx.state == index
-                      ? Colors.white
+                      ? const Color(0xffffffff)
                       : const Color(0xff525252),
+                  fontWeight: idx.state == index ? FontWeight.w700 : null,
                 ),
               ),
             ),
@@ -129,7 +133,7 @@ class MyPageAppBar extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: ref.watch(wishTabProvider).state == index
+                color: ref.watch(myPageTabProvider).state == index
                     ? const Color(0xff3b75ff)
                     : const Color(0xfff2f2f2),
                 width: 2.0,
@@ -143,7 +147,9 @@ class MyPageAppBar extends StatelessWidget {
               ),
               child: Text(
                 title,
-                style: BppTextStyle.tabText,
+                style: ref.watch(myPageTabProvider).state == index
+                    ? BppTextStyle.tabText
+                    : BppTextStyle.defaultText,
               ),
             ),
           ),

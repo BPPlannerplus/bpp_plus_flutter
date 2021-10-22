@@ -1,6 +1,8 @@
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
+import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WishAppBar extends StatelessWidget {
   const WishAppBar({Key? key}) : super(key: key);
@@ -8,20 +10,17 @@ class WishAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 104,
+      height: 104.h,
       color: Colors.white,
       child: Column(
         children: [
           Container(
             color: Colors.white,
-            height: 56,
+            height: 56.h,
             child: const Center(
               child: Text(
                 '찜목록',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: BppTextStyle.tabText,
               ),
             ),
           ),
@@ -82,10 +81,9 @@ class WishAppBar extends StatelessWidget {
               ),
               child: Text(
                 title,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: ref.watch(wishTabProvider).state == index
+                    ? BppTextStyle.tabText
+                    : BppTextStyle.defaultText,
               ),
             ),
           ),

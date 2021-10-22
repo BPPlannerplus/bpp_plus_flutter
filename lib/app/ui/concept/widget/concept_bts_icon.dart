@@ -18,13 +18,13 @@ Widget toggleIcon(String text, bool isCheck) {
       child: Center(
         child: Text(
           text,
-          style: TextStyle(
-            fontSize: 13,
+          style: BppTextStyle.filterText.copyWith(
             color: isCheck
-                ? Colors.white
+                ? const Color(0xffffffff)
                 : const Color(
                     0xff595959,
                   ),
+            fontWeight: isCheck ? FontWeight.w700 : null,
           ),
         ),
       ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeBoxAdpater extends StatelessWidget {
   const HomeBoxAdpater({Key? key}) : super(key: key);
@@ -9,27 +9,23 @@ class HomeBoxAdpater extends StatelessWidget {
     return SliverToBoxAdapter(
       child: Container(
         color: Colors.white,
-        padding: const EdgeInsets.only(top: 56),
+        padding: const EdgeInsets.only(top: 48),
         height: 151,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '스튜디오 찾으세요?',
-              style: TextStyle(
-                fontSize: 16.sp,
-              ),
+            SvgPicture.asset(
+              'assets/image/home_sub.svg',
+              width: 113,
+              height: 20,
             ),
-            SizedBox(
-              height: 5.h,
+            const SizedBox(
+              height: 5,
             ),
-            Text(
-              '한 눈에 확인하고\n비교해보세요!',
-              style: TextStyle(
-                fontSize: 22.sp,
-                fontWeight: FontWeight.bold,
-                height: 1.3,
-              ),
+            SvgPicture.asset(
+              'assets/image/home_title.svg',
+              width: 154,
+              height: 62,
             ),
           ],
         ),

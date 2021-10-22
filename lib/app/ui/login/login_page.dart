@@ -1,7 +1,7 @@
 import 'package:bpp_riverpod/app/ui/main_page.dart';
-import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:video_player/video_player.dart';
 
 class LoginPage extends StatefulWidget {
@@ -22,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
           ..initialize().then((_) {
             _videoPlayerController.play();
             _videoPlayerController.setLooping(true);
+            setState(() {});
           });
   }
 
@@ -49,32 +50,18 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Positioned(
               top: 133.h,
-              left: 21.w,
-              child: RichText(
-                text: TextSpan(
-                  style: BppTextStyle.bigScreenText.copyWith(
-                    color: const Color(0xffffffff),
-                    fontWeight: FontWeight.w400,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: '바디플래너',
-                      style: BppTextStyle.bigScreenText.copyWith(
-                        color: const Color(0xffffffff),
-                      ),
-                    ),
-                    const TextSpan(
-                      text: '에서\n바디프로필을 한눈에',
-                    ),
-                  ],
-                ),
+              left: 32.w,
+              child: SvgPicture.asset(
+                'assets/image/login_text.svg',
+                width: 188,
+                height: 66,
               ),
             ),
             Positioned(
               bottom: 56,
-              left: 16.w,
-              child: ElevatedButton(
-                onPressed: () {
+              left: 32.w,
+              child: InkWell(
+                onTap: () {
                   Navigator.pushAndRemoveUntil<dynamic>(
                       context,
                       MaterialPageRoute<dynamic>(
@@ -82,20 +69,10 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       (route) => false);
                 },
-                style: ElevatedButton.styleFrom(
-                  primary: const Color(
-                    0xfffee500,
-                  ),
-                ),
-                child: SizedBox(
-                  height: 44.h,
+                child: Image.asset(
+                  'assets/image/kakao_login.png',
                   width: 296.w,
-                  child: const Center(
-                    child: Text(
-                      '카카오 로그인',
-                      style: BppTextStyle.screenText,
-                    ),
-                  ),
+                  height: 44.h,
                 ),
               ),
             ),

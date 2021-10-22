@@ -1,3 +1,4 @@
+import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
 
 List<Widget> filterCards(List<String> filters) {
@@ -35,10 +36,8 @@ Widget filterCard(String title) {
             child: Center(
               child: Text(
                 title,
-                style: const TextStyle(
-                  fontSize: 13,
-                  color: Color(0xff3B75FF),
-                  fontWeight: FontWeight.bold,
+                style: BppTextStyle.filterText.copyWith(
+                  color: const Color(0xff3B75FF),
                 ),
               ),
             ),
