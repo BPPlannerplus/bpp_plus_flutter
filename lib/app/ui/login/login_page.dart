@@ -22,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
           ..initialize().then((_) {
             _videoPlayerController.play();
             _videoPlayerController.setLooping(true);
+            _videoPlayerController.setVolume(0.0);
             setState(() {});
           });
   }

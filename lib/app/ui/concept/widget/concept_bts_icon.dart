@@ -10,7 +10,7 @@ Widget toggleIcon(String text, bool isCheck) {
     ),
     child: Container(
       height: 28,
-      width: 22.0 * text.length,
+      width: 12.0 * text.length + 25,
       decoration: BoxDecoration(
         color: isCheck ? const Color(0xff3B75FF) : Colors.grey.shade100,
         borderRadius: BorderRadius.circular(15),

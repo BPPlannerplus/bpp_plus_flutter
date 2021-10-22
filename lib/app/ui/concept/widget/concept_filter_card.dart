@@ -19,7 +19,7 @@ Widget filterCard(String title) {
       children: [
         Container(
           height: 28,
-          width: 20.0 * title.length,
+          width: 12.0 * title.length + 25,
           decoration: BoxDecoration(
             color: const Color(0xff3B75FF),
             borderRadius: BorderRadius.circular(16),
@@ -28,7 +28,7 @@ Widget filterCard(String title) {
         Positioned(
           child: Container(
             height: 26,
-            width: 20.0 * title.length - 2,
+            width: 12.0 * title.length + 23,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               color: Colors.white,
@@ -38,6 +38,7 @@ Widget filterCard(String title) {
                 title,
                 style: BppTextStyle.filterText.copyWith(
                   color: const Color(0xff3B75FF),
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),

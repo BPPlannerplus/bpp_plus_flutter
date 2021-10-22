@@ -30,7 +30,7 @@ class DetailAppBar extends StatelessWidget {
                   border: Border(
                     bottom: BorderSide(
                       color: Color(0xfff2f2f2),
-                      width: 2.0,
+                      width: 1.0,
                     ),
                   ),
                 ),
@@ -58,7 +58,7 @@ class DetailAppBar extends StatelessWidget {
                 color: tabIndex.state == index
                     ? const Color(0xff3b75ff)
                     : const Color(0xfff2f2f2),
-                width: 2.0,
+                width: tabIndex.state == index ? 2.0 : 1.0,
               ),
             ),
           ),
@@ -69,7 +69,9 @@ class DetailAppBar extends StatelessWidget {
               ),
               child: Text(
                 title,
-                style: BppTextStyle.tabText,
+                style: ref.watch(detailTabProvider).state == index
+                    ? BppTextStyle.tabText.copyWith()
+                    : BppTextStyle.defaultText,
               ),
             ),
           ),

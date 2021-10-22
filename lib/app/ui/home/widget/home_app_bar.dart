@@ -31,12 +31,12 @@ class HomeAppBar extends StatelessWidget {
           tabButton('태닝', 3),
           Expanded(
             child: Container(
-              height: 48,
+              height: 32,
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
                     color: const Color(0xfff2f2f2),
-                    width: 2.0.h,
+                    width: 1.0.h,
                   ),
                 ),
               ),
@@ -110,14 +110,15 @@ class HomeAppBar extends StatelessWidget {
         },
         child: Container(
           width: 15.0 * title.length,
-          height: 48,
+          height: 32,
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
                 color: ref.watch(homeTabProvider).state == index
                     ? const Color(0xff3b75ff)
                     : const Color(0xfff2f2f2),
-                width: 2.0.h,
+                width:
+                    ref.watch(homeTabProvider).state == index ? 2.0.h : 1.0.h,
               ),
             ),
           ),
@@ -129,7 +130,7 @@ class HomeAppBar extends StatelessWidget {
               child: Text(
                 title,
                 style: ref.watch(homeTabProvider).state == index
-                    ? BppTextStyle.tabText
+                    ? BppTextStyle.tabText.copyWith()
                     : BppTextStyle.defaultText,
               ),
             ),

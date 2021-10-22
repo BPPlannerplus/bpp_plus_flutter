@@ -82,7 +82,7 @@ class MainPage extends ConsumerWidget {
             ref.read(navigationProvier).state = index;
           },
           child: ListView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,

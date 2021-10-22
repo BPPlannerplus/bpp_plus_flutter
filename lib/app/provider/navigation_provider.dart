@@ -17,3 +17,5 @@ final detailPageProvider = StateProvider<int>((ref) => 0);
 final myPageTabProvider = StateProvider<int>((ref) => 0);
 
 final inquiryTabProvider = StateProvider<int>((ref) => 0);
+
+final inquiryInfoProvier = StateProvider<bool>((ref) => true);

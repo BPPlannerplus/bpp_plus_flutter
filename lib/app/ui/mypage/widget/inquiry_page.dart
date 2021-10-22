@@ -9,27 +9,47 @@ class InquiryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return emptyBox();
-    // SliverGrid(
-    //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-    //     crossAxisCount: 2,
-    //     mainAxisExtent: 188,
-    //     mainAxisSpacing: 5,
-    //     crossAxisSpacing: 5,
-    //   ),
-    //   delegate: SliverChildBuilderDelegate(
-    //     (BuildContext context, int index) {
-    //       return Container(
-    //         alignment: Alignment.center,
-    //         color: Colors.lightGreen[100 * (index % 9)],
-    //         child: Text(
-    //           'Inquiry Item ${index + 1}',
-    //           style: const TextStyle(fontSize: 20),
-    //         ),
-    //       );
-    //     },
-    //     childCount: 100,
-    //   ),
-    // );
+  }
+
+  Widget inquiryList() {
+    return SliverGrid(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisExtent: 188,
+        mainAxisSpacing: 5,
+        crossAxisSpacing: 5,
+      ),
+      delegate: SliverChildBuilderDelegate(
+        (BuildContext context, int index) {
+          return Container(
+            alignment: Alignment.center,
+            color: Colors.lightGreen[100 * (index % 9)],
+            child: Text(
+              'Inquiry Item ${index + 1}',
+              style: const TextStyle(fontSize: 20),
+            ),
+          );
+        },
+        childCount: 100,
+      ),
+    );
+  }
+
+  Widget inquiryCard() {
+    return SizedBox(
+      height: 89,
+      width: 327,
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 32,
+            child: Image.network(
+              'https://png.pngtree.com/png-clipart/20200727/original/pngtree-photography-studio-logo-template-png-image_5392695.jpg',
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget emptyBox() {

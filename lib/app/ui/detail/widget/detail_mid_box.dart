@@ -24,11 +24,9 @@ class DetailMidBox extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 32,
-              backgroundColor: const Color(0xffc4c4c4),
-              child: Image.network(
-                logo,
-                fit: BoxFit.contain,
-              ),
+              // backgroundColor: const Color(0xffc4c4c4),
+              backgroundColor: Colors.transparent,
+              backgroundImage: NetworkImage(logo),
             ),
             const SizedBox(
               width: 16,
@@ -39,7 +37,9 @@ class DetailMidBox extends StatelessWidget {
               children: [
                 Text(
                   shopName,
-                  style: BppTextStyle.screenText,
+                  style: BppTextStyle.screenText.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 const SizedBox(
                   height: 10,
