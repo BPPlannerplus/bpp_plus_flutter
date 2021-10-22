@@ -81,27 +81,32 @@ class MainPage extends ConsumerWidget {
           onTap: () {
             ref.read(navigationProvier).state = index;
           },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: ListView(
+            physics: NeverScrollableScrollPhysics(),
             children: [
-              ref.watch(navigationProvier).state == index
-                  ? SvgPicture.asset(
-                      selectImg,
-                      width: 40,
-                      height: 40,
-                    )
-                  : SvgPicture.asset(
-                      unselectImg,
-                      width: 40,
-                      height: 40,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ref.watch(navigationProvier).state == index
+                      ? SvgPicture.asset(
+                          selectImg,
+                          width: 40,
+                          height: 40,
+                        )
+                      : SvgPicture.asset(
+                          unselectImg,
+                          width: 40,
+                          height: 40,
+                        ),
+                  Text(
+                    title,
+                    style: BppTextStyle.filterText.copyWith(
+                      color: ref.read(navigationProvier).state == index
+                          ? const Color(0xff3B75FF)
+                          : Colors.black,
                     ),
-              Text(
-                title,
-                style: BppTextStyle.filterText.copyWith(
-                  color: ref.read(navigationProvier).state == index
-                      ? const Color(0xff3B75FF)
-                      : Colors.black,
-                ),
+                  ),
+                ],
               ),
             ],
           ),

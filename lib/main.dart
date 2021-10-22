@@ -1,4 +1,5 @@
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/util/provider_log.dart';
 import 'package:bpp_riverpod/app/util/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -30,36 +31,5 @@ class MyApp extends StatelessWidget {
         theme: theme,
       ),
     );
-  }
-}
-
-class Logger extends ProviderObserver {
-  @override
-  void didUpdateProvider(
-    ProviderBase provider,
-    Object? previousValue,
-    Object? newValue,
-    ProviderContainer container,
-  ) {
-    // ignore: avoid_print
-    print('''
-{
-    "provider": "${provider.name ?? provider.runtimeType}",
-}
-''');
-  }
-
-  @override
-  void didDisposeProvider(
-    ProviderBase provider,
-    ProviderContainer containers,
-  ) {
-    // ignore: avoid_print
-    print('''
-{
-    "providerDispose": "${provider.name ?? provider.runtimeType}",
-}
-''');
-    super.didDisposeProvider(provider, containers);
   }
 }
