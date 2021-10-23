@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MyPageAppBar extends ConsumerWidget {
-  const MyPageAppBar({Key? key}) : super(key: key);
+class MypageAppBar extends ConsumerWidget {
+  const MypageAppBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -11,7 +11,7 @@ final shopDetailProvider = FutureProvider.family
 });
 
 final shopRepositroyProvider =
-    Provider<ShopRepositroy>((ref) => ShopRepositroy());
+    Provider<FakeShopRepositroy>((ref) => FakeShopRepositroy());
 
 class ShopDetailState extends StateNotifier<ShopDetailData> {
   ShopDetailState(ShopDetailData state) : super(state);

@@ -1,6 +1,6 @@
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/inquiry_page.dart';
-import 'package:bpp_riverpod/app/ui/mypage/widget/my_page_app_bar.dart';
+import 'package:bpp_riverpod/app/ui/mypage/widget/mypage_app_bar.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_detail_page.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_schedule_page.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +55,7 @@ class _MyPageState extends ConsumerState<MyPage> {
         padding: const EdgeInsets.only(right: 16, left: 16),
         child: Column(
           children: [
-            const MyPageAppBar(),
+            const MypageAppBar(),
             Expanded(
               child: CustomScrollView(
                 controller: scrollController,

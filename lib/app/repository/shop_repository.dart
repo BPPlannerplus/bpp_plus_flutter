@@ -1,6 +1,11 @@
 import 'package:bpp_riverpod/app/model/shop_detail_data.dart';
 
-class ShopRepositroy {
+abstract class ShopRepository {
+  Future<ShopDetailData> getShopDetailData(int shopId);
+}
+
+class FakeShopRepositroy implements ShopRepository {
+  @override
   Future<ShopDetailData> getShopDetailData(int shopId) async {
     await Future.delayed(const Duration(seconds: 1));
     return ShopDetailData(
