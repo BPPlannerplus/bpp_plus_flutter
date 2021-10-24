@@ -14,11 +14,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class DetailPage extends ConsumerStatefulWidget {
   const DetailPage({
     Key? key,
-    required this.index,
     required this.shopId,
   }) : super(key: key);
 
-  final int index;
   final int shopId;
 
   @override
@@ -50,14 +48,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
     });
 
     final index = ref.watch(detailTabProvider);
-    final detailData = ref.watch(
-      shopDetailProvider(
-        DetailIndex(
-          index: widget.index,
-          shopId: widget.shopId,
-        ),
-      ),
-    );
+    final detailData = ref.watch(shopDetailProvider(widget.shopId));
 
     return SafeArea(
       child: detailData.when(

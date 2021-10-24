@@ -36,11 +36,10 @@ class AppRouter {
           settings: settings,
         );
       case AppRoutes.detailPage:
-        final DetailIndex args = settings.arguments;
+        final int arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
           builder: (_) => DetailPage(
-            index: args.index,
-            shopId: args.shopId,
+            shopId: arg,
           ),
           settings: settings,
         );

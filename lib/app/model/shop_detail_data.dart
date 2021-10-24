@@ -36,11 +36,3 @@ class PartnershipData with _$PartnershipData {
   factory PartnershipData.fromJson(Map<String, dynamic> json) =>
       _$PartnershipDataFromJson(json);
 }
-
-@freezed
-class DetailIndex with _$DetailIndex {
-  factory DetailIndex({
-    required int shopId,
-    required int index,
-  }) = _DetailIndex;
-}
