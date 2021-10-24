@@ -1,5 +1,8 @@
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
+import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -32,10 +35,17 @@ class MypageAppBar extends ConsumerWidget {
                   ),
                 ),
               ),
-              const Icon(
-                Icons.settings,
-                color: Colors.black,
-                size: 20,
+              InkWell(
+                onTap: () {
+                  locator<NavigationService>().navigateTo(
+                    routeName: AppRoutes.settingPage,
+                  );
+                },
+                child: const Icon(
+                  Icons.settings,
+                  color: Colors.black,
+                  size: 20,
+                ),
               ),
             ],
           ),

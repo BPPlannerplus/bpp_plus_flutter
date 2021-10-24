@@ -1,4 +1,5 @@
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
+import 'package:bpp_riverpod/app/ui/mypage/widget/inquiry_dialog.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,25 +7,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:flutter_cupertino_datetime_picker/flutter_cupertino_datetime_picker.dart';
-
 class InquiryPage extends StatelessWidget {
   const InquiryPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // return emptyBox();
-    return inquiryList(context);
+    return inquiryList();
   }
 
-  Widget inquiryList(BuildContext context) {
+  Widget inquiryList() {
     return SliverList(
       delegate: SliverChildListDelegate(
         [
           infoText(),
           titleRow(),
-          inquiryCard(context),
-          inquiryCard(context),
+          inquiryCard(),
+          inquiryCard(),
         ],
       ),
     );
@@ -86,7 +85,7 @@ class InquiryPage extends StatelessWidget {
     );
   }
 
-  Widget inquiryCard(BuildContext context) {
+  Widget inquiryCard() {
     return Container(
       padding: const EdgeInsets.only(top: 16, bottom: 12),
       height: 107,
@@ -143,36 +142,7 @@ class InquiryPage extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  showCupertinoDialog(
-                    context: context,
-                    builder: (context) {
-                      return Dialog(
-                        child: Container(
-                          width: 296.w,
-                          height: 225.h,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Column(
-                            children: [
-                              Text('예약일정'),
-                              DateTimePickerWidget(
-                                minDateTime: DateTime(2000),
-                                maxDateTime: DateTime(2100),
-                                locale: DateTimePickerLocale.ko,
-                                initDateTime: DateTime.now(),
-                                dateFormat: 'yyyy-MM-dd',
-                                pickerTheme: DateTimePickerTheme(
-                                  showTitle: false,
-                                  pickerHeight: 105,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  );
+                  reservationDateDialog();
                 },
                 child: SizedBox(
                   height: 33,
@@ -226,60 +196,3 @@ class InquiryPage extends StatelessWidget {
     );
   }
 }
-// Row(
-//                                 mainAxisAlignment:
-//                                     MainAxisAlignment.spaceBetween,
-//                                 children: [
-//                                   SizedBox(
-//                                     height: 108,
-//                                     width: 68,
-//                                     child: CupertinoPicker(
-//                                       onSelectedItemChanged: (value) {},
-//                                       itemExtent: 23,
-//                                       squeeze: 2.0,
-//                                       children: const [
-//                                         Text("Text 1"),
-//                                         Text("Text 1"),
-//                                         Text("Text 1"),
-//                                         Text("Text 1"),
-//                                         Text("Text 1"),
-//                                         Text("Text 1"),
-//                                       ],
-//                                     ),
-//                                   ),
-//                                   SizedBox(
-//                                     height: 68,
-//                                     width: 50,
-//                                     child: CupertinoPicker(
-//                                       onSelectedItemChanged: (value) {},
-//                                       itemExtent: 23,
-//                                       squeeze: 1.0,
-//                                       children: const [
-//                                         Text("Text 1"),
-//                                         Text("Text 1"),
-//                                         Text("Text 1"),
-//                                         Text("Text 1"),
-//                                         Text("Text 1"),
-//                                         Text("Text 1"),
-//                                       ],
-//                                     ),
-//                                   ),
-//                                   SizedBox(
-//                                     height: 68,
-//                                     width: 50,
-//                                     child: CupertinoPicker(
-//                                       onSelectedItemChanged: (value) {},
-//                                       itemExtent: 23,
-//                                       squeeze: 0.5,
-//                                       children: const [
-//                                         Text("Text 1"),
-//                                         Text("Text 1"),
-//                                         Text("Text 1"),
-//                                         Text("Text 1"),
-//                                         Text("Text 1"),
-//                                         Text("Text 1"),
-//                                       ],
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),

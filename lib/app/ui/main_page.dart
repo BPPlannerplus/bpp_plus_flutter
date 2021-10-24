@@ -27,6 +27,7 @@ class MainPage extends ConsumerWidget {
     return Scaffold(
       body: _pages[index.state],
       bottomNavigationBar: AnimatedContainer(
+        padding: const EdgeInsets.all(5),
         duration: const Duration(milliseconds: 300),
         height: visible.state ? 56 : 0,
         color: const Color(0xffffffff),
@@ -90,13 +91,13 @@ class MainPage extends ConsumerWidget {
                   ref.watch(navigationProvier).state == index
                       ? SvgPicture.asset(
                           selectImg,
-                          width: 40,
-                          height: 40,
+                          width: 30,
+                          height: 30,
                         )
                       : SvgPicture.asset(
                           unselectImg,
-                          width: 40,
-                          height: 40,
+                          width: 30,
+                          height: 30,
                         ),
                   Text(
                     title,

@@ -2,6 +2,8 @@ import 'package:bpp_riverpod/app/model/shop_detail_data.dart';
 
 abstract class ShopRepository {
   Future<ShopDetailData> getShopDetailData(int shopId);
+
+  Future<void> setLike(int id);
 }
 
 class FakeShopRepositroy implements ShopRepository {
@@ -36,5 +38,10 @@ class FakeShopRepositroy implements ShopRepository {
         ),
       ),
     );
+  }
+
+  @override
+  Future<void> setLike(int id) {
+    throw UnimplementedError();
   }
 }

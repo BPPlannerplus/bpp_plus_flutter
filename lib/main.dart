@@ -1,11 +1,22 @@
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/provider_log.dart';
 import 'package:bpp_riverpod/app/util/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_it/get_it.dart';
+
+GetIt locator = GetIt.instance;
+void setupLocator() {
+  locator.registerLazySingleton<NavigationService>(
+    () => NavigationService(),
+  );
+}
 
 void main() {
+  setupLocator();
+
   runApp(
     ProviderScope(
       child: const MyApp(),
@@ -29,6 +40,7 @@ class MyApp extends StatelessWidget {
         initialRoute: AppRoutes.loginPage,
         onGenerateRoute: (settings) => AppRouter.onGenerateRoute(settings),
         theme: theme,
+        navigatorKey: locator<NavigationService>().navigatorKey,
       ),
     );
   }
