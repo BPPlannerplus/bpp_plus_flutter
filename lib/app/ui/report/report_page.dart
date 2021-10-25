@@ -1,5 +1,9 @@
+import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ReportPage extends StatelessWidget {
   const ReportPage({Key? key}) : super(key: key);
@@ -8,20 +12,28 @@ class ReportPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text(
+            '리뷰 신고하기',
+            style: BppTextStyle.defaultText,
+          ),
+          leading: InkWell(
+            onTap: () {
+              locator<NavigationService>().pop();
+            },
+            child: const Icon(
+              Icons.arrow_back,
+              color: Color(0xff000000),
+            ),
+          ),
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: const [
-                    Icon(Icons.arrow_back),
-                    Text(
-                      '리뷰 신고하기',
-                      style: BppTextStyle.defaultText,
-                    ),
-                  ],
-                ),
                 const Text(
                   '신고하시는 이유를 선택해주세요',
                   style: BppTextStyle.tabText,
@@ -66,13 +78,14 @@ class ReportPage extends StatelessWidget {
                     ),
                   ),
                   child: SizedBox(
-                    width: 328,
-                    height: 48,
+                    width: 328.w,
+                    height: 48.h,
                     child: Center(
                       child: Text(
                         '신고하기',
                         style: BppTextStyle.tabText.copyWith(
                           color: Colors.white,
+                          fontSize: BppTextStyle.tabText.fontSize!.sp,
                         ),
                       ),
                     ),
@@ -87,17 +100,29 @@ class ReportPage extends StatelessWidget {
   }
 
   Widget reportRow(String title, bool isCheck) {
-    return Row(
-      children: [
-        Icon(
-          Icons.circle_notifications,
-          color: isCheck ? Colors.black : Colors.purple,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: InkWell(
+        onTap: () {},
+        child: Row(
+          children: [
+            SvgPicture.asset(
+              isCheck
+                  ? 'assets/icon/ic_check_on.svg'
+                  : 'assets/icon/ic_check_none.svg',
+              width: 32,
+              height: 32,
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            Text(
+              title,
+              style: BppTextStyle.smallText,
+            ),
+          ],
         ),
-        Text(
-          title,
-          style: BppTextStyle.filterText,
-        ),
-      ],
+      ),
     );
   }
 }

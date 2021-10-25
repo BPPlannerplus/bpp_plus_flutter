@@ -37,9 +37,7 @@ class DetailPortfolioPage extends StatelessWidget {
               Navigator.pushNamed(
                 context,
                 AppRoutes.detailPortfolioPage,
-                arguments: Portfolio(
-                  profile: shopConcepts.shopConcepts[index].profile,
-                ),
+                arguments: shopConcepts.shopConcepts[index].profile,
               );
             },
             child: Image.network(

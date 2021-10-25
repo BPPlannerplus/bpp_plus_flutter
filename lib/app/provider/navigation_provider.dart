@@ -14,6 +14,8 @@ final detailTabProvider = StateProvider.autoDispose<int>((ref) => 0);
 
 final detailPageProvider = StateProvider<int>((ref) => 0);
 
+final detailPageLeadingProvier = StateProvider<bool>((ref) => true);
+
 final myPageTabProvider = StateProvider<int>((ref) => 0);
 
 final inquiryTabProvider = StateProvider<int>((ref) => 0);

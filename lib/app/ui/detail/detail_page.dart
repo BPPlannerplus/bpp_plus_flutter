@@ -1,4 +1,3 @@
-import 'package:bpp_riverpod/app/model/shop_detail_data.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop_detail_provider.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_app_bar.dart';
@@ -7,7 +6,9 @@ import 'package:bpp_riverpod/app/ui/detail/widget/detail_mid_box.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_portfolio_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_review_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_top_box.dart';
+import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -25,6 +26,18 @@ class DetailPage extends ConsumerStatefulWidget {
 
 class _DetailPageState extends ConsumerState<DetailPage> {
   final scrollController = ScrollController();
+
+  @override
+  void initState() {
+    scrollController.addListener(() {
+      if (scrollController.offset.toInt() > 250) {
+        ref.read(detailPageLeadingProvier).state = false;
+      } else {
+        ref.read(detailPageLeadingProvier).state = true;
+      }
+    });
+    super.initState();
+  }
 
   void scrollToTop() {
     scrollController.animateTo(
@@ -87,6 +100,23 @@ class _DetailPageState extends ConsumerState<DetailPage> {
           ];
 
           return Scaffold(
+            appBar: AppBar(
+              backgroundColor: const Color(0x00000000),
+              leading: InkWell(
+                onTap: () {
+                  locator<NavigationService>().pop();
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  color: ref.watch(detailPageLeadingProvier).state
+                      ? const Color(0xffffffff)
+                      : const Color(0xff000000),
+                  size: 20,
+                ),
+              ),
+              toolbarHeight: 40,
+            ),
+            extendBodyBehindAppBar: true,
             body: CustomScrollView(
               controller: scrollController,
               slivers: [

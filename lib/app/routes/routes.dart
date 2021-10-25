@@ -1,10 +1,11 @@
-import 'package:bpp_riverpod/app/model/shop_detail_data.dart';
 import 'package:bpp_riverpod/app/ui/detail/detail_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/detail_portfolio_full_screen.dart';
 import 'package:bpp_riverpod/app/ui/detail/detail_profile_page.dart';
 import 'package:bpp_riverpod/app/ui/login/login_page.dart';
 import 'package:bpp_riverpod/app/ui/main_page.dart';
 import 'package:bpp_riverpod/app/ui/report/report_page.dart';
+import 'package:bpp_riverpod/app/ui/review/my_review_page.dart';
+import 'package:bpp_riverpod/app/ui/review/review_write_page.dart';
 import 'package:bpp_riverpod/app/ui/setting/setting_page.dart';
 import 'package:bpp_riverpod/app/ui/setting/withdrawal_page.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,8 @@ class AppRoutes {
   static const loginPage = '/login';
   static const settingPage = '/setting';
   static const withdrawalPage = '/withdrawalPage';
+  static const reviewWritePage = '/reviewWritePage';
+  static const myReviewPage = '/myReviewPage';
 }
 
 class AppRouter {
@@ -51,10 +54,10 @@ class AppRouter {
           settings: settings,
         );
       case AppRoutes.detailPortfolioPage:
-        final Portfolio args = settings.arguments;
+        final String args = settings.arguments;
         return MaterialPageRoute<dynamic>(
           builder: (_) => DetailPortfolioFullScreen(
-            profile: args.profile,
+            profile: args,
           ),
           settings: settings,
         );
@@ -73,6 +76,16 @@ class AppRouter {
           builder: (_) => const WithdrawalPage(),
           settings: settings,
         );
+      case AppRoutes.reviewWritePage:
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => const ReviewWritePage(),
+          settings: settings,
+        );
+      case AppRoutes.myReviewPage:
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => const MyReviewPage(),
+          settings: settings,
+        );
     }
   }
 }
@@ -84,13 +97,5 @@ class ProfileData {
   ProfileData({
     required this.profiles,
     required this.index,
-  });
-}
-
-class Portfolio {
-  final String profile;
-
-  Portfolio({
-    required this.profile,
   });
 }

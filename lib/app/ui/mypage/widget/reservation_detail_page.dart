@@ -1,5 +1,8 @@
+import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_card.dart';
+import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -63,7 +66,11 @@ class ReservationDetailPage extends StatelessWidget {
               color: const Color(0xff3b75ff),
             ),
           ),
-          onTabButton: () {},
+          onTabButton: () {
+            locator<NavigationService>().navigateTo(
+              routeName: AppRoutes.reviewWritePage,
+            );
+          },
           onTabIcon: () {},
         ),
       ],

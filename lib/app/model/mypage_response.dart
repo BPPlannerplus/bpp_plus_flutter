@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:bpp_riverpod/app/model/mypage_data.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
