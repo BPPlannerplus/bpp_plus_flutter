@@ -83,26 +83,34 @@ class DetailReviewPage extends StatelessWidget {
     String? text,
   }) {
     return Container(
+      padding: const EdgeInsets.only(top: 8),
       color: Colors.white,
-      height: 148,
+      height: text != null ? 160 : 72,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                name,
-                style: BppTextStyle.filterText,
-              ),
-              Text(
-                date,
-                style: BppTextStyle.filterText.copyWith(
-                  color: const Color(
-                    0xffbfbfbf,
+              Row(
+                children: [
+                  Text(
+                    name,
+                    style: BppTextStyle.filterText,
                   ),
-                ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    date,
+                    style: BppTextStyle.filterText.copyWith(
+                      color: const Color(
+                        0xffbfbfbf,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               InkWell(
                 onTap: () {
@@ -158,9 +166,11 @@ class DetailReviewPage extends StatelessWidget {
                   )
                 : const SizedBox(),
           ),
-          const SizedBox(
-            height: 16,
-          ),
+          text != null
+              ? const SizedBox(
+                  height: 16,
+                )
+              : const SizedBox(),
           Container(
             height: 1,
             decoration: const BoxDecoration(

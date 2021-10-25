@@ -1,3 +1,4 @@
+import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +46,7 @@ class DetailMidBox extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  '$price',
+                  priceFormat(price),
                   style: BppTextStyle.defaultText,
                 ),
               ],

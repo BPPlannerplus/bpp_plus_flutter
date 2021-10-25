@@ -1,7 +1,10 @@
 import 'dart:math';
 
 import 'package:bpp_riverpod/app/provider/concept_provier.dart';
+import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -57,24 +60,32 @@ Widget conceptDialog(int index) {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      const Text(
-                        'Studio name',
-                        style: BppTextStyle.dialogText,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Transform.rotate(
-                        angle: pi,
-                        child: const Icon(
-                          Icons.arrow_back_ios_new,
-                          color: Color(0xffffffff),
-                          size: 25,
+                  InkWell(
+                    onTap: () {
+                      locator<NavigationService>().navigateTo(
+                        routeName: AppRoutes.detailPage,
+                        argument: conceptList.concepts[index].id,
+                      );
+                    },
+                    child: Row(
+                      children: [
+                        const Text(
+                          'Studio name',
+                          style: BppTextStyle.dialogText,
                         ),
-                      ),
-                    ],
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Transform.rotate(
+                          angle: pi,
+                          child: const Icon(
+                            Icons.arrow_back_ios_new,
+                            color: Color(0xffffffff),
+                            size: 25,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   InkWell(
                     onTap: () {

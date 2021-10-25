@@ -62,7 +62,7 @@ class WishAppBar extends StatelessWidget {
           ref.read(wishTabProvider).state = index;
         },
         child: Container(
-          width: 15.0 * title.length,
+          width: 15.0 * title.length + 10,
           height: 32,
           decoration: BoxDecoration(
             border: Border(
@@ -77,6 +77,8 @@ class WishAppBar extends StatelessWidget {
           child: Center(
             child: Padding(
               padding: const EdgeInsets.only(
+                right: 5,
+                left: 5,
                 bottom: 5,
               ),
               child: Text(

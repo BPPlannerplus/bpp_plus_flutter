@@ -27,7 +27,7 @@ class MainPage extends ConsumerWidget {
     return Scaffold(
       body: _pages[index.state],
       bottomNavigationBar: AnimatedContainer(
-        padding: const EdgeInsets.all(5),
+        padding: const EdgeInsets.all(3),
         duration: const Duration(milliseconds: 300),
         height: visible.state ? 56 : 0,
         color: const Color(0xffffffff),
@@ -88,23 +88,20 @@ class MainPage extends ConsumerWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ref.watch(navigationProvier).state == index
-                      ? SvgPicture.asset(
-                          selectImg,
-                          width: 30,
-                          height: 30,
-                        )
-                      : SvgPicture.asset(
-                          unselectImg,
-                          width: 30,
-                          height: 30,
-                        ),
+                  SvgPicture.asset(
+                    ref.watch(navigationProvier).state == index
+                        ? selectImg
+                        : unselectImg,
+                    width: 35,
+                    height: 35,
+                  ),
                   Text(
                     title,
                     style: BppTextStyle.filterText.copyWith(
                       color: ref.read(navigationProvier).state == index
                           ? const Color(0xff3B75FF)
                           : Colors.black,
+                      fontSize: 10,
                     ),
                   ),
                 ],

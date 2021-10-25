@@ -85,7 +85,6 @@ class HomeAppBar extends StatelessWidget {
                         'assets/icon/ic_filter.svg',
                         width: 30,
                         height: 30,
-                        // color: const Color(0xff3b75ff),
                       ),
                       const Text(
                         '필터',
@@ -109,7 +108,7 @@ class HomeAppBar extends StatelessWidget {
           ref.read(homeTabProvider).state = index;
         },
         child: Container(
-          width: 15.0 * title.length,
+          width: 15.0 * title.length + 10,
           height: 32,
           decoration: BoxDecoration(
             border: Border(
@@ -124,6 +123,8 @@ class HomeAppBar extends StatelessWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.only(
+              right: 5,
+              left: 5,
               bottom: 5,
             ),
             child: Center(

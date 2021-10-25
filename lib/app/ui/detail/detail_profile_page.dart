@@ -32,6 +32,9 @@ class DetailProfilePage extends StatelessWidget {
                   ),
                   onPageChanged: (pageIndex) {
                     ref.read(detailPageProvider).state = pageIndex;
+                    ref
+                        .read(detailPageControllerProvider)
+                        .jumpToPage(pageIndex);
                   },
                   children: [
                     SizedBox.expand(

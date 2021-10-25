@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final navigationProvier = StateProvider<int>((ref) => 0);
@@ -23,3 +24,6 @@ final inquiryTabProvider = StateProvider<int>((ref) => 0);
 final inquiryInfoProvier = StateProvider<bool>((ref) => true);
 
 final inquiryInfoTextShowProvier = StateProvider<bool>((ref) => true);
+
+final detailPageControllerProvider =
+    Provider<PageController>((ref) => PageController());

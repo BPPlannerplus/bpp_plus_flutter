@@ -1,4 +1,4 @@
-import 'package:bpp_riverpod/app/provider/studio_provider.dart';
+import 'package:bpp_riverpod/app/provider/studio_wish_provider.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget homeGridCard({
+Widget wishGridCard({
   required int index,
   required int shopId,
   required String profile,
@@ -16,7 +16,7 @@ Widget homeGridCard({
   required String address,
   required int minPrice,
   required bool like,
-  required ShopListState stateRead,
+  required ShopWishListState stateRead,
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,14 +35,10 @@ Widget homeGridCard({
                   argument: shopId,
                 );
               },
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  profile,
-                  height: 112.h,
-                  width: 160.w,
-                  fit: BoxFit.fill,
-                ),
+              child: Image.network(
+                profile,
+                height: 112,
+                width: 160.w,
               ),
             ),
             Padding(

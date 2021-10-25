@@ -63,5 +63,6 @@ class ShopListState extends StateNotifier<ShopList> {
   }
 }
 
-final studioListProvider =
-    StateNotifierProvider<ShopListState, ShopList>((ref) => ShopListState());
+final studioListProvider = StateNotifierProvider<ShopListState, ShopList>(
+  (ref) => ShopListState(),
+);

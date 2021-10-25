@@ -95,6 +95,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
               priceImg: shopData.priceImg,
               map: shopData.mapImg,
               partners: shopData.partnershipList,
+              address: shopData.address,
             ),
             const DetailReviewPage(),
           ];
@@ -171,8 +172,8 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                             ),
                             child: Icon(
                               shopDetailData.like
-                                  ? Icons.favorite_border_outlined
-                                  : Icons.add,
+                                  ? Icons.favorite
+                                  : Icons.favorite_border_outlined,
                               color: Colors.red,
                             ),
                           ),

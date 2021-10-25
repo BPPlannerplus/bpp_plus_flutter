@@ -34,7 +34,7 @@ conceptBottomSheet() {
                       .refreshFilterState();
                 },
                 child: const Icon(
-                  CupertinoIcons.add,
+                  Icons.refresh_rounded,
                   size: 30,
                 ),
               ),

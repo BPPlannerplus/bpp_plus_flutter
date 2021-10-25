@@ -1,9 +1,8 @@
 import 'package:bpp_riverpod/app/provider/concept_provier.dart';
-import 'package:bpp_riverpod/app/ui/concept/widget/concept_dialog.dart';
+import 'package:bpp_riverpod/app/ui/concept/widget/concept_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ConceptGrid extends ConsumerStatefulWidget {
   const ConceptGrid({Key? key}) : super(key: key);
@@ -24,6 +23,7 @@ class _ConceptGridState extends ConsumerState<ConceptGrid> {
   @override
   Widget build(BuildContext context) {
     final conceptList = ref.watch(conceptListProvider);
+    final conceptListState = ref.read(conceptListProvider.notifier);
 
     return SliverGrid(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -43,55 +43,11 @@ class _ConceptGridState extends ConsumerState<ConceptGrid> {
               child: CircularProgressIndicator(),
             );
           }
-          return Stack(
-            alignment: Alignment.bottomRight,
-            children: [
-              Container(
-                height: 144,
-                width: 104.w,
-                color: Colors.black,
-              ),
-              InkWell(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (_) {
-                      return conceptDialog(index);
-                    },
-                  );
-                },
-                child: Image.network(
-                  conceptList.concepts[index].profile,
-                  height: 144,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: InkWell(
-                  onTap: () {
-                    ref
-                        .read(conceptListProvider.notifier)
-                        .setConceptLike(index);
-                  },
-                  child: Icon(
-                    conceptList.concepts[index].like
-                        ? CupertinoIcons.heart_fill
-                        : CupertinoIcons.heart,
-                    color: conceptList.concepts[index].like
-                        ? const Color(0xffff5757)
-                        : const Color(0xffffffff),
-                    size: 30,
-                  ),
-                ),
-              ),
-              Text(
-                '$index',
-                style: const TextStyle(
-                  color: Colors.red,
-                  fontSize: 32,
-                ),
-              )
-            ],
+          return conceptCard(
+            index: index,
+            profie: conceptList.concepts[index].profile,
+            like: conceptList.concepts[index].like,
+            stateRead: conceptListState,
           );
         },
         childCount: conceptList.concepts.length +

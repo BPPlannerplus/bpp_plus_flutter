@@ -25,6 +25,7 @@ class DetailTopBox extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             children: [
               PageView(
+                controller: ref.watch(detailPageControllerProvider),
                 onPageChanged: (index) {
                   ref.read(detailPageProvider).state = index;
                 },

@@ -39,15 +39,14 @@ class InquiryPage extends StatelessWidget {
                 SvgPicture.asset(
                   'assets/image/inquiry_text_background.svg',
                   width: 328.w,
-                  height: 77.h,
                 ),
                 SvgPicture.asset(
                   'assets/image/inquiry_text.svg',
-                  height: 45.h,
+                  height: 56.h,
                 ),
                 Positioned(
                   top: 10,
-                  right: 5,
+                  right: 10,
                   child: InkWell(
                     onTap: () {
                       ref.read(inquiryInfoTextShowProvier).state = false;
