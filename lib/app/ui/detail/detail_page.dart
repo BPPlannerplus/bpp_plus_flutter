@@ -11,6 +11,7 @@ import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class DetailPage extends ConsumerStatefulWidget {
   const DetailPage({
@@ -107,12 +108,11 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                 onTap: () {
                   locator<NavigationService>().pop();
                 },
-                child: Icon(
-                  Icons.arrow_back,
+                child: SvgPicture.asset(
+                  'assets/icon/ic_back.svg',
                   color: ref.watch(detailPageLeadingProvier).state
                       ? const Color(0xffffffff)
                       : const Color(0xff000000),
-                  size: 20,
                 ),
               ),
               toolbarHeight: 40,

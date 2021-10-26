@@ -4,6 +4,7 @@ import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({Key? key}) : super(key: key);
@@ -20,9 +21,8 @@ class SettingPage extends StatelessWidget {
             onTap: () {
               locator<NavigationService>().pop();
             },
-            child: const Icon(
-              Icons.arrow_back,
-              color: Color(0xff000000),
+            child: SvgPicture.asset(
+              'assets/icon/ic_back.svg',
             ),
           ),
           title: const Text(

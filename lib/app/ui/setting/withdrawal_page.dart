@@ -19,9 +19,8 @@ class WithdrawalPage extends StatelessWidget {
             onTap: () {
               locator<NavigationService>().pop();
             },
-            child: const Icon(
-              Icons.arrow_back,
-              color: Color(0xff000000),
+            child: SvgPicture.asset(
+              'assets/icon/ic_back.svg',
             ),
           ),
         ),

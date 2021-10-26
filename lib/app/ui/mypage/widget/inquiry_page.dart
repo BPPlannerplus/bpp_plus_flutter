@@ -1,5 +1,5 @@
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
-import 'package:bpp_riverpod/app/ui/mypage/widget/inquiry_dialog.dart';
+import 'package:bpp_riverpod/app/ui/mypage/widget/mypage_dialog.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

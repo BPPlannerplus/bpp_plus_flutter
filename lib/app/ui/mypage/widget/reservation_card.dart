@@ -20,7 +20,7 @@ Widget reservationCard({
     ),
     child: Center(
       child: Container(
-        padding: const EdgeInsets.only(top: 8, left: 20, right: 8),
+        padding: const EdgeInsets.only(left: 20, right: 8),
         height: 103,
         width: 286,
         decoration: BoxDecoration(
@@ -59,7 +59,7 @@ Widget reservationCard({
               children: [
                 InkWell(
                   onTap: () {
-                    onTabIcon;
+                    onTabIcon();
                   },
                   child: iconWidget,
                 ),

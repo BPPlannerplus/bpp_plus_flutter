@@ -1,3 +1,5 @@
+import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_card.dart';
+import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_dialog.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -58,74 +60,18 @@ class ReservationSchedulePage extends StatelessWidget {
             const SizedBox(
               height: 12,
             ),
-            Container(
-              height: 105,
-              width: 288,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: const Color(0xffdfdfdf),
+            reservationCard(
+              date: '9월 27일',
+              shop: '태닝',
+              shopName: '스티븐백',
+              buttonText: '문의하기',
+              iconWidget: SvgPicture.asset(
+                'assets/icon/ic_edit.svg',
               ),
-              child: Center(
-                child: Container(
-                  padding: const EdgeInsets.only(top: 8, left: 20, right: 8),
-                  height: 103,
-                  width: 286,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: const Color(0xffffffff),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            '9월 27일',
-                            style: BppTextStyle.defaultText,
-                          ),
-                          Text(
-                            '태닝',
-                            style: BppTextStyle.smallText.copyWith(
-                              color: const Color(0xff696969),
-                            ),
-                          ),
-                          Text(
-                            '스티븐백',
-                            style: BppTextStyle.defaultText.copyWith(
-                              color: const Color(0xff010101),
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          const Icon(
-                            CupertinoIcons.pencil,
-                          ),
-                          ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              primary: const Color(0xfff2f2f2),
-                              elevation: 0,
-                            ),
-                            child: Text(
-                              '문의하기',
-                              style: BppTextStyle.smallText.copyWith(
-                                color: const Color(0xff595959),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              onTabButton: () {},
+              onTabIcon: () {
+                reservationDetailDialog();
+              },
             ),
           ],
         ),

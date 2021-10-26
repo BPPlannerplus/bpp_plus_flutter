@@ -5,6 +5,7 @@ import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 conceptBottomSheet() {
   return Consumer(builder: (context, ref, _) {
@@ -33,9 +34,8 @@ conceptBottomSheet() {
                       .read(conceptFilterCheckProvider.notifier)
                       .refreshFilterState();
                 },
-                child: const Icon(
-                  Icons.refresh_rounded,
-                  size: 30,
+                child: SvgPicture.asset(
+                  'assets/icon/ic_refresh.svg',
                 ),
               ),
             ],

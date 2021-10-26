@@ -67,7 +67,12 @@ class ConceptAppBar extends StatelessWidget {
             child: Container(
               height: 1,
               decoration: const BoxDecoration(
-                  border: Border(top: BorderSide(color: Colors.grey))),
+                border: Border(
+                  top: BorderSide(
+                    color: Color(0xffe6e6e6),
+                  ),
+                ),
+              ),
             ),
           ),
           Container(

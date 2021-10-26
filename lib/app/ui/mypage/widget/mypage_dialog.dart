@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_datetime_picker/flutter_cupertino_datetime_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 reservationDateDialog() {
   showCupertinoDialog(
@@ -32,25 +33,35 @@ reservationDateDialog() {
               ),
               DateTimePickerWidget(
                 minDateTime: DateTime(DateTime.now().year),
-                maxDateTime: DateTime(2100),
+                maxDateTime: DateTime(DateTime.now().year + 2),
                 locale: DateTimePickerLocale.ko,
                 initDateTime: DateTime.now(),
                 dateFormat: 'yyyy-MM-dd',
                 pickerTheme: DateTimePickerTheme(
                   showTitle: false,
                   pickerHeight: 106.h,
+                  itemHeight: 48.h,
+                  itemTextStyle: BppTextStyle.tabText,
+                  selectionOverlay: Container(
+                    decoration: const BoxDecoration(
+                      border: Border.symmetric(
+                        horizontal: BorderSide(
+                          color: Color(0xff000000),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
               SizedBox(
                 height: 12.h,
               ),
               Container(
-                width: 248.w,
                 height: 1,
                 color: const Color(0xffbfbfbf),
               ),
               SizedBox(
-                height: 8.h,
+                height: 14.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -99,20 +110,31 @@ confirmReservationDialog() {
       return Dialog(
         child: Container(
           padding: const EdgeInsets.all(16),
-          width: 264.w,
-          height: 117.84.h,
+          width: 264,
+          height: 117.84,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const Text(
-                '일정이 저장되었습니다!',
-                style: BppTextStyle.defaultText,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    'assets/icon/ic_check_on.svg',
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  const Text(
+                    '일정이 저장되었습니다!',
+                    style: BppTextStyle.defaultText,
+                  ),
+                ],
               ),
               Container(
-                width: 232.w,
+                width: 232,
                 height: 1,
                 color: const Color(0xffbfbfbf),
               ),

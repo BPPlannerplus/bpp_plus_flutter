@@ -9,7 +9,7 @@ class HomeBoxAdpater extends StatelessWidget {
     return SliverToBoxAdapter(
       child: Container(
         color: Colors.white,
-        padding: const EdgeInsets.only(top: 48),
+        padding: const EdgeInsets.only(top: 56),
         height: 151,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,10 +1,8 @@
 import 'package:bpp_riverpod/app/provider/studio_wish_provider.dart';
 import 'package:bpp_riverpod/app/ui/wish/widget/wish_grid_card.dart';
-import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class StudioWishGrid extends ConsumerStatefulWidget {
   const StudioWishGrid({Key? key}) : super(key: key);

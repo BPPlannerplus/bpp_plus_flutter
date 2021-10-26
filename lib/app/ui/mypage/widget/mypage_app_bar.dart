@@ -6,6 +6,7 @@ import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class MypageAppBar extends ConsumerWidget {
   const MypageAppBar({Key? key}) : super(key: key);
@@ -41,10 +42,8 @@ class MypageAppBar extends ConsumerWidget {
                     routeName: AppRoutes.settingPage,
                   );
                 },
-                child: const Icon(
-                  Icons.settings,
-                  color: Colors.black,
-                  size: 20,
+                child: SvgPicture.asset(
+                  'assets/icon/ic_setting.svg',
                 ),
               ),
             ],

@@ -35,10 +35,14 @@ Widget wishGridCard({
                   argument: shopId,
                 );
               },
-              child: Image.network(
-                profile,
-                height: 112,
-                width: 160.w,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  profile,
+                  height: 112.h,
+                  width: 160.w,
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
             Padding(

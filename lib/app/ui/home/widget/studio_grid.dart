@@ -24,38 +24,50 @@ class _StudioGridState extends ConsumerState<StudioGrid> {
   Widget build(BuildContext context) {
     final studioList = ref.watch(studioListProvider);
     final studioListState = ref.read(studioListProvider.notifier);
-    return SliverGrid(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisExtent: 188,
-        mainAxisSpacing: 8,
-        crossAxisSpacing: 8,
-      ),
-      delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int index) {
-          if (studioList.next!.isNotEmpty &&
-              index == studioList.shopDatas.length - 10) {
-            ref.read(studioListProvider.notifier).getData();
-          }
-          if (index == studioList.shopDatas.length) {
-            return const Center(
-              child: CircularProgressIndicator(),
+
+    if (studioList.shopDatas.isEmpty) {
+      return const SliverToBoxAdapter(
+        child: SizedBox(
+          height: 200,
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        ),
+      );
+    } else {
+      return SliverGrid(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisExtent: 188,
+          mainAxisSpacing: 8,
+          crossAxisSpacing: 8,
+        ),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            if (studioList.next!.isNotEmpty &&
+                index == studioList.shopDatas.length - 10) {
+              ref.read(studioListProvider.notifier).getData();
+            }
+            if (index == studioList.shopDatas.length) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return homeGridCard(
+              index: index,
+              shopId: studioList.shopDatas[index].id,
+              profile: studioList.shopDatas[index].profile,
+              name: studioList.shopDatas[index].name,
+              address: studioList.shopDatas[index].address,
+              minPrice: studioList.shopDatas[index].minPrice,
+              like: studioList.shopDatas[index].like,
+              stateRead: studioListState,
             );
-          }
-          return homeGridCard(
-            index: index,
-            shopId: studioList.shopDatas[index].id,
-            profile: studioList.shopDatas[index].profile,
-            name: studioList.shopDatas[index].name,
-            address: studioList.shopDatas[index].address,
-            minPrice: studioList.shopDatas[index].minPrice,
-            like: studioList.shopDatas[index].like,
-            stateRead: studioListState,
-          );
-        },
-        childCount:
-            studioList.shopDatas.length + (studioList.next!.isNotEmpty ? 1 : 0),
-      ),
-    );
+          },
+          childCount: studioList.shopDatas.length +
+              (studioList.next!.isNotEmpty ? 1 : 0),
+        ),
+      );
+    }
   }
 }
