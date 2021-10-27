@@ -34,15 +34,18 @@ class InquiryPage extends StatelessWidget {
       final visible = ref.watch(inquiryInfoTextShowProvier).state;
       return visible
           ? Stack(
-              alignment: Alignment.center,
+              alignment: Alignment.centerLeft,
               children: [
                 SvgPicture.asset(
                   'assets/image/inquiry_text_background.svg',
                   width: 328.w,
                 ),
-                SvgPicture.asset(
-                  'assets/image/inquiry_text.svg',
-                  height: 56.h,
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: SvgPicture.asset(
+                    'assets/image/inquiry_text.svg',
+                    height: 40.h,
+                  ),
                 ),
                 Positioned(
                   top: 10,

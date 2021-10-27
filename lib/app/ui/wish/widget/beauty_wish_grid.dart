@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-class WaxingWishGrid extends ConsumerStatefulWidget {
-  const WaxingWishGrid({Key? key}) : super(key: key);
+class BeautyWishGrid extends ConsumerStatefulWidget {
+  const BeautyWishGrid({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<WaxingWishGrid> createState() => _WaxingWishGridState();
+  ConsumerState<BeautyWishGrid> createState() => _BeautyWishGridState();
 }
 
-class _WaxingWishGridState extends ConsumerState<WaxingWishGrid> {
+class _BeautyWishGridState extends ConsumerState<BeautyWishGrid> {
   final int _pageSize = 30;
 
   final PagingController<int, ShopData> _pagingController =
@@ -37,7 +37,7 @@ class _WaxingWishGridState extends ConsumerState<WaxingWishGrid> {
           like: true,
           minPrice: 300000,
           profile:
-              'https://www.gvalley.co.kr/news/photo/202003/569892_48782_812.png',
+              'https://cdn.topstarnews.net/news/photo/201805/416744_63740_479.jpg',
         ),
       ).toList();
       final isLastPage = newItems.length < _pageSize;
@@ -69,11 +69,11 @@ class _WaxingWishGridState extends ConsumerState<WaxingWishGrid> {
       ),
       builderDelegate: PagedChildBuilderDelegate<ShopData>(
         itemBuilder: (context, s, index) {
-          final waxing = ref.watch(waxingProvider(s));
-          final waxingState = ref.read(waxingProvider(s).notifier);
+          final beauty = ref.watch(beautyProvider(s));
+          final beautyState = ref.read(beautyProvider(s).notifier);
           return wishGridCard(
-            shop: waxing,
-            stateRead: waxingState,
+            shop: beauty,
+            stateRead: beautyState,
           );
         },
       ),

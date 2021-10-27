@@ -35,7 +35,7 @@ class FakeShopRepositroy implements ShopRepository {
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVxXilxiRLh_dciqE35zNWPAidDcwYJi9yDA&usqp=CAU',
       minPrice: 200000,
       priceImg:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlCgKpOZmfvVT4dC1T5AmuwzKgqniVOXPN0A&usqp=CAU',
+          'https://blog.kakaocdn.net/dn/bqfBRF/btqZJ6f7AXT/IBU2g4XhyNK4UJ7K5Xyam0/img.jpg',
       partnershipList: List.generate(
         10,
         (index) => PartnershipData(

@@ -186,4 +186,18 @@ class DetailReviewPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget emptyReview() {
+    return SizedBox(
+      height: 150,
+      child: Center(
+        child: Text(
+          '아직 작성된 리뷰가 없습니다.',
+          style: BppTextStyle.tabText.copyWith(
+            color: const Color(0xffbfbfbf),
+          ),
+        ),
+      ),
+    );
+  }
 }

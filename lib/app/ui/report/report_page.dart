@@ -57,10 +57,10 @@ class ReportPage extends StatelessWidget {
                   height: 56,
                   width: double.infinity,
                   color: Colors.grey.shade200,
-                  child: const Center(
-                    child: Text(
-                      '허위 신고 시 서비스 활동이 제한 될 수 있으니 신중하게\n신고해주시기 바랍니다.',
-                      style: BppTextStyle.smallText,
+                  child: Center(
+                    child: SvgPicture.asset(
+                      'assets/image/report_text.svg',
+                      height: 25.h,
                     ),
                   ),
                 ),

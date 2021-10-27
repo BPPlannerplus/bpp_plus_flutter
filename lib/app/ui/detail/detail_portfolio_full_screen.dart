@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -24,6 +25,7 @@ class DetailPortfolioFullScreen extends StatelessWidget {
               child: Image.network(
                 profile,
                 height: 480.h,
+                fit: BoxFit.fill,
               ),
             ),
             Positioned(
@@ -37,8 +39,8 @@ class DetailPortfolioFullScreen extends StatelessWidget {
                   width: 40,
                   height: 40,
                   child: Icon(
-                    Icons.cancel,
-                    color: Colors.white,
+                    CupertinoIcons.xmark,
+                    color: Color(0xffffffff),
                     size: 30,
                   ),
                 ),

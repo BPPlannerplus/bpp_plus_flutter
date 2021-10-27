@@ -15,7 +15,7 @@ class MyReviewPage extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           title: const Text(
-            '리뷰 작성하기',
+            '내 리뷰 보기',
             style: BppTextStyle.defaultText,
           ),
           leading: InkWell(
@@ -30,22 +30,20 @@ class MyReviewPage extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: 63,
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: Color(0xffe6e6e6),
-                    ),
-                  ),
-                ),
+              SizedBox(
+                height: 48,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       '스튜디오',
                       style: BppTextStyle.smallText
                           .copyWith(color: const Color(0xff4d4d4d)),
+                    ),
+                    const SizedBox(
+                      height: 5,
                     ),
                     const Text(
                       '아날로그핏',
@@ -54,14 +52,13 @@ class MyReviewPage extends StatelessWidget {
                   ],
                 ),
               ),
+              const SizedBox(
+                height: 12,
+              ),
               SizedBox(
-                height: 96,
-                child: Column(
+                height: 48,
+                child: Row(
                   children: [
-                    const Text(
-                      '만족스러우셨나요?\n경험을 공유해주세요!',
-                      style: BppTextStyle.tabText,
-                    ),
                     RatingBarIndicator(
                       rating: 4.6,
                       itemBuilder: (context, index) => const Icon(
@@ -72,17 +69,56 @@ class MyReviewPage extends StatelessWidget {
                       itemSize: 25.0,
                       direction: Axis.horizontal,
                     ),
+                    const SizedBox(
+                      width: 12,
+                    ),
+                    const Text(
+                      '4.6',
+                      style: BppTextStyle.filterText,
+                    )
                   ],
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text(
-                  '등록하기',
-                  style: BppTextStyle.tabText.copyWith(
-                    color: const Color(0xffffffff),
+              const SizedBox(
+                height: 12,
+              ),
+              const Text(
+                '바프 촬용이 처음인데 잘 해주셔서 너무 좋았습니다!\n다음번에 또 재촬영 하고 싶어요',
+                style: BppTextStyle.smallText,
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      primary: const Color(0xfff2f2f2),
+                    ),
+                    child: Text(
+                      '수정',
+                      style: BppTextStyle.tabText.copyWith(
+                        color: const Color(0xff595959),
+                      ),
+                    ),
                   ),
-                ),
+                  const SizedBox(
+                    width: 12,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      primary: const Color(0xfff2f2f2),
+                    ),
+                    child: Text(
+                      '삭제',
+                      style: BppTextStyle.tabText.copyWith(
+                        color: const Color(0xff595959),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

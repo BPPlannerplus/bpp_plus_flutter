@@ -1,6 +1,7 @@
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget reservationCard({
   required String date,
@@ -13,7 +14,7 @@ Widget reservationCard({
 }) {
   return Container(
     height: 105,
-    width: 288,
+    width: 288.w,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(8),
       color: const Color(0xffdfdfdf),
@@ -22,7 +23,7 @@ Widget reservationCard({
       child: Container(
         padding: const EdgeInsets.only(left: 20, right: 8),
         height: 103,
-        width: 286,
+        width: 286.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: const Color(0xffffffff),

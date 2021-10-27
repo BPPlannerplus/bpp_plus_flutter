@@ -1,6 +1,5 @@
 import 'package:bpp_riverpod/app/model/shop_concept.dart';
 import 'package:bpp_riverpod/app/model/shop_data.dart';
-import 'package:bpp_riverpod/app/provider/shop/shop_detail_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
 import 'package:bpp_riverpod/app/repository/shop_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

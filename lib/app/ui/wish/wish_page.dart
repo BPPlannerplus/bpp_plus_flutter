@@ -1,6 +1,6 @@
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/ui/wish/widget/concept_wish_grid.dart';
-import 'package:bpp_riverpod/app/ui/wish/widget/hair_wish_grid.dart';
+import 'package:bpp_riverpod/app/ui/wish/widget/beauty_wish_grid.dart';
 import 'package:bpp_riverpod/app/ui/wish/widget/studio_wish_grid.dart';
 import 'package:bpp_riverpod/app/ui/wish/widget/tanning_wish_grid.dart';
 import 'package:bpp_riverpod/app/ui/wish/widget/waxing_wish_grid.dart';
@@ -21,7 +21,7 @@ class _WishPageState extends ConsumerState<WishPage> {
 
   final List<Widget> _pages = const [
     StudioWishGrid(),
-    HairWishGrid(),
+    BeautyWishGrid(),
     WaxingWishGrid(),
     TanningWishGrid(),
     ConceptWishGrid(),

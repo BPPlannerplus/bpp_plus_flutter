@@ -19,63 +19,81 @@ class ReservationSchedulePage extends StatelessWidget {
     return SliverList(
       delegate: SliverChildListDelegate(
         [
-          reservationCards(1),
-          reservationCards(12),
-          reservationCards(13),
+          reservationCards(1, 1),
+          reservationCards(12, 2),
+          reservationCards(13, 3),
         ],
       ),
     );
   }
 
-  Widget reservationCards(int day) {
+  Widget reservationDivider(int day) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(6.0),
-              child: CircleAvatar(
-                radius: 4,
-                backgroundColor: Color(0xff4c81ff),
-              ),
-            ),
-            Container(
-              width: 1,
-              height: 150,
-              color: const Color(0xff000000),
-            ),
-          ],
+        const Padding(
+          padding: EdgeInsets.all(6.0),
+          child: CircleAvatar(
+            radius: 4,
+            backgroundColor: Color(0xff4c81ff),
+          ),
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '$day일 남았어요!',
-              style: BppTextStyle.tabText.copyWith(
-                color: const Color(0xff595959),
-              ),
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            reservationCard(
-              date: '9월 27일',
-              shop: '태닝',
-              shopName: '스티븐백',
-              buttonText: '문의하기',
-              iconWidget: SvgPicture.asset(
-                'assets/icon/ic_edit.svg',
-              ),
-              onTabButton: () {},
-              onTabIcon: () {
-                reservationDetailDialog();
-              },
-            ),
-          ],
+        const SizedBox(
+          width: 12,
+        ),
+        Text(
+          '$day일 남았어요!',
+          style: BppTextStyle.tabText.copyWith(
+            color: const Color(0xff595959),
+          ),
         ),
       ],
+    );
+  }
+
+  Widget reservationCards(int day, int length) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 12),
+      child: Column(
+        children: [
+          reservationDivider(day),
+          for (int i = 0; i < length; i++)
+            Padding(
+              padding: const EdgeInsets.only(left: 9),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 1,
+                    height: 130,
+                    color: const Color(0xff000000),
+                  ),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: reservationCard(
+                      date: '9월 27일',
+                      shop: '태닝',
+                      shopName: '스티븐백',
+                      buttonText: '문의하기',
+                      iconWidget: SvgPicture.asset(
+                        'assets/icon/ic_edit.svg',
+                      ),
+                      onTabButton: () {},
+                      onTabIcon: () {
+                        reservationDetailDialog();
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
     );
   }
 
