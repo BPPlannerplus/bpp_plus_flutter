@@ -1,7 +1,11 @@
+import 'package:bpp_riverpod/app/model/shop_data.dart';
 import 'package:bpp_riverpod/app/model/shop_detail_data.dart';
+import 'package:bpp_riverpod/app/model/shop_list.dart';
 
 abstract class ShopRepository {
   Future<ShopDetailData> getShopDetailData(int shopId);
+
+  Future<ShopList> getShopList();
 
   Future<void> setLike(int id);
 }
@@ -37,6 +41,25 @@ class FakeShopRepositroy implements ShopRepository {
               'https://cdn.imweb.me/upload/S20200731435c95ee6d424/24456b4049369.jpg',
         ),
       ),
+    );
+  }
+
+  @override
+  Future<ShopList> getShopList() async {
+    await Future.delayed(const Duration(seconds: 1));
+    return ShopList(
+      shopDatas: List.generate(
+        40,
+        (index) => ShopData(
+          id: index,
+          name: 'Shop $index',
+          address: '서울시 관악구',
+          like: false,
+          minPrice: 200000,
+          profile:
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSWX2EtpNdJxN2rTqCYLjdfjJA2TCZSem-jw&usqp=CAU',
+        ),
+      ).toList(),
     );
   }
 

@@ -1,8 +1,11 @@
+import 'package:bpp_riverpod/app/model/concept.dart';
 import 'package:bpp_riverpod/app/provider/concept_provier.dart';
+import 'package:bpp_riverpod/app/provider/concpet_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class ConceptGrid extends ConsumerStatefulWidget {
   const ConceptGrid({Key? key}) : super(key: key);
@@ -13,45 +16,29 @@ class ConceptGrid extends ConsumerStatefulWidget {
 
 class _ConceptGridState extends ConsumerState<ConceptGrid> {
   @override
-  void initState() {
-    if (ref.read(conceptListProvider).concepts.isEmpty) {
-      ref.read(conceptListProvider.notifier).getData();
-    }
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final conceptList = ref.watch(conceptListProvider);
-    final conceptListState = ref.read(conceptListProvider.notifier);
-
-    return SliverGrid(
+    return PagedSliverGrid(
+      pagingController: ref.watch(conceptPageControllerProvider),
+      showNewPageProgressIndicatorAsGridChild: false,
+      showNewPageErrorIndicatorAsGridChild: false,
+      showNoMoreItemsIndicatorAsGridChild: false,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         mainAxisExtent: 144,
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,
+        childAspectRatio: 100 / 150,
       ),
-      delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int index) {
-          if (conceptList.next!.isNotEmpty &&
-              index == conceptList.concepts.length - 10) {
-            ref.read(conceptListProvider.notifier).getData();
-          }
-          if (index == conceptList.concepts.length) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+      builderDelegate: PagedChildBuilderDelegate<Concept>(
+        itemBuilder: (context, c, index) {
+          final concept = ref.watch(conceptProvider(c));
+          final conceptState = ref.read(conceptProvider(c).notifier);
+
           return conceptCard(
-            index: index,
-            profie: conceptList.concepts[index].profile,
-            like: conceptList.concepts[index].like,
-            stateRead: conceptListState,
+            concept: concept,
+            stateRead: conceptState,
           );
         },
-        childCount: conceptList.concepts.length +
-            (conceptList.next!.isNotEmpty ? 1 : 0),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:bpp_riverpod/app/model/shop_data.dart';
 import 'package:bpp_riverpod/app/provider/studio_provider.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
@@ -9,14 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget homeGridCard({
-  required int index,
-  required int shopId,
-  required String profile,
-  required String name,
-  required String address,
-  required int minPrice,
-  required bool like,
-  required ShopListState stateRead,
+  required ShopData shop,
+  required ShopState shopState,
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,13 +27,13 @@ Widget homeGridCard({
               onTap: () {
                 locator<NavigationService>().navigateTo(
                   routeName: AppRoutes.detailPage,
-                  argument: shopId,
+                  argument: shop.id,
                 );
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.network(
-                  profile,
+                  shop.profile,
                   height: 112.h,
                   width: 160.w,
                   fit: BoxFit.fill,
@@ -49,12 +44,13 @@ Widget homeGridCard({
               padding: const EdgeInsets.all(5.0),
               child: InkWell(
                 onTap: () {
-                  stateRead.setShopLike(index);
+                  shopState.setLike(shop.id);
                 },
                 child: Icon(
-                  like ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
-                  color:
-                      like ? const Color(0xffff5757) : const Color(0xffffffff),
+                  shop.like ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
+                  color: shop.like
+                      ? const Color(0xffff5757)
+                      : const Color(0xffffffff),
                   size: 30,
                 ),
               ),
@@ -63,15 +59,15 @@ Widget homeGridCard({
         ),
       ),
       Text(
-        name,
+        shop.name,
         style: BppTextStyle.tabText,
       ),
       Text(
-        address,
+        shop.address,
         style: BppTextStyle.smallText,
       ),
       Text(
-        priceFormat(minPrice),
+        priceFormat(shop.minPrice),
         style: BppTextStyle.smallText,
       ),
     ],

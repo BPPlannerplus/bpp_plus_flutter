@@ -1,56 +1,28 @@
 import 'package:bpp_riverpod/app/model/shop_data.dart';
 import 'package:bpp_riverpod/app/model/shop_list.dart';
+import 'package:bpp_riverpod/app/repository/shop_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ShopListState extends StateNotifier<ShopList> {
-  ShopListState()
-      : super(
-          ShopList(
-            shopDatas: [],
-            next: 'true',
-          ),
-        );
-  getData() async {
+  ShopListState({required this.repository})
+      : super(ShopList(
+          shopDatas: [],
+          next: 'true',
+        ));
+
+  final ShopRepository repository;
+
+  Future<ShopList> getData() async {
     await Future.delayed(const Duration(seconds: 1));
-
-    if (state.shopDatas.length > 100) {
-      state = state.copyWith(
-        next: '',
-      );
-      return;
-    }
-
-    var newData = List.generate(
-      40,
-      (index) => ShopData(
-        id: index,
-        name: 'Shop $index',
-        address: '서울시 관악구',
-        like: false,
-        minPrice: 200000,
-        profile:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSWX2EtpNdJxN2rTqCYLjdfjJA2TCZSem-jw&usqp=CAU',
-      ),
-    );
-
+    var newData = await repository.getShopList();
     state = state.copyWith(
       shopDatas: [
         ...state.shopDatas,
-        ...newData,
+        ...newData.shopDatas,
       ],
+      next: newData.next,
     );
-  }
-
-  setShopLike(int index) {
-    var newConcept = state.shopDatas[index].copyWith(
-      like: !state.shopDatas[index].like,
-    );
-
-    var curConcpets = state.shopDatas;
-
-    curConcpets[index] = newConcept;
-
-    state = state.copyWith(shopDatas: curConcpets);
+    return newData;
   }
 
   reset() {
@@ -63,6 +35,16 @@ class ShopListState extends StateNotifier<ShopList> {
   }
 }
 
+class ShopState extends StateNotifier<ShopData> {
+  ShopState(ShopData state) : super(state);
+
+  setLike(int id) {
+    state = state.copyWith(like: !state.like);
+  }
+}
+
 final studioListProvider = StateNotifierProvider<ShopListState, ShopList>(
-  (ref) => ShopListState(),
+  (ref) => ShopListState(repository: FakeShopRepositroy()),
 );
+final studioProvider = StateNotifierProvider.family
+    .autoDispose<ShopState, ShopData, ShopData>((ref, shop) => ShopState(shop));

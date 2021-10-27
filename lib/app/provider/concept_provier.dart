@@ -1,58 +1,31 @@
 import 'package:bpp_riverpod/app/model/concept.dart';
 import 'package:bpp_riverpod/app/model/concept_list.dart';
+import 'package:bpp_riverpod/app/repository/concept_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ConceptListState extends StateNotifier<ConceptList> {
-  ConceptListState()
-      : super(
+  ConceptListState({
+    required this.repository,
+  }) : super(
           ConceptList(
             concepts: [],
             next: 'true',
           ),
         );
 
-  getData() async {
-    await Future.delayed(const Duration(seconds: 1));
+  final ConceptRepository repository;
 
-    if (state.concepts.length > 100) {
-      state = state.copyWith(
-        next: '',
-      );
-      return;
-    }
-
-    var newData = List.generate(
-      30,
-      (index) => Concept(
-        id: index,
-        profile:
-            'http://file.mk.co.kr/meet/neds/2021/05/image_readtop_2021_441365_16203623974637324.jpg',
-        shop: IdNamePair(
-          id: index,
-          name: 'Concept $index',
-        ),
-        like: false,
-      ),
-    );
-
+  Future<ConceptList> getData() async {
+    var newData = await repository.getConceptList();
     state = state.copyWith(
       concepts: [
         ...state.concepts,
-        ...newData,
+        ...newData.concepts,
       ],
-    );
-  }
-
-  setConceptLike(int index) {
-    var newConcept = state.concepts[index].copyWith(
-      like: !state.concepts[index].like,
+      next: newData.next,
     );
 
-    var curConcpets = state.concepts;
-
-    curConcpets[index] = newConcept;
-
-    state = state.copyWith(concepts: curConcpets);
+    return newData;
   }
 
   reset() {
@@ -65,6 +38,22 @@ class ConceptListState extends StateNotifier<ConceptList> {
   }
 }
 
+class ConceptState extends StateNotifier<Concept> {
+  ConceptState(Concept state) : super(state);
+
+  setLike(int id) {
+    state = state.copyWith(like: !state.like);
+  }
+}
+
 final conceptListProvider =
     StateNotifierProvider<ConceptListState, ConceptList>(
-        (ref) => ConceptListState());
+  (ref) => ConceptListState(
+    repository: FakeConceptRepository(),
+  ),
+);
+
+final conceptProvider = StateNotifierProvider.family
+    .autoDispose<ConceptState, Concept, Concept>((ref, concept) {
+  return ConceptState(concept);
+});

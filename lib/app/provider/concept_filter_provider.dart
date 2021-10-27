@@ -147,25 +147,3 @@ final conceptReqFilter = StateProvider<ConceptFilter>(
     cloth: [],
   ),
 );
-
-
-// class ConceptCheckPairState extends StateNotifier<ConceptCheckPair> {
-//   ConceptCheckPairState({
-//     required String id,
-//     required String value,
-//   }) : super(
-//           ConceptCheckPair(
-//             id: id,
-//             value: value,
-//           ),
-//         );
-//   toggleFilterState() {
-//     state = state.copyWith(
-//       check: !state.check,
-//     );
-//   }
-// }
-
-// final conceptFilterProvider =
-//     StateNotifierProvider<ConceptFilterState, ConceptFilter>(
-//         (ref) => ConceptFilterState());

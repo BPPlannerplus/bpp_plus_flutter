@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:bpp_riverpod/app/model/concept.dart';
 import 'package:bpp_riverpod/app/provider/concept_provier.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
@@ -10,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget conceptDialog(int index) {
+Widget conceptDialog(Concept c) {
   return Dialog(
     insetPadding: const EdgeInsets.all(1),
     shape: const RoundedRectangleBorder(
@@ -32,14 +33,14 @@ Widget conceptDialog(int index) {
       height: 387.h,
       width: 360.w,
       child: Consumer(builder: (context, ref, _) {
-        final conceptList = ref.watch(conceptListProvider);
+        final concept = ref.watch(conceptProvider(c));
 
         return Stack(
           alignment: AlignmentDirectional.bottomCenter,
           children: [
             Positioned.fill(
               child: Image.network(
-                conceptList.concepts[index].profile,
+                concept.profile,
                 fit: BoxFit.fill,
               ),
             ),
@@ -64,7 +65,7 @@ Widget conceptDialog(int index) {
                     onTap: () {
                       locator<NavigationService>().navigateTo(
                         routeName: AppRoutes.detailPage,
-                        argument: conceptList.concepts[index].id,
+                        argument: concept.id,
                       );
                     },
                     child: Row(
@@ -89,15 +90,13 @@ Widget conceptDialog(int index) {
                   ),
                   InkWell(
                     onTap: () {
-                      ref
-                          .read(conceptListProvider.notifier)
-                          .setConceptLike(index);
+                      ref.read(conceptProvider(c).notifier).setLike(concept.id);
                     },
                     child: Icon(
-                      conceptList.concepts[index].like
+                      concept.like
                           ? CupertinoIcons.heart_fill
                           : CupertinoIcons.heart,
-                      color: conceptList.concepts[index].like
+                      color: concept.like
                           ? const Color(0xffff5757)
                           : const Color(0xffffffff),
                       size: 30,

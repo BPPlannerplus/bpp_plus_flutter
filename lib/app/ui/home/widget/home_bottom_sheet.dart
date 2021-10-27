@@ -1,6 +1,9 @@
 import 'package:bpp_riverpod/app/provider/home_filter_provider.dart';
+import 'package:bpp_riverpod/app/provider/shop_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/provider/studio_provider.dart';
+import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -52,7 +55,8 @@ homeBottomSheet(int index) {
           ElevatedButton(
             onPressed: () {
               ref.read(studioListProvider.notifier).reset();
-              Navigator.pop(context);
+              ref.read(studioPageControllerProvider).refresh();
+              locator<NavigationService>().pop();
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(

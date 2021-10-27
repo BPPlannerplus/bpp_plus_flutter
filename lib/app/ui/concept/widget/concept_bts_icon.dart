@@ -47,7 +47,7 @@ Widget filterColumn(String title, int num) {
               title,
               style: BppTextStyle.smallText,
             ),
-            const SizedBox(height: 3),
+            const SizedBox(height: 8),
             num != 2
                 ? Row(
                     children: [

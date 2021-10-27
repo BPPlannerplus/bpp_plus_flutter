@@ -55,14 +55,14 @@ class _WishPageState extends ConsumerState<WishPage> {
     });
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.only(right: 16, left: 16),
+        padding: const EdgeInsets.only(right: 16, left: 16, bottom: 16),
         child: Column(
           children: [
-            const WishAppBar(),
             Expanded(
               child: CustomScrollView(
                 controller: scrollController,
                 slivers: [
+                  const WishAppBar(),
                   _pages[ref.watch(wishTabProvider).state],
                 ],
               ),
