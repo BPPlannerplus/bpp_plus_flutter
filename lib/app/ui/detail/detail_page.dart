@@ -1,5 +1,6 @@
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
-import 'package:bpp_riverpod/app/provider/shop_detail_provider.dart';
+import 'package:bpp_riverpod/app/provider/shop/shop_detail_provider.dart';
+import 'package:bpp_riverpod/app/provider/shop/shop_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_app_bar.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_info_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_mid_box.dart';
@@ -83,14 +84,12 @@ class _DetailPageState extends ConsumerState<DetailPage> {
         ),
         data: (shopData) {
           final shopDetailData = ref.watch(shopDetailStateProvider(shopData));
-          if (ref.read(shopConceptsProvider(0)).shopConcepts.isEmpty) {
-            ref.read(shopConceptsProvider(0).notifier).getData();
-          }
+          final pageController =
+              ref.watch(shopDetailConceptPageControllerProvider(widget.shopId));
 
           var _pages = [
             DetailPortfolioPage(
-              shopConcepts: ref.watch(shopConceptsProvider(0)),
-              getData: ref.read(shopConceptsProvider(0).notifier).getData,
+              pagingController: pageController,
             ),
             DetailInfoPage(
               priceImg: shopData.priceImg,

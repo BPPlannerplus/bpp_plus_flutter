@@ -1,4 +1,4 @@
-import 'package:bpp_riverpod/app/provider/concept_filter_provider.dart';
+import 'package:bpp_riverpod/app/provider/concept/concept_filter_provider.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

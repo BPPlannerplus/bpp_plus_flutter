@@ -1,53 +1,54 @@
 import 'package:bpp_riverpod/app/model/shop_concept.dart';
+import 'package:bpp_riverpod/app/provider/shop/shop_detail_provider.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-class DetailPortfolioPage extends StatelessWidget {
+class DetailPortfolioPage extends ConsumerStatefulWidget {
   const DetailPortfolioPage({
     Key? key,
-    required this.shopConcepts,
-    required this.getData,
+    required this.pagingController,
   }) : super(key: key);
 
-  final ShopConcepts shopConcepts;
-  final Future<void> Function() getData;
+  final PagingController<int, ShopConcept> pagingController;
 
   @override
+  ConsumerState<DetailPortfolioPage> createState() =>
+      _DetailPortfolioPageState();
+}
+
+class _DetailPortfolioPageState extends ConsumerState<DetailPortfolioPage> {
+  @override
   Widget build(BuildContext context) {
-    return SliverGrid(
+    return PagedSliverGrid(
+      pagingController: widget.pagingController,
+      showNewPageProgressIndicatorAsGridChild: false,
+      showNewPageErrorIndicatorAsGridChild: false,
+      showNoMoreItemsIndicatorAsGridChild: false,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        mainAxisSpacing: 5,
-        crossAxisSpacing: 5,
         mainAxisExtent: 144,
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 8,
+        childAspectRatio: 100 / 150,
       ),
-      delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int index) {
-          if (shopConcepts.next.isNotEmpty &&
-              index == shopConcepts.shopConcepts.length - 10) {
-            getData();
-          }
-          if (index == shopConcepts.shopConcepts.length) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+      builderDelegate: PagedChildBuilderDelegate<ShopConcept>(
+        itemBuilder: (context, sc, index) {
           return InkWell(
             onTap: () {
               Navigator.pushNamed(
                 context,
                 AppRoutes.detailPortfolioPage,
-                arguments: shopConcepts.shopConcepts[index].profile,
+                arguments: sc.profile,
               );
             },
             child: Image.network(
-              shopConcepts.shopConcepts[index].profile,
+              sc.profile,
               height: 144,
             ),
           );
         },
-        childCount: shopConcepts.shopConcepts.length +
-            (shopConcepts.next.isNotEmpty ? 1 : 0),
       ),
     );
   }

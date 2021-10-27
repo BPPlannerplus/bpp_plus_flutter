@@ -1,13 +1,17 @@
+import 'package:bpp_riverpod/app/model/shop_concept.dart';
 import 'package:bpp_riverpod/app/model/shop_data.dart';
 import 'package:bpp_riverpod/app/model/shop_detail_data.dart';
 import 'package:bpp_riverpod/app/model/shop_list.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final shopRepositroyProvider =
+    Provider<FakeShopRepositroy>((ref) => FakeShopRepositroy());
 
 abstract class ShopRepository {
-  Future<ShopDetailData> getShopDetailData(int shopId);
-
   Future<ShopList> getShopList();
-
   Future<void> setLike(int id);
+  Future<ShopDetailData> getShopDetailData(int shopId);
+  Future<ShopConcepts> getShopConcepts();
 }
 
 class FakeShopRepositroy implements ShopRepository {
@@ -65,6 +69,100 @@ class FakeShopRepositroy implements ShopRepository {
 
   @override
   Future<void> setLike(int id) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ShopConcepts> getShopConcepts() async {
+    await Future.delayed(const Duration(seconds: 1));
+    return ShopConcepts(
+      shopConcepts: List.generate(
+        30,
+        (index) => ShopConcept(
+          id: index,
+          profile:
+              'https://contents.sixshop.com/thumbnails/uploadedFiles/23404/post/image_1610172843905_1000.png',
+        ),
+      ),
+      next: 'true',
+    );
+  }
+}
+
+class BeautyRepository implements ShopRepository {
+  @override
+  Future<ShopDetailData> getShopDetailData(int shopId) {
+    // TODO: implement getShopDetailData
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ShopList> getShopList() {
+    // TODO: implement getShopList
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> setLike(int id) {
+    // TODO: implement setLike
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ShopConcepts> getShopConcepts() {
+    // TODO: implement getShopConcepts
+    throw UnimplementedError();
+  }
+}
+
+class WaxingRepostiry implements ShopRepository {
+  @override
+  Future<ShopDetailData> getShopDetailData(int shopId) {
+    // TODO: implement getShopDetailData
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ShopList> getShopList() {
+    // TODO: implement getShopList
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> setLike(int id) {
+    // TODO: implement setLike
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ShopConcepts> getShopConcepts() {
+    // TODO: implement getShopConcepts
+    throw UnimplementedError();
+  }
+}
+
+class TanningRepository implements ShopRepository {
+  @override
+  Future<ShopDetailData> getShopDetailData(int shopId) {
+    // TODO: implement getShopDetailData
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ShopList> getShopList() {
+    // TODO: implement getShopList
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> setLike(int id) {
+    // TODO: implement setLike
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ShopConcepts> getShopConcepts() {
+    // TODO: implement getShopConcepts
     throw UnimplementedError();
   }
 }

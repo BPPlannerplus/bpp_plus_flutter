@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:bpp_riverpod/app/model/concept.dart';
-import 'package:bpp_riverpod/app/provider/concept_provier.dart';
+import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';

@@ -1,6 +1,6 @@
-import 'package:bpp_riverpod/app/provider/concept_filter_provider.dart';
-import 'package:bpp_riverpod/app/provider/concept_provier.dart';
-import 'package:bpp_riverpod/app/provider/concpet_page_controller_provider.dart';
+import 'package:bpp_riverpod/app/provider/concept/concept_filter_provider.dart';
+import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
+import 'package:bpp_riverpod/app/provider/concept/concpet_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_bts_icon.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';

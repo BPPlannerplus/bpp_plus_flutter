@@ -1,6 +1,6 @@
 import 'package:bpp_riverpod/app/model/concept.dart';
-import 'package:bpp_riverpod/app/provider/concept_provier.dart';
-import 'package:bpp_riverpod/app/provider/concpet_page_controller_provider.dart';
+import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
+import 'package:bpp_riverpod/app/provider/concept/concpet_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

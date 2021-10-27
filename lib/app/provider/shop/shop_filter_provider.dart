@@ -1,8 +1,8 @@
 import 'package:bpp_riverpod/app/model/filter_check_pair.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomeFilterCheckState extends StateNotifier<List<FilterCheckPair>> {
-  HomeFilterCheckState({
+class ShopFilterCheckState extends StateNotifier<List<FilterCheckPair>> {
+  ShopFilterCheckState({
     required this.filters,
   }) : super(
           filters,
@@ -29,8 +29,8 @@ class HomeFilterCheckState extends StateNotifier<List<FilterCheckPair>> {
 }
 
 final studioFilterProvider =
-    StateNotifierProvider<HomeFilterCheckState, List<FilterCheckPair>>(
-  (ref) => HomeFilterCheckState(
+    StateNotifierProvider<ShopFilterCheckState, List<FilterCheckPair>>(
+  (ref) => ShopFilterCheckState(
     filters: [
       FilterCheckPair(id: '강남구', value: '강남구'),
       FilterCheckPair(id: '강동구', value: '강동구'),
@@ -42,8 +42,8 @@ final studioFilterProvider =
 );
 
 final hairFilterProvider =
-    StateNotifierProvider<HomeFilterCheckState, List<FilterCheckPair>>(
-  (ref) => HomeFilterCheckState(
+    StateNotifierProvider<ShopFilterCheckState, List<FilterCheckPair>>(
+  (ref) => ShopFilterCheckState(
     filters: [
       FilterCheckPair(id: '강남구', value: '강남구'),
       FilterCheckPair(id: '서초구', value: '서초구'),
@@ -52,8 +52,8 @@ final hairFilterProvider =
 );
 
 final waxingFilterProvider =
-    StateNotifierProvider<HomeFilterCheckState, List<FilterCheckPair>>(
-  (ref) => HomeFilterCheckState(
+    StateNotifierProvider<ShopFilterCheckState, List<FilterCheckPair>>(
+  (ref) => ShopFilterCheckState(
     filters: [
       FilterCheckPair(id: '강남구', value: '강남구'),
       FilterCheckPair(id: '강동구', value: '강동구'),
@@ -65,8 +65,8 @@ final waxingFilterProvider =
 );
 
 final tanningFilterProvider =
-    StateNotifierProvider<HomeFilterCheckState, List<FilterCheckPair>>(
-  (ref) => HomeFilterCheckState(
+    StateNotifierProvider<ShopFilterCheckState, List<FilterCheckPair>>(
+  (ref) => ShopFilterCheckState(
     filters: [
       FilterCheckPair(id: '강남구', value: '강남구'),
       FilterCheckPair(id: '강동구', value: '강동구'),

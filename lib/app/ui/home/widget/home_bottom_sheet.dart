@@ -1,6 +1,6 @@
-import 'package:bpp_riverpod/app/provider/home_filter_provider.dart';
-import 'package:bpp_riverpod/app/provider/shop_page_controller_provider.dart';
-import 'package:bpp_riverpod/app/provider/studio_provider.dart';
+import 'package:bpp_riverpod/app/provider/shop/shop_filter_provider.dart';
+import 'package:bpp_riverpod/app/provider/shop/shop_page_controller_provider.dart';
+import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:bpp_riverpod/main.dart';

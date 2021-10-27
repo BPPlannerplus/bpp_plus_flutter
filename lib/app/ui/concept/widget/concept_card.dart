@@ -1,5 +1,5 @@
 import 'package:bpp_riverpod/app/model/concept.dart';
-import 'package:bpp_riverpod/app/provider/concept_provier.dart';
+import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_dialog.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/main.dart';

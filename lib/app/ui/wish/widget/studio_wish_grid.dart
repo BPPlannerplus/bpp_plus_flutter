@@ -1,8 +1,10 @@
-import 'package:bpp_riverpod/app/provider/studio_wish_provider.dart';
+import 'package:bpp_riverpod/app/model/shop_data.dart';
+import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
 import 'package:bpp_riverpod/app/ui/wish/widget/wish_grid_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class StudioWishGrid extends ConsumerStatefulWidget {
   const StudioWishGrid({Key? key}) : super(key: key);
@@ -12,49 +14,69 @@ class StudioWishGrid extends ConsumerStatefulWidget {
 }
 
 class _StudioWishGridState extends ConsumerState<StudioWishGrid> {
+  final int _pageSize = 30;
+
+  final PagingController<int, ShopData> _pagingController =
+      PagingController(firstPageKey: 0);
   @override
   void initState() {
-    if (ref.read(studioWishListProvider).shopDatas.isEmpty) {
-      ref.read(studioWishListProvider.notifier).getData();
-    }
+    _pagingController.addPageRequestListener((pageKey) {
+      _fetchPage(pageKey);
+    });
     super.initState();
+  }
+
+  Future<void> _fetchPage(int pageKey) async {
+    try {
+      await Future.delayed(const Duration(seconds: 1));
+      final newItems = List.generate(
+        30,
+        (index) => ShopData(
+          id: index,
+          name: 'Shop $index',
+          address: '서울시 마포구',
+          like: true,
+          minPrice: 300000,
+          profile:
+              'https://cdn.class101.net/images/34735a36-aaf3-49cb-8eb4-ef76ce574ced/1200x630',
+        ),
+      ).toList();
+      final isLastPage = newItems.length < _pageSize;
+
+      if (isLastPage) {
+        _pagingController.appendLastPage(newItems);
+      } else {
+        final nextPageKey = pageKey + newItems.length;
+        _pagingController.appendPage(newItems, nextPageKey);
+      }
+    } catch (error) {
+      _pagingController.error = error;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final studioList = ref.watch(studioWishListProvider);
-    final studioListState = ref.read(studioWishListProvider.notifier);
-    return SliverGrid(
+    return PagedSliverGrid(
+      pagingController: _pagingController,
+      showNewPageProgressIndicatorAsGridChild: false,
+      showNewPageErrorIndicatorAsGridChild: false,
+      showNoMoreItemsIndicatorAsGridChild: false,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         mainAxisExtent: 188,
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,
+        childAspectRatio: 100 / 150,
       ),
-      delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int index) {
-          if (studioList.next!.isNotEmpty &&
-              index == studioList.shopDatas.length - 10) {
-            ref.read(studioWishListProvider.notifier).getData();
-          }
-          if (index == studioList.shopDatas.length) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+      builderDelegate: PagedChildBuilderDelegate<ShopData>(
+        itemBuilder: (context, s, index) {
+          final studio = ref.watch(studioProvider(s));
+          final studioState = ref.read(studioProvider(s).notifier);
           return wishGridCard(
-            index: index,
-            shopId: studioList.shopDatas[index].id,
-            profile: studioList.shopDatas[index].profile,
-            name: studioList.shopDatas[index].name,
-            address: studioList.shopDatas[index].address,
-            minPrice: studioList.shopDatas[index].minPrice,
-            like: studioList.shopDatas[index].like,
-            stateRead: studioListState,
+            shop: studio,
+            stateRead: studioState,
           );
         },
-        childCount:
-            studioList.shopDatas.length + (studioList.next!.isNotEmpty ? 1 : 0),
       ),
     );
   }

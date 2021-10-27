@@ -1,19 +1,17 @@
 import 'package:bpp_riverpod/app/model/shop_data.dart';
+import 'package:bpp_riverpod/app/model/shop_detail_data.dart';
 import 'package:bpp_riverpod/app/model/shop_list.dart';
 import 'package:bpp_riverpod/app/repository/shop_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ShopListState extends StateNotifier<ShopList> {
-  ShopListState({required this.repository})
-      : super(ShopList(
-          shopDatas: [],
-          next: 'true',
-        ));
+  ShopListState({
+    required this.repository,
+  }) : super(ShopList(shopDatas: [], next: 'true'));
 
   final ShopRepository repository;
 
   Future<ShopList> getData() async {
-    await Future.delayed(const Duration(seconds: 1));
     var newData = await repository.getShopList();
     state = state.copyWith(
       shopDatas: [
@@ -43,8 +41,12 @@ class ShopState extends StateNotifier<ShopData> {
   }
 }
 
-final studioListProvider = StateNotifierProvider<ShopListState, ShopList>(
-  (ref) => ShopListState(repository: FakeShopRepositroy()),
-);
-final studioProvider = StateNotifierProvider.family
-    .autoDispose<ShopState, ShopData, ShopData>((ref, shop) => ShopState(shop));
+class ShopDetailState extends StateNotifier<ShopDetailData> {
+  ShopDetailState(ShopDetailData state) : super(state);
+
+  setLike() {
+    state = state.copyWith(
+      like: !state.like,
+    );
+  }
+}
