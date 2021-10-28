@@ -57,7 +57,7 @@ class StudioRepository implements ShopRepository {
       logo:
           'https://png.pngtree.com/png-clipart/20200727/original/pngtree-photography-studio-logo-template-png-image_5392695.jpg',
       like: false,
-      kakaoUrl: 'kakaoUrl',
+      kakaoUrl: 'https://pf.kakao.com/_xgCxjfj',
       address: '서울특별시 관악구 봉천동~',
       profiles: [
         'https://modo-phinf.pstatic.net/20210107_257/1610007835482y4K17_JPEG/mosafm00Fx.jpeg?type=f540_540',

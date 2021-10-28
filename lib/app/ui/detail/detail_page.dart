@@ -14,6 +14,7 @@ import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailPage extends ConsumerStatefulWidget {
   const DetailPage({
@@ -185,12 +186,9 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                     width: 14,
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      ref.read(navigationProvier).state = 3;
-                      ref.read(myPageTabProvider).state = 0;
-                      locator<NavigationService>().navigateTo(
-                        routeName: AppRoutes.mainPage,
-                      );
+                    onPressed: () async {
+                      await launch(shopData.kakaoUrl);
+                      // await launch('https://open.kakao.com/o/ssjiKiHd');
                     },
                     style: ElevatedButton.styleFrom(
                       primary: const Color(0xFF3b75ff),
