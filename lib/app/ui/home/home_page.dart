@@ -1,5 +1,5 @@
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
-import 'package:bpp_riverpod/app/ui/home/widget/hair_grid.dart';
+import 'package:bpp_riverpod/app/ui/home/widget/beauty_grid.dart';
 import 'package:bpp_riverpod/app/ui/home/widget/home_app_bar.dart';
 import 'package:bpp_riverpod/app/ui/home/widget/home_box_adapter.dart';
 import 'package:bpp_riverpod/app/ui/home/widget/studio_grid.dart';
@@ -21,7 +21,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   final scrollController = ScrollController();
   final _pages = const [
     StudioGrid(),
-    HairGrid(),
+    BeautyGrid(),
     WaxingGrid(),
     TanningGrid(),
   ];

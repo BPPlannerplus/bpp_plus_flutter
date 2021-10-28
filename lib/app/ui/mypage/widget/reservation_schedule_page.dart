@@ -22,6 +22,18 @@ class ReservationSchedulePage extends StatelessWidget {
           reservationCards(1, 1),
           reservationCards(12, 2),
           reservationCards(13, 3),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: const [
+              Padding(
+                padding: EdgeInsets.only(top: 6, bottom: 16, left: 18),
+                child: CircleAvatar(
+                  radius: 4,
+                  backgroundColor: Color(0xff4c81ff),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

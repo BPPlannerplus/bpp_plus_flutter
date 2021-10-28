@@ -1,6 +1,7 @@
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_detail_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_page_controller_provider.dart';
+import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_app_bar.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_info_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_mid_box.dart';
@@ -184,7 +185,13 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                     width: 14,
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      ref.read(navigationProvier).state = 3;
+                      ref.read(myPageTabProvider).state = 0;
+                      locator<NavigationService>().navigateTo(
+                        routeName: AppRoutes.mainPage,
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       primary: const Color(0xFF3b75ff),
                     ),

@@ -1,7 +1,9 @@
+import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -73,27 +75,58 @@ class WithdrawalPage extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        SvgPicture.asset(
-                          'assets/icon/ic_check_none.svg',
-                        ),
+                        Consumer(builder: (context, ref, _) {
+                          final isWithdrawal =
+                              ref.watch(withdrawalProvier).state;
+                          return InkWell(
+                            onTap: () {
+                              ref.read(withdrawalProvier).state =
+                                  !ref.read(withdrawalProvier).state;
+                            },
+                            child: SvgPicture.asset(
+                              !isWithdrawal
+                                  ? 'assets/icon/ic_check_none.svg'
+                                  : 'assets/icon/ic_check_on.svg',
+                            ),
+                          );
+                        }),
                         const Text(
                           '안내사항을 확인하였으며, 동의합니다.',
                           style: BppTextStyle.smallText,
                         )
                       ],
                     ),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        primary: const Color(0xff000000),
-                      ),
-                      child: Text(
-                        '탈퇴하기',
-                        style: BppTextStyle.tabText.copyWith(
-                          color: const Color(0xffffffff),
-                        ),
-                      ),
+                    SizedBox(
+                      height: 5.h,
                     ),
+                    Consumer(builder: (context, ref, _) {
+                      final isWithdrawal = ref.watch(withdrawalProvier).state;
+                      return ElevatedButton(
+                        onPressed: isWithdrawal ? () {} : null,
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.resolveWith((states) {
+                            if (states.contains(MaterialState.disabled)) {
+                              return const Color(0xffe5e5e5);
+                            } else {
+                              return const Color(0xff000000);
+                            }
+                          }),
+                        ),
+                        child: SizedBox(
+                          width: 328,
+                          height: 48,
+                          child: Center(
+                            child: Text(
+                              '탈퇴하기',
+                              style: BppTextStyle.tabText.copyWith(
+                                color: const Color(0xffffffff),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
                   ],
                 ),
               ),

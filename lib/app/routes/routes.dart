@@ -90,6 +90,16 @@ class AppRouter {
   }
 }
 
+class MyRoute extends MaterialPageRoute {
+  MyRoute({
+    WidgetBuilder? builder,
+    dynamic settings,
+  }) : super(builder: builder!, settings: settings);
+
+  @override
+  Duration get transitionDuration => const Duration(milliseconds: 500);
+}
+
 class ProfileData {
   final List<String> profiles;
   final int index;

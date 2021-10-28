@@ -34,7 +34,7 @@ class ReservationDetailPage extends StatelessWidget {
                     backgroundColor: Color(0xff4c81ff),
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   width: 16,
                 ),
                 Text(
@@ -120,7 +120,19 @@ class ReservationDetailPage extends StatelessWidget {
                 ),
               ],
             ),
-          )
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: const [
+              Padding(
+                padding: EdgeInsets.only(top: 4, bottom: 16, left: 18),
+                child: CircleAvatar(
+                  radius: 4,
+                  backgroundColor: Color(0xff4c81ff),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

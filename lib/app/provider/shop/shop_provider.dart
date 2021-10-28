@@ -21,7 +21,7 @@ final studioProvider =
 
 final beautyListProvider = StateNotifierProvider<ShopListState, ShopList>(
   (ref) {
-    final repository = ref.watch(shopRepositroyProvider);
+    final repository = ref.watch(beautyRepositroyProvider);
     return ShopListState(
       repository: repository,
     );
@@ -36,7 +36,7 @@ final beautyProvider =
 
 final waxingListProvider = StateNotifierProvider<ShopListState, ShopList>(
   (ref) {
-    final repository = ref.watch(shopRepositroyProvider);
+    final repository = ref.watch(waxingRepositroyProvider);
     return ShopListState(
       repository: repository,
     );
@@ -51,7 +51,7 @@ final waxingProvider =
 
 final tanningListProvider = StateNotifierProvider<ShopListState, ShopList>(
   (ref) {
-    final repository = ref.watch(shopRepositroyProvider);
+    final repository = ref.watch(tanningRepositroyProvider);
     return ShopListState(
       repository: repository,
     );

@@ -27,3 +27,5 @@ final inquiryInfoTextShowProvier = StateProvider<bool>((ref) => true);
 
 final detailPageControllerProvider =
     Provider<PageController>((ref) => PageController());
+
+final withdrawalProvier = StateProvider<bool>((ref) => false);

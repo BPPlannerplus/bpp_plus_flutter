@@ -3,6 +3,7 @@ import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/provider_log.dart';
 import 'package:bpp_riverpod/app/util/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
@@ -16,6 +17,12 @@ void setupLocator() {
 
 void main() {
   setupLocator();
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Color(0xffe0e0e0),
+      // systemNavigationBarColor: Colors.blue,
+    ),
+  );
 
   runApp(
     ProviderScope(

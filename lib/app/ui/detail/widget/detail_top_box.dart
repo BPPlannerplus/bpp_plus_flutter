@@ -72,8 +72,11 @@ class DetailTopBox extends StatelessWidget {
         );
       },
       child: SizedBox.expand(
-        child: Image.network(
-          img,
+        child: Hero(
+          tag: 'profile$index',
+          child: Image.network(
+            img,
+          ),
         ),
       ),
     );

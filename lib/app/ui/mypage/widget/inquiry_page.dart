@@ -101,31 +101,37 @@ class InquiryPage extends StatelessWidget {
         ),
       ),
       child: Row(
-        mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const CircleAvatar(
-            radius: 32,
-            backgroundImage: NetworkImage(
-              'https://png.pngtree.com/png-clipart/20200727/original/pngtree-photography-studio-logo-template-png-image_5392695.jpg',
-            ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
             children: [
-              const Text(
-                '스튜디오',
-                style: BppTextStyle.defaultText,
+              const CircleAvatar(
+                radius: 32,
+                backgroundImage: NetworkImage(
+                  'https://png.pngtree.com/png-clipart/20200727/original/pngtree-photography-studio-logo-template-png-image_5392695.jpg',
+                ),
               ),
               const SizedBox(
-                height: 10,
+                width: 16,
               ),
-              Text(
-                'Vanguard',
-                style: BppTextStyle.tabText.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    '스튜디오',
+                    style: BppTextStyle.defaultText,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'Vanguard',
+                    style: BppTextStyle.tabText.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -146,6 +152,9 @@ class InquiryPage extends StatelessWidget {
                 onPressed: () {
                   reservationDateDialog();
                 },
+                style: ElevatedButton.styleFrom(
+                  primary: const Color(0xff3b75ff),
+                ),
                 child: SizedBox(
                   height: 33,
                   width: 100,

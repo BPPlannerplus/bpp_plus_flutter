@@ -41,7 +41,7 @@ final beautyPageControllerProvider =
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newItems = await ref.read(studioListProvider.notifier).getData();
+      final newItems = await ref.read(beautyListProvider.notifier).getData();
       final isLastPage = newItems.shopDatas.length < 20;
 
       if (isLastPage) {
@@ -69,7 +69,7 @@ final waxingPageControllerProvider =
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newItems = await ref.read(studioListProvider.notifier).getData();
+      final newItems = await ref.read(waxingListProvider.notifier).getData();
       final isLastPage = newItems.shopDatas.length < 20;
 
       if (isLastPage) {
@@ -97,7 +97,7 @@ final tanningPageControllerProvider =
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newItems = await ref.read(studioListProvider.notifier).getData();
+      final newItems = await ref.read(tanningListProvider.notifier).getData();
       final isLastPage = newItems.shopDatas.length < 20;
 
       if (isLastPage) {

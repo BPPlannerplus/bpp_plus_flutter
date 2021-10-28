@@ -39,7 +39,7 @@ class _ConceptWishGridState extends ConsumerState<ConceptWishGrid> {
               profile:
                   'https://www.sciencetimes.co.kr/wp-content/uploads/2021/08/1-%EC%A4%84%EB%A6%AC%EC%97%94%EA%B0%95-%EC%9D%B8%EC%8A%A4%ED%83%80%EA%B7%B8%EB%9E%A8-384x480.jpg',
               shop: IdNamePair(id: index, name: 'Concept $index'),
-              like: false)).toList();
+              like: true)).toList();
       final isLastPage = newItems.length < _pageSize;
 
       if (isLastPage) {

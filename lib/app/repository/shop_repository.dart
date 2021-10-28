@@ -5,7 +5,16 @@ import 'package:bpp_riverpod/app/model/shop_list.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final shopRepositroyProvider =
-    Provider<FakeShopRepositroy>((ref) => FakeShopRepositroy());
+    Provider<ShopRepository>((ref) => StudioRepository());
+
+final beautyRepositroyProvider =
+    Provider<ShopRepository>((ref) => BeautyRepository());
+
+final tanningRepositroyProvider =
+    Provider<ShopRepository>((ref) => TanningRepository());
+
+final waxingRepositroyProvider =
+    Provider<ShopRepository>((ref) => WaxingRepository());
 
 abstract class ShopRepository {
   Future<ShopList> getShopList();
@@ -14,7 +23,31 @@ abstract class ShopRepository {
   Future<ShopConcepts> getShopConcepts();
 }
 
-class FakeShopRepositroy implements ShopRepository {
+class StudioRepository implements ShopRepository {
+  @override
+  Future<ShopList> getShopList() async {
+    await Future.delayed(const Duration(seconds: 1));
+    return ShopList(
+      shopDatas: List.generate(
+        40,
+        (index) => ShopData(
+          id: index,
+          name: 'StudioShop $index',
+          address: '서울시 관악구',
+          like: false,
+          minPrice: 200000,
+          profile:
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSWX2EtpNdJxN2rTqCYLjdfjJA2TCZSem-jw&usqp=CAU',
+        ),
+      ).toList(),
+    );
+  }
+
+  @override
+  Future<void> setLike(int id) {
+    throw UnimplementedError();
+  }
+
   @override
   Future<ShopDetailData> getShopDetailData(int shopId) async {
     await Future.delayed(const Duration(seconds: 1));
@@ -49,30 +82,6 @@ class FakeShopRepositroy implements ShopRepository {
   }
 
   @override
-  Future<ShopList> getShopList() async {
-    await Future.delayed(const Duration(seconds: 1));
-    return ShopList(
-      shopDatas: List.generate(
-        40,
-        (index) => ShopData(
-          id: index,
-          name: 'Shop $index',
-          address: '서울시 관악구',
-          like: false,
-          minPrice: 200000,
-          profile:
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSWX2EtpNdJxN2rTqCYLjdfjJA2TCZSem-jw&usqp=CAU',
-        ),
-      ).toList(),
-    );
-  }
-
-  @override
-  Future<void> setLike(int id) {
-    throw UnimplementedError();
-  }
-
-  @override
   Future<ShopConcepts> getShopConcepts() async {
     await Future.delayed(const Duration(seconds: 1));
     return ShopConcepts(
@@ -97,9 +106,22 @@ class BeautyRepository implements ShopRepository {
   }
 
   @override
-  Future<ShopList> getShopList() {
-    // TODO: implement getShopList
-    throw UnimplementedError();
+  Future<ShopList> getShopList() async {
+    await Future.delayed(const Duration(seconds: 1));
+    return ShopList(
+      shopDatas: List.generate(
+        40,
+        (index) => ShopData(
+          id: index,
+          name: 'Beautyshop $index',
+          address: '서울시 관악구',
+          like: false,
+          minPrice: 300000,
+          profile:
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQkgt7DDEnw1KJd_DfIaMYFPCEJT1q4iAAmw&usqp=CAU',
+        ),
+      ).toList(),
+    );
   }
 
   @override
@@ -115,7 +137,7 @@ class BeautyRepository implements ShopRepository {
   }
 }
 
-class WaxingRepostiry implements ShopRepository {
+class WaxingRepository implements ShopRepository {
   @override
   Future<ShopDetailData> getShopDetailData(int shopId) {
     // TODO: implement getShopDetailData
@@ -123,9 +145,22 @@ class WaxingRepostiry implements ShopRepository {
   }
 
   @override
-  Future<ShopList> getShopList() {
-    // TODO: implement getShopList
-    throw UnimplementedError();
+  Future<ShopList> getShopList() async {
+    await Future.delayed(const Duration(seconds: 1));
+    return ShopList(
+      shopDatas: List.generate(
+        40,
+        (index) => ShopData(
+          id: index,
+          name: 'WaxingShop $index',
+          address: '서울시 관악구',
+          like: false,
+          minPrice: 50000,
+          profile:
+              'https://mblogthumb-phinf.pstatic.net/MjAyMDEwMDNfMTM2/MDAxNjAxNzEwODIyNDA4.mwf07nNjhNGpLnEkdj2s8NOjGiEoSdtWudZ8J1H2aFcg.-SyUA0hcggrQ7EsoB9jnHcbgTtM4q5hDvUSsTzm6APMg.JPEG.enway85/%EC%9D%B8%EC%8A%A4%ED%83%80%EC%9A%A9_(5).jpg?type=w800',
+        ),
+      ).toList(),
+    );
   }
 
   @override
@@ -149,9 +184,21 @@ class TanningRepository implements ShopRepository {
   }
 
   @override
-  Future<ShopList> getShopList() {
-    // TODO: implement getShopList
-    throw UnimplementedError();
+  Future<ShopList> getShopList() async {
+    await Future.delayed(const Duration(seconds: 1));
+    return ShopList(
+      shopDatas: List.generate(
+        40,
+        (index) => ShopData(
+          id: index,
+          name: 'TanningShop $index',
+          address: '서울시 관악구',
+          like: false,
+          minPrice: 150000,
+          profile: 'https://i.ytimg.com/vi/3odYULFS_28/maxresdefault.jpg',
+        ),
+      ).toList(),
+    );
   }
 
   @override

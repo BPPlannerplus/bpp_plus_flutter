@@ -14,7 +14,7 @@ conceptBottomSheet() {
   return Consumer(builder: (context, ref, _) {
     return Container(
       padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
-      height: 530,
+      height: 531,
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -43,7 +43,7 @@ conceptBottomSheet() {
               ),
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 12),
           filterColumn('인원', 0),
           filterColumn('성별', 1),
           filterColumn('배경', 2),

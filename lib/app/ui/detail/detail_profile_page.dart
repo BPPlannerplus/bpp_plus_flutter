@@ -38,20 +38,9 @@ class DetailProfilePage extends StatelessWidget {
                         .jumpToPage(pageIndex);
                   },
                   children: [
-                    SizedBox.expand(
-                      child: Image.network(
-                        profiles[0],
-                        height: 480.h,
-                      ),
-                    ),
-                    Image.network(
-                      profiles[1],
-                      height: 480.h,
-                    ),
-                    Image.network(
-                      profiles[2],
-                      height: 480.h,
-                    ),
+                    _imgPage(0),
+                    _imgPage(1),
+                    _imgPage(2),
                   ],
                 ),
               ),
@@ -81,6 +70,18 @@ class DetailProfilePage extends StatelessWidget {
             ],
           );
         }),
+      ),
+    );
+  }
+
+  Widget _imgPage(int index) {
+    return SizedBox.expand(
+      child: Hero(
+        tag: 'profile$index',
+        child: Image.network(
+          profiles[index],
+          height: 480.h,
+        ),
       ),
     );
   }

@@ -113,7 +113,7 @@ confirmReservationDialog() {
           width: 264,
           height: 117.84,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(16),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

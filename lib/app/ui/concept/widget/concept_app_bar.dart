@@ -65,7 +65,7 @@ class ConceptAppBar extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 22,
+              height: 12,
             ),
             Expanded(
               child: Container(
