@@ -10,9 +10,9 @@ class DetailAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       automaticallyImplyLeading: false,
-      expandedHeight: 56,
-      toolbarHeight: 56,
-      collapsedHeight: 56,
+      expandedHeight: 48,
+      toolbarHeight: 48,
+      collapsedHeight: 48,
       pinned: true,
       titleSpacing: 0.0,
       backgroundColor: Colors.white,

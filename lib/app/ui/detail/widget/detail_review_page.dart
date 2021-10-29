@@ -1,47 +1,42 @@
+import 'package:bpp_riverpod/app/model/review.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-class DetailReviewPage extends StatelessWidget {
-  const DetailReviewPage({Key? key}) : super(key: key);
+// 기본 64, 2줄 112, 4줄 148
+class DetailReviewPage extends ConsumerStatefulWidget {
+  const DetailReviewPage({Key? key, required this.pagingController})
+      : super(key: key);
+
+  final PagingController<int, Review> pagingController;
 
   @override
+  ConsumerState<DetailReviewPage> createState() => _DetailReviewPageState();
+}
+
+class _DetailReviewPageState extends ConsumerState<DetailReviewPage> {
+  @override
   Widget build(BuildContext context) {
-    return SliverList(
-      delegate: SliverChildListDelegate(
-        [
-          topReviewCard(),
-          reviewCard(
-            rating: 5,
-            name: '김**',
-            date: '21.09.25',
-            text: '너무 만족스러워요',
-          ),
-          reviewCard(
-            rating: 4,
-            name: '이**',
-            date: '21.09.16',
-            text:
-                '사진사 분께서 디렉팅을 잘해주셔서 너무 좋았어요! 찍을 때 많이 어색했는데, 디렉팅 덕분에 더 좋은 결과물 얻을 수 있었어요! 컨셉도 제가 생각하던 컨셉이라서 너무 좋았어요! 강추합니다!!',
-          ),
-          reviewCard(
-            rating: 5,
-            name: '김**',
-            date: '21.09.25',
-          ),
-          reviewCard(
-            rating: 4,
-            name: '이**',
-            date: '21.09.17',
-            text:
-                '사진사 분께서 디렉팅을 잘해주셔서 너무 좋았어요! 찍을 때 많이 어색했는데, 디렉팅 덕분에 더 좋은 결과물 얻을 수 있었어요! 컨셉도 제가 생각하던 컨셉이라서 너무 좋았어요! 강추합니다!!',
-          ),
-        ],
-      ),
+    return PagedSliverList(
+      pagingController: widget.pagingController,
+      builderDelegate: PagedChildBuilderDelegate<Review>(
+          itemBuilder: (context, review, index) {
+        if (index == 0) {
+          return topReviewCard();
+        }
+        return reviewCard(
+          rating: review.rate.toDouble(),
+          name: review.name,
+          date: review.date,
+          text: review.text,
+        );
+      }),
     );
   }
 
@@ -67,6 +62,7 @@ class DetailReviewPage extends StatelessWidget {
               Icons.star,
               color: Color(0xffffc142),
             ),
+            unratedColor: const Color(0xffe6e6e6),
             itemCount: 5,
             itemSize: 25.0,
             direction: Axis.horizontal,
@@ -83,9 +79,8 @@ class DetailReviewPage extends StatelessWidget {
     String? text,
   }) {
     return Container(
-      padding: const EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.only(top: 16),
       color: Colors.white,
-      height: text != null ? 160 : 72,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,6 +124,9 @@ class DetailReviewPage extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(
+            height: 8,
+          ),
           Container(
             height: 20,
             color: Colors.white,
@@ -140,6 +138,7 @@ class DetailReviewPage extends StatelessWidget {
                     Icons.star,
                     color: Color(0xffffc142),
                   ),
+                  unratedColor: const Color(0xffe6e6e6),
                   itemCount: 5,
                   itemSize: 25.0,
                   direction: Axis.horizontal,
@@ -155,7 +154,7 @@ class DetailReviewPage extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 12,
+            height: 16,
           ),
           Container(
             color: Colors.white,

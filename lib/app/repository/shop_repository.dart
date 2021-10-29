@@ -1,3 +1,5 @@
+import 'package:bpp_riverpod/app/model/review.dart';
+import 'package:bpp_riverpod/app/model/reviews.dart';
 import 'package:bpp_riverpod/app/model/shop_concept.dart';
 import 'package:bpp_riverpod/app/model/shop_data.dart';
 import 'package:bpp_riverpod/app/model/shop_detail_data.dart';
@@ -21,6 +23,7 @@ abstract class ShopRepository {
   Future<void> setLike(int id);
   Future<ShopDetailData> getShopDetailData(int shopId);
   Future<ShopConcepts> getShopConcepts();
+  Future<Reviews> getReviews();
 }
 
 class StudioRepository implements ShopRepository {
@@ -46,6 +49,24 @@ class StudioRepository implements ShopRepository {
   @override
   Future<void> setLike(int id) {
     throw UnimplementedError();
+  }
+
+  @override
+  Future<Reviews> getReviews() async {
+    await Future.delayed(const Duration(seconds: 1));
+    return Reviews(
+      reviews: List.generate(
+        20,
+        (index) => Review(
+          id: index,
+          name: '김**',
+          date: '21.09.26',
+          rate: 4,
+          text: '바프 너무 좋아요',
+        ),
+      ),
+      next: 'true',
+    );
   }
 
   @override
@@ -135,6 +156,12 @@ class BeautyRepository implements ShopRepository {
     // TODO: implement getShopConcepts
     throw UnimplementedError();
   }
+
+  @override
+  Future<Reviews> getReviews() {
+    // TODO: implement getReviews
+    throw UnimplementedError();
+  }
 }
 
 class WaxingRepository implements ShopRepository {
@@ -174,6 +201,12 @@ class WaxingRepository implements ShopRepository {
     // TODO: implement getShopConcepts
     throw UnimplementedError();
   }
+
+  @override
+  Future<Reviews> getReviews() {
+    // TODO: implement getReviews
+    throw UnimplementedError();
+  }
 }
 
 class TanningRepository implements ShopRepository {
@@ -210,6 +243,12 @@ class TanningRepository implements ShopRepository {
   @override
   Future<ShopConcepts> getShopConcepts() {
     // TODO: implement getShopConcepts
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Reviews> getReviews() {
+    // TODO: implement getReviews
     throw UnimplementedError();
   }
 }
