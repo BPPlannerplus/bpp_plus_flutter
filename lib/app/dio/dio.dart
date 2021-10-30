@@ -1,6 +1,13 @@
 import 'package:bpp_riverpod/app/api/auth_client.dart';
 import 'package:bpp_riverpod/app/model/token_data.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
+
+final tokenDioProvider = Provider<Dio>((ref) => tokenDio);
+final dioProvider = Provider<Dio>((ref) => dio);
+
+var logger = Logger();
 
 Dio tokenDio = Dio();
 
@@ -20,6 +27,7 @@ Dio dio = Dio(
         if (myToken == null) {
           dio.lock();
           authClient.login(TokenData(accessToken: 'access_token')).then((d) {
+            logger.d('access_token: ${d.accessToken}');
             myToken = d.accessToken;
             options.headers['Authorization'] = myToken;
             handler.next(options);

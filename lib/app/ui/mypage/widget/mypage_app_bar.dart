@@ -27,7 +27,8 @@ class MypageAppBar extends ConsumerWidget {
               Container(
                 color: const Color(0xffffffff),
                 height: 56,
-                child: Center(
+                child: FittedBox(
+                  fit: BoxFit.fitHeight,
                   child: Text(
                     '서현님\n환영합니다!',
                     style: BppTextStyle.screenText.copyWith(
@@ -54,23 +55,31 @@ class MypageAppBar extends ConsumerWidget {
           Container(
             color: const Color(0xffffffff),
             height: 31,
-            child: Row(
+            child: Stack(
               children: [
-                likeTabButton('문의내역', 0),
-                likeTabButton('예약일정', 1),
-                likeTabButton('예약내역', 2),
-                Expanded(
-                  child: Container(
-                    height: 31,
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          color: Color(0xfff2f2f2),
-                          width: 2.0,
-                        ),
+                Container(
+                  height: 31,
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Color(0xfff2f2f2),
+                        width: 2.0,
                       ),
                     ),
                   ),
+                ),
+                Row(
+                  children: [
+                    likeTabButton('문의내역', 0),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    likeTabButton('예약일정', 1),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    likeTabButton('예약내역', 2),
+                  ],
                 ),
               ],
             ),
@@ -137,8 +146,9 @@ class MypageAppBar extends ConsumerWidget {
           ref.read(myPageTabProvider).state = index;
         },
         child: Container(
-          width: 15.0 * title.length + 10,
+          width: 15.0 * title.length,
           height: 32,
+          padding: const EdgeInsets.only(bottom: 8),
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
@@ -149,19 +159,13 @@ class MypageAppBar extends ConsumerWidget {
               ),
             ),
           ),
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                right: 5,
-                left: 5,
-                bottom: 5,
-              ),
-              child: Text(
-                title,
-                style: ref.watch(myPageTabProvider).state == index
-                    ? BppTextStyle.tabText
-                    : BppTextStyle.defaultText,
-              ),
+          child: FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Text(
+              title,
+              style: ref.watch(myPageTabProvider).state == index
+                  ? BppTextStyle.tabText
+                  : BppTextStyle.defaultText,
             ),
           ),
         ),

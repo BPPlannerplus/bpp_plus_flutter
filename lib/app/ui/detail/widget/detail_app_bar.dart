@@ -18,23 +18,31 @@ class DetailAppBar extends StatelessWidget {
       backgroundColor: Colors.white,
       title: Padding(
         padding: const EdgeInsets.only(right: 16, left: 16),
-        child: Row(
+        child: Stack(
           children: [
-            tabButton('포트폴리오', 0),
-            tabButton('상세정보', 1),
-            tabButton('리뷰', 2),
-            Expanded(
-              child: Container(
-                height: 32,
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: Color(0xfff2f2f2),
-                      width: 1.0,
-                    ),
+            Container(
+              height: 32,
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Color(0xfff2f2f2),
+                    width: 1.0,
                   ),
                 ),
               ),
+            ),
+            Row(
+              children: [
+                tabButton('포트폴리오', 0),
+                const SizedBox(
+                  width: 16,
+                ),
+                tabButton('상세정보', 1),
+                const SizedBox(
+                  width: 16,
+                ),
+                tabButton('리뷰', 2),
+              ],
             ),
           ],
         ),
@@ -50,8 +58,9 @@ class DetailAppBar extends StatelessWidget {
           ref.read(detailTabProvider).state = index;
         },
         child: Container(
-          width: 15.0 * title.length + 10,
+          width: 15.0 * title.length,
           height: 32,
+          padding: const EdgeInsets.only(bottom: 8),
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
@@ -62,19 +71,13 @@ class DetailAppBar extends StatelessWidget {
               ),
             ),
           ),
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                right: 5,
-                left: 5,
-                bottom: 5,
-              ),
-              child: Text(
-                title,
-                style: ref.watch(detailTabProvider).state == index
-                    ? BppTextStyle.tabText.copyWith()
-                    : BppTextStyle.defaultText,
-              ),
+          child: FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Text(
+              title,
+              style: ref.watch(detailTabProvider).state == index
+                  ? BppTextStyle.tabText.copyWith()
+                  : BppTextStyle.defaultText,
             ),
           ),
         ),

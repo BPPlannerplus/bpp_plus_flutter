@@ -30,7 +30,15 @@ class MainPage extends ConsumerWidget {
         padding: const EdgeInsets.all(3),
         duration: const Duration(milliseconds: 300),
         height: visible.state ? 56 : 0,
-        color: const Color(0xffffffff),
+        decoration: const BoxDecoration(
+          color: Color(0xffffffff),
+          border: Border(
+            top: BorderSide(
+              color: Color(0xffe6e6e6),
+              width: 1,
+            ),
+          ),
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

@@ -22,35 +22,49 @@ class WishAppBar extends StatelessWidget {
               Container(
                 color: Colors.white,
                 height: 56,
-                child: const Center(
+                child: Center(
                   child: Text(
-                    '찜목록',
-                    style: BppTextStyle.tabText,
+                    '찜 목록',
+                    style: BppTextStyle.tabText.copyWith(fontSize: 20),
                   ),
                 ),
               ),
               Container(
                 color: Colors.white,
                 height: 31,
-                child: Row(
+                child: Stack(
                   children: [
-                    likeTabButton('스튜디오', 0),
-                    likeTabButton('헤어스튜디오', 1),
-                    likeTabButton('태닝', 2),
-                    likeTabButton('왁싱', 3),
-                    likeTabButton('컨셉', 4),
-                    Expanded(
-                      child: Container(
-                        height: 31,
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: Color(0xfff2f2f2),
-                              width: 2.0,
-                            ),
+                    Container(
+                      height: 31,
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Color(0xfff2f2f2),
+                            width: 2.0,
                           ),
                         ),
                       ),
+                    ),
+                    Row(
+                      children: [
+                        likeTabButton('스튜디오', 0),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        likeTabButton('헤어스튜디오', 1),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        likeTabButton('태닝', 2),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        likeTabButton('왁싱', 3),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        likeTabButton('컨셉', 4),
+                      ],
                     ),
                   ],
                 ),
@@ -69,8 +83,9 @@ class WishAppBar extends StatelessWidget {
           ref.read(wishTabProvider).state = index;
         },
         child: Container(
-          width: 15.0 * title.length + 10,
+          width: 15.0 * title.length,
           height: 32,
+          padding: const EdgeInsets.only(bottom: 8),
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
@@ -81,19 +96,13 @@ class WishAppBar extends StatelessWidget {
               ),
             ),
           ),
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                right: 5,
-                left: 5,
-                bottom: 5,
-              ),
-              child: Text(
-                title,
-                style: ref.watch(wishTabProvider).state == index
-                    ? BppTextStyle.tabText
-                    : BppTextStyle.defaultText,
-              ),
+          child: FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Text(
+              title,
+              style: ref.watch(wishTabProvider).state == index
+                  ? BppTextStyle.tabText
+                  : BppTextStyle.defaultText,
             ),
           ),
         ),

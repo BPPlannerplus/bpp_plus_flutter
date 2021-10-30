@@ -28,19 +28,8 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
     super.initState();
   }
 
-  // void scrollToTop() {
-  //   scrollController.animateTo(
-  //     0,
-  //     duration: const Duration(milliseconds: 300),
-  //     curve: Curves.linear,
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
-    // ref.listen(conceptTabProvider, (_) {
-    //   scrollToTop();
-    // });
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(right: 16, left: 16),

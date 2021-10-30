@@ -26,30 +26,38 @@ homeBottomSheet(int index) {
         ),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            '스튜디오 지역 선택',
-            style: BppTextStyle.defaultText,
-          ),
-          Wrap(
-            crossAxisAlignment: WrapCrossAlignment.start,
-            // spacing: 8,
-            runSpacing: 8,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              for (var i = 0; i < filter.length; i++)
-                InkWell(
-                  onTap: () {
-                    ref
-                        .read(studioFilterProvider.notifier)
-                        .toggleFilterState(i);
-                  },
-                  child: toggleIcon(
-                    filter[i].id,
-                    filter[i].check,
-                  ),
-                )
+              const Text(
+                '스튜디오 지역 선택',
+                style: BppTextStyle.defaultText,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Wrap(
+                crossAxisAlignment: WrapCrossAlignment.start,
+                // spacing: 8,
+                runSpacing: 8,
+                children: [
+                  for (var i = 0; i < filter.length; i++)
+                    InkWell(
+                      onTap: () {
+                        ref
+                            .read(studioFilterProvider.notifier)
+                            .toggleFilterState(i);
+                      },
+                      child: toggleIcon(
+                        filter[i].id,
+                        filter[i].check,
+                      ),
+                    )
+                ],
+              ),
             ],
           ),
           ElevatedButton(
@@ -98,10 +106,9 @@ Widget toggleIcon(String text, bool isCheck) {
       child: Center(
         child: Text(
           text,
-          style: TextStyle(
-            fontSize: 13,
+          style: BppTextStyle.smallText.copyWith(
             color: isCheck
-                ? Colors.white
+                ? const Color(0xffffffff)
                 : const Color(
                     0xff595959,
                   ),

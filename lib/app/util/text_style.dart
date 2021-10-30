@@ -42,4 +42,12 @@ class BppTextStyle {
     color: Colors.black,
     fontFamily: 'Roboto',
   );
+
+  static String isEng(String str) {
+    if (str.startsWith(RegExp(r'[a-z][A-Z]'))) {
+      return 'Roboto';
+    } else {
+      return 'Noto_Sans_KR';
+    }
+  }
 }

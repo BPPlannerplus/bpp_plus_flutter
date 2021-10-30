@@ -20,7 +20,6 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Color(0xffe0e0e0),
-      // systemNavigationBarColor: Colors.blue,
     ),
   );
 

@@ -27,6 +27,9 @@ dependencies:
   intl: ^0.17.0
   infinite_scroll_pagination: ^3.1.0
   url_launcher: ^6.0.12
+  mockito:
+  logger: ^1.1.0
+  flutter_kakao_login: ^3.4.0
 
   cupertino_icons: ^1.0.2
 

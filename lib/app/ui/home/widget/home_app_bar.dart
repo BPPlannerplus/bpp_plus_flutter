@@ -23,24 +23,35 @@ class HomeAppBar extends StatelessWidget {
       toolbarHeight: 56,
       collapsedHeight: 56,
       centerTitle: false,
-      title: Row(
+      title: Stack(
         children: [
-          tabButton('스튜디오', 0),
-          tabButton('헤어메이크업', 1),
-          tabButton('왁싱', 2),
-          tabButton('태닝', 3),
-          Expanded(
-            child: Container(
-              height: 32,
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: const Color(0xfff2f2f2),
-                    width: 1.0.h,
-                  ),
+          Container(
+            height: 32,
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: const Color(0xfff2f2f2),
+                  width: 1.0.h,
                 ),
               ),
             ),
+          ),
+          Row(
+            children: [
+              tabButton('스튜디오', 0),
+              const SizedBox(
+                width: 16,
+              ),
+              tabButton('헤어메이크업', 1),
+              const SizedBox(
+                width: 16,
+              ),
+              tabButton('왁싱', 2),
+              const SizedBox(
+                width: 16,
+              ),
+              tabButton('태닝', 3),
+            ],
           ),
         ],
       ),
@@ -108,8 +119,9 @@ class HomeAppBar extends StatelessWidget {
           ref.read(homeTabProvider).state = index;
         },
         child: Container(
-          width: 15.0 * title.length + 10,
+          width: 15.0 * title.length,
           height: 32,
+          padding: const EdgeInsets.only(bottom: 8),
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
@@ -121,19 +133,13 @@ class HomeAppBar extends StatelessWidget {
               ),
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.only(
-              right: 5,
-              left: 5,
-              bottom: 5,
-            ),
-            child: Center(
-              child: Text(
-                title,
-                style: ref.watch(homeTabProvider).state == index
-                    ? BppTextStyle.tabText.copyWith()
-                    : BppTextStyle.defaultText,
-              ),
+          child: FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Text(
+              title,
+              style: ref.watch(homeTabProvider).state == index
+                  ? BppTextStyle.tabText.copyWith()
+                  : BppTextStyle.defaultText,
             ),
           ),
         ),

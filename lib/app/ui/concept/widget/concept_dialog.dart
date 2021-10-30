@@ -11,7 +11,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget conceptDialog(Concept c) {
+Widget conceptDialog({
+  required Concept concept,
+  // required ConceptState conceptState,
+}) {
   return Dialog(
     insetPadding: const EdgeInsets.all(1),
     shape: const RoundedRectangleBorder(
@@ -32,82 +35,82 @@ Widget conceptDialog(Concept c) {
       ),
       height: 387.h,
       width: 360.w,
-      child: Consumer(builder: (context, ref, _) {
-        final concept = ref.watch(conceptProvider(c));
-
-        return Stack(
-          alignment: AlignmentDirectional.bottomCenter,
-          children: [
-            Positioned.fill(
-              child: Image.network(
-                concept.profile,
-                fit: BoxFit.fill,
-              ),
+      child: Stack(
+        alignment: AlignmentDirectional.bottomCenter,
+        children: [
+          Positioned.fill(
+            child: Image.network(
+              concept.profile,
+              fit: BoxFit.fill,
             ),
-            Opacity(
-              opacity: 0.5,
-              child: Container(
-                height: 40,
-                color: Colors.grey,
-              ),
+          ),
+          Opacity(
+            opacity: 0.5,
+            child: Container(
+              height: 40,
+              color: Colors.grey,
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 16,
-                right: 16,
-                top: 2,
-                bottom: 4,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      locator<NavigationService>().navigateTo(
-                        routeName: AppRoutes.detailPage,
-                        argument: concept.id,
-                      );
-                    },
-                    child: Row(
-                      children: [
-                        const Text(
-                          'Studio name',
-                          style: BppTextStyle.dialogText,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 16,
+              right: 16,
+              top: 2,
+              bottom: 4,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () {
+                    locator<NavigationService>().navigateTo(
+                      routeName: AppRoutes.detailPage,
+                      argument: concept.id,
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      const Text(
+                        'Studio name',
+                        style: BppTextStyle.dialogText,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Transform.rotate(
+                        angle: pi,
+                        child: const Icon(
+                          Icons.arrow_back_ios_new,
+                          color: Color(0xffffffff),
+                          size: 25,
                         ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Transform.rotate(
-                          angle: pi,
-                          child: const Icon(
-                            Icons.arrow_back_ios_new,
-                            color: Color(0xffffffff),
-                            size: 25,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  InkWell(
+                ),
+                Consumer(builder: (context, ref, _) {
+                  final c = ref.watch(conceptProvider(concept));
+
+                  return InkWell(
                     onTap: () {
-                      ref.read(conceptProvider(c).notifier).setLike(concept.id);
+                      ref
+                          .read(conceptProvider(concept).notifier)
+                          .setLike(concept.id);
                     },
                     child: Icon(
-                      concept.like
-                          ? CupertinoIcons.heart_fill
-                          : CupertinoIcons.heart,
-                      color: concept.like
+                      c.like ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
+                      color: c.like
                           ? const Color(0xffff5757)
                           : const Color(0xffffffff),
                       size: 30,
                     ),
-                  ),
-                ],
-              ),
+                  );
+                }),
+              ],
             ),
-          ],
-        );
-      }),
+          ),
+        ],
+      ),
     ),
   );
 }

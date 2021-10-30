@@ -1,10 +1,10 @@
 import 'package:bpp_riverpod/app/model/concept.dart';
-import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
 import 'package:bpp_riverpod/app/provider/concept/concpet_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class ConceptGrid extends ConsumerStatefulWidget {
@@ -22,21 +22,21 @@ class _ConceptGridState extends ConsumerState<ConceptGrid> {
       showNewPageProgressIndicatorAsGridChild: false,
       showNewPageErrorIndicatorAsGridChild: false,
       showNoMoreItemsIndicatorAsGridChild: false,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        mainAxisExtent: 144,
+        mainAxisExtent: 144.h,
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,
         childAspectRatio: 100 / 150,
       ),
       builderDelegate: PagedChildBuilderDelegate<Concept>(
-        itemBuilder: (context, c, index) {
-          final concept = ref.watch(conceptProvider(c));
-          final conceptState = ref.read(conceptProvider(c).notifier);
+        itemBuilder: (context, concept, index) {
+          // final concept = ref.watch(conceptProvider(c));
+          // final conceptState = ref.read(conceptProvider(c).notifier);
 
           return conceptCard(
             concept: concept,
-            stateRead: conceptState,
+            // stateRead: conceptState,
           );
         },
       ),

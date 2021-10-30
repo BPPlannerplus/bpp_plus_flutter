@@ -60,7 +60,11 @@ Widget homeGridCard({
       ),
       Text(
         shop.name,
-        style: BppTextStyle.tabText,
+        style: BppTextStyle.tabText.copyWith(
+          fontFamily: 'Roboto',
+          fontWeight: FontWeight.w500,
+          // fontFamily: BppTextStyle.isEng(shop.name),
+        ),
       ),
       Text(
         shop.address,

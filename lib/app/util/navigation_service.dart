@@ -12,6 +12,17 @@ class NavigationService {
     );
   }
 
+  Future<void> navigateToRemove({
+    required String routeName,
+    Object? argument,
+  }) {
+    return navigatorKey.currentState!.pushNamedAndRemoveUntil(
+      routeName,
+      (route) => false,
+      arguments: argument,
+    );
+  }
+
   void pop() {
     return navigatorKey.currentState!.pop();
   }
