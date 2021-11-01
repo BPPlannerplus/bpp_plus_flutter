@@ -1,10 +1,12 @@
 import 'dart:math';
 
+import 'package:bpp_riverpod/app/provider/review_provider.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -87,21 +89,25 @@ class ReviewWritePage extends StatelessWidget {
                       const SizedBox(
                         height: 16,
                       ),
-                      RatingBar.builder(
-                        initialRating: 3,
-                        minRating: 0,
-                        glow: false,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 5,
-                        itemPadding:
-                            const EdgeInsets.symmetric(horizontal: 4.0),
-                        itemBuilder: (context, _) => const Icon(
-                          Icons.star,
-                          color: Color(0xffffc142),
-                        ),
-                        onRatingUpdate: (rating) {},
-                      ),
+                      Consumer(builder: (context, ref, _) {
+                        return RatingBar.builder(
+                          initialRating: ref.watch(reviewScoreProvider).state,
+                          minRating: 0,
+                          glow: false,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          itemPadding:
+                              const EdgeInsets.symmetric(horizontal: 4.0),
+                          itemBuilder: (context, _) => const Icon(
+                            Icons.star,
+                            color: Color(0xffffc142),
+                          ),
+                          onRatingUpdate: (rating) {
+                            ref.read(reviewScoreProvider).state = rating;
+                          },
+                        );
+                      }),
                     ],
                   ),
                 ),
@@ -121,24 +127,37 @@ class ReviewWritePage extends StatelessWidget {
                 SizedBox(
                   height: 145.h,
                 ),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    primary: const Color(0xff3b75ff),
-                  ),
-                  child: SizedBox(
-                    width: 328.w,
-                    height: 48,
-                    child: Center(
-                      child: Text(
-                        '등록하기',
-                        style: BppTextStyle.tabText.copyWith(
-                          color: const Color(0xffffffff),
+                Consumer(builder: (context, ref, _) {
+                  return ElevatedButton(
+                    onPressed: ref.watch(reviewScoreProvider).state == 0.0
+                        ? null
+                        : () {},
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith(
+                        (states) {
+                          if (states.contains(MaterialState.disabled)) {
+                            return const Color(0xfff2f2f2);
+                          }
+                          return const Color(0xff3b75ff);
+                        },
+                      ),
+                    ),
+                    child: SizedBox(
+                      width: 328.w,
+                      height: 48,
+                      child: Center(
+                        child: Text(
+                          '등록하기',
+                          style: BppTextStyle.tabText.copyWith(
+                            color: ref.watch(reviewScoreProvider).state == 0.0
+                                ? const Color(0xffbfbfbf)
+                                : const Color(0xffffffff),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
+                  );
+                }),
               ],
             ),
           ),

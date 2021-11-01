@@ -44,7 +44,7 @@ class InquiryPage extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 8.0),
                   child: SvgPicture.asset(
                     'assets/image/inquiry_text.svg',
-                    height: 40.h,
+                    width: 311.w,
                   ),
                 ),
                 Positioned(

@@ -1,7 +1,9 @@
+import 'package:bpp_riverpod/app/provider/report_provider.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -22,11 +24,14 @@ class ReportPage extends StatelessWidget {
             onTap: () {
               locator<NavigationService>().pop();
             },
-            child: const Icon(
-              Icons.arrow_back,
-              color: Color(0xff000000),
+            child: SvgPicture.asset(
+              'assets/icon/ic_back.svg',
+              color: const Color(0xff000000),
+              width: 20,
+              height: 20,
             ),
           ),
+          toolbarHeight: 40,
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -38,21 +43,25 @@ class ReportPage extends StatelessWidget {
                   '신고하시는 이유를 선택해주세요',
                   style: BppTextStyle.tabText,
                 ),
-                reportRow('음란, 욕설 등 부적절한 내용', true),
-                reportRow('부적절한 홍보 또는 광고 내용', true),
-                reportRow('개인 정보 노출', false),
-                reportRow('불법 정보 기재', false),
-                reportRow('기타(직접 입력)', false),
+                SizedBox(
+                  height: 16.h,
+                ),
+                reportRow('음란, 욕설 등 부적절한 내용', 0),
+                reportRow('부적절한 홍보 또는 광고 내용', 1),
+                reportRow('개인 정보 노출', 2),
+                reportRow('불법 정보 기재', 3),
+                reportRow('기타(직접 입력)', 4),
                 const SizedBox(
                   height: 128,
                   child: TextField(
                     maxLines: 8,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
+                      hintText: '신고하시는 이유를 입력해주세요',
                     ),
                   ),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 16.h),
                 Container(
                   height: 56,
                   width: double.infinity,
@@ -60,37 +69,46 @@ class ReportPage extends StatelessWidget {
                   child: Center(
                     child: SvgPicture.asset(
                       'assets/image/report_text.svg',
-                      height: 25.h,
+                      width: 312.w,
                     ),
                   ),
                 ),
-                const SizedBox(height: 100),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith(
-                      (states) {
-                        if (states.contains(MaterialState.disabled)) {
-                          return Colors.grey;
-                        }
-                        return Colors.black;
-                      },
+                SizedBox(height: 100.h),
+                Consumer(builder: (context, ref, _) {
+                  final check = ref.watch(isReportCheckProvider);
+                  return ElevatedButton(
+                    onPressed: check
+                        ? () {
+                            locator<NavigationService>().pop();
+                          }
+                        : null,
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith(
+                        (states) {
+                          if (states.contains(MaterialState.disabled)) {
+                            return const Color(0xfff2f2f2);
+                          }
+                          return const Color(0xff000000);
+                        },
+                      ),
                     ),
-                  ),
-                  child: SizedBox(
-                    width: 328.w,
-                    height: 48.h,
-                    child: Center(
-                      child: Text(
-                        '신고하기',
-                        style: BppTextStyle.tabText.copyWith(
-                          color: Colors.white,
-                          fontSize: BppTextStyle.tabText.fontSize!.sp,
+                    child: SizedBox(
+                      width: 328.w,
+                      height: 48.h,
+                      child: Center(
+                        child: Text(
+                          '신고하기',
+                          style: BppTextStyle.tabText.copyWith(
+                            color: check
+                                ? const Color(0xffffffff)
+                                : const Color(0xffbfbfbf),
+                            fontSize: BppTextStyle.tabText.fontSize!.sp,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                )
+                  );
+                }),
               ],
             ),
           ),
@@ -99,19 +117,25 @@ class ReportPage extends StatelessWidget {
     );
   }
 
-  Widget reportRow(String title, bool isCheck) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: InkWell(
-        onTap: () {},
+  Widget reportRow(String title, int index) {
+    return Consumer(builder: (context, ref, _) {
+      final checks = ref.watch(reportCheckProvider);
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 8),
         child: Row(
           children: [
-            SvgPicture.asset(
-              isCheck
-                  ? 'assets/icon/ic_check_on.svg'
-                  : 'assets/icon/ic_check_none.svg',
-              width: 32,
-              height: 32,
+            InkWell(
+              onTap: () {
+                ref.read(reportCheckProvider.notifier).checking(index);
+              },
+              borderRadius: BorderRadius.circular(16),
+              child: SvgPicture.asset(
+                checks[index]
+                    ? 'assets/icon/ic_check_on.svg'
+                    : 'assets/icon/ic_check_none.svg',
+                width: 32,
+                height: 32,
+              ),
             ),
             const SizedBox(
               width: 8,
@@ -122,7 +146,7 @@ class ReportPage extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
+      );
+    });
   }
 }

@@ -83,6 +83,7 @@ class WithdrawalPage extends StatelessWidget {
                               ref.read(withdrawalProvier).state =
                                   !ref.read(withdrawalProvier).state;
                             },
+                            borderRadius: BorderRadius.circular(16),
                             child: SvgPicture.asset(
                               !isWithdrawal
                                   ? 'assets/icon/ic_check_none.svg'
