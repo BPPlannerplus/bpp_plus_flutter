@@ -70,7 +70,7 @@ Widget conceptDialog({
                   },
                   child: Row(
                     children: [
-                      const Text(
+                      Text(
                         'Studio name',
                         style: BppTextStyle.dialogText,
                       ),

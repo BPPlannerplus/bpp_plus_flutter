@@ -33,7 +33,7 @@ class WithdrawalPage extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     '회원탈퇴',
                     style: BppTextStyle.bigScreenText,
                   ),
@@ -91,7 +91,7 @@ class WithdrawalPage extends StatelessWidget {
                             ),
                           );
                         }),
-                        const Text(
+                        Text(
                           '안내사항을 확인하였으며, 동의합니다.',
                           style: BppTextStyle.smallText,
                         )

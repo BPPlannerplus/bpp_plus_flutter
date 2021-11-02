@@ -25,7 +25,7 @@ reservationDetailDialog() {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       '9월 27일',
                       style: BppTextStyle.defaultText,
                     ),

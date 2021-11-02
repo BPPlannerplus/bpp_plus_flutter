@@ -14,7 +14,7 @@ class MyReviewPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text(
+          title: Text(
             '내 리뷰 보기',
             style: BppTextStyle.defaultText,
           ),
@@ -46,7 +46,7 @@ class MyReviewPage extends StatelessWidget {
                     const SizedBox(
                       height: 5,
                     ),
-                    const Text(
+                    Text(
                       '아날로그핏',
                       style: BppTextStyle.tabText,
                     )
@@ -73,7 +73,7 @@ class MyReviewPage extends StatelessWidget {
                     const SizedBox(
                       width: 12,
                     ),
-                    const Text(
+                    Text(
                       '4.6',
                       style: BppTextStyle.filterText,
                     )
@@ -83,7 +83,7 @@ class MyReviewPage extends StatelessWidget {
               const SizedBox(
                 height: 12,
               ),
-              const Text(
+              Text(
                 '바프 촬용이 처음인데 잘 해주셔서 너무 좋았습니다!\n다음번에 또 재촬영 하고 싶어요',
                 style: BppTextStyle.smallText,
               ),

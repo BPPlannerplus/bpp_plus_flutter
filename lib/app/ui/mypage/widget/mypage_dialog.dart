@@ -124,7 +124,7 @@ confirmReservationDialog() {
                   const SizedBox(
                     width: 5,
                   ),
-                  const Text(
+                  Text(
                     '일정이 저장되었습니다!',
                     style: BppTextStyle.defaultText,
                   ),

@@ -6,6 +6,7 @@ import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 homeBottomSheet(int index) {
   return Consumer(builder: (context, ref, _) {
@@ -32,16 +33,17 @@ homeBottomSheet(int index) {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 '스튜디오 지역 선택',
-                style: BppTextStyle.defaultText,
+                style: BppTextStyle.defaultText.copyWith(
+                  fontSize: 16.sp,
+                ),
               ),
               const SizedBox(
                 height: 16,
               ),
               Wrap(
                 crossAxisAlignment: WrapCrossAlignment.start,
-                // spacing: 8,
                 runSpacing: 8,
                 children: [
                   for (var i = 0; i < filter.length; i++)
@@ -112,6 +114,8 @@ Widget toggleIcon(String text, bool isCheck) {
                 : const Color(
                     0xff595959,
                   ),
+            fontWeight: isCheck ? FontWeight.w700 : null,
+            fontSize: 14.sp,
           ),
         ),
       ),

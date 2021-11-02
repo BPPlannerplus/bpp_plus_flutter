@@ -26,15 +26,15 @@ class ReservationDetailPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                Padding(
+              children: [
+                const Padding(
                   padding: EdgeInsets.all(6.0),
                   child: CircleAvatar(
                     radius: 4,
                     backgroundColor: Color(0xff4c81ff),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 16,
                 ),
                 Text(

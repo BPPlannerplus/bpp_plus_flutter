@@ -25,7 +25,7 @@ class SettingPage extends StatelessWidget {
               'assets/icon/ic_back.svg',
             ),
           ),
-          title: const Text(
+          title: Text(
             '설정',
             style: BppTextStyle.tabText,
           ),
@@ -35,7 +35,7 @@ class SettingPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 '라이센스',
                 style: BppTextStyle.defaultText,
               ),
@@ -50,7 +50,7 @@ class SettingPage extends StatelessWidget {
               SizedBox(
                 height: 12.h,
               ),
-              const Text(
+              Text(
                 '로그아웃',
                 style: BppTextStyle.defaultText,
               ),
@@ -71,7 +71,7 @@ class SettingPage extends StatelessWidget {
                     routeName: AppRoutes.withdrawalPage,
                   );
                 },
-                child: const Text(
+                child: Text(
                   '회원탈퇴',
                   style: BppTextStyle.defaultText,
                 ),

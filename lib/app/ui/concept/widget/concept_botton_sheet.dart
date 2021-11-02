@@ -27,7 +27,7 @@ conceptBottomSheet() {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 '컨셉필터',
                 style: BppTextStyle.defaultText,
               ),
@@ -74,8 +74,9 @@ conceptBottomSheet() {
               child: Center(
                 child: Text(
                   '선택완료',
-                  style: BppTextStyle.tabText
-                      .copyWith(color: const Color(0xffffffff)),
+                  style: BppTextStyle.tabText.copyWith(
+                    color: const Color(0xffffffff),
+                  ),
                 ),
               ),
             ),

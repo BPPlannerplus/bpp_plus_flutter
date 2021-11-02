@@ -75,7 +75,7 @@ class InquiryPage extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const [
+        children: [
           Text(
             '문의중 업체 2',
             style: BppTextStyle.smallText,
@@ -120,7 +120,7 @@ class InquiryPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     '스튜디오',
                     style: BppTextStyle.defaultText,
                   ),
@@ -150,17 +150,18 @@ class InquiryPage extends StatelessWidget {
                   size: 20,
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  reservationDateDialog();
-                  // dateDialog();
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: const Color(0xff3b75ff),
-                ),
-                child: SizedBox(
-                  height: 33,
-                  width: 100,
+              SizedBox(
+                height: 33,
+                width: 100,
+                child: ElevatedButton(
+                  onPressed: () {
+                    reservationDateDialog();
+                    // dateDialog();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: const Color(0xff3b75ff),
+                    elevation: 0,
+                  ),
                   child: Center(
                     child: Text(
                       '일정입력',

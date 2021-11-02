@@ -7,6 +7,7 @@ import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MainPage extends ConsumerWidget {
@@ -109,7 +110,7 @@ class MainPage extends ConsumerWidget {
                       color: ref.read(navigationProvier).state == index
                           ? const Color(0xff3B75FF)
                           : Colors.black,
-                      fontSize: 10,
+                      fontSize: 10.sp,
                     ),
                   ),
                 ],

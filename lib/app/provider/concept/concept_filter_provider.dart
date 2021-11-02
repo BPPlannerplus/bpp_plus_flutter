@@ -147,3 +147,15 @@ final conceptReqFilter = StateProvider<ConceptFilter>(
     cloth: [],
   ),
 );
+
+final concpetFilterEmptyProvider = Provider<bool>((ref) {
+  final conceptFilters = ref.watch(conceptFilter).state;
+  if (conceptFilters.headNum.isEmpty &&
+      conceptFilters.gender.isEmpty &&
+      conceptFilters.background.isEmpty &&
+      conceptFilters.prop.isEmpty &&
+      conceptFilters.cloth.isEmpty) {
+    return false;
+  }
+  return true;
+});

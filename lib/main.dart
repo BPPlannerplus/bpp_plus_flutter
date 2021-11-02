@@ -6,14 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get_it/get_it.dart';
-
-GetIt locator = GetIt.instance;
-void setupLocator() {
-  locator.registerLazySingleton<NavigationService>(
-    () => NavigationService(),
-  );
-}
 
 void main() {
   setupLocator();
@@ -45,8 +37,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: AppRoutes.loginPage,
         onGenerateRoute: (settings) => AppRouter.onGenerateRoute(settings),
-        theme: theme,
         navigatorKey: locator<NavigationService>().navigatorKey,
+        theme: theme,
+        scrollBehavior: MyBehavior(),
       ),
     );
   }

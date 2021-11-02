@@ -60,7 +60,11 @@ Widget wishGridCard({
       ),
       Text(
         shop.name,
-        style: BppTextStyle.tabText,
+        style: BppTextStyle.tabText.copyWith(
+          fontWeight: BppTextStyle.isEng(shop.name) ? FontWeight.w500 : null,
+          fontFamily: BppTextStyle.isEng(shop.name) ? 'Roboto' : null,
+          fontSize: BppTextStyle.isEng(shop.name) ? 14.sp : null,
+        ),
       ),
       Text(
         shop.address,

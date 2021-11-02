@@ -6,6 +6,7 @@ import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class ConceptWishGrid extends ConsumerStatefulWidget {
@@ -60,9 +61,9 @@ class _ConceptWishGridState extends ConsumerState<ConceptWishGrid> {
       showNewPageProgressIndicatorAsGridChild: false,
       showNewPageErrorIndicatorAsGridChild: false,
       showNoMoreItemsIndicatorAsGridChild: false,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        mainAxisExtent: 144,
+        mainAxisExtent: 144.h,
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,
         childAspectRatio: 100 / 150,
@@ -102,7 +103,8 @@ class _ConceptWishGridState extends ConsumerState<ConceptWishGrid> {
             borderRadius: BorderRadius.circular(8),
             child: Image.network(
               profile,
-              height: 144,
+              height: 144.h,
+              width: double.infinity,
               fit: BoxFit.fill,
             ),
           ),

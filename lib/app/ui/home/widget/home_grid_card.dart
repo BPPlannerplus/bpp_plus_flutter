@@ -4,7 +4,6 @@ import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
-import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -61,9 +60,9 @@ Widget homeGridCard({
       Text(
         shop.name,
         style: BppTextStyle.tabText.copyWith(
-          // fontFamily: 'Roboto',
-          fontWeight: FontWeight.w500,
-          fontFamily: BppTextStyle.isEng(shop.name),
+          fontWeight: BppTextStyle.isEng(shop.name) ? FontWeight.w500 : null,
+          fontFamily: BppTextStyle.isEng(shop.name) ? 'Roboto' : null,
+          fontSize: BppTextStyle.isEng(shop.name) ? 14.sp : null,
         ),
       ),
       Text(

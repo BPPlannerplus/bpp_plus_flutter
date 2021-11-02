@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:bpp_riverpod/app/provider/review_provider.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
-import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,7 +19,7 @@ class ReviewWritePage extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           centerTitle: true,
-          title: const Text(
+          title: Text(
             '리뷰 작성하기',
             style: BppTextStyle.defaultText,
           ),
@@ -62,7 +61,7 @@ class ReviewWritePage extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            const Text(
+                            Text(
                               '아날로그핏',
                               style: BppTextStyle.tabText,
                             ),
@@ -87,7 +86,7 @@ class ReviewWritePage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           '만족스러우셨나요?\n경험을 공유해주세요!',
                           style: BppTextStyle.tabText,
                         ),

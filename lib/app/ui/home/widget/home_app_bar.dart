@@ -39,17 +39,11 @@ class HomeAppBar extends StatelessWidget {
           Row(
             children: [
               tabButton('스튜디오', 0),
-              const SizedBox(
-                width: 16,
-              ),
+              const SizedBox(width: 16),
               tabButton('헤어메이크업', 1),
-              const SizedBox(
-                width: 16,
-              ),
+              const SizedBox(width: 16),
               tabButton('왁싱', 2),
-              const SizedBox(
-                width: 16,
-              ),
+              const SizedBox(width: 16),
               tabButton('태닝', 3),
             ],
           ),
@@ -97,7 +91,7 @@ class HomeAppBar extends StatelessWidget {
                         width: 30,
                         height: 30,
                       ),
-                      const Text(
+                      Text(
                         '필터',
                         style: BppTextStyle.filterText,
                       ),
@@ -138,7 +132,7 @@ class HomeAppBar extends StatelessWidget {
             child: Text(
               title,
               style: ref.watch(homeTabProvider).state == index
-                  ? BppTextStyle.tabText.copyWith()
+                  ? BppTextStyle.tabText
                   : BppTextStyle.defaultText,
             ),
           ),

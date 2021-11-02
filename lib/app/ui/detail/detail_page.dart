@@ -188,7 +188,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                   ),
                   SizedBox(
                     height: 44,
-                    width: 272,
+                    width: 272.w,
                     child: ElevatedButton(
                       onPressed: () async {
                         await launch(shopData.kakaoUrl);

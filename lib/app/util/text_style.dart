@@ -1,53 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BppTextStyle {
-  static const bigScreenText = TextStyle(
-    fontSize: 22,
+  static final bigScreenText = TextStyle(
+    fontSize: 22.sp,
     fontWeight: FontWeight.w700,
-    color: Colors.black,
+    color: const Color(0xff000000),
   );
-  static const screenText = TextStyle(
-    fontSize: 20,
+  static final screenText = TextStyle(
+    fontSize: 20.sp,
     fontWeight: FontWeight.w400,
-    color: Colors.black,
+    color: const Color(0xff000000),
   );
-  static const dialogText = TextStyle(
-    fontSize: 18,
+  static final dialogText = TextStyle(
+    fontSize: 18.sp,
     fontWeight: FontWeight.w700,
-    color: Colors.white,
+    color: const Color(0xffffffff),
   );
-  static const tabText = TextStyle(
-    fontSize: 16,
+  static final tabText = TextStyle(
+    fontSize: 16.sp,
     fontWeight: FontWeight.w700,
-    color: Colors.black,
+    color: const Color(0xff000000),
   );
-  static const defaultText = TextStyle(
-    fontSize: 16,
+  static final defaultText = TextStyle(
+    fontSize: 16.sp,
     fontWeight: FontWeight.w400,
-    color: Colors.black,
+    color: const Color(0xff000000),
   );
-  static const smallText = TextStyle(
-    fontSize: 14,
+  static final smallText = TextStyle(
+    fontSize: 14.sp,
     fontWeight: FontWeight.w400,
-    color: Colors.black,
+    color: const Color(0xff000000),
   );
-  static const filterText = TextStyle(
-    fontSize: 13,
+  static final filterText = TextStyle(
+    fontSize: 13.sp,
     fontWeight: FontWeight.w400,
-    color: Colors.black,
+    color: const Color(0xff000000),
   );
-  static const engShopNameText = TextStyle(
-    fontSize: 14,
+  static final engShopNameText = TextStyle(
+    fontSize: 14.sp,
     fontWeight: FontWeight.w500,
-    color: Colors.black,
+    color: const Color(0xff000000),
     fontFamily: 'Roboto',
   );
 
-  static String isEng(String str) {
-    if (str.startsWith(RegExp(r'[a-z][A-Z]'))) {
-      return 'Roboto';
+  static bool isEng(String str) {
+    if (str.startsWith(RegExp(r'[a-zA-Z]'))) {
+      return true;
     } else {
-      return 'Noto_Sans_KR';
+      return false;
     }
   }
 }

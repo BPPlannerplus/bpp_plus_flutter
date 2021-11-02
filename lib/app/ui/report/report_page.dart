@@ -19,11 +19,12 @@ class ReportPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           centerTitle: true,
-          title: const Text(
+          title: Text(
             '리뷰 신고하기',
-            style: BppTextStyle.defaultText,
+            style: BppTextStyle.defaultText.copyWith(fontSize: 16.sp),
           ),
           leading: InkWell(
             onTap: () {
@@ -47,9 +48,11 @@ class ReportPage extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     '신고하시는 이유를 선택해주세요',
-                    style: BppTextStyle.tabText,
+                    style: BppTextStyle.tabText.copyWith(
+                      fontSize: 16.sp,
+                    ),
                   ),
                   SizedBox(
                     height: 16.h,
@@ -73,11 +76,11 @@ class ReportPage extends StatelessWidget {
                   Container(
                     height: 56,
                     width: double.infinity,
-                    color: Colors.grey.shade200,
+                    color: const Color(0xfff8f8f8),
                     child: Center(
                       child: SvgPicture.asset(
                         'assets/image/report_text.svg',
-                        width: 312.w,
+                        width: 312,
                       ),
                     ),
                   ),
@@ -85,25 +88,30 @@ class ReportPage extends StatelessWidget {
               ),
               Consumer(builder: (context, ref, _) {
                 final check = ref.watch(isReportCheckProvider(id));
-                return ElevatedButton(
-                  onPressed: check
-                      ? () {
-                          locator<NavigationService>().pop();
-                        }
-                      : null,
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith(
-                      (states) {
-                        if (states.contains(MaterialState.disabled)) {
-                          return const Color(0xfff2f2f2);
-                        }
-                        return const Color(0xff000000);
-                      },
+                return SizedBox(
+                  width: 328.w,
+                  height: 48.h,
+                  child: ElevatedButton(
+                    onPressed: check
+                        ? () {
+                            locator<NavigationService>().pop();
+                          }
+                        : null,
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith(
+                        (states) {
+                          if (states.contains(MaterialState.disabled)) {
+                            return const Color(0xfff2f2f2);
+                          }
+                          return const Color(0xff000000);
+                        },
+                      ),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
                     ),
-                  ),
-                  child: SizedBox(
-                    width: 328.w,
-                    height: 48.h,
                     child: Center(
                       child: Text(
                         '신고하기',
@@ -111,7 +119,7 @@ class ReportPage extends StatelessWidget {
                           color: check
                               ? const Color(0xffffffff)
                               : const Color(0xffbfbfbf),
-                          fontSize: BppTextStyle.tabText.fontSize!.sp,
+                          fontSize: 16.sp,
                         ),
                       ),
                     ),
