@@ -1,3 +1,5 @@
+import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,7 +35,7 @@ class DetailPortfolioFullScreen extends StatelessWidget {
               right: 16,
               child: InkWell(
                 onTap: () {
-                  Navigator.pop(context);
+                  locator<NavigationService>().pop();
                 },
                 child: const SizedBox(
                   width: 40,

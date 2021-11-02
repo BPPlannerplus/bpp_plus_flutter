@@ -1,3 +1,4 @@
+import 'package:bpp_riverpod/app/ui/mypage/widget/mypage_dialog.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:bpp_riverpod/main.dart';
@@ -55,7 +56,10 @@ reservationDetailDialog() {
                 Row(
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        locator<NavigationService>().pop();
+                        reservationDateDialog();
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: const Color(0xfff2f2f2),
                         elevation: 0,
@@ -69,6 +73,7 @@ reservationDetailDialog() {
                     ),
                     InkWell(
                       onTap: () {
+                        locator<NavigationService>().pop();
                         reservationDeleteDialog();
                       },
                       child: SvgPicture.asset(
@@ -110,9 +115,13 @@ reservationDeleteDialog() {
                   style: BppTextStyle.smallText.copyWith(),
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        locator<NavigationService>().pop();
+                        reservationDetailDialog();
+                      },
                       child: Text(
                         '취소',
                         style: BppTextStyle.defaultText.copyWith(
@@ -125,7 +134,9 @@ reservationDeleteDialog() {
                       width: 10,
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        locator<NavigationService>().pop();
+                      },
                       child: Text(
                         '삭제',
                         style: BppTextStyle.defaultText.copyWith(

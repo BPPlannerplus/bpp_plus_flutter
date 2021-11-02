@@ -15,7 +15,7 @@ class WithdrawalPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 56,
+          toolbarHeight: 40,
           elevation: 0,
           leading: InkWell(
             onTap: () {

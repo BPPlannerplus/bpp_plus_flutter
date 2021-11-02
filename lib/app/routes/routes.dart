@@ -62,8 +62,9 @@ class AppRouter {
           settings: settings,
         );
       case AppRoutes.reportPage:
+        final int args = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => const ReportPage(),
+          builder: (_) => ReportPage(id: args),
           settings: settings,
         );
       case AppRoutes.settingPage:

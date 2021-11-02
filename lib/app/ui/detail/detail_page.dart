@@ -202,8 +202,9 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                       child: Center(
                         child: Text(
                           '예약 및 문의하기',
-                          style: BppTextStyle.screenText.copyWith(
-                            color: Colors.white,
+                          style: BppTextStyle.defaultText.copyWith(
+                            color: const Color(0xffffffff),
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),

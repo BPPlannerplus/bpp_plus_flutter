@@ -1,4 +1,6 @@
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
+import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -49,7 +51,7 @@ class DetailProfilePage extends StatelessWidget {
                 right: 16,
                 child: InkWell(
                   onTap: () {
-                    Navigator.pop(context);
+                    locator<NavigationService>().pop();
                   },
                   child: const SizedBox(
                     width: 40,

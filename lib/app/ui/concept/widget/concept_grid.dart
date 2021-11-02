@@ -4,7 +4,6 @@ import 'package:bpp_riverpod/app/ui/concept/widget/concept_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class ConceptGrid extends ConsumerStatefulWidget {
@@ -22,21 +21,17 @@ class _ConceptGridState extends ConsumerState<ConceptGrid> {
       showNewPageProgressIndicatorAsGridChild: false,
       showNewPageErrorIndicatorAsGridChild: false,
       showNoMoreItemsIndicatorAsGridChild: false,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        mainAxisExtent: 144.h,
+        mainAxisExtent: 144,
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,
         childAspectRatio: 100 / 150,
       ),
       builderDelegate: PagedChildBuilderDelegate<Concept>(
         itemBuilder: (context, concept, index) {
-          // final concept = ref.watch(conceptProvider(c));
-          // final conceptState = ref.read(conceptProvider(c).notifier);
-
           return conceptCard(
             concept: concept,
-            // stateRead: conceptState,
           );
         },
       ),

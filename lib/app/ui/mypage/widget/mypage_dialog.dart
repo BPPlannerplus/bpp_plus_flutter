@@ -1,9 +1,9 @@
+import 'package:bpp_riverpod/app/my_cupertino_picker/flutter_cupertino_datetime_picker.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cupertino_datetime_picker/flutter_cupertino_datetime_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -14,8 +14,8 @@ reservationDateDialog() {
       return Dialog(
         child: Container(
           padding: const EdgeInsets.all(16),
-          width: 296.w,
-          height: 225.h,
+          width: 296,
+          height: 245,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
           ),
@@ -28,19 +28,19 @@ reservationDateDialog() {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              SizedBox(
-                height: 16.h,
+              const SizedBox(
+                height: 8,
               ),
               DateTimePickerWidget(
-                minDateTime: DateTime(DateTime.now().year),
+                minDateTime: DateTime.now(),
                 maxDateTime: DateTime(DateTime.now().year + 2),
                 locale: DateTimePickerLocale.ko,
                 initDateTime: DateTime.now(),
                 dateFormat: 'yyyy-MM-dd',
                 pickerTheme: DateTimePickerTheme(
                   showTitle: false,
-                  pickerHeight: 106.h,
-                  itemHeight: 48.h,
+                  pickerHeight: 132,
+                  itemHeight: 44,
                   itemTextStyle: BppTextStyle.tabText,
                   selectionOverlay: Container(
                     decoration: const BoxDecoration(
@@ -53,16 +53,12 @@ reservationDateDialog() {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 12.h,
-              ),
+              const SizedBox(height: 8),
               Container(
                 height: 1,
                 color: const Color(0xffbfbfbf),
               ),
-              SizedBox(
-                height: 14.h,
-              ),
+              const SizedBox(height: 14),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -123,6 +119,7 @@ confirmReservationDialog() {
                 children: [
                   SvgPicture.asset(
                     'assets/icon/ic_check_on.svg',
+                    width: 30,
                   ),
                   const SizedBox(
                     width: 5,

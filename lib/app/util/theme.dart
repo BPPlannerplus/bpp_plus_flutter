@@ -6,6 +6,21 @@ ThemeData theme = ThemeData(
     backgroundColor: Color(0xffffffff),
     elevation: 0,
   ),
+  textSelectionTheme: const TextSelectionThemeData(
+    cursorColor: Color(0xff000000),
+  ),
+  inputDecorationTheme: const InputDecorationTheme(
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Color(0xffe6e6e6),
+      ),
+    ),
+    border: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Color(0xffe6e6e6),
+      ),
+    ),
+  ),
   canvasColor: const Color(0xffffffff),
   scaffoldBackgroundColor: const Color(0xffffffff),
   backgroundColor: const Color(0xffffffff),

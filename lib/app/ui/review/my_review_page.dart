@@ -26,6 +26,7 @@ class MyReviewPage extends StatelessWidget {
               'assets/icon/ic_back.svg',
             ),
           ),
+          toolbarHeight: 40,
         ),
         body: Padding(
           padding: const EdgeInsets.all(16),

@@ -34,7 +34,7 @@ Widget homeGridCard({
                 borderRadius: BorderRadius.circular(8),
                 child: Image.network(
                   shop.profile,
-                  height: 112.h,
+                  height: 112,
                   width: 160.w,
                   fit: BoxFit.fill,
                 ),
@@ -61,9 +61,9 @@ Widget homeGridCard({
       Text(
         shop.name,
         style: BppTextStyle.tabText.copyWith(
-          fontFamily: 'Roboto',
+          // fontFamily: 'Roboto',
           fontWeight: FontWeight.w500,
-          // fontFamily: BppTextStyle.isEng(shop.name),
+          fontFamily: BppTextStyle.isEng(shop.name),
         ),
       ),
       Text(

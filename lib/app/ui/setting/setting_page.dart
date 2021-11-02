@@ -14,7 +14,7 @@ class SettingPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 56,
+          toolbarHeight: 40,
           elevation: 0,
           centerTitle: true,
           leading: InkWell(

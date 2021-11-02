@@ -111,6 +111,7 @@ class _DetailReviewPageState extends ConsumerState<DetailReviewPage> {
                 onTap: () {
                   locator<NavigationService>().navigateTo(
                     routeName: AppRoutes.reportPage,
+                    argument: 0,
                   );
                 },
                 child: Text(

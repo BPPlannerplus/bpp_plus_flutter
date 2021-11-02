@@ -9,8 +9,6 @@ final homeTabProvider = StateProvider<int>((ref) => 0);
 
 final wishTabProvider = StateProvider<int>((ref) => 0);
 
-// final conceptTabProvider = StateProvider<int>((ref) => 0);
-
 final detailTabProvider = StateProvider.autoDispose<int>((ref) => 0);
 
 final detailPageProvider = StateProvider<int>((ref) => 0);

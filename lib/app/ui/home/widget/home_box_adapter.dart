@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeBoxAdpater extends StatelessWidget {
@@ -9,23 +10,21 @@ class HomeBoxAdpater extends StatelessWidget {
     return SliverToBoxAdapter(
       child: Container(
         color: Colors.white,
-        padding: const EdgeInsets.only(top: 56),
+        padding: const EdgeInsets.only(top: 64),
         height: 151,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SvgPicture.asset(
               'assets/image/home_sub.svg',
-              width: 113,
-              height: 20,
+              width: 113.w,
             ),
             const SizedBox(
               height: 10,
             ),
             SvgPicture.asset(
               'assets/image/home_title.svg',
-              width: 154,
-              height: 62,
+              width: 154.w,
             ),
           ],
         ),

@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final reportCheckProvider =
-    StateNotifierProvider<ReportChecks, List<bool>>((ref) => ReportChecks());
+final reportCheckProvider = StateNotifierProvider.family
+    .autoDispose<ReportChecks, List<bool>, int>((ref, id) => ReportChecks());
 
-final isReportCheckProvider = Provider<bool>((ref) {
-  final checks = ref.watch(reportCheckProvider);
+final isReportCheckProvider = Provider.family.autoDispose<bool, int>((ref, id) {
+  final checks = ref.watch(reportCheckProvider(id));
   for (var i in checks) {
     if (i) {
       return true;
