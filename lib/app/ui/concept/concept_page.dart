@@ -5,7 +5,6 @@ import 'package:bpp_riverpod/app/ui/concept/widget/concept_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class ConceptPage extends ConsumerStatefulWidget {

@@ -5,6 +5,8 @@ import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ConceptAppBar extends StatelessWidget {
   const ConceptAppBar({Key? key}) : super(key: key);
@@ -26,11 +28,15 @@ class ConceptAppBar extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(
-                  child: Text(
-                    '원하는 컨셉의\n스튜디오를 찾아보세요',
-                    style: BppTextStyle.screenText,
-                  ),
+                // const SizedBox(
+                //   child: Text(
+                //     '원하는 컨셉의\n스튜디오를 찾아보세요',
+                //     style: BppTextStyle.screenText,
+                //   ),
+                // ),
+                SvgPicture.asset(
+                  'assets/image/concept_text.svg',
+                  width: 190.w,
                 ),
                 InkWell(
                   onTap: () {
