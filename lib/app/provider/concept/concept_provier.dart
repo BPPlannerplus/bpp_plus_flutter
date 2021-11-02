@@ -46,6 +46,8 @@ class ConceptState extends StateNotifier<Concept> {
   }
 }
 
+final isConceptLoading = StateProvider<bool>((ref) => true);
+
 final conceptListProvider =
     StateNotifierProvider<ConceptListState, ConceptList>(
   (ref) => ConceptListState(

@@ -1,9 +1,12 @@
+import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_app_bar.dart';
-import 'package:bpp_riverpod/app/ui/concept/widget/concept_grid.dart';
+import 'package:bpp_riverpod/app/ui/concept/widget/concept_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class ConceptPage extends ConsumerStatefulWidget {
   const ConceptPage({Key? key}) : super(key: key);
@@ -24,12 +27,23 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
       } else {
         ref.read(isShowBottomBar).state = false;
       }
+      if (scrollController.offset >=
+              scrollController.position.maxScrollExtent &&
+          !scrollController.position.outOfRange) {
+        ref.read(conceptListProvider.notifier).getData();
+      }
     });
+
+    if (ref.read(conceptListProvider).concepts.isEmpty) {
+      ref.read(conceptListProvider.notifier).getData();
+    }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final concepts = ref.watch(conceptListProvider).concepts;
+
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(right: 16, left: 16),
@@ -38,9 +52,42 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
             Expanded(
               child: CustomScrollView(
                 controller: scrollController,
-                slivers: const [
-                  ConceptAppBar(),
-                  ConceptGrid(),
+                slivers: [
+                  const ConceptAppBar(),
+                  concepts.isEmpty
+                      ? const SliverToBoxAdapter(
+                          child: SizedBox(
+                            height: 300,
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
+                        )
+                      : SliverStaggeredGrid.countBuilder(
+                          mainAxisSpacing: 8,
+                          crossAxisSpacing: 8,
+                          crossAxisCount: 3,
+                          staggeredTileBuilder: (index) => StaggeredTile.count(
+                            1,
+                            cnt(index),
+                          ),
+                          itemBuilder: (context, index) {
+                            if (index < concepts.length) {
+                              return conceptCard(
+                                concept: concepts[index],
+                              );
+                            }
+                            return ref
+                                    .watch(conceptListProvider)
+                                    .next!
+                                    .isNotEmpty
+                                ? const Center(
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : const SizedBox();
+                          },
+                          itemCount: concepts.length + 1,
+                        ),
                 ],
               ),
             ),
@@ -48,5 +95,15 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
         ),
       ),
     );
+  }
+
+  double cnt(int index) {
+    if (index == 1) {
+      return 1;
+    } else if (index == 2) {
+      return 0.85;
+    } else {
+      return 1.38;
+    }
   }
 }

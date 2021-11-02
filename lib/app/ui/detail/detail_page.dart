@@ -12,6 +12,7 @@ import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -146,7 +147,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
               width: double.infinity,
               color: Colors.white,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   InkWell(
                     onTap: () {
@@ -185,20 +186,19 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    width: 14,
-                  ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      await launch(shopData.kakaoUrl);
-                      // await launch('https://open.kakao.com/o/ssjiKiHd');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: const Color(0xFF3b75ff),
-                    ),
-                    child: SizedBox(
-                      height: 40,
-                      width: 272,
+                  SizedBox(
+                    height: 44,
+                    width: 272,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        await launch(shopData.kakaoUrl);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: const Color(0xFF3b75ff),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
                       child: Center(
                         child: Text(
                           '예약 및 문의하기',

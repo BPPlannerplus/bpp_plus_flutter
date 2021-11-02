@@ -50,21 +50,21 @@ class WithdrawalPage extends StatelessWidget {
                   ),
                   SvgPicture.asset(
                     'assets/image/withdrawal_text1.svg',
-                    height: 12.h,
+                    width: 156.w,
                   ),
                   SizedBox(
                     height: 16.h,
                   ),
                   SvgPicture.asset(
                     'assets/image/withdrawal_text2.svg',
-                    height: 32.h,
+                    width: 311.w,
                   ),
                   SizedBox(
                     height: 5.h,
                   ),
                   SvgPicture.asset(
                     'assets/image/withdrawal_text3.svg',
-                    height: 32.h,
+                    width: 311.w,
                   ),
                 ],
               ),

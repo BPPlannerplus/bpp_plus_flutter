@@ -32,8 +32,9 @@ Widget conceptCard({
           borderRadius: BorderRadius.circular(8),
           child: Image.network(
             concept.profile,
-            height: 144,
-            fit: BoxFit.fill,
+            height: double.infinity,
+            width: double.infinity,
+            fit: BoxFit.cover,
           ),
         ),
       ),
