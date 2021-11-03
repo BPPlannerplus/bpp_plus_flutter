@@ -1,4 +1,5 @@
 import 'package:bpp_riverpod/app/model/filter_check_pair.dart';
+import 'package:bpp_riverpod/app/util/filter_value.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ShopFilterCheckState extends StateNotifier<List<FilterCheckPair>> {
@@ -31,48 +32,35 @@ class ShopFilterCheckState extends StateNotifier<List<FilterCheckPair>> {
 final studioFilterProvider =
     StateNotifierProvider<ShopFilterCheckState, List<FilterCheckPair>>(
   (ref) => ShopFilterCheckState(
-    filters: [
-      FilterCheckPair(id: '강남구', value: '강남구'),
-      FilterCheckPair(id: '강동구', value: '강동구'),
-      FilterCheckPair(id: '광진구', value: '광진구'),
-      FilterCheckPair(id: '마포구', value: '마포구'),
-      FilterCheckPair(id: '서초구', value: '서초구'),
-    ],
-  ),
+      filters: studioFilterValue.entries
+          .map<FilterCheckPair>(
+              (data) => FilterCheckPair(id: data.key, value: data.value))
+          .toList()),
 );
 
 final hairFilterProvider =
     StateNotifierProvider<ShopFilterCheckState, List<FilterCheckPair>>(
   (ref) => ShopFilterCheckState(
-    filters: [
-      FilterCheckPair(id: '강남구', value: '강남구'),
-      FilterCheckPair(id: '서초구', value: '서초구'),
-    ],
-  ),
+      filters: beautyFilterValue.entries
+          .map<FilterCheckPair>(
+              (data) => FilterCheckPair(id: data.key, value: data.value))
+          .toList()),
 );
 
 final waxingFilterProvider =
     StateNotifierProvider<ShopFilterCheckState, List<FilterCheckPair>>(
   (ref) => ShopFilterCheckState(
-    filters: [
-      FilterCheckPair(id: '강남구', value: '강남구'),
-      FilterCheckPair(id: '강동구', value: '강동구'),
-      FilterCheckPair(id: '광진구', value: '광진구'),
-      FilterCheckPair(id: '마포구', value: '마포구'),
-      FilterCheckPair(id: '서초구', value: '서초구'),
-    ],
-  ),
+      filters: waxingFilterValue.entries
+          .map<FilterCheckPair>(
+              (data) => FilterCheckPair(id: data.key, value: data.value))
+          .toList()),
 );
 
 final tanningFilterProvider =
     StateNotifierProvider<ShopFilterCheckState, List<FilterCheckPair>>(
   (ref) => ShopFilterCheckState(
-    filters: [
-      FilterCheckPair(id: '강남구', value: '강남구'),
-      FilterCheckPair(id: '강동구', value: '강동구'),
-      FilterCheckPair(id: '광진구', value: '광진구'),
-      FilterCheckPair(id: '마포구', value: '마포구'),
-      FilterCheckPair(id: '서초구', value: '서초구'),
-    ],
-  ),
+      filters: tanningFilterValue.entries
+          .map<FilterCheckPair>(
+              (data) => FilterCheckPair(id: data.key, value: data.value))
+          .toList()),
 );

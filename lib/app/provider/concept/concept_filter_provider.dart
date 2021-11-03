@@ -1,38 +1,33 @@
 import 'package:bpp_riverpod/app/model/concept/concept_filter.dart';
 import 'package:bpp_riverpod/app/model/filter_check_pair.dart';
+import 'package:bpp_riverpod/app/util/filter_value.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ConceptCheckPairStateList
     extends StateNotifier<List<List<FilterCheckPair>>> {
   ConceptCheckPairStateList()
       : super([
-          [
-            FilterCheckPair(id: '1인', value: '1'),
-            FilterCheckPair(id: '2인', value: '2'),
-            FilterCheckPair(id: '3인이상', value: '3'),
-          ],
-          [
-            FilterCheckPair(id: '여성', value: 'woman'),
-            FilterCheckPair(id: '남성', value: 'man')
-          ],
-          [
-            FilterCheckPair(id: '흰색', value: 'white'),
-            FilterCheckPair(id: '검은색', value: 'black'),
-            FilterCheckPair(id: '유채색', value: 'chromatic'),
-            FilterCheckPair(id: '야외', value: 'outside'),
-            FilterCheckPair(id: '기타 배경', value: 'etc'),
-          ],
-          [
-            FilterCheckPair(id: '헬스도구', value: 'health'),
-            FilterCheckPair(id: '소가구', value: 'mini'),
-            FilterCheckPair(id: '기타 소품', value: 'etc'),
-          ],
-          [
-            FilterCheckPair(id: '애슬레저', value: 'athleisure'),
-            FilterCheckPair(id: '수영복', value: 'swimsuit'),
-            FilterCheckPair(id: '언더웨어', value: 'underwear'),
-            FilterCheckPair(id: '기타', value: 'etc'),
-          ],
+          conceptFilterHeadCountValue.entries
+              .map<FilterCheckPair>(
+                (data) => FilterCheckPair(id: data.key, value: data.value),
+              )
+              .toList(),
+          conceptFilterGenderValue.entries
+              .map<FilterCheckPair>(
+                  (data) => FilterCheckPair(id: data.key, value: data.value))
+              .toList(),
+          conceptFilterBackgroundValue.entries
+              .map<FilterCheckPair>(
+                  (data) => FilterCheckPair(id: data.key, value: data.value))
+              .toList(),
+          conceptFilterPropValue.entries
+              .map<FilterCheckPair>(
+                  (data) => FilterCheckPair(id: data.key, value: data.value))
+              .toList(),
+          conceptFilterDressValue.entries
+              .map<FilterCheckPair>(
+                  (data) => FilterCheckPair(id: data.key, value: data.value))
+              .toList(),
         ]);
 
   toggleFilterState(int num, int index) {
