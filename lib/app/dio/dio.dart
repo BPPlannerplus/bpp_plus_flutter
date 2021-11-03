@@ -1,5 +1,5 @@
 import 'package:bpp_riverpod/app/api/auth_client.dart';
-import 'package:bpp_riverpod/app/model/token_data.dart';
+import 'package:bpp_riverpod/app/model/auth/token_data.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';

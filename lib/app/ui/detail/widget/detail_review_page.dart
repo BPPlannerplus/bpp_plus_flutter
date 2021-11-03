@@ -1,4 +1,4 @@
-import 'package:bpp_riverpod/app/model/review.dart';
+import 'package:bpp_riverpod/app/model/review/review.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
@@ -30,10 +30,10 @@ class _DetailReviewPageState extends ConsumerState<DetailReviewPage> {
           return topReviewCard();
         }
         return reviewCard(
-          rating: review.rate.toDouble(),
-          name: review.name,
+          rating: review.score.toDouble(),
+          name: review.user.userName,
           date: review.date,
-          text: review.text,
+          text: review.contents,
         );
       }),
     );

@@ -1,5 +1,5 @@
+import 'package:bpp_riverpod/app/model/concept/concept_filter.dart';
 import 'package:bpp_riverpod/app/model/filter_check_pair.dart';
-import 'package:bpp_riverpod/app/model/concept_filter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ConceptCheckPairStateList

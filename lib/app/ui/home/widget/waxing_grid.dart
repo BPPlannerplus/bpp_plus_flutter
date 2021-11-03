@@ -1,4 +1,4 @@
-import 'package:bpp_riverpod/app/model/shop_data.dart';
+import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
 import 'package:bpp_riverpod/app/ui/home/widget/home_grid_card.dart';

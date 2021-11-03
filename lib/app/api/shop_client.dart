@@ -1,7 +1,7 @@
 import 'package:bpp_riverpod/app/model/like.dart';
-import 'package:bpp_riverpod/app/model/shop_concept.dart';
-import 'package:bpp_riverpod/app/model/shop_detail_data.dart';
-import 'package:bpp_riverpod/app/model/shop_list.dart';
+import 'package:bpp_riverpod/app/model/shop/shop_concept.dart';
+import 'package:bpp_riverpod/app/model/shop/shop_detail_data.dart';
+import 'package:bpp_riverpod/app/model/shop/shop_list.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 

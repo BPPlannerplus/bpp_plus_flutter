@@ -21,7 +21,9 @@ ShopList _$ShopListFromJson(Map<String, dynamic> json) {
 class _$ShopListTearOff {
   const _$ShopListTearOff();
 
-  _ShopList call({required List<ShopData> shopDatas, String? next}) {
+  _ShopList call(
+      {@JsonKey(name: 'results') required List<ShopData> shopDatas,
+      String? next}) {
     return _ShopList(
       shopDatas: shopDatas,
       next: next,
@@ -38,6 +40,7 @@ const $ShopList = _$ShopListTearOff();
 
 /// @nodoc
 mixin _$ShopList {
+  @JsonKey(name: 'results')
   List<ShopData> get shopDatas => throw _privateConstructorUsedError;
   String? get next => throw _privateConstructorUsedError;
 
@@ -51,7 +54,7 @@ mixin _$ShopList {
 abstract class $ShopListCopyWith<$Res> {
   factory $ShopListCopyWith(ShopList value, $Res Function(ShopList) then) =
       _$ShopListCopyWithImpl<$Res>;
-  $Res call({List<ShopData> shopDatas, String? next});
+  $Res call({@JsonKey(name: 'results') List<ShopData> shopDatas, String? next});
 }
 
 /// @nodoc
@@ -85,7 +88,7 @@ abstract class _$ShopListCopyWith<$Res> implements $ShopListCopyWith<$Res> {
   factory _$ShopListCopyWith(_ShopList value, $Res Function(_ShopList) then) =
       __$ShopListCopyWithImpl<$Res>;
   @override
-  $Res call({List<ShopData> shopDatas, String? next});
+  $Res call({@JsonKey(name: 'results') List<ShopData> shopDatas, String? next});
 }
 
 /// @nodoc
@@ -118,12 +121,13 @@ class __$ShopListCopyWithImpl<$Res> extends _$ShopListCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ShopList implements _ShopList {
-  _$_ShopList({required this.shopDatas, this.next});
+  _$_ShopList({@JsonKey(name: 'results') required this.shopDatas, this.next});
 
   factory _$_ShopList.fromJson(Map<String, dynamic> json) =>
       _$$_ShopListFromJson(json);
 
   @override
+  @JsonKey(name: 'results')
   final List<ShopData> shopDatas;
   @override
   final String? next;
@@ -158,12 +162,14 @@ class _$_ShopList implements _ShopList {
 }
 
 abstract class _ShopList implements ShopList {
-  factory _ShopList({required List<ShopData> shopDatas, String? next}) =
-      _$_ShopList;
+  factory _ShopList(
+      {@JsonKey(name: 'results') required List<ShopData> shopDatas,
+      String? next}) = _$_ShopList;
 
   factory _ShopList.fromJson(Map<String, dynamic> json) = _$_ShopList.fromJson;
 
   @override
+  @JsonKey(name: 'results')
   List<ShopData> get shopDatas;
   @override
   String? get next;

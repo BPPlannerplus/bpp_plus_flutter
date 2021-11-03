@@ -8,7 +8,7 @@ part of 'concept_list.dart';
 
 _$_ConceptList _$$_ConceptListFromJson(Map<String, dynamic> json) =>
     _$_ConceptList(
-      concepts: (json['concepts'] as List<dynamic>)
+      concepts: (json['results'] as List<dynamic>)
           .map((e) => Concept.fromJson(e as Map<String, dynamic>))
           .toList(),
       next: json['next'] as String?,
@@ -16,6 +16,6 @@ _$_ConceptList _$$_ConceptListFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_ConceptListToJson(_$_ConceptList instance) =>
     <String, dynamic>{
-      'concepts': instance.concepts,
+      'results': instance.concepts,
       'next': instance.next,
     };

@@ -1,9 +1,10 @@
-import 'package:bpp_riverpod/app/model/review.dart';
-import 'package:bpp_riverpod/app/model/reviews.dart';
-import 'package:bpp_riverpod/app/model/shop_concept.dart';
-import 'package:bpp_riverpod/app/model/shop_data.dart';
-import 'package:bpp_riverpod/app/model/shop_detail_data.dart';
-import 'package:bpp_riverpod/app/model/shop_list.dart';
+import 'package:bpp_riverpod/app/model/review/review.dart';
+import 'package:bpp_riverpod/app/model/review/review_list.dart';
+import 'package:bpp_riverpod/app/model/shop/shop_concept.dart';
+import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
+import 'package:bpp_riverpod/app/model/shop/shop_detail_data.dart';
+import 'package:bpp_riverpod/app/model/shop/shop_list.dart';
+import 'package:bpp_riverpod/app/model/user.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final shopRepositroyProvider =
@@ -19,11 +20,15 @@ final waxingRepositroyProvider =
     Provider<ShopRepository>((ref) => WaxingRepository());
 
 abstract class ShopRepository {
+  // 샵 조회
   Future<ShopList> getShopList();
+
+  // 좋아요
   Future<void> setLike(int id);
+
   Future<ShopDetailData> getShopDetailData(int shopId);
   Future<ShopConcepts> getShopConcepts();
-  Future<Reviews> getReviews();
+  Future<ReviewList> getReviews();
 }
 
 class StudioRepository implements ShopRepository {
@@ -52,17 +57,17 @@ class StudioRepository implements ShopRepository {
   }
 
   @override
-  Future<Reviews> getReviews() async {
+  Future<ReviewList> getReviews() async {
     await Future.delayed(const Duration(seconds: 1));
-    return Reviews(
+    return ReviewList(
       reviews: List.generate(
         20,
         (index) => Review(
           id: index,
-          name: '김**',
+          user: User(id: 1, userName: '김**'),
           date: '21.09.26',
-          rate: 4,
-          text: '바프 너무 좋아요',
+          score: 4,
+          contents: '바프 너무 좋아요',
         ),
       ),
       next: 'true',
@@ -158,7 +163,7 @@ class BeautyRepository implements ShopRepository {
   }
 
   @override
-  Future<Reviews> getReviews() {
+  Future<ReviewList> getReviews() {
     // TODO: implement getReviews
     throw UnimplementedError();
   }
@@ -203,7 +208,7 @@ class WaxingRepository implements ShopRepository {
   }
 
   @override
-  Future<Reviews> getReviews() {
+  Future<ReviewList> getReviews() {
     // TODO: implement getReviews
     throw UnimplementedError();
   }
@@ -247,7 +252,7 @@ class TanningRepository implements ShopRepository {
   }
 
   @override
-  Future<Reviews> getReviews() {
+  Future<ReviewList> getReviews() {
     // TODO: implement getReviews
     throw UnimplementedError();
   }

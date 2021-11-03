@@ -1,10 +1,12 @@
-import 'package:bpp_riverpod/app/model/concept.dart';
-import 'package:bpp_riverpod/app/model/concept_list.dart';
+import 'package:bpp_riverpod/app/model/concept/concept.dart';
+import 'package:bpp_riverpod/app/model/concept/concept_list.dart';
 import 'package:bpp_riverpod/app/model/like.dart';
 
 abstract class ConceptRepository {
+  // 컨셉 조회
   Future<ConceptList> getConceptList();
 
+  // 좋아요
   Future<LikeResponse> setLike(int id);
 }
 

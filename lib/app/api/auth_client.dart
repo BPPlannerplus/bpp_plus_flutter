@@ -1,4 +1,4 @@
-import 'package:bpp_riverpod/app/model/token_data.dart';
+import 'package:bpp_riverpod/app/model/auth/token_data.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 

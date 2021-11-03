@@ -21,7 +21,9 @@ ConceptList _$ConceptListFromJson(Map<String, dynamic> json) {
 class _$ConceptListTearOff {
   const _$ConceptListTearOff();
 
-  _ConceptList call({required List<Concept> concepts, String? next}) {
+  _ConceptList call(
+      {@JsonKey(name: 'results') required List<Concept> concepts,
+      String? next}) {
     return _ConceptList(
       concepts: concepts,
       next: next,
@@ -38,6 +40,7 @@ const $ConceptList = _$ConceptListTearOff();
 
 /// @nodoc
 mixin _$ConceptList {
+  @JsonKey(name: 'results')
   List<Concept> get concepts => throw _privateConstructorUsedError;
   String? get next => throw _privateConstructorUsedError;
 
@@ -52,7 +55,7 @@ abstract class $ConceptListCopyWith<$Res> {
   factory $ConceptListCopyWith(
           ConceptList value, $Res Function(ConceptList) then) =
       _$ConceptListCopyWithImpl<$Res>;
-  $Res call({List<Concept> concepts, String? next});
+  $Res call({@JsonKey(name: 'results') List<Concept> concepts, String? next});
 }
 
 /// @nodoc
@@ -88,7 +91,7 @@ abstract class _$ConceptListCopyWith<$Res>
           _ConceptList value, $Res Function(_ConceptList) then) =
       __$ConceptListCopyWithImpl<$Res>;
   @override
-  $Res call({List<Concept> concepts, String? next});
+  $Res call({@JsonKey(name: 'results') List<Concept> concepts, String? next});
 }
 
 /// @nodoc
@@ -122,12 +125,13 @@ class __$ConceptListCopyWithImpl<$Res> extends _$ConceptListCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ConceptList implements _ConceptList {
-  _$_ConceptList({required this.concepts, this.next});
+  _$_ConceptList({@JsonKey(name: 'results') required this.concepts, this.next});
 
   factory _$_ConceptList.fromJson(Map<String, dynamic> json) =>
       _$$_ConceptListFromJson(json);
 
   @override
+  @JsonKey(name: 'results')
   final List<Concept> concepts;
   @override
   final String? next;
@@ -162,13 +166,15 @@ class _$_ConceptList implements _ConceptList {
 }
 
 abstract class _ConceptList implements ConceptList {
-  factory _ConceptList({required List<Concept> concepts, String? next}) =
-      _$_ConceptList;
+  factory _ConceptList(
+      {@JsonKey(name: 'results') required List<Concept> concepts,
+      String? next}) = _$_ConceptList;
 
   factory _ConceptList.fromJson(Map<String, dynamic> json) =
       _$_ConceptList.fromJson;
 
   @override
+  @JsonKey(name: 'results')
   List<Concept> get concepts;
   @override
   String? get next;

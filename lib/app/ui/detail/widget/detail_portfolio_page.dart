@@ -1,4 +1,4 @@
-import 'package:bpp_riverpod/app/model/shop_concept.dart';
+import 'package:bpp_riverpod/app/model/shop/shop_concept.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:flutter/material.dart';

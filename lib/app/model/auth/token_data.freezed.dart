@@ -22,8 +22,8 @@ class _$TokenDataTearOff {
   const _$TokenDataTearOff();
 
   _TokenData call(
-      {@JsonKey(name: 'access_token') required String accessToken,
-      @JsonKey(name: 'refresh_token') String? refreshToken}) {
+      {@JsonKey(name: 'access') required String accessToken,
+      @JsonKey(name: 'refresh') String? refreshToken}) {
     return _TokenData(
       accessToken: accessToken,
       refreshToken: refreshToken,
@@ -40,9 +40,9 @@ const $TokenData = _$TokenDataTearOff();
 
 /// @nodoc
 mixin _$TokenData {
-  @JsonKey(name: 'access_token')
+  @JsonKey(name: 'access')
   String get accessToken => throw _privateConstructorUsedError;
-  @JsonKey(name: 'refresh_token')
+  @JsonKey(name: 'refresh')
   String? get refreshToken => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -56,8 +56,8 @@ abstract class $TokenDataCopyWith<$Res> {
   factory $TokenDataCopyWith(TokenData value, $Res Function(TokenData) then) =
       _$TokenDataCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'access_token') String accessToken,
-      @JsonKey(name: 'refresh_token') String? refreshToken});
+      {@JsonKey(name: 'access') String accessToken,
+      @JsonKey(name: 'refresh') String? refreshToken});
 }
 
 /// @nodoc
@@ -93,8 +93,8 @@ abstract class _$TokenDataCopyWith<$Res> implements $TokenDataCopyWith<$Res> {
       __$TokenDataCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'access_token') String accessToken,
-      @JsonKey(name: 'refresh_token') String? refreshToken});
+      {@JsonKey(name: 'access') String accessToken,
+      @JsonKey(name: 'refresh') String? refreshToken});
 }
 
 /// @nodoc
@@ -128,17 +128,17 @@ class __$TokenDataCopyWithImpl<$Res> extends _$TokenDataCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_TokenData implements _TokenData {
   _$_TokenData(
-      {@JsonKey(name: 'access_token') required this.accessToken,
-      @JsonKey(name: 'refresh_token') this.refreshToken});
+      {@JsonKey(name: 'access') required this.accessToken,
+      @JsonKey(name: 'refresh') this.refreshToken});
 
   factory _$_TokenData.fromJson(Map<String, dynamic> json) =>
       _$$_TokenDataFromJson(json);
 
   @override
-  @JsonKey(name: 'access_token')
+  @JsonKey(name: 'access')
   final String accessToken;
   @override
-  @JsonKey(name: 'refresh_token')
+  @JsonKey(name: 'refresh')
   final String? refreshToken;
 
   @override
@@ -173,17 +173,17 @@ class _$_TokenData implements _TokenData {
 
 abstract class _TokenData implements TokenData {
   factory _TokenData(
-      {@JsonKey(name: 'access_token') required String accessToken,
-      @JsonKey(name: 'refresh_token') String? refreshToken}) = _$_TokenData;
+      {@JsonKey(name: 'access') required String accessToken,
+      @JsonKey(name: 'refresh') String? refreshToken}) = _$_TokenData;
 
   factory _TokenData.fromJson(Map<String, dynamic> json) =
       _$_TokenData.fromJson;
 
   @override
-  @JsonKey(name: 'access_token')
+  @JsonKey(name: 'access')
   String get accessToken;
   @override
-  @JsonKey(name: 'refresh_token')
+  @JsonKey(name: 'refresh')
   String? get refreshToken;
   @override
   @JsonKey(ignore: true)
@@ -369,5 +369,158 @@ abstract class _TokenRequest implements TokenRequest {
   @override
   @JsonKey(ignore: true)
   _$TokenRequestCopyWith<_TokenRequest> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+LoginRequest _$LoginRequestFromJson(Map<String, dynamic> json) {
+  return _LoginRequest.fromJson(json);
+}
+
+/// @nodoc
+class _$LoginRequestTearOff {
+  const _$LoginRequestTearOff();
+
+  _LoginRequest call(
+      {@JsonKey(name: 'access_token') required String accessToken}) {
+    return _LoginRequest(
+      accessToken: accessToken,
+    );
+  }
+
+  LoginRequest fromJson(Map<String, Object?> json) {
+    return LoginRequest.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $LoginRequest = _$LoginRequestTearOff();
+
+/// @nodoc
+mixin _$LoginRequest {
+  @JsonKey(name: 'access_token')
+  String get accessToken => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $LoginRequestCopyWith<LoginRequest> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $LoginRequestCopyWith<$Res> {
+  factory $LoginRequestCopyWith(
+          LoginRequest value, $Res Function(LoginRequest) then) =
+      _$LoginRequestCopyWithImpl<$Res>;
+  $Res call({@JsonKey(name: 'access_token') String accessToken});
+}
+
+/// @nodoc
+class _$LoginRequestCopyWithImpl<$Res> implements $LoginRequestCopyWith<$Res> {
+  _$LoginRequestCopyWithImpl(this._value, this._then);
+
+  final LoginRequest _value;
+  // ignore: unused_field
+  final $Res Function(LoginRequest) _then;
+
+  @override
+  $Res call({
+    Object? accessToken = freezed,
+  }) {
+    return _then(_value.copyWith(
+      accessToken: accessToken == freezed
+          ? _value.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$LoginRequestCopyWith<$Res>
+    implements $LoginRequestCopyWith<$Res> {
+  factory _$LoginRequestCopyWith(
+          _LoginRequest value, $Res Function(_LoginRequest) then) =
+      __$LoginRequestCopyWithImpl<$Res>;
+  @override
+  $Res call({@JsonKey(name: 'access_token') String accessToken});
+}
+
+/// @nodoc
+class __$LoginRequestCopyWithImpl<$Res> extends _$LoginRequestCopyWithImpl<$Res>
+    implements _$LoginRequestCopyWith<$Res> {
+  __$LoginRequestCopyWithImpl(
+      _LoginRequest _value, $Res Function(_LoginRequest) _then)
+      : super(_value, (v) => _then(v as _LoginRequest));
+
+  @override
+  _LoginRequest get _value => super._value as _LoginRequest;
+
+  @override
+  $Res call({
+    Object? accessToken = freezed,
+  }) {
+    return _then(_LoginRequest(
+      accessToken: accessToken == freezed
+          ? _value.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_LoginRequest implements _LoginRequest {
+  _$_LoginRequest({@JsonKey(name: 'access_token') required this.accessToken});
+
+  factory _$_LoginRequest.fromJson(Map<String, dynamic> json) =>
+      _$$_LoginRequestFromJson(json);
+
+  @override
+  @JsonKey(name: 'access_token')
+  final String accessToken;
+
+  @override
+  String toString() {
+    return 'LoginRequest(accessToken: $accessToken)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _LoginRequest &&
+            (identical(other.accessToken, accessToken) ||
+                other.accessToken == accessToken));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, accessToken);
+
+  @JsonKey(ignore: true)
+  @override
+  _$LoginRequestCopyWith<_LoginRequest> get copyWith =>
+      __$LoginRequestCopyWithImpl<_LoginRequest>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_LoginRequestToJson(this);
+  }
+}
+
+abstract class _LoginRequest implements LoginRequest {
+  factory _LoginRequest(
+          {@JsonKey(name: 'access_token') required String accessToken}) =
+      _$_LoginRequest;
+
+  factory _LoginRequest.fromJson(Map<String, dynamic> json) =
+      _$_LoginRequest.fromJson;
+
+  @override
+  @JsonKey(name: 'access_token')
+  String get accessToken;
+  @override
+  @JsonKey(ignore: true)
+  _$LoginRequestCopyWith<_LoginRequest> get copyWith =>
       throw _privateConstructorUsedError;
 }

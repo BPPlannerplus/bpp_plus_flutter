@@ -1,4 +1,4 @@
-import 'package:bpp_riverpod/app/model/concept.dart';
+import 'package:bpp_riverpod/app/model/concept/concept.dart';
 import 'package:bpp_riverpod/app/provider/concept/concpet_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_card.dart';
 import 'package:flutter/cupertino.dart';
