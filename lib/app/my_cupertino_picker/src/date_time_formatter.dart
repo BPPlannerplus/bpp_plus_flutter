@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:math';
 
 import 'date_picker.dart';
@@ -17,7 +19,6 @@ class DateTimeFormatter {
       case DateTimePickerMode.datetime:
         return DATETIME_PICKER_DATETIME_FORMAT;
     }
-    return '';
   }
 
   /// Check if the date format is for day(contain y、M、d、E) or not.
@@ -33,7 +34,7 @@ class DateTimeFormatter {
   /// Split date format to array.
   static List<String> splitDateFormat(String? dateFormat,
       {DateTimePickerMode? mode, String? dateFormatSeparator}) {
-    if (dateFormat == null || dateFormat.length == 0) {
+    if (dateFormat == null || dateFormat.isEmpty) {
       return [];
     }
     List<String> result =
@@ -73,7 +74,7 @@ class DateTimeFormatter {
   /// Format datetime string
   static String formatDateTime(
       int value, String? format, DateTimePickerLocale locale) {
-    if (format == null || format.length == 0) {
+    if (format == null || format.isEmpty) {
       return value.toString();
     }
 
@@ -114,7 +115,7 @@ class DateTimeFormatter {
   /// Format day display
   static String formatDate(
       DateTime dateTime, String? format, DateTimePickerLocale locale) {
-    if (format == null || format.length == 0) {
+    if (format == null || format.isEmpty) {
       return dateTime.toString();
     }
 
@@ -222,8 +223,8 @@ class DateTimeFormatter {
   static String _formatNumber(int value, String format, String unit) {
     if (format.contains('$unit$unit')) {
       return format.replaceAll('$unit$unit', value.toString().padLeft(2, '0'));
-    } else if (format.contains('$unit')) {
-      return format.replaceAll('$unit', value.toString());
+    } else if (format.contains(unit)) {
+      return format.replaceAll(unit, value.toString());
     }
     return value.toString();
   }

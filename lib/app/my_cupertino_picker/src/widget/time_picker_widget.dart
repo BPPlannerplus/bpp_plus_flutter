@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -14,15 +12,15 @@ import 'datetime_picker_widget.dart';
   'Use DateTimePickerWidget instead',
 )
 class TimePickerWidget extends StatelessWidget {
-  TimePickerWidget({
+  const TimePickerWidget({
     Key? key,
     this.minDateTime,
     this.maxDateTime,
     this.initDateTime,
-    this.dateFormat: DATETIME_PICKER_TIME_FORMAT,
-    this.dateFormatSeparator: DATE_FORMAT_SEPARATOR,
-    this.locale: DATETIME_PICKER_LOCALE_DEFAULT,
-    this.pickerTheme: DateTimePickerTheme.Default,
+    this.dateFormat = DATETIME_PICKER_TIME_FORMAT,
+    this.dateFormatSeparator = DATE_FORMAT_SEPARATOR,
+    this.locale = DATETIME_PICKER_LOCALE_DEFAULT,
+    this.pickerTheme = DateTimePickerTheme.Default,
     this.minuteDivider = 1,
     this.onCancel,
     this.onChange,

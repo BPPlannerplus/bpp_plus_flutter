@@ -9,7 +9,7 @@ import '../i18n/date_picker_i18n.dart';
 /// @author dylan wu
 /// @since 2019-05-16
 class DatePickerTitleWidget extends StatelessWidget {
-  DatePickerTitleWidget({
+  const DatePickerTitleWidget({
     Key? key,
     required this.pickerTheme,
     required this.locale,
@@ -44,7 +44,7 @@ class DatePickerTitleWidget extends StatelessWidget {
     if (isCustomTitleWidget()) {
       // has custom title button widget
       if (pickerTheme.cancel == null) {
-        return Offstage();
+        return const Offstage();
       }
     }
 
@@ -61,11 +61,11 @@ class DatePickerTitleWidget extends StatelessWidget {
       );
     }
 
-    return Container(
+    return SizedBox(
       height: pickerTheme.titleHeight,
       child: TextButton(
         child: cancelWidget,
-        onPressed: () => this.onCancel(),
+        onPressed: () => onCancel(),
       ),
     );
   }
@@ -75,7 +75,7 @@ class DatePickerTitleWidget extends StatelessWidget {
     if (isCustomTitleWidget()) {
       // has custom title button widget
       if (pickerTheme.confirm == null) {
-        return Offstage();
+        return const Offstage();
       }
     }
 
@@ -92,11 +92,11 @@ class DatePickerTitleWidget extends StatelessWidget {
       );
     }
 
-    return Container(
+    return SizedBox(
       height: pickerTheme.titleHeight,
       child: TextButton(
         child: confirmWidget,
-        onPressed: () => this.onConfirm(),
+        onPressed: () => onConfirm(),
       ),
     );
   }

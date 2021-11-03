@@ -17,10 +17,10 @@ class DateTimePickerWidget extends StatefulWidget {
     this.minDateTime,
     this.maxDateTime,
     this.initDateTime,
-    this.dateFormat: DATETIME_PICKER_TIME_FORMAT,
-    this.dateFormatSeparator: DATE_FORMAT_SEPARATOR,
-    this.locale: DATETIME_PICKER_LOCALE_DEFAULT,
-    this.pickerTheme: DateTimePickerTheme.Default,
+    this.dateFormat = DATETIME_PICKER_TIME_FORMAT,
+    this.dateFormatSeparator = DATE_FORMAT_SEPARATOR,
+    this.locale = DATETIME_PICKER_LOCALE_DEFAULT,
+    this.pickerTheme = DateTimePickerTheme.Default,
     this.minuteDivider = 1,
     this.onCancel,
     this.onChange,
@@ -43,11 +43,13 @@ class DateTimePickerWidget extends StatefulWidget {
   final bool onMonthChangeStartWithFirstDate;
 
   @override
+  // ignore: no_logic_in_create_state
   State<StatefulWidget> createState() => _DateTimePickerWidgetState(
-      this.minDateTime,
-      this.maxDateTime,
-      this.initDateTime,
-      this.minuteDivider);
+        minDateTime,
+        maxDateTime,
+        initDateTime,
+        minuteDivider,
+      );
 }
 
 class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
@@ -75,17 +77,11 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
   _DateTimePickerWidgetState(DateTime? minTime, DateTime? maxTime,
       DateTime? initTime, int minuteDivider) {
     // check minTime value
-    if (minTime == null) {
-      minTime = DateTime.parse(DATE_PICKER_MIN_DATETIME);
-    }
+    minTime ??= DateTime.parse(DATE_PICKER_MIN_DATETIME);
     // check maxTime value
-    if (maxTime == null) {
-      maxTime = DateTime.parse(DATE_PICKER_MAX_DATETIME);
-    }
+    maxTime ??= DateTime.parse(DATE_PICKER_MAX_DATETIME);
     // check initTime value
-    if (initTime == null) {
-      initTime = DateTime.now();
-    }
+    initTime ??= DateTime.now();
     // limit initTime value
     if (initTime.compareTo(minTime) < 0) {
       initTime = minTime;
@@ -94,40 +90,38 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
       initTime = maxTime;
     }
 
-    this._minTime = minTime;
-    this._maxTime = maxTime;
-    this._currYear = initTime.year;
-    this._currMonth = initTime.month;
-    this._currDay = initTime.day;
-    this._currHour = initTime.hour;
-    this._currMinute = initTime.minute;
-    this._currSecond = initTime.second;
+    _minTime = minTime;
+    _maxTime = maxTime;
+    _currYear = initTime.year;
+    _currMonth = initTime.month;
+    _currDay = initTime.day;
+    _currHour = initTime.hour;
+    _currMinute = initTime.minute;
+    _currSecond = initTime.second;
 
-    this._minuteDivider = minuteDivider;
+    _minuteDivider = minuteDivider;
 
     // limit the range of year
-    this._yearRange = _calcYearRange();
-    this._currYear = min(max(_minTime.year, _currYear), _maxTime.year);
+    _yearRange = _calcYearRange();
+    _currYear = min(max(_minTime.year, _currYear), _maxTime.year);
     // limit the range of month
-    this._monthRange = _calcMonthRange();
-    this._currMonth = min(max(_monthRange.first, _currMonth), _monthRange.last);
+    _monthRange = _calcMonthRange();
+    _currMonth = min(max(_monthRange.first, _currMonth), _monthRange.last);
     // limit the range of date
-    this._dayRange = _calcDayRange();
-    this._currDay = min(max(_dayRange.first, _currDay), _dayRange.last);
+    _dayRange = _calcDayRange();
+    _currDay = min(max(_dayRange.first, _currDay), _dayRange.last);
 
     // limit the range of hour
-    this._hourRange = _calcHourRange();
-    this._currHour = min(max(_hourRange.first, _currHour), _hourRange.last);
+    _hourRange = _calcHourRange();
+    _currHour = min(max(_hourRange.first, _currHour), _hourRange.last);
 
     // limit the range of minute
-    this._minuteRange = _calcMinuteRange();
-    this._currMinute =
-        min(max(_minuteRange.first, _currMinute), _minuteRange.last);
+    _minuteRange = _calcMinuteRange();
+    _currMinute = min(max(_minuteRange.first, _currMinute), _minuteRange.last);
 
     // limit the range of second
-    this._secondRange = _calcSecondRange();
-    this._currSecond =
-        min(max(_secondRange.first, _currSecond), _secondRange.last);
+    _secondRange = _calcSecondRange();
+    _currSecond = min(max(_secondRange.first, _currSecond), _secondRange.last);
 
     // create scroll controller
     _yearScrollCtrl =
@@ -246,7 +240,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
     List<String> formatArr = DateTimeFormatter.splitDateFormat(
         widget.dateFormat,
         dateFormatSeparator: widget.dateFormatSeparator);
-    formatArr.forEach((format) {
+    for (var format in formatArr) {
       List<int> valueRange = _findPickerItemRange(format);
 
       Widget pickerColumn = _renderDatePickerColumnComponent(
@@ -271,7 +265,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
         },
       );
       pickers.add(pickerColumn);
-    });
+    }
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween, children: pickers);
   }
@@ -283,18 +277,17 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
     required ValueChanged<int> valueChanged,
     required int minuteDivider,
   }) {
-    IndexedWidgetBuilder builder = (context, index) {
+    IndexedWidgetBuilder builder;
+    builder = (context, index) {
       int value = valueRange.first + index;
-
       if (format.contains('m')) {
         value = minuteDivider * index + valueRange.first;
       }
-
       return _renderDatePickerItemComponent(value, format);
     };
 
     Widget columnWidget = Container(
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       width: double.infinity,
       height: widget.pickerTheme.pickerHeight,
       decoration: BoxDecoration(color: widget.pickerTheme.backgroundColor),
@@ -305,7 +298,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
         squeeze: 1,
         selectionOverlay: widget.pickerTheme.selectionOverlay ??
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border.symmetric(
                   horizontal: BorderSide(color: Colors.black26),
                 ),
@@ -389,7 +382,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
   /// change the selection of minute picker
   void _changeMinuteSelection(int index) {
     int value = _minuteRange.first + index * _minuteDivider;
-    print('_changeMinuteSelection $index ${_minuteRange.first}');
+    // print('_changeMinuteSelection $index ${_minuteRange.first}');
     if (_currMinute != value) {
       _currMinute = value;
       _changeTimeRange();
@@ -573,9 +566,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
     int maxYear = _maxTime.year;
     int minMonth = _minTime.month;
     int maxMonth = _maxTime.month;
-    if (currMonth == null) {
-      currMonth = _currMonth;
-    }
+    currMonth ??= _currMonth;
     if (minYear == _currYear && minMonth == currMonth) {
       // selected minimum year and month, limit day range
       minDay = _minTime.day;
@@ -606,9 +597,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
   /// calculate the range of minute
   List<int> _calcMinuteRange({currHour}) {
     int minMinute = 0, maxMinute = 59;
-    if (currHour == null) {
-      currHour = _currHour;
-    }
+    currHour ??= _currHour;
 
     if (_currYear == _minTime.year &&
         _currMonth == _minTime.month &&
@@ -631,12 +620,8 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
   List<int> _calcSecondRange({currHour, currMinute}) {
     int minSecond = 0, maxSecond = 59;
 
-    if (currHour == null) {
-      currHour = _currHour;
-    }
-    if (currMinute == null) {
-      currMinute = _currMinute;
-    }
+    currHour ??= _currHour;
+    currMinute ??= _currMinute;
 
     if (_currYear == _minTime.year &&
         _currMonth == _minTime.month &&

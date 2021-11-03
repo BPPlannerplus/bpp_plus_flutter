@@ -1,7 +1,6 @@
 import 'package:bpp_riverpod/app/ui/mypage/widget/mypage_dialog.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
-import 'package:bpp_riverpod/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
