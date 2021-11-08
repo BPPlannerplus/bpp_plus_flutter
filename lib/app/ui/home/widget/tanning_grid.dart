@@ -30,8 +30,9 @@ class _TanningGridState extends ConsumerState<TanningGrid> {
       ),
       builderDelegate: PagedChildBuilderDelegate<ShopData>(
         itemBuilder: (context, shop, index) {
-          final tanning = ref.watch(tanningProvider(shop));
-          final tanningState = ref.read(tanningProvider(shop).notifier);
+          final tanning = ref.watch<ShopData>(
+              tanningListProvider.select((value) => value.shopDatas[index]));
+          final tanningState = ref.read(tanningListProvider.notifier);
 
           return homeGridCard(
             shop: tanning,

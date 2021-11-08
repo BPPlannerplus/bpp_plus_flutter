@@ -7,51 +7,61 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Widget conceptCard({
-  required Concept concept,
-  // required ConceptState stateRead,
+  // required Concept concept,
+  required int id,
 }) {
-  return Stack(
-    alignment: Alignment.bottomRight,
-    children: [
-      InkWell(
-        onTap: () {
-          showDialog(
-            context: locator<NavigationService>().navigatorKey.currentContext!,
-            barrierColor: const Color(0xdd000000),
-            builder: (_) {
-              return conceptDialog(
-                concept: concept,
-                // conceptState: stateRead,
-              );
+  return Consumer(builder: (context, ref, _) {
+    final concept = ref.watch<Concept>(
+      conceptListProvider.select(
+        (value) {
+          return value.concepts.where(
+            (element) {
+              return element.id == id;
             },
-          );
+          ).toList()[0];
         },
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Image.network(
-            concept.profile,
-            height: double.infinity,
-            width: double.infinity,
-            fit: BoxFit.cover,
+      ),
+    );
+    return Stack(
+      alignment: Alignment.bottomRight,
+      children: [
+        InkWell(
+          onTap: () {
+            showDialog(
+              context:
+                  locator<NavigationService>().navigatorKey.currentContext!,
+              barrierColor: const Color(0xdd000000),
+              builder: (_) => conceptDialog(
+                id: id,
+              ),
+            );
+          },
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Image.network(
+              concept.profile,
+              height: double.infinity,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
-      ),
-      Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Consumer(builder: (context, ref, _) {
-          final c = ref.watch(conceptProvider(concept));
-          return InkWell(
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: InkWell(
             onTap: () {
-              ref.read(conceptProvider(concept).notifier).setLike(concept.id);
+              ref.read(conceptListProvider.notifier).setLike(concept.id);
             },
             child: Icon(
-              c.like ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
-              color: c.like ? const Color(0xffff5757) : const Color(0xffffffff),
+              concept.like ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
+              color: concept.like
+                  ? const Color(0xffff5757)
+                  : const Color(0xffffffff),
               size: 30,
             ),
-          );
-        }),
-      ),
-    ],
-  );
+          ),
+        ),
+      ],
+    );
+  });
 }

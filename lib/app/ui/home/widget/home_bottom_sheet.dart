@@ -63,8 +63,8 @@ homeBottomSheet(int index) {
           ),
           ElevatedButton(
             onPressed: () {
-              ref.read(studioListProvider.notifier).reset();
               ref.read(studioPageControllerProvider).refresh();
+              ref.read(studioListProvider.notifier).reset();
               locator<NavigationService>().pop();
             },
             style: ButtonStyle(

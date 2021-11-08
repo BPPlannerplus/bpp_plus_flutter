@@ -22,8 +22,8 @@ class MainPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final index = ref.watch(navigationProvier).state;
-    final visible = ref.watch(isShowBottomBar).state;
+    final index = ref.watch(navigationProvier);
+    final visible = ref.watch(isShowBottomBar);
 
     return Scaffold(
       body: _pages[index],
@@ -75,12 +75,12 @@ class MainPage extends ConsumerWidget {
     required String unselectImg,
   }) {
     return Consumer(builder: (context, ref, _) {
-      final tabIndex = ref.watch(navigationProvier).state;
+      final tabIndex = ref.watch(navigationProvier);
       return Expanded(
         flex: 1,
         child: InkWell(
           onTap: () {
-            ref.read(navigationProvier).state = index;
+            ref.read(navigationProvier.state).state = index;
           },
           child: ListView(
             physics: const NeverScrollableScrollPhysics(),

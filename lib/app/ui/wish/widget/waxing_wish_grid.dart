@@ -69,8 +69,8 @@ class _WaxingWishGridState extends ConsumerState<WaxingWishGrid> {
       ),
       builderDelegate: PagedChildBuilderDelegate<ShopData>(
         itemBuilder: (context, s, index) {
-          final waxing = ref.watch(waxingProvider(s));
-          final waxingState = ref.read(waxingProvider(s).notifier);
+          final waxing = ref.watch(shopProvider(s));
+          final waxingState = ref.read(shopProvider(s).notifier);
           return wishGridCard(
             shop: waxing,
             stateRead: waxingState,

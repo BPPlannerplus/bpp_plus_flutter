@@ -31,15 +31,17 @@ class _HomePageState extends ConsumerState<HomePage> {
     scrollController.addListener(() {
       final direction = scrollController.position.userScrollDirection;
       if (direction == ScrollDirection.forward) {
-        ref.read(isShowBottomBar).state = true;
+        ref.read(isShowBottomBar.state).state = true;
       } else {
-        ref.read(isShowBottomBar).state = false;
+        ref.read(isShowBottomBar.state).state = false;
       }
     });
     super.initState();
   }
 
   void scrollToTop() {
+    ref.watch(isShowBottomBar.state).state = true;
+
     scrollController.animateTo(
       200,
       duration: const Duration(milliseconds: 300),
@@ -49,9 +51,10 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(homeTabProvider, (_) {
+    ref.listen(homeTabProvider, (pre, next) {
       scrollToTop();
     });
+
     return Padding(
       padding: const EdgeInsets.only(right: 16, left: 16),
       child: CustomScrollView(
@@ -59,7 +62,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         slivers: [
           const HomeBoxAdpater(),
           const HomeAppBar(),
-          _pages[ref.watch(homeTabProvider).state],
+          _pages[ref.watch(homeTabProvider)],
         ],
       ),
     );

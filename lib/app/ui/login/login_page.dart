@@ -120,10 +120,24 @@ class _LoginPageState extends State<LoginPage> {
                     routeName: AppRoutes.mainPage,
                   );
                 },
-                child: Image.asset(
-                  'assets/image/kakao_login.png',
-                  width: 296.w,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
                   height: 44.h,
+                  width: 296.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: const Color(0xfffee500),
+                  ),
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(
+                        'assets/icon/ic_kakao.svg',
+                        width: 20.w,
+                      ),
+                      SizedBox(width: 80.w),
+                      Text('카카오 로그인', style: TextStyle(fontSize: 16.sp)),
+                    ],
+                  ),
                 ),
               ),
             ),

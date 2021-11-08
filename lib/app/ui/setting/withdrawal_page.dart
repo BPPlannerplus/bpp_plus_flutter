@@ -75,12 +75,11 @@ class WithdrawalPage extends StatelessWidget {
                     Row(
                       children: [
                         Consumer(builder: (context, ref, _) {
-                          final isWithdrawal =
-                              ref.watch(withdrawalProvier).state;
+                          final isWithdrawal = ref.watch(withdrawalProvier);
                           return InkWell(
                             onTap: () {
-                              ref.read(withdrawalProvier).state =
-                                  !ref.read(withdrawalProvier).state;
+                              ref.read(withdrawalProvier.state).state =
+                                  !ref.read(withdrawalProvier.state).state;
                             },
                             borderRadius: BorderRadius.circular(16),
                             child: SvgPicture.asset(
@@ -100,7 +99,7 @@ class WithdrawalPage extends StatelessWidget {
                       height: 5.h,
                     ),
                     Consumer(builder: (context, ref, _) {
-                      final isWithdrawal = ref.watch(withdrawalProvier).state;
+                      final isWithdrawal = ref.watch(withdrawalProvier);
                       return ElevatedButton(
                         onPressed: isWithdrawal ? () {} : null,
                         style: ButtonStyle(

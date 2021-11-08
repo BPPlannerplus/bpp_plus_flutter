@@ -87,12 +87,11 @@ class ConceptAppBar extends ConsumerWidget {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        ...filterCards(ref.watch(conceptFilter).state.headNum),
-                        ...filterCards(ref.watch(conceptFilter).state.gender),
-                        ...filterCards(
-                            ref.watch(conceptFilter).state.background),
-                        ...filterCards(ref.watch(conceptFilter).state.prop),
-                        ...filterCards(ref.watch(conceptFilter).state.cloth),
+                        ...filterCards(ref.watch(conceptFilter).headNum),
+                        ...filterCards(ref.watch(conceptFilter).gender),
+                        ...filterCards(ref.watch(conceptFilter).background),
+                        ...filterCards(ref.watch(conceptFilter).prop),
+                        ...filterCards(ref.watch(conceptFilter).cloth),
                       ],
                     ),
                   )

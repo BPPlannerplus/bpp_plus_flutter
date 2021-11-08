@@ -32,9 +32,9 @@ class _WishPageState extends ConsumerState<WishPage> {
     scrollController.addListener(() {
       final direction = scrollController.position.userScrollDirection;
       if (direction == ScrollDirection.forward) {
-        ref.read(isShowBottomBar).state = true;
+        ref.read(isShowBottomBar.state).state = true;
       } else {
-        ref.read(isShowBottomBar).state = false;
+        ref.read(isShowBottomBar.state).state = false;
       }
     });
     super.initState();
@@ -50,7 +50,7 @@ class _WishPageState extends ConsumerState<WishPage> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(wishTabProvider, (_) {
+    ref.listen(wishTabProvider, (pre, next) {
       scrollToTop();
     });
     return SafeArea(
@@ -63,7 +63,7 @@ class _WishPageState extends ConsumerState<WishPage> {
                 controller: scrollController,
                 slivers: [
                   const WishAppBar(),
-                  _pages[ref.watch(wishTabProvider).state],
+                  _pages[ref.watch(wishTabProvider)],
                 ],
               ),
             ),

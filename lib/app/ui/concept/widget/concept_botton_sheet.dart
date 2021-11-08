@@ -1,6 +1,5 @@
 import 'package:bpp_riverpod/app/provider/concept/concept_filter_provider.dart';
 import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
-import 'package:bpp_riverpod/app/provider/concept/concpet_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_bts_icon.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
@@ -50,13 +49,12 @@ conceptBottomSheet() {
           filterColumn('의상', 4),
           ElevatedButton(
             onPressed: () {
-              ref.read(conceptFilter).state =
+              ref.read(conceptFilter.state).state =
                   ref.read(conceptFilterCheckProvider.notifier).makeFilter();
-              ref.read(conceptReqFilter).state =
+              ref.read(conceptReqFilter.state).state =
                   ref.read(conceptFilterCheckProvider.notifier).makeReqFilter();
-              ref.read(conceptListProvider.notifier).reset();
-              ref.read(conceptPageControllerProvider).refresh();
               locator<NavigationService>().pop();
+              ref.read(conceptListProvider.notifier).reset();
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(

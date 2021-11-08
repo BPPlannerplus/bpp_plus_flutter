@@ -11,23 +11,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_riverpod: 1.0.0-dev.11
+  flutter_riverpod: ^1.0.0
   flutter_screenutil:
   flutter_svg: ^0.23.0+1
   freezed_annotation:
   json_annotation: ^4.3.0
   video_player:
-  # flutter_cupertino_datetime_picker: ^3.0.0
   flutter_rating_bar: ^4.0.0
   get_it:
-  retrofit:
+  retrofit: ^2.1.0
   dio:
   shared_preferences: ^2.0.8
   jwt_decoder: ^2.0.1
   intl: ^0.17.0
   infinite_scroll_pagination: ^3.1.0
   url_launcher: ^6.0.12
-  mockito:
   logger: ^1.1.0
   flutter_kakao_login: ^3.4.0
   flutter_staggered_grid_view: ^0.4.1

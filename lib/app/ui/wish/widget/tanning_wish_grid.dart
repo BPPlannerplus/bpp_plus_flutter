@@ -69,8 +69,8 @@ class _TanningWishGridState extends ConsumerState<TanningWishGrid> {
       ),
       builderDelegate: PagedChildBuilderDelegate<ShopData>(
         itemBuilder: (context, s, index) {
-          final tanning = ref.watch(tanningProvider(s));
-          final tanningState = ref.read(tanningProvider(s).notifier);
+          final tanning = ref.watch(shopProvider(s));
+          final tanningState = ref.read(shopProvider(s).notifier);
           return wishGridCard(
             shop: tanning,
             stateRead: tanningState,

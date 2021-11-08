@@ -95,7 +95,7 @@ class ReviewWritePage extends StatelessWidget {
                         ),
                         Consumer(builder: (context, ref, _) {
                           return RatingBar.builder(
-                            initialRating: ref.watch(reviewScoreProvider).state,
+                            initialRating: ref.watch(reviewScoreProvider),
                             minRating: 0,
                             glow: false,
                             direction: Axis.horizontal,
@@ -108,7 +108,8 @@ class ReviewWritePage extends StatelessWidget {
                               color: Color(0xffffc142),
                             ),
                             onRatingUpdate: (rating) {
-                              ref.read(reviewScoreProvider).state = rating;
+                              ref.read(reviewScoreProvider.state).state =
+                                  rating;
                             },
                           );
                         }),
@@ -131,9 +132,8 @@ class ReviewWritePage extends StatelessWidget {
               ),
               Consumer(builder: (context, ref, _) {
                 return ElevatedButton(
-                  onPressed: ref.watch(reviewScoreProvider).state == 0.0
-                      ? null
-                      : () {},
+                  onPressed:
+                      ref.watch(reviewScoreProvider) == 0.0 ? null : () {},
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.resolveWith(
                       (states) {
@@ -151,7 +151,7 @@ class ReviewWritePage extends StatelessWidget {
                       child: Text(
                         '등록하기',
                         style: BppTextStyle.tabText.copyWith(
-                          color: ref.watch(reviewScoreProvider).state == 0.0
+                          color: ref.watch(reviewScoreProvider) == 0.0
                               ? const Color(0xffbfbfbf)
                               : const Color(0xffffffff),
                         ),

@@ -4,14 +4,8 @@ import 'package:bpp_riverpod/app/repository/concept_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ConceptListState extends StateNotifier<ConceptList> {
-  ConceptListState({
-    required this.repository,
-  }) : super(
-          ConceptList(
-            concepts: [],
-            next: 'true',
-          ),
-        );
+  ConceptListState({required this.repository})
+      : super(ConceptList(concepts: [], next: 'true'));
 
   final ConceptRepository repository;
 
@@ -28,12 +22,16 @@ class ConceptListState extends StateNotifier<ConceptList> {
     return newData;
   }
 
-  reset() {
+  void setLike(int id) {
     state = state.copyWith(
-      concepts: [],
-      next: 'true',
+      concepts: state.concepts.map<Concept>((e) {
+        return e.id == id ? e.copyWith(like: !e.like) : e;
+      }).toList(),
     );
+  }
 
+  reset() {
+    state = state.copyWith(concepts: [], next: 'true');
     getData();
   }
 }
@@ -41,12 +39,10 @@ class ConceptListState extends StateNotifier<ConceptList> {
 class ConceptState extends StateNotifier<Concept> {
   ConceptState(Concept state) : super(state);
 
-  setLike(int id) {
+  void setLike(int id) {
     state = state.copyWith(like: !state.like);
   }
 }
-
-final isConceptLoading = StateProvider<bool>((ref) => true);
 
 final conceptListProvider =
     StateNotifierProvider<ConceptListState, ConceptList>(

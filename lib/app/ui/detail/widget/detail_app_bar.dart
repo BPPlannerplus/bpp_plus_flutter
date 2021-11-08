@@ -55,7 +55,7 @@ class DetailAppBar extends StatelessWidget {
       final tabIndex = ref.watch(detailTabProvider);
       return InkWell(
         onTap: () {
-          ref.read(detailTabProvider).state = index;
+          ref.read(detailTabProvider.state).state = index;
         },
         child: Container(
           width: 15.0 * title.length,
@@ -64,10 +64,10 @@ class DetailAppBar extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: tabIndex.state == index
+                color: tabIndex == index
                     ? const Color(0xff3b75ff)
                     : const Color(0xfff2f2f2),
-                width: tabIndex.state == index ? 2.0 : 1.0,
+                width: tabIndex == index ? 2.0 : 1.0,
               ),
             ),
           ),
@@ -75,7 +75,7 @@ class DetailAppBar extends StatelessWidget {
             fit: BoxFit.fitWidth,
             child: Text(
               title,
-              style: ref.watch(detailTabProvider).state == index
+              style: ref.watch(detailTabProvider) == index
                   ? BppTextStyle.tabText.copyWith()
                   : BppTextStyle.defaultText,
             ),

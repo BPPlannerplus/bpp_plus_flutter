@@ -70,8 +70,8 @@ class _StudioWishGridState extends ConsumerState<StudioWishGrid> {
       ),
       builderDelegate: PagedChildBuilderDelegate<ShopData>(
         itemBuilder: (context, s, index) {
-          final studio = ref.watch(studioProvider(s));
-          final studioState = ref.read(studioProvider(s).notifier);
+          final studio = ref.watch(shopProvider(s));
+          final studioState = ref.read(shopProvider(s).notifier);
           return wishGridCard(
             shop: studio,
             stateRead: studioState,

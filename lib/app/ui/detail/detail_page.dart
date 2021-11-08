@@ -1,5 +1,5 @@
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
-import 'package:bpp_riverpod/app/provider/shop/shop_detail_provider.dart';
+import 'package:bpp_riverpod/app/provider/detail/shop_detail_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_app_bar.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_info_page.dart';
@@ -34,9 +34,9 @@ class _DetailPageState extends ConsumerState<DetailPage> {
   void initState() {
     scrollController.addListener(() {
       if (scrollController.offset.toInt() > 250) {
-        ref.read(detailPageLeadingProvier).state = false;
+        ref.read(detailPageLeadingProvier.state).state = false;
       } else {
-        ref.read(detailPageLeadingProvier).state = true;
+        ref.read(detailPageLeadingProvier.state).state = true;
       }
     });
     super.initState();
@@ -59,7 +59,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(detailTabProvider, (_) {
+    ref.listen<int>(detailTabProvider, (pre, next) {
       scrollToTop();
     });
 
@@ -68,12 +68,12 @@ class _DetailPageState extends ConsumerState<DetailPage> {
 
     return SafeArea(
       child: detailData.when(
-        loading: (pre) => const Scaffold(
+        loading: () => const Scaffold(
           body: Center(
             child: CircularProgressIndicator(),
           ),
         ),
-        error: (error, stack, pre) => Scaffold(
+        error: (error, stack) => Scaffold(
           body: Center(
             child: Text(
               error.toString(),
@@ -114,7 +114,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                 },
                 child: SvgPicture.asset(
                   'assets/icon/ic_back.svg',
-                  color: ref.watch(detailPageLeadingProvier).state
+                  color: ref.watch(detailPageLeadingProvier)
                       ? const Color(0xffffffff)
                       : const Color(0xff000000),
                 ),
@@ -136,7 +136,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                 const DetailAppBar(),
                 SliverPadding(
                   padding: const EdgeInsets.only(top: 8, right: 16, left: 16),
-                  sliver: _pages[index.state],
+                  sliver: _pages[index],
                 ),
               ],
             ),

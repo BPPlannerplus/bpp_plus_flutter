@@ -31,7 +31,7 @@ class InquiryPage extends StatelessWidget {
 
   Widget infoText() {
     return Consumer(builder: (context, ref, _) {
-      final visible = ref.watch(inquiryInfoTextShowProvier).state;
+      final visible = ref.watch(inquiryInfoTextShowProvier);
       return visible
           ? Stack(
               alignment: Alignment.centerLeft,
@@ -52,7 +52,7 @@ class InquiryPage extends StatelessWidget {
                   right: 10,
                   child: InkWell(
                     onTap: () {
-                      ref.read(inquiryInfoTextShowProvier).state = false;
+                      ref.read(inquiryInfoTextShowProvier.state).state = false;
                     },
                     child: const Icon(
                       CupertinoIcons.xmark,

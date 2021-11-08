@@ -69,8 +69,8 @@ class _BeautyWishGridState extends ConsumerState<BeautyWishGrid> {
       ),
       builderDelegate: PagedChildBuilderDelegate<ShopData>(
         itemBuilder: (context, s, index) {
-          final beauty = ref.watch(beautyProvider(s));
-          final beautyState = ref.read(beautyProvider(s).notifier);
+          final beauty = ref.watch(shopProvider(s));
+          final beautyState = ref.read(shopProvider(s).notifier);
           return wishGridCard(
             shop: beauty,
             stateRead: beautyState,

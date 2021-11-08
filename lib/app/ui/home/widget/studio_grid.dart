@@ -1,6 +1,7 @@
 import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
+import 'package:bpp_riverpod/app/provider/shop/shop_state.dart';
 import 'package:bpp_riverpod/app/ui/home/widget/home_grid_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,8 +32,9 @@ class _StudioGridState extends ConsumerState<StudioGrid> {
       ),
       builderDelegate: PagedChildBuilderDelegate<ShopData>(
         itemBuilder: (context, shop, index) {
-          final studio = ref.watch(studioProvider(shop));
-          final studioState = ref.read(studioProvider(shop).notifier);
+          final studio = ref.watch<ShopData>(
+              studioListProvider.select((value) => value.shopDatas[index]));
+          final studioState = ref.read(studioListProvider.notifier);
 
           return homeGridCard(
             shop: studio,

@@ -47,7 +47,8 @@ class StudioRepository implements ShopRepository {
           profile:
               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSWX2EtpNdJxN2rTqCYLjdfjJA2TCZSem-jw&usqp=CAU',
         ),
-      ).toList(),
+      ),
+      next: 'true',
     );
   }
 

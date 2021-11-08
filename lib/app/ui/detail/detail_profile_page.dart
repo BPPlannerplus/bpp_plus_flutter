@@ -33,7 +33,7 @@ class DetailProfilePage extends StatelessWidget {
                     initialPage: index,
                   ),
                   onPageChanged: (pageIndex) {
-                    ref.read(detailPageProvider).state = pageIndex;
+                    ref.read(detailPageProvider.state).state = pageIndex;
                     ref
                         .read(detailPageControllerProvider)
                         .jumpToPage(pageIndex);
@@ -66,7 +66,7 @@ class DetailProfilePage extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.only(bottom: 16),
                 alignment: Alignment.bottomCenter,
-                child: _circleStatus(ref.watch(detailPageProvider).state),
+                child: _circleStatus(ref.watch(detailPageProvider)),
               ),
             ],
           );

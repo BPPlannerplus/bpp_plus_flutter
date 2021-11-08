@@ -28,9 +28,9 @@ class _MyPageState extends ConsumerState<MyPage> {
     scrollController.addListener(() {
       final direction = scrollController.position.userScrollDirection;
       if (direction == ScrollDirection.forward) {
-        ref.read(isShowBottomBar).state = true;
+        ref.read(isShowBottomBar.state).state = true;
       } else {
-        ref.read(isShowBottomBar).state = false;
+        ref.read(isShowBottomBar.state).state = false;
       }
     });
     super.initState();
@@ -46,7 +46,7 @@ class _MyPageState extends ConsumerState<MyPage> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(myPageTabProvider, (_) {
+    ref.listen(myPageTabProvider, (pre, next) {
       scrollToTop();
     });
 
@@ -60,7 +60,7 @@ class _MyPageState extends ConsumerState<MyPage> {
               child: CustomScrollView(
                 controller: scrollController,
                 slivers: [
-                  _pages[ref.watch(myPageTabProvider).state],
+                  _pages[ref.watch(myPageTabProvider)],
                 ],
               ),
             ),

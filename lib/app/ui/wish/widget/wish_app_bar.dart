@@ -80,7 +80,7 @@ class WishAppBar extends StatelessWidget {
     return Consumer(builder: (context, ref, _) {
       return InkWell(
         onTap: () {
-          ref.read(wishTabProvider).state = index;
+          ref.read(wishTabProvider.state).state = index;
         },
         child: Container(
           width: 15.0 * title.length,
@@ -89,7 +89,7 @@ class WishAppBar extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: ref.watch(wishTabProvider).state == index
+                color: ref.watch(wishTabProvider) == index
                     ? const Color(0xff3b75ff)
                     : const Color(0xfff2f2f2),
                 width: 2.0,
@@ -100,7 +100,7 @@ class WishAppBar extends StatelessWidget {
             fit: BoxFit.fitWidth,
             child: Text(
               title,
-              style: ref.watch(wishTabProvider).state == index
+              style: ref.watch(wishTabProvider) == index
                   ? BppTextStyle.tabText
                   : BppTextStyle.defaultText,
             ),

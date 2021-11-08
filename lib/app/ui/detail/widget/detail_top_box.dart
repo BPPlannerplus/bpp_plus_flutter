@@ -27,7 +27,7 @@ class DetailTopBox extends StatelessWidget {
               PageView(
                 controller: ref.watch(detailPageControllerProvider),
                 onPageChanged: (index) {
-                  ref.read(detailPageProvider).state = index;
+                  ref.read(detailPageProvider.state).state = index;
                 },
                 children: [
                   imageBox(
@@ -47,7 +47,7 @@ class DetailTopBox extends StatelessWidget {
                   ),
                 ],
               ),
-              _circleStatus(index.state),
+              _circleStatus(index),
             ],
           );
         }),

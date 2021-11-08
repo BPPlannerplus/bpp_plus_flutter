@@ -22,9 +22,9 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
     scrollController.addListener(() {
       final direction = scrollController.position.userScrollDirection;
       if (direction == ScrollDirection.forward) {
-        ref.read(isShowBottomBar).state = true;
+        ref.read(isShowBottomBar.state).state = true;
       } else {
-        ref.read(isShowBottomBar).state = false;
+        ref.read(isShowBottomBar.state).state = false;
       }
       if (scrollController.offset >=
               scrollController.position.maxScrollExtent &&
@@ -56,33 +56,28 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
                   concepts.isEmpty
                       ? const SliverToBoxAdapter(
                           child: SizedBox(
-                            height: 300,
-                            child: Center(
-                              child: CircularProgressIndicator(),
-                            ),
-                          ),
-                        )
+                              height: 350,
+                              child:
+                                  Center(child: CircularProgressIndicator())))
                       : SliverStaggeredGrid.countBuilder(
                           mainAxisSpacing: 8,
                           crossAxisSpacing: 8,
                           crossAxisCount: 3,
-                          staggeredTileBuilder: (index) => StaggeredTile.count(
-                            1,
-                            cnt(index),
-                          ),
+                          staggeredTileBuilder: (index) =>
+                              StaggeredTile.count(1, cnt(index)),
                           itemBuilder: (context, index) {
                             if (index < concepts.length) {
-                              return conceptCard(
-                                concept: concepts[index],
-                              );
+                              final cc = ref.watch(conceptListProvider
+                                  .select((value) => value.concepts[index]));
+                              return conceptCard(id: cc.id);
                             }
+
                             return ref
                                     .watch(conceptListProvider)
                                     .next!
                                     .isNotEmpty
                                 ? const Center(
-                                    child: CircularProgressIndicator(),
-                                  )
+                                    child: CircularProgressIndicator())
                                 : const SizedBox();
                           },
                           itemCount: concepts.length + 1,

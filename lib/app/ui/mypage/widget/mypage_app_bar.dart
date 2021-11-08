@@ -12,7 +12,7 @@ class MypageAppBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tabIndex = ref.watch(myPageTabProvider).state;
+    final tabIndex = ref.watch(myPageTabProvider);
     return Container(
       height: tabIndex == 0 ? 252 : 208,
       padding: const EdgeInsets.only(top: 72),
@@ -108,7 +108,7 @@ class MypageAppBar extends ConsumerWidget {
         padding: const EdgeInsets.only(right: 8),
         child: InkWell(
           onTap: () {
-            ref.read(inquiryTabProvider).state = index;
+            ref.read(inquiryTabProvider.state).state = index;
           },
           child: Container(
             height: 28,
@@ -117,7 +117,7 @@ class MypageAppBar extends ConsumerWidget {
               borderRadius: const BorderRadius.all(
                 Radius.circular(16),
               ),
-              color: idx.state == index
+              color: idx == index
                   ? const Color(0xff3b75ff)
                   : const Color(0xfff2f2f2),
             ),
@@ -125,10 +125,10 @@ class MypageAppBar extends ConsumerWidget {
               child: Text(
                 title,
                 style: BppTextStyle.filterText.copyWith(
-                  color: idx.state == index
+                  color: idx == index
                       ? const Color(0xffffffff)
                       : const Color(0xff525252),
-                  fontWeight: idx.state == index ? FontWeight.w700 : null,
+                  fontWeight: idx == index ? FontWeight.w700 : null,
                 ),
               ),
             ),
@@ -142,7 +142,7 @@ class MypageAppBar extends ConsumerWidget {
     return Consumer(builder: (context, ref, _) {
       return InkWell(
         onTap: () {
-          ref.read(myPageTabProvider).state = index;
+          ref.read(myPageTabProvider.state).state = index;
         },
         child: Container(
           width: 15.0 * title.length,
@@ -151,7 +151,7 @@ class MypageAppBar extends ConsumerWidget {
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: ref.watch(myPageTabProvider).state == index
+                color: ref.watch(myPageTabProvider) == index
                     ? const Color(0xff3b75ff)
                     : const Color(0xfff2f2f2),
                 width: 2.0,
@@ -162,7 +162,7 @@ class MypageAppBar extends ConsumerWidget {
             fit: BoxFit.fitWidth,
             child: Text(
               title,
-              style: ref.watch(myPageTabProvider).state == index
+              style: ref.watch(myPageTabProvider) == index
                   ? BppTextStyle.tabText
                   : BppTextStyle.defaultText,
             ),

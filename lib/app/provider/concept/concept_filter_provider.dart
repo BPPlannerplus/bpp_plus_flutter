@@ -144,7 +144,7 @@ final conceptReqFilter = StateProvider<ConceptFilter>(
 );
 
 final concpetFilterEmptyProvider = Provider<bool>((ref) {
-  final conceptFilters = ref.watch(conceptFilter).state;
+  final conceptFilters = ref.watch(conceptFilter);
   if (conceptFilters.headNum.isEmpty &&
       conceptFilters.gender.isEmpty &&
       conceptFilters.background.isEmpty &&
