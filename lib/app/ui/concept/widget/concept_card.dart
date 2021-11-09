@@ -7,21 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Widget conceptCard({
-  // required Concept concept,
-  required int id,
+  required Concept concept,
 }) {
   return Consumer(builder: (context, ref, _) {
-    final concept = ref.watch<Concept>(
-      conceptListProvider.select(
-        (value) {
-          return value.concepts.where(
-            (element) {
-              return element.id == id;
-            },
-          ).toList()[0];
-        },
-      ),
-    );
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
@@ -32,7 +20,7 @@ Widget conceptCard({
                   locator<NavigationService>().navigatorKey.currentContext!,
               barrierColor: const Color(0xdd000000),
               builder: (_) => conceptDialog(
-                id: id,
+                concept: concept,
               ),
             );
           },

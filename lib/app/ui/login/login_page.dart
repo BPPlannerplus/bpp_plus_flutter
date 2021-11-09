@@ -1,22 +1,22 @@
+import 'package:bpp_riverpod/app/provider/auth/login_provider.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_kakao_login/flutter_kakao_login.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:video_player/video_player.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   late VideoPlayerController _videoPlayerController;
-  final FlutterKakaoLogin kakaoSignIn = FlutterKakaoLogin();
 
   @override
   void initState() {
@@ -31,51 +31,59 @@ class _LoginPageState extends State<LoginPage> {
           });
   }
 
-  void load() async {
-    // Kakao SDK Init (Set NATIVE_APP_KEY)
-    await kakaoSignIn.init('e47501547ce66e42f222fba1d3f7da22');
-
-    // For Android
-    final hashKey = await kakaoSignIn.hashKey;
-    // ignore: avoid_print
-    print('hashKey: $hashKey');
-  }
-
   Future<void> _login() async {
+    final kakaoLogin = ref.watch(flutterKakaoLogin);
+
     try {
-      final result = await kakaoSignIn.logIn();
+      final result = await kakaoLogin.logIn();
     } on PlatformException catch (e) {}
   }
 
-  Future<void> _logOut() async {
-    try {
-      final result = await kakaoSignIn.logOut();
-    } on PlatformException catch (e) {}
-  }
+  // Future<void> _logOut() async {
+  //   try {
+  //     final result = await kakaoSignIn.logOut();
+  //   } on PlatformException catch (e) {}
+  // }
 
-  Future<void> _unlink() async {
-    try {
-      final result = await kakaoSignIn.unlink();
-    } on PlatformException catch (e) {}
-  }
+  // Future<void> _unlink() async {
+  //   try {
+  //     final result = await kakaoSignIn.unlink();
+  //   } on PlatformException catch (e) {}
+  // }
 
   Future<void> _getAccountInfo() async {
+    final kakaoLogin = ref.watch(flutterKakaoLogin);
+
     try {
-      final result = await kakaoSignIn.getUserMe();
+      final result = await kakaoLogin.getUserMe();
       final account = result.account;
+
+      print('account!.userID: ${account!.userID}');
+      print('account.userEmail: ${account.userEmail}');
     } on PlatformException catch (e) {}
   }
 
   Future<void> _getAccessToken() async {
-    final token = await kakaoSignIn.currentToken;
+    final kakaoLogin = ref.watch(flutterKakaoLogin);
+
+    final token = await kakaoLogin.currentToken;
+
     final accessToken = token?.accessToken;
+
+    print('accessToken: $accessToken');
     if (accessToken != null) {
     } else {}
   }
 
   Future<void> _getRefreshToken() async {
-    final token = await kakaoSignIn.currentToken;
+    final kakaoLogin = ref.watch(flutterKakaoLogin);
+
+    final token = await kakaoLogin.currentToken;
+
     final refreshToken = token?.refreshToken;
+
+    print('refreshToken: $refreshToken');
+
     if (refreshToken != null) {
     } else {}
   }
@@ -115,29 +123,19 @@ class _LoginPageState extends State<LoginPage> {
               bottom: 56,
               left: 32.w,
               child: InkWell(
-                onTap: () {
+                onTap: () async {
+                  // await _login();
+                  // // await _getAccountInfo();
+                  // await _getAccessToken();
+                  // await _getRefreshToken();
                   locator<NavigationService>().navigateToRemove(
                     routeName: AppRoutes.mainPage,
                   );
                 },
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  height: 44.h,
+                child: Image.asset(
+                  'assets/image/kakao_login_large_wide .png',
                   width: 296.w,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: const Color(0xfffee500),
-                  ),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        'assets/icon/ic_kakao.svg',
-                        width: 20.w,
-                      ),
-                      SizedBox(width: 80.w),
-                      Text('카카오 로그인', style: TextStyle(fontSize: 16.sp)),
-                    ],
-                  ),
+                  height: 44.h,
                 ),
               ),
             ),

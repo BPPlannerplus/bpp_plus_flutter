@@ -1,3 +1,11 @@
-enum ShopState { inquiry, confirmed, expiration }
-
-enum ShopType { stduio, beautyStudio }
+enum ShopType {
+  stduio,
+  beauty,
+  waxing,
+  tanning,
+}
+enum ShopState {
+  inquiry,
+  confirmed,
+  expiration,
+}

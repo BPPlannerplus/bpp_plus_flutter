@@ -1,6 +1,7 @@
 import 'package:bpp_riverpod/app/provider/shop/shop_filter_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
+import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 homeBottomSheet(int index) {
   return Consumer(builder: (context, ref, _) {
-    final filter = ref.watch(studioFilterProvider);
+    final filter = ref.watch(shopFilterProvider);
+    final shopType = ref.watch(shopTypeProvider);
     return Container(
       padding: const EdgeInsets.only(
         top: 16,
@@ -48,9 +50,28 @@ homeBottomSheet(int index) {
                   for (var i = 0; i < filter.length; i++)
                     InkWell(
                       onTap: () {
-                        ref
-                            .read(studioFilterProvider.notifier)
-                            .toggleFilterState(i);
+                        switch (shopType) {
+                          case ShopType.stduio:
+                            ref
+                                .read(studioFilterProvider.notifier)
+                                .toggleFilterState(i);
+                            break;
+                          case ShopType.beauty:
+                            ref
+                                .read(beautyFilterProvider.notifier)
+                                .toggleFilterState(i);
+                            break;
+                          case ShopType.waxing:
+                            ref
+                                .read(waxingFilterProvider.notifier)
+                                .toggleFilterState(i);
+                            break;
+                          case ShopType.tanning:
+                            ref
+                                .read(tanningFilterProvider.notifier)
+                                .toggleFilterState(i);
+                            break;
+                        }
                       },
                       child: toggleIcon(
                         filter[i].id,
@@ -63,9 +84,28 @@ homeBottomSheet(int index) {
           ),
           ElevatedButton(
             onPressed: () {
-              ref.read(studioPageControllerProvider).refresh();
-              ref.read(studioListProvider.notifier).reset();
-              locator<NavigationService>().pop();
+              switch (shopType) {
+                case ShopType.stduio:
+                  ref.read(studioPageControllerProvider).refresh();
+                  ref.read(studioListProvider.notifier).reset();
+                  locator<NavigationService>().pop();
+                  break;
+                case ShopType.beauty:
+                  ref.read(beautyPageControllerProvider).refresh();
+                  ref.read(beautyListProvider.notifier).reset();
+                  locator<NavigationService>().pop();
+                  break;
+                case ShopType.waxing:
+                  ref.read(waxingPageControllerProvider).refresh();
+                  ref.read(waxingListProvider.notifier).reset();
+                  locator<NavigationService>().pop();
+                  break;
+                case ShopType.tanning:
+                  ref.read(tanningPageControllerProvider).refresh();
+                  ref.read(tanningListProvider.notifier).reset();
+                  locator<NavigationService>().pop();
+                  break;
+              }
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(

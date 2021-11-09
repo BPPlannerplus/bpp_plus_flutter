@@ -40,6 +40,13 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
   }
 
   @override
+  void dispose() {
+    scrollController.removeListener(() {});
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final concepts = ref.watch(conceptListProvider).concepts;
 
@@ -67,9 +74,7 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
                               StaggeredTile.count(1, cnt(index)),
                           itemBuilder: (context, index) {
                             if (index < concepts.length) {
-                              final cc = ref.watch(conceptListProvider
-                                  .select((value) => value.concepts[index]));
-                              return conceptCard(id: cc.id);
+                              return conceptCard(concept: concepts[index]);
                             }
 
                             return ref

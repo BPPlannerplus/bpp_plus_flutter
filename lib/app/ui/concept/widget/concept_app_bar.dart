@@ -31,7 +31,7 @@ class ConceptAppBar extends ConsumerWidget {
               children: [
                 SvgPicture.asset(
                   'assets/image/concept_text.svg',
-                  width: 190.w,
+                  width: 190,
                 ),
                 InkWell(
                   onTap: () {
@@ -64,9 +64,7 @@ class ConceptAppBar extends ConsumerWidget {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 12,
-            ),
+            SizedBox(height: 12.h),
             Expanded(
               child: Container(
                 height: 1,

@@ -40,8 +40,6 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 
   void scrollToTop() {
-    ref.watch(isShowBottomBar.state).state = true;
-
     scrollController.animateTo(
       200,
       duration: const Duration(milliseconds: 300),
@@ -53,6 +51,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     ref.listen(homeTabProvider, (pre, next) {
       scrollToTop();
+      ref.watch(isShowBottomBar.state).state = true;
     });
 
     return Padding(

@@ -53,8 +53,8 @@ conceptBottomSheet() {
                   ref.read(conceptFilterCheckProvider.notifier).makeFilter();
               ref.read(conceptReqFilter.state).state =
                   ref.read(conceptFilterCheckProvider.notifier).makeReqFilter();
-              locator<NavigationService>().pop();
               ref.read(conceptListProvider.notifier).reset();
+              locator<NavigationService>().pop();
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(

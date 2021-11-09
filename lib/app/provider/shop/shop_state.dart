@@ -30,12 +30,7 @@ class ShopListState extends StateNotifier<ShopList> {
     );
   }
 
-  reset() {
-    // state = ShopList(shopDatas: [], next: 'true');
-    // state = state.copyWith(shopDatas: [], next: 'true');
-    state.shopDatas.clear();
-    // getData();
-  }
+  void reset() => state.shopDatas.clear();
 }
 
 class ShopState extends StateNotifier<ShopData> {

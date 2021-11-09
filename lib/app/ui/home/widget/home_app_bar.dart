@@ -1,5 +1,7 @@
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
+import 'package:bpp_riverpod/app/provider/shop/shop_filter_provider.dart';
 import 'package:bpp_riverpod/app/ui/home/widget/home_bottom_sheet.dart';
+import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -114,6 +116,7 @@ class HomeAppBar extends StatelessWidget {
       return InkWell(
         onTap: () {
           ref.read(homeTabProvider.state).state = index;
+          ref.read(shopTypeProvider.state).state = ShopType.values[index];
         },
         child: Container(
           width: 15.0 * title.length,

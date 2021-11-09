@@ -31,6 +31,7 @@ class ConceptListState extends StateNotifier<ConceptList> {
   }
 
   reset() {
+    // state.concepts.clear();
     state = state.copyWith(concepts: [], next: 'true');
     getData();
   }

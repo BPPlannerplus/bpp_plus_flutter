@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bpp_riverpod">
+    package="com.example.bpp_flutter">
+        <!-- 인터넷 사용 권한 설정-->
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="바디플래너"
         android:icon="@mipmap/ic_launcher">
@@ -24,6 +26,19 @@
             </intent-filter>
            
         </activity>
+<!-- 2. Setup Kakao -->
+       <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
+           <intent-filter>
+               <action android:name="android.intent.action.VIEW" />
+               <category android:name="android.intent.category.DEFAULT" />
+               <category android:name="android.intent.category.BROWSABLE" />
+
+               <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth“ -->
+               <data android:host="oauth"
+                   android:scheme="kakao728c87e40ccd496fb94f1000585da2df" />
+           </intent-filter>
+       </activity>
+        
 
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->

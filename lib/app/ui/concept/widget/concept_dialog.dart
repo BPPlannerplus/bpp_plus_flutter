@@ -10,17 +10,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget conceptDialog({
-  // required Concept concept,
-  required int id,
-}) {
+Widget conceptDialog({required Concept concept}) {
   return Consumer(builder: (context, ref, _) {
-    final concept = ref.watch<Concept>(
+    final c = ref.watch<Concept>(
       conceptListProvider.select(
         (value) {
           return value.concepts.where(
             (element) {
-              return element.id == id;
+              return element.id == concept.id;
             },
           ).toList()[0];
         },
@@ -107,10 +104,8 @@ Widget conceptDialog({
                           .setLike(concept.id);
                     },
                     child: Icon(
-                      concept.like
-                          ? CupertinoIcons.heart_fill
-                          : CupertinoIcons.heart,
-                      color: concept.like
+                      c.like ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
+                      color: c.like
                           ? const Color(0xffff5757)
                           : const Color(0xffffffff),
                       size: 30,

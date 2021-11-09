@@ -1,3 +1,5 @@
+import 'package:bpp_riverpod/app/provider/auth/login_provider.dart';
+import 'package:bpp_riverpod/app/provider/auth/shared_provider.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/provider_log.dart';
@@ -25,8 +27,42 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
+  String initRoute = AppRoutes.loginPage;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 0), () {
+      initKakao();
+      checkToken();
+    });
+  }
+
+  void initKakao() async {
+    final kakaoLogin = ref.watch(flutterKakaoLogin);
+    await kakaoLogin.init('728c87e40ccd496fb94f1000585da2df');
+    final hashKey = await kakaoLogin.hashKey;
+    print('hashKey: $hashKey');
+  }
+
+  void checkToken() async {
+    final prefs = await ref.watch(sharedProvider.future);
+    final token = prefs.getString('token') ?? 'no token';
+    if (token == 'no token') {
+      print('토큰 없음');
+      return;
+    }
+    print('토큰 있음 token: $token');
+    initRoute = AppRoutes.mainPage;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +71,7 @@ class MyApp extends StatelessWidget {
       builder: () => MaterialApp(
         title: 'BPP',
         debugShowCheckedModeBanner: false,
-        initialRoute: AppRoutes.loginPage,
+        initialRoute: initRoute,
         onGenerateRoute: (settings) => AppRouter.onGenerateRoute(settings),
         navigatorKey: locator<NavigationService>().navigatorKey,
         theme: theme,
