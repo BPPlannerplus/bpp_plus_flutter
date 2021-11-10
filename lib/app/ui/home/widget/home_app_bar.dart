@@ -1,5 +1,5 @@
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
-import 'package:bpp_riverpod/app/provider/shop/shop_filter_provider.dart';
+import 'package:bpp_riverpod/app/provider/shop/shop_type_provider.dart';
 import 'package:bpp_riverpod/app/ui/home/widget/home_bottom_sheet.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';

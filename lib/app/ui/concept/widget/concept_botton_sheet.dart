@@ -11,15 +11,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 conceptBottomSheet() {
   return Consumer(builder: (context, ref, _) {
     return Container(
-      padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
-      height: 531,
+      padding: const EdgeInsets.all(16),
+      height: 545,
       decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(8),
-          topRight: Radius.circular(8),
-        ),
-      ),
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(8), topRight: Radius.circular(8))),
       child: Column(
         children: [
           Row(
@@ -41,7 +38,7 @@ conceptBottomSheet() {
               ),
             ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 16),
           filterColumn('인원', 0),
           filterColumn('성별', 1),
           filterColumn('배경', 2),

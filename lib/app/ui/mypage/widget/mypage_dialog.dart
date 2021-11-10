@@ -14,9 +14,9 @@ reservationDateDialog() {
         child: Container(
           padding: const EdgeInsets.all(16),
           width: 296,
-          height: 245,
+          height: 235,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(16),
           ),
           child: Column(
             children: [
@@ -32,7 +32,7 @@ reservationDateDialog() {
               ),
               DateTimePickerWidget(
                 minDateTime: DateTime.now(),
-                maxDateTime: DateTime(DateTime.now().year + 2),
+                maxDateTime: DateTime(DateTime.now().year + 5),
                 locale: DateTimePickerLocale.ko,
                 initDateTime: DateTime.now(),
                 dateFormat: 'yyyy-MM-dd',
@@ -73,9 +73,7 @@ reservationDateDialog() {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
+                  SizedBox(width: 10.w),
                   InkWell(
                     onTap: () {
                       locator<NavigationService>().pop();

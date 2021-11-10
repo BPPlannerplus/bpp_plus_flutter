@@ -1,3 +1,4 @@
+import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
 
 ThemeData theme = ThemeData(
@@ -9,13 +10,21 @@ ThemeData theme = ThemeData(
   textSelectionTheme: const TextSelectionThemeData(
     cursorColor: Color(0xff000000),
   ),
-  inputDecorationTheme: const InputDecorationTheme(
-    focusedBorder: OutlineInputBorder(
+  inputDecorationTheme: InputDecorationTheme(
+    focusedBorder: const OutlineInputBorder(
       borderSide: BorderSide(
         color: Color(0xffe6e6e6),
       ),
     ),
-    border: OutlineInputBorder(
+    enabledBorder: const OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Color(0xffe6e6e6),
+      ),
+    ),
+    hintStyle: BppTextStyle.smallText.copyWith(
+      color: const Color(0xffbfbfbf),
+    ),
+    border: const OutlineInputBorder(
       borderSide: BorderSide(
         color: Color(0xffe6e6e6),
       ),

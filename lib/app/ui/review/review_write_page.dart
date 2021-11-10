@@ -1,8 +1,9 @@
 import 'dart:math';
 
-import 'package:bpp_riverpod/app/provider/review_provider.dart';
+import 'package:bpp_riverpod/app/provider/mypage/review_provider.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,7 +36,7 @@ class ReviewWritePage extends StatelessWidget {
         ),
         body: Padding(
           padding:
-              const EdgeInsets.only(top: 16, right: 16, left: 16, bottom: 24),
+              const EdgeInsets.only(top: 24, right: 16, left: 16, bottom: 24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -59,12 +60,14 @@ class ReviewWritePage extends StatelessWidget {
                           style: BppTextStyle.smallText
                               .copyWith(color: const Color(0xff4d4d4d)),
                         ),
+                        SizedBox(height: 5.h),
                         Row(
                           children: [
                             Text(
                               '아날로그핏',
                               style: BppTextStyle.tabText,
                             ),
+                            const SizedBox(width: 8),
                             Transform.rotate(
                               angle: pi,
                               child: const Icon(
@@ -78,11 +81,9 @@ class ReviewWritePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 24,
-                  ),
+                  const SizedBox(height: 24),
                   SizedBox(
-                    height: 102,
+                    height: 110,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -101,11 +102,12 @@ class ReviewWritePage extends StatelessWidget {
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
+                            unratedColor: const Color(0xffe6e6e6),
                             itemPadding:
                                 const EdgeInsets.symmetric(horizontal: 4.0),
-                            itemBuilder: (context, _) => const Icon(
-                              Icons.star,
-                              color: Color(0xffffc142),
+                            itemBuilder: (context, _) => SvgPicture.asset(
+                              'assets/icon/star.svg',
+                              color: const Color(0xffffc142),
                             ),
                             onRatingUpdate: (rating) {
                               ref.read(reviewScoreProvider.state).state =
@@ -116,14 +118,13 @@ class ReviewWritePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  const SizedBox(
+                  const SizedBox(height: 24),
+                  SizedBox(
                     height: 128,
                     child: TextField(
-                      maxLines: 8,
-                      decoration: InputDecoration(
+                      maxLines: 6,
+                      style: BppTextStyle.smallText,
+                      decoration: const InputDecoration(
                         hintText: '좀 더 자세하게 공유해주실 수 있나요?',
                       ),
                     ),
@@ -131,22 +132,22 @@ class ReviewWritePage extends StatelessWidget {
                 ],
               ),
               Consumer(builder: (context, ref, _) {
-                return ElevatedButton(
-                  onPressed:
-                      ref.watch(reviewScoreProvider) == 0.0 ? null : () {},
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith(
-                      (states) {
-                        if (states.contains(MaterialState.disabled)) {
-                          return const Color(0xfff2f2f2);
-                        }
-                        return const Color(0xff3b75ff);
-                      },
+                return SizedBox(
+                  width: 328.w,
+                  height: 48.h,
+                  child: ElevatedButton(
+                    onPressed:
+                        ref.watch(reviewScoreProvider) == 0.0 ? null : () {},
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith(
+                        (states) {
+                          if (states.contains(MaterialState.disabled)) {
+                            return const Color(0xfff2f2f2);
+                          }
+                          return const Color(0xff3b75ff);
+                        },
+                      ),
                     ),
-                  ),
-                  child: SizedBox(
-                    width: 328.w,
-                    height: 48,
                     child: Center(
                       child: Text(
                         '등록하기',

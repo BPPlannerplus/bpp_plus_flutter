@@ -22,6 +22,8 @@ class MainPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print(MediaQuery.of(context).size.height);
+    print(MediaQuery.of(context).size.width);
     final index = ref.watch(navigationProvier);
     final visible = ref.watch(isShowBottomBar);
 

@@ -60,7 +60,7 @@ class FakeMypageRepository implements MypageRepository {
     return MypageResponse(
       remainingDays: 16,
       list: List.generate(
-        10,
+        20,
         (index) => MypageData(
           id: index,
           state: index % 2 + 1,
@@ -72,10 +72,22 @@ class FakeMypageRepository implements MypageRepository {
             kakaoUrl: 'https://pf.kakao.com/_xgCxjfj',
             type: index % 4,
           ),
-          reservedData: '2021.12.31',
+          reservedData: makeDate(index),
         ),
       ),
     );
+  }
+
+  String makeDate(int index) {
+    if (index < 5) {
+      return '2021-12-01';
+    } else if (index < 10) {
+      return '2021-12-09';
+    } else if (index < 15) {
+      return '2021-12-20';
+    } else {
+      return '2021-12-31';
+    }
   }
 
   @override

@@ -22,6 +22,7 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
   void initState() {
     Future.delayed(const Duration(seconds: 0), () async {
       await ref.read(inquiryListProvider.notifier).getList();
+      ref.read(inquiryShopTypeProvider.state).state = ShopType.stduio;
     });
     super.initState();
   }

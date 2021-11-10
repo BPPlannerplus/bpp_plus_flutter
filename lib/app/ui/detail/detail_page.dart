@@ -1,8 +1,8 @@
+import 'package:bpp_riverpod/app/provider/detail/shop_detail_page_controller.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/provider/detail/shop_detail_provider.dart';
-import 'package:bpp_riverpod/app/provider/shop/shop_filter_provider.dart';
-import 'package:bpp_riverpod/app/provider/shop/shop_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
+import 'package:bpp_riverpod/app/provider/shop/shop_type_provider.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_app_bar.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_info_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_mid_box.dart';

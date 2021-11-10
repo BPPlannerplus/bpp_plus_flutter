@@ -11,7 +11,7 @@ final isInquiryEmptyProvider = Provider.autoDispose<bool>((ref) {
 });
 
 final inquiryShopTypeProvider =
-    StateProvider<ShopType>((ref) => ShopType.stduio);
+    StateProvider.autoDispose<ShopType>((ref) => ShopType.stduio);
 
 final inquiryListProvider =
     StateNotifierProvider.autoDispose<InquiryList, List<MypageShopData>>((ref) {

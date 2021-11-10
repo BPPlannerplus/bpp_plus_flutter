@@ -15,17 +15,9 @@ class HomeBoxAdpater extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SvgPicture.asset(
-              'assets/image/home_sub.svg',
-              width: 113.w,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            SvgPicture.asset(
-              'assets/image/home_title.svg',
-              width: 154.w,
-            ),
+            SvgPicture.asset('assets/image/home_sub.svg', width: 113.w),
+            const SizedBox(height: 10),
+            SvgPicture.asset('assets/image/home_title.svg', width: 154.w),
           ],
         ),
       ),

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 // 기본 64, 2줄 112, 4줄 148
@@ -134,9 +135,9 @@ class _DetailReviewPageState extends ConsumerState<DetailReviewPage> {
               children: [
                 RatingBarIndicator(
                   rating: rating,
-                  itemBuilder: (context, index) => const Icon(
-                    Icons.star,
-                    color: Color(0xffffc142),
+                  itemBuilder: (context, _) => SvgPicture.asset(
+                    'assets/icon/star.svg',
+                    color: const Color(0xffffc142),
                   ),
                   unratedColor: const Color(0xffe6e6e6),
                   itemCount: 5,

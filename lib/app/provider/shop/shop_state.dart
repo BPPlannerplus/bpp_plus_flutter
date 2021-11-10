@@ -33,8 +33,8 @@ class ShopListState extends StateNotifier<ShopList> {
   void reset() => state.shopDatas.clear();
 }
 
-class ShopState extends StateNotifier<ShopData> {
-  ShopState(ShopData state) : super(state);
+class ShopDataState extends StateNotifier<ShopData> {
+  ShopDataState(ShopData state) : super(state);
 
   setLike(int id) => state = state.copyWith(like: !state.like);
 }

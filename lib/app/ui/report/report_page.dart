@@ -44,47 +44,38 @@ class ReportPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '신고하시는 이유를 선택해주세요',
-                    style: BppTextStyle.tabText.copyWith(
-                      fontSize: 16.sp,
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(
+                  '신고하시는 이유를 선택해주세요',
+                  style: BppTextStyle.tabText.copyWith(
+                    fontSize: 16.sp,
+                  ),
+                ),
+                SizedBox(height: 16.h),
+                reportRow('음란, 욕설 등 부적절한 내용', 0),
+                reportRow('부적절한 홍보 또는 광고 내용', 1),
+                reportRow('개인 정보 노출', 2),
+                reportRow('불법 정보 기재', 3),
+                reportRow('기타(직접 입력)', 4),
+                SizedBox(
+                  height: 128,
+                  child: TextField(
+                    maxLines: 6,
+                    style: BppTextStyle.smallText,
+                    decoration: const InputDecoration(
+                      hintText: '신고하시는 이유를 입력해주세요',
                     ),
                   ),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  reportRow('음란, 욕설 등 부적절한 내용', 0),
-                  reportRow('부적절한 홍보 또는 광고 내용', 1),
-                  reportRow('개인 정보 노출', 2),
-                  reportRow('불법 정보 기재', 3),
-                  reportRow('기타(직접 입력)', 4),
-                  const SizedBox(
-                    height: 128,
-                    child: TextField(
-                      maxLines: 8,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: '신고하시는 이유를 입력해주세요',
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 16.h),
-                  Container(
-                    height: 56,
+                ),
+                SizedBox(height: 16.h),
+                Container(
+                    height: 56.h,
                     width: double.infinity,
                     color: const Color(0xfff8f8f8),
                     child: Center(
-                      child: SvgPicture.asset(
-                        'assets/image/report_text.svg',
-                        width: 312,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                        child: SvgPicture.asset('assets/image/report_text.svg',
+                            width: 300.w)))
+              ]),
               Consumer(builder: (context, ref, _) {
                 final check = ref.watch(isReportCheckProvider(id));
                 return SizedBox(

@@ -5,9 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Widget toggleIcon(String text, bool isCheck) {
   return Padding(
-    padding: const EdgeInsets.only(
-      right: 4.0,
-    ),
+    padding: const EdgeInsets.only(right: 4.0),
     child: Container(
       height: 28,
       width: 12.0 * text.length + 25,
@@ -39,7 +37,7 @@ Widget filterColumn(String title, int num) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: SizedBox(
-        height: num != 2 ? 57 : 91,
+        height: num != 2 ? 58 : 95,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -47,7 +45,7 @@ Widget filterColumn(String title, int num) {
               title,
               style: BppTextStyle.smallText,
             ),
-            const SizedBox(height: 5),
+            const SizedBox(height: 8),
             num != 2
                 ? Row(
                     children: [
@@ -83,7 +81,7 @@ Widget filterColumn(String title, int num) {
                             )
                         ],
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 8),
                       Row(
                         children: [
                           for (var i = 3; i < 5; i++)
