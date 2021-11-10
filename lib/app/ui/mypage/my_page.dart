@@ -55,11 +55,11 @@ class _MyPageState extends ConsumerState<MyPage> {
         padding: const EdgeInsets.only(right: 16, left: 16),
         child: Column(
           children: [
-            const MypageAppBar(),
             Expanded(
               child: CustomScrollView(
                 controller: scrollController,
                 slivers: [
+                  const MypageAppBar(),
                   _pages[ref.watch(myPageTabProvider)],
                 ],
               ),

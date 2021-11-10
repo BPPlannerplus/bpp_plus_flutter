@@ -49,9 +49,18 @@ class SettingPage extends StatelessWidget {
               SizedBox(
                 height: 12.h,
               ),
-              Text(
-                '로그아웃',
-                style: BppTextStyle.defaultText,
+              InkWell(
+                onTap: () async {
+                  // Future<void> _logOut() async {
+                  //   try {
+                  //     final result = await kakaoSignIn.logOut();
+                  //   } on PlatformException catch (e) {}
+                  // }
+                },
+                child: Text(
+                  '로그아웃',
+                  style: BppTextStyle.defaultText,
+                ),
               ),
               SizedBox(
                 height: 12.h,

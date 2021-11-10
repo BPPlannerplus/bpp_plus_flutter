@@ -6,16 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-class TanningGrid extends ConsumerStatefulWidget {
+class TanningGrid extends ConsumerWidget {
   const TanningGrid({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<TanningGrid> createState() => _TanningGridState();
-}
-
-class _TanningGridState extends ConsumerState<TanningGrid> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return PagedSliverGrid(
       pagingController: ref.watch(tanningPageControllerProvider),
       showNewPageProgressIndicatorAsGridChild: false,

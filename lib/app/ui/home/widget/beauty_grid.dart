@@ -6,16 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-class BeautyGrid extends ConsumerStatefulWidget {
+class BeautyGrid extends ConsumerWidget {
   const BeautyGrid({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<BeautyGrid> createState() => _BeautyGridState();
-}
-
-class _BeautyGridState extends ConsumerState<BeautyGrid> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return PagedSliverGrid(
       pagingController: ref.watch(beautyPageControllerProvider),
       showNewPageProgressIndicatorAsGridChild: false,

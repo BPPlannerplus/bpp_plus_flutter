@@ -6,16 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-class WaxingGrid extends ConsumerStatefulWidget {
+class WaxingGrid extends ConsumerWidget {
   const WaxingGrid({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<WaxingGrid> createState() => _WaxingGridState();
-}
-
-class _WaxingGridState extends ConsumerState<WaxingGrid> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return PagedSliverGrid(
       pagingController: ref.watch(waxingPageControllerProvider),
       showNewPageProgressIndicatorAsGridChild: false,

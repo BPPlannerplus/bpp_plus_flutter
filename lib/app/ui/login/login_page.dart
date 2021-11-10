@@ -39,18 +39,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     } on PlatformException catch (e) {}
   }
 
-  // Future<void> _logOut() async {
-  //   try {
-  //     final result = await kakaoSignIn.logOut();
-  //   } on PlatformException catch (e) {}
-  // }
-
-  // Future<void> _unlink() async {
-  //   try {
-  //     final result = await kakaoSignIn.unlink();
-  //   } on PlatformException catch (e) {}
-  // }
-
   Future<void> _getAccountInfo() async {
     final kakaoLogin = ref.watch(flutterKakaoLogin);
 

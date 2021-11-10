@@ -1,12 +1,15 @@
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/provider/detail/shop_detail_provider.dart';
+import 'package:bpp_riverpod/app/provider/shop/shop_filter_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_page_controller_provider.dart';
+import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_app_bar.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_info_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_mid_box.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_portfolio_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_review_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_top_box.dart';
+import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
@@ -90,6 +93,8 @@ class _DetailPageState extends ConsumerState<DetailPage> {
           final reviewPageController =
               ref.watch(shopDetailReviewPageControllerProvider(widget.shopId));
 
+          final shopType = ref.watch(shopTypeProvider);
+
           var _pages = [
             DetailPortfolioPage(
               pagingController: conceptPageController,
@@ -153,6 +158,29 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                       ref
                           .read(shopDetailStateProvider(shopData).notifier)
                           .setLike();
+
+                      switch (shopType) {
+                        case ShopType.stduio:
+                          ref
+                              .read(studioListProvider.notifier)
+                              .setLike(shopData.id);
+                          break;
+                        case ShopType.beauty:
+                          ref
+                              .read(beautyListProvider.notifier)
+                              .setLike(shopData.id);
+                          break;
+                        case ShopType.waxing:
+                          ref
+                              .read(waxingListProvider.notifier)
+                              .setLike(shopData.id);
+                          break;
+                        case ShopType.tanning:
+                          ref
+                              .read(tanningListProvider.notifier)
+                              .setLike(shopData.id);
+                          break;
+                      }
                     },
                     child: Stack(
                       children: [

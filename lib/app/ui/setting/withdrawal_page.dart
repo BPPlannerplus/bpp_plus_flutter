@@ -101,7 +101,15 @@ class WithdrawalPage extends StatelessWidget {
                     Consumer(builder: (context, ref, _) {
                       final isWithdrawal = ref.watch(withdrawalProvier);
                       return ElevatedButton(
-                        onPressed: isWithdrawal ? () {} : null,
+                        onPressed: isWithdrawal
+                            ? () async {
+                                // Future<void> _unlink() async {
+                                //   try {
+                                //     final result = await kakaoSignIn.unlink();
+                                //   } on PlatformException catch (e) {}
+                                // }
+                              }
+                            : null,
                         style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.resolveWith((states) {

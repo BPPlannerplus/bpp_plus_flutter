@@ -1,23 +1,17 @@
 import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
-import 'package:bpp_riverpod/app/provider/shop/shop_state.dart';
 import 'package:bpp_riverpod/app/ui/home/widget/home_grid_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-class StudioGrid extends ConsumerStatefulWidget {
+class StudioGrid extends ConsumerWidget {
   const StudioGrid({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<StudioGrid> createState() => _StudioGridState();
-}
-
-class _StudioGridState extends ConsumerState<StudioGrid> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return PagedSliverGrid(
       pagingController: ref.watch(studioPageControllerProvider),
       showNewPageProgressIndicatorAsGridChild: false,
