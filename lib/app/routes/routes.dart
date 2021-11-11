@@ -21,6 +21,7 @@ class AppRoutes {
   static const withdrawalPage = '/withdrawalPage';
   static const reviewWritePage = '/reviewWritePage';
   static const myReviewPage = '/myReviewPage';
+  static const licensePage = '/licensePage';
 }
 
 class AppRouter {
@@ -85,6 +86,14 @@ class AppRouter {
       case AppRoutes.myReviewPage:
         return MaterialPageRoute<dynamic>(
           builder: (_) => const MyReviewPage(),
+          settings: settings,
+        );
+      case AppRoutes.licensePage:
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => const LicensePage(
+            applicationName: '바디플래너',
+            applicationVersion: '0.0.1',
+          ),
           settings: settings,
         );
     }

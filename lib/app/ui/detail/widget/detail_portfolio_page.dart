@@ -21,6 +21,8 @@ class DetailPortfolioPage extends ConsumerStatefulWidget {
 class _DetailPortfolioPageState extends ConsumerState<DetailPortfolioPage> {
   @override
   Widget build(BuildContext context) {
+    final navigator = ref.watch(navigatorProvider);
+
     return PagedSliverGrid(
       pagingController: widget.pagingController,
       showNewPageProgressIndicatorAsGridChild: false,
@@ -37,7 +39,7 @@ class _DetailPortfolioPageState extends ConsumerState<DetailPortfolioPage> {
         itemBuilder: (context, sc, index) {
           return InkWell(
             onTap: () {
-              locator<NavigationService>().navigateTo(
+              navigator.navigateTo(
                 routeName: AppRoutes.detailPortfolioPage,
                 argument: sc.profile,
               );

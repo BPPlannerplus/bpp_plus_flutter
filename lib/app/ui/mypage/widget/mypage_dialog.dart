@@ -3,102 +3,101 @@ import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-reservationDateDialog() {
+reservationDateDialog(BuildContext context) {
   showCupertinoDialog(
-    context: locator<NavigationService>().navigatorKey.currentContext!,
+    context: context,
     builder: (context) {
-      return Dialog(
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          width: 296,
-          height: 235,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Column(
-            children: [
-              Text(
-                '예약 날짜',
-                style: BppTextStyle.dialogText.copyWith(
-                  color: const Color(0xff000000),
-                  fontWeight: FontWeight.w400,
+      return Consumer(builder: (context, ref, _) {
+        final navigator = ref.watch(navigatorProvider);
+        return Dialog(
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            width: 296,
+            height: 235,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Column(
+              children: [
+                Text(
+                  '예약 날짜',
+                  style: BppTextStyle.dialogText.copyWith(
+                    color: const Color(0xff000000),
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              DateTimePickerWidget(
-                minDateTime: DateTime.now(),
-                maxDateTime: DateTime(DateTime.now().year + 5),
-                locale: DateTimePickerLocale.ko,
-                initDateTime: DateTime.now(),
-                dateFormat: 'yyyy-MM-dd',
-                pickerTheme: DateTimePickerTheme(
-                  showTitle: false,
-                  pickerHeight: 132,
-                  itemHeight: 44,
-                  itemTextStyle: BppTextStyle.tabText,
-                  selectionOverlay: Container(
-                    decoration: const BoxDecoration(
-                      border: Border.symmetric(
-                        horizontal: BorderSide(
-                          color: Color(0xff000000),
+                const SizedBox(
+                  height: 8,
+                ),
+                DateTimePickerWidget(
+                    minDateTime: DateTime.now(),
+                    maxDateTime: DateTime(DateTime.now().year + 5),
+                    locale: DateTimePickerLocale.ko,
+                    initDateTime: DateTime.now(),
+                    dateFormat: 'yyyy-MM-dd',
+                    pickerTheme: DateTimePickerTheme(
+                        showTitle: false,
+                        pickerHeight: 132,
+                        itemHeight: 44,
+                        itemTextStyle: BppTextStyle.tabText,
+                        selectionOverlay: Container(
+                            decoration: const BoxDecoration(
+                                border: Border.symmetric(
+                                    horizontal: BorderSide(
+                                        color: Color(0xff000000))))))),
+                const SizedBox(height: 8),
+                Container(
+                  height: 1,
+                  color: const Color(0xffbfbfbf),
+                ),
+                const SizedBox(height: 14),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        navigator.pop();
+                      },
+                      child: Text(
+                        '취소',
+                        style: BppTextStyle.tabText.copyWith(
+                          color: const Color(0xffbfbfbf),
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
-                  ),
+                    SizedBox(width: 10.w),
+                    InkWell(
+                      onTap: () {
+                        navigator.pop();
+                        confirmReservationDialog(
+                            navigator.navigatorKey.currentContext!);
+                      },
+                      child: Text(
+                        '저장',
+                        style: BppTextStyle.tabText.copyWith(
+                          color: const Color(0xff3575ff),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(height: 8),
-              Container(
-                height: 1,
-                color: const Color(0xffbfbfbf),
-              ),
-              const SizedBox(height: 14),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      locator<NavigationService>().pop();
-                    },
-                    child: Text(
-                      '취소',
-                      style: BppTextStyle.tabText.copyWith(
-                        color: const Color(0xffbfbfbf),
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 10.w),
-                  InkWell(
-                    onTap: () {
-                      locator<NavigationService>().pop();
-                      confirmReservationDialog();
-                    },
-                    child: Text(
-                      '저장',
-                      style: BppTextStyle.tabText.copyWith(
-                        color: const Color(0xff3575ff),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      );
+        );
+      });
     },
   );
 }
 
-confirmReservationDialog() {
+confirmReservationDialog(BuildContext context) {
   showCupertinoDialog(
-    context: locator<NavigationService>().navigatorKey.currentContext!,
+    context: context,
     builder: (context) {
       return Dialog(
         child: Container(
@@ -132,17 +131,20 @@ confirmReservationDialog() {
                 height: 1,
                 color: const Color(0xffbfbfbf),
               ),
-              InkWell(
-                onTap: () {
-                  locator<NavigationService>().pop();
-                },
-                child: Text(
-                  '확인',
-                  style: BppTextStyle.smallText.copyWith(
-                    fontWeight: FontWeight.w500,
+              Consumer(builder: (context, ref, _) {
+                final navigator = ref.watch(navigatorProvider);
+                return InkWell(
+                  onTap: () {
+                    navigator.pop();
+                  },
+                  child: Text(
+                    '확인',
+                    style: BppTextStyle.smallText.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                ),
-              ),
+                );
+              }),
             ],
           ),
         ),

@@ -2,6 +2,7 @@ import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -16,14 +17,17 @@ class SettingPage extends StatelessWidget {
           toolbarHeight: 40,
           elevation: 0,
           centerTitle: true,
-          leading: InkWell(
-            onTap: () {
-              locator<NavigationService>().pop();
-            },
-            child: SvgPicture.asset(
-              'assets/icon/ic_back.svg',
-            ),
-          ),
+          leading: Consumer(builder: (context, ref, _) {
+            final navigator = ref.watch(navigatorProvider);
+            return InkWell(
+              onTap: () {
+                navigator.pop();
+              },
+              child: SvgPicture.asset(
+                'assets/icon/ic_back.svg',
+              ),
+            );
+          }),
           title: Text(
             '설정',
             style: BppTextStyle.tabText,
@@ -34,10 +38,18 @@ class SettingPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '라이센스',
-                style: BppTextStyle.defaultText,
-              ),
+              Consumer(builder: (context, ref, _) {
+                final navigator = ref.watch(navigatorProvider);
+                return InkWell(
+                  onTap: () {
+                    navigator.navigateTo(routeName: AppRoutes.licensePage);
+                  },
+                  child: Text(
+                    '라이센스',
+                    style: BppTextStyle.defaultText,
+                  ),
+                );
+              }),
               SizedBox(
                 height: 12.h,
               ),
@@ -73,17 +85,20 @@ class SettingPage extends StatelessWidget {
               SizedBox(
                 height: 12.h,
               ),
-              InkWell(
-                onTap: () {
-                  locator<NavigationService>().navigateTo(
-                    routeName: AppRoutes.withdrawalPage,
-                  );
-                },
-                child: Text(
-                  '회원탈퇴',
-                  style: BppTextStyle.defaultText,
-                ),
-              ),
+              Consumer(builder: (context, ref, _) {
+                final navigator = ref.watch(navigatorProvider);
+                return InkWell(
+                  onTap: () {
+                    navigator.navigateTo(
+                      routeName: AppRoutes.withdrawalPage,
+                    );
+                  },
+                  child: Text(
+                    '회원탈퇴',
+                    style: BppTextStyle.defaultText,
+                  ),
+                );
+              }),
             ],
           ),
         ),

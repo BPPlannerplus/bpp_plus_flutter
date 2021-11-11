@@ -91,23 +91,26 @@ class _ConceptWishGridState extends ConsumerState<ConceptWishGrid> {
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
-        InkWell(
-          onTap: () {
-            locator<NavigationService>().navigateTo(
-              routeName: AppRoutes.detailPage,
-              argument: id,
-            );
-          },
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image.network(
-              profile,
-              height: 144.h,
-              width: double.infinity,
-              fit: BoxFit.fill,
+        Consumer(builder: (context, ref, _) {
+          final navigator = ref.watch(navigatorProvider);
+          return InkWell(
+            onTap: () {
+              navigator.navigateTo(
+                routeName: AppRoutes.detailPage,
+                argument: id,
+              );
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.network(
+                profile,
+                height: 144.h,
+                width: double.infinity,
+                fit: BoxFit.fill,
+              ),
             ),
-          ),
-        ),
+          );
+        }),
         Padding(
           padding: const EdgeInsets.all(5.0),
           child: InkWell(

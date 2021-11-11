@@ -10,7 +10,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
-  setupLocator();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Color(0xffe0e0e0),
@@ -73,7 +72,7 @@ class _MyAppState extends ConsumerState<MyApp> {
         debugShowCheckedModeBanner: false,
         initialRoute: initRoute,
         onGenerateRoute: (settings) => AppRouter.onGenerateRoute(settings),
-        navigatorKey: locator<NavigationService>().navigatorKey,
+        navigatorKey: ref.watch(navigatorProvider).navigatorKey,
         theme: theme,
         scrollBehavior: MyBehavior(),
       ),

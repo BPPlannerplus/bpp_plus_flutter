@@ -1,6 +1,7 @@
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DetailPortfolioFullScreen extends StatelessWidget {
@@ -32,20 +33,23 @@ class DetailPortfolioFullScreen extends StatelessWidget {
             Positioned(
               top: 16,
               right: 16,
-              child: InkWell(
-                onTap: () {
-                  locator<NavigationService>().pop();
-                },
-                child: const SizedBox(
-                  width: 40,
-                  height: 40,
-                  child: Icon(
-                    CupertinoIcons.xmark,
-                    color: Color(0xffffffff),
-                    size: 30,
+              child: Consumer(builder: (context, ref, _) {
+                final navigator = ref.watch(navigatorProvider);
+                return InkWell(
+                  onTap: () {
+                    navigator.pop();
+                  },
+                  child: const SizedBox(
+                    width: 40,
+                    height: 40,
+                    child: Icon(
+                      CupertinoIcons.xmark,
+                      color: Color(0xffffffff),
+                      size: 30,
+                    ),
                   ),
-                ),
-              ),
+                );
+              }),
             ),
           ],
         ),

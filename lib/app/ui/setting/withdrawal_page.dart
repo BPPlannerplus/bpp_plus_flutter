@@ -16,14 +16,17 @@ class WithdrawalPage extends StatelessWidget {
         appBar: AppBar(
           toolbarHeight: 40,
           elevation: 0,
-          leading: InkWell(
-            onTap: () {
-              locator<NavigationService>().pop();
-            },
-            child: SvgPicture.asset(
-              'assets/icon/ic_back.svg',
-            ),
-          ),
+          leading: Consumer(builder: (context, ref, _) {
+            final navigator = ref.watch(navigatorProvider);
+            return InkWell(
+              onTap: () {
+                navigator.pop();
+              },
+              child: SvgPicture.asset(
+                'assets/icon/ic_back.svg',
+              ),
+            );
+          }),
         ),
         body: Padding(
           padding: const EdgeInsets.all(24),

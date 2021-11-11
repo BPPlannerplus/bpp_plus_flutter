@@ -70,21 +70,24 @@ class _ReservationDetailPageState extends ConsumerState<ReservationDetailPage> {
               const SizedBox(width: 16),
               Padding(
                   padding: const EdgeInsets.only(top: 8),
-                  child: reservationCard(
-                    date: reservationDateFormat(datas[i].reservedData),
-                    shop: shopTypeToName[datas[i].shop.type]!,
-                    shopName: datas[i].shop.name,
-                    buttonText: '리뷰 작성',
-                    iconWidget: Text('다시 추가하기',
-                        style: BppTextStyle.smallText
-                            .copyWith(color: const Color(0xff3b75ff))),
-                    onTabButton: () {
-                      locator<NavigationService>().navigateTo(
-                        routeName: AppRoutes.reviewWritePage,
-                      );
-                    },
-                    onTabIcon: () {},
-                  ))
+                  child: Consumer(builder: (context, ref, _) {
+                    final navigator = ref.watch(navigatorProvider);
+                    return reservationCard(
+                      date: reservationDateFormat(datas[i].reservedData),
+                      shop: shopTypeToName[datas[i].shop.type]!,
+                      shopName: datas[i].shop.name,
+                      buttonText: '리뷰 작성',
+                      iconWidget: Text('다시 추가하기',
+                          style: BppTextStyle.smallText
+                              .copyWith(color: const Color(0xff3b75ff))),
+                      onTabButton: () {
+                        navigator.navigateTo(
+                          routeName: AppRoutes.reviewWritePage,
+                        );
+                      },
+                      onTabIcon: () {},
+                    );
+                  }))
             ],
           ),
         ),
@@ -98,21 +101,24 @@ class _ReservationDetailPageState extends ConsumerState<ReservationDetailPage> {
             const SizedBox(width: 16),
             Padding(
                 padding: const EdgeInsets.only(top: 8),
-                child: reservationCard(
-                  date: '12월 31일',
-                  shop: '태닝',
-                  shopName: 'Tanning 1',
-                  buttonText: '내 리뷰 보기',
-                  iconWidget: Text('다시 추가하기',
-                      style: BppTextStyle.smallText
-                          .copyWith(color: const Color(0xff3b75ff))),
-                  onTabButton: () {
-                    locator<NavigationService>().navigateTo(
-                      routeName: AppRoutes.myReviewPage,
-                    );
-                  },
-                  onTabIcon: () {},
-                ))
+                child: Consumer(builder: (context, ref, _) {
+                  final navigator = ref.watch(navigatorProvider);
+                  return reservationCard(
+                    date: '12월 31일',
+                    shop: '태닝',
+                    shopName: 'Tanning 1',
+                    buttonText: '내 리뷰 보기',
+                    iconWidget: Text('다시 추가하기',
+                        style: BppTextStyle.smallText
+                            .copyWith(color: const Color(0xff3b75ff))),
+                    onTabButton: () {
+                      navigator.navigateTo(
+                        routeName: AppRoutes.myReviewPage,
+                      );
+                    },
+                    onTabIcon: () {},
+                  );
+                }))
           ],
         ),
       ),

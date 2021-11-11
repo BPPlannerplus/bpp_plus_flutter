@@ -16,6 +16,7 @@ class MypageAppBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final tabIndex = ref.watch(myPageTabProvider);
     final isInquiryEmpty = ref.watch(isInquiryEmptyProvider);
+    final navigator = ref.watch(navigatorProvider);
 
     return SliverToBoxAdapter(
       child: Container(
@@ -43,7 +44,7 @@ class MypageAppBar extends ConsumerWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    locator<NavigationService>().navigateTo(
+                    navigator.navigateTo(
                       routeName: AppRoutes.settingPage,
                     );
                   },

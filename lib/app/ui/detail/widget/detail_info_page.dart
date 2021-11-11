@@ -3,6 +3,7 @@ import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DetailInfoPage extends StatelessWidget {
@@ -34,32 +35,35 @@ class DetailInfoPage extends StatelessWidget {
               const SizedBox(
                 height: 12,
               ),
-              InkWell(
-                onTap: () {
-                  locator<NavigationService>().navigateTo(
-                    routeName: AppRoutes.detailPortfolioPage,
-                    argument: priceImg,
-                  );
-                },
-                borderRadius: BorderRadius.circular(5),
-                child: Container(
-                  height: 380,
-                  width: 328.w,
-                  padding: const EdgeInsets.all(2),
-                  margin: const EdgeInsets.all(2),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: const Color(0xffe6e6e6),
-                      width: 1,
+              Consumer(builder: (context, ref, _) {
+                final navigator = ref.watch(navigatorProvider);
+                return InkWell(
+                  onTap: () {
+                    navigator.navigateTo(
+                      routeName: AppRoutes.detailPortfolioPage,
+                      argument: priceImg,
+                    );
+                  },
+                  borderRadius: BorderRadius.circular(5),
+                  child: Container(
+                    height: 380,
+                    width: 328.w,
+                    padding: const EdgeInsets.all(2),
+                    margin: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        color: const Color(0xffe6e6e6),
+                        width: 1,
+                      ),
+                    ),
+                    child: Image.network(
+                      priceImg,
+                      fit: BoxFit.fill,
                     ),
                   ),
-                  child: Image.network(
-                    priceImg,
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              ),
+                );
+              }),
             ],
           ),
           const SizedBox(

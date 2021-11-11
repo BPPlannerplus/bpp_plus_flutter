@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-GetIt locator = GetIt.instance;
-void setupLocator() {
-  locator.registerLazySingleton<NavigationService>(() => NavigationService());
-}
+final navigatorProvider =
+    Provider<NavigationService>((ref) => NavigationService());
 
 class NavigationService {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();

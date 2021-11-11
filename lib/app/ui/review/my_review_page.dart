@@ -2,6 +2,7 @@ import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -18,14 +19,17 @@ class MyReviewPage extends StatelessWidget {
             '내 리뷰 보기',
             style: BppTextStyle.defaultText,
           ),
-          leading: InkWell(
-            onTap: () {
-              locator<NavigationService>().pop();
-            },
-            child: SvgPicture.asset(
-              'assets/icon/ic_back.svg',
-            ),
-          ),
+          leading: Consumer(builder: (context, ref, _) {
+            final navigator = ref.watch(navigatorProvider);
+            return InkWell(
+              onTap: () {
+                navigator.pop();
+              },
+              child: SvgPicture.asset(
+                'assets/icon/ic_back.svg',
+              ),
+            );
+          }),
           toolbarHeight: 40,
         ),
         body: Padding(

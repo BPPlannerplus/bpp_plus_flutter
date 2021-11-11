@@ -3,6 +3,7 @@ import 'package:bpp_riverpod/app/provider/mypage/inquiry_provider.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/mypage_dialog.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
+import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -156,17 +157,21 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
                 SizedBox(
                     height: 33,
                     width: 100,
-                    child: ElevatedButton(
-                        onPressed: () {
-                          reservationDateDialog();
-                        },
-                        style: ElevatedButton.styleFrom(
-                            primary: const Color(0xff3b75ff), elevation: 0),
-                        child: Center(
-                            child: Text('일정입력',
-                                style: BppTextStyle.smallText.copyWith(
-                                    color: const Color(0xffffffff),
-                                    fontWeight: FontWeight.w500)))))
+                    child: Consumer(builder: (context, ref, _) {
+                      final navigator = ref.watch(navigatorProvider);
+                      return ElevatedButton(
+                          onPressed: () {
+                            reservationDateDialog(
+                                navigator.navigatorKey.currentContext!);
+                          },
+                          style: ElevatedButton.styleFrom(
+                              primary: const Color(0xff3b75ff), elevation: 0),
+                          child: Center(
+                              child: Text('일정입력',
+                                  style: BppTextStyle.smallText.copyWith(
+                                      color: const Color(0xffffffff),
+                                      fontWeight: FontWeight.w500))));
+                    }))
               ])
         ]));
   }

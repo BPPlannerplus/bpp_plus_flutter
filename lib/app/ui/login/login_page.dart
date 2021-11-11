@@ -63,19 +63,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     } else {}
   }
 
-  Future<void> _getRefreshToken() async {
-    final kakaoLogin = ref.watch(flutterKakaoLogin);
-
-    final token = await kakaoLogin.currentToken;
-
-    final refreshToken = token?.refreshToken;
-
-    print('refreshToken: $refreshToken');
-
-    if (refreshToken != null) {
-    } else {}
-  }
-
   @override
   void dispose() {
     super.dispose();
@@ -84,6 +71,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final navigator = ref.watch(navigatorProvider);
+
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -116,9 +105,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   // // await _getAccountInfo();
                   // await _getAccessToken();
                   // await _getRefreshToken();
-                  locator<NavigationService>().navigateToRemove(
-                    routeName: AppRoutes.mainPage,
-                  );
+
+                  navigator.navigateToRemove(routeName: AppRoutes.mainPage);
                 },
                 child: Image.asset(
                   'assets/image/kakao_login_large_wide .png',

@@ -24,23 +24,26 @@ Widget wishGridCard({
         child: Stack(
           alignment: Alignment.bottomRight,
           children: [
-            InkWell(
-              onTap: () {
-                locator<NavigationService>().navigateTo(
-                  routeName: AppRoutes.detailPage,
-                  argument: shop.id,
-                );
-              },
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  shop.profile,
-                  height: 112.h,
-                  width: 160.w,
-                  fit: BoxFit.fill,
+            Consumer(builder: (context, ref, _) {
+              final navigator = ref.watch(navigatorProvider);
+              return InkWell(
+                onTap: () {
+                  navigator.navigateTo(
+                    routeName: AppRoutes.detailPage,
+                    argument: shop.id,
+                  );
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    shop.profile,
+                    height: 112.h,
+                    width: 160.w,
+                    fit: BoxFit.fill,
+                  ),
                 ),
-              ),
-            ),
+              );
+            }),
             Padding(
               padding: const EdgeInsets.all(5.0),
               child: Consumer(builder: (context, ref, _) {

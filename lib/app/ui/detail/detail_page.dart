@@ -94,6 +94,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
               ref.watch(shopDetailReviewPageControllerProvider(widget.shopId));
 
           final shopType = ref.watch(shopTypeProvider);
+          final navigator = ref.watch(navigatorProvider);
 
           var _pages = [
             DetailPortfolioPage(
@@ -115,7 +116,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
               backgroundColor: const Color(0x00000000),
               leading: InkWell(
                 onTap: () {
-                  locator<NavigationService>().pop();
+                  navigator.pop();
                 },
                 child: SvgPicture.asset(
                   'assets/icon/ic_back.svg',

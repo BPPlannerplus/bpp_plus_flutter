@@ -107,22 +107,25 @@ class _DetailReviewPageState extends ConsumerState<DetailReviewPage> {
                   ),
                 ],
               ),
-              InkWell(
-                onTap: () {
-                  locator<NavigationService>().navigateTo(
-                    routeName: AppRoutes.reportPage,
-                    argument: 0,
-                  );
-                },
-                child: Text(
-                  '신고',
-                  style: BppTextStyle.filterText.copyWith(
-                    color: const Color(
-                      0xffbfbfbf,
+              Consumer(builder: (context, ref, _) {
+                final navigator = ref.watch(navigatorProvider);
+                return InkWell(
+                  onTap: () {
+                    navigator.navigateTo(
+                      routeName: AppRoutes.reportPage,
+                      argument: 0,
+                    );
+                  },
+                  child: Text(
+                    '신고',
+                    style: BppTextStyle.filterText.copyWith(
+                      color: const Color(
+                        0xffbfbfbf,
+                      ),
                     ),
                   ),
-                ),
-              ),
+                );
+              }),
             ],
           ),
           const SizedBox(

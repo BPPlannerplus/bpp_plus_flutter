@@ -48,20 +48,23 @@ class DetailProfilePage extends StatelessWidget {
               Positioned(
                 top: 16,
                 right: 16,
-                child: InkWell(
-                  onTap: () {
-                    locator<NavigationService>().pop();
-                  },
-                  child: const SizedBox(
-                    width: 40,
-                    height: 40,
-                    child: Icon(
-                      CupertinoIcons.xmark,
-                      color: Color(0xffffffff),
-                      size: 30,
+                child: Consumer(builder: (context, ref, _) {
+                  final navigator = ref.watch(navigatorProvider);
+                  return InkWell(
+                    onTap: () {
+                      navigator.pop();
+                    },
+                    child: const SizedBox(
+                      width: 40,
+                      height: 40,
+                      child: Icon(
+                        CupertinoIcons.xmark,
+                        color: Color(0xffffffff),
+                        size: 30,
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                }),
               ),
               Container(
                 padding: const EdgeInsets.only(bottom: 16),

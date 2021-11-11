@@ -10,14 +10,15 @@ Widget conceptCard({
   required Concept concept,
 }) {
   return Consumer(builder: (context, ref, _) {
+    final navigator = ref.watch(navigatorProvider);
+
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
         InkWell(
           onTap: () {
             showDialog(
-              context:
-                  locator<NavigationService>().navigatorKey.currentContext!,
+              context: navigator.navigatorKey.currentContext!,
               barrierColor: const Color(0xdd000000),
               builder: (_) => conceptDialog(
                 concept: concept,

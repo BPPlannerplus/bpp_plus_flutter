@@ -24,14 +24,17 @@ class ReviewWritePage extends StatelessWidget {
             '리뷰 작성하기',
             style: BppTextStyle.defaultText,
           ),
-          leading: InkWell(
-            onTap: () {
-              locator<NavigationService>().pop();
-            },
-            child: SvgPicture.asset(
-              'assets/icon/ic_back.svg',
-            ),
-          ),
+          leading: Consumer(builder: (context, ref, _) {
+            final navigator = ref.watch(navigatorProvider);
+            return InkWell(
+              onTap: () {
+                navigator.pop();
+              },
+              child: SvgPicture.asset(
+                'assets/icon/ic_back.svg',
+              ),
+            );
+          }),
           toolbarHeight: 40,
         ),
         body: Padding(

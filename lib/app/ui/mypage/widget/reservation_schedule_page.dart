@@ -4,6 +4,7 @@ import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_card.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_dialog.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
+import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -89,19 +90,23 @@ class _ReservationSchedulePageState
                   const SizedBox(width: 16),
                   Padding(
                     padding: const EdgeInsets.only(top: 8),
-                    child: reservationCard(
-                      date: reservationDateFormat(shopDatas[i].reservedData),
-                      shop: shopTypeToName[shopDatas[i].shop.type]!,
-                      shopName: shopDatas[i].shop.name,
-                      buttonText: '문의하기',
-                      iconWidget: SvgPicture.asset(
-                        'assets/icon/ic_edit.svg',
-                      ),
-                      onTabButton: () {},
-                      onTabIcon: () {
-                        reservationDetailDialog();
-                      },
-                    ),
+                    child: Consumer(builder: (context, ref, _) {
+                      final navigator = ref.watch(navigatorProvider);
+                      return reservationCard(
+                        date: reservationDateFormat(shopDatas[i].reservedData),
+                        shop: shopTypeToName[shopDatas[i].shop.type]!,
+                        shopName: shopDatas[i].shop.name,
+                        buttonText: '문의하기',
+                        iconWidget: SvgPicture.asset(
+                          'assets/icon/ic_edit.svg',
+                        ),
+                        onTabButton: () {},
+                        onTabIcon: () {
+                          reservationDetailDialog(
+                              navigator.navigatorKey.currentContext!);
+                        },
+                      );
+                    }),
                   ),
                 ],
               ),

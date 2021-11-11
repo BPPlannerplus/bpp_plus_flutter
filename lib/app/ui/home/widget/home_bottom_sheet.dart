@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 homeBottomSheet(int index) {
   return Consumer(builder: (context, ref, _) {
     final filter = ref.watch(shopFilterProvider);
+    final navigator = ref.watch(navigatorProvider);
     return Container(
         padding: const EdgeInsets.only(
           top: 16,
@@ -65,7 +66,7 @@ homeBottomSheet(int index) {
                   onPressed: () {
                     ref.read(shopPageControllerProvider).refresh();
                     ref.read(shopListProvider).reset();
-                    locator<NavigationService>().pop();
+                    navigator.pop();
                   },
                   style: ButtonStyle(
                       backgroundColor:

@@ -25,17 +25,20 @@ class ReportPage extends StatelessWidget {
             '리뷰 신고하기',
             style: BppTextStyle.defaultText.copyWith(fontSize: 16.sp),
           ),
-          leading: InkWell(
-            onTap: () {
-              locator<NavigationService>().pop();
-            },
-            child: SvgPicture.asset(
-              'assets/icon/ic_back.svg',
-              color: const Color(0xff000000),
-              width: 20,
-              height: 20,
-            ),
-          ),
+          leading: Consumer(builder: (context, ref, _) {
+            final navigator = ref.watch(navigatorProvider);
+            return InkWell(
+              onTap: () {
+                navigator.pop();
+              },
+              child: SvgPicture.asset(
+                'assets/icon/ic_back.svg',
+                color: const Color(0xff000000),
+                width: 20,
+                height: 20,
+              ),
+            );
+          }),
           toolbarHeight: 40,
         ),
         body: Padding(
@@ -78,13 +81,14 @@ class ReportPage extends StatelessWidget {
               ]),
               Consumer(builder: (context, ref, _) {
                 final check = ref.watch(isReportCheckProvider(id));
+                final navigator = ref.watch(navigatorProvider);
                 return SizedBox(
                   width: 328.w,
                   height: 48.h,
                   child: ElevatedButton(
                     onPressed: check
                         ? () {
-                            locator<NavigationService>().pop();
+                            navigator.pop();
                           }
                         : null,
                     style: ButtonStyle(

@@ -10,6 +10,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 conceptBottomSheet() {
   return Consumer(builder: (context, ref, _) {
+    final navigator = ref.watch(navigatorProvider);
+
     return Container(
       padding: const EdgeInsets.all(16),
       height: 545,
@@ -51,7 +53,7 @@ conceptBottomSheet() {
               ref.read(conceptReqFilter.state).state =
                   ref.read(conceptFilterCheckProvider.notifier).makeReqFilter();
               ref.read(conceptListProvider.notifier).reset();
-              locator<NavigationService>().pop();
+              navigator.pop();
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(

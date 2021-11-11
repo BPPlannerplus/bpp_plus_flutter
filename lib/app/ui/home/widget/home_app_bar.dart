@@ -28,16 +28,11 @@ class HomeAppBar extends StatelessWidget {
       title: Stack(
         children: [
           Container(
-            height: 32,
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  color: const Color(0xfff2f2f2),
-                  width: 1.0.h,
-                ),
-              ),
-            ),
-          ),
+              height: 32,
+              decoration: BoxDecoration(
+                  border: Border(
+                      bottom: BorderSide(
+                          color: const Color(0xfff2f2f2), width: 1.0.h)))),
           Row(
             children: [
               tabButton('스튜디오', 0),
@@ -63,18 +58,17 @@ class HomeAppBar extends StatelessWidget {
               ),
               onTap: () {
                 showModalBottomSheet(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      topRight: Radius.circular(8),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                        topRight: Radius.circular(8),
+                      ),
                     ),
-                  ),
-                  context: context,
-                  builder: (_) {
-                    return homeBottomSheet(
-                        ref.read(homeTabProvider.state).state);
-                  },
-                );
+                    context: context,
+                    builder: (_) {
+                      return homeBottomSheet(
+                          ref.read(homeTabProvider.state).state);
+                    });
               },
               child: Container(
                 height: 32,

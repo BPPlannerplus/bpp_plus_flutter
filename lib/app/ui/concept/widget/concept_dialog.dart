@@ -12,17 +12,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget conceptDialog({required Concept concept}) {
   return Consumer(builder: (context, ref, _) {
-    final c = ref.watch<Concept>(
-      conceptListProvider.select(
-        (value) {
-          return value.concepts.where(
-            (element) {
-              return element.id == concept.id;
-            },
-          ).toList()[0];
-        },
-      ),
-    );
+    final navigator = ref.watch(navigatorProvider);
+    final c = ref.watch<Concept>(conceptListProvider.select((value) => value
+        .concepts
+        .where((element) => element.id == concept.id)
+        .toList()[0]));
 
     return Dialog(
       insetPadding: const EdgeInsets.all(1),
@@ -72,7 +66,7 @@ Widget conceptDialog({required Concept concept}) {
                 children: [
                   InkWell(
                     onTap: () {
-                      locator<NavigationService>().navigateTo(
+                      navigator.navigateTo(
                         routeName: AppRoutes.detailPage,
                         argument: concept.id,
                       );
