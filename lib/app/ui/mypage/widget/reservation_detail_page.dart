@@ -2,6 +2,7 @@ import 'package:bpp_riverpod/app/model/mypage/mypage_data.dart';
 import 'package:bpp_riverpod/app/provider/mypage/expiration_provider.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/ui/mypage/widget/mypage_dialog.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_card.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
@@ -66,7 +67,7 @@ class _ReservationDetailPageState extends ConsumerState<ReservationDetailPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(width: 1, height: 130, color: const Color(0xff000000)),
+              Container(width: 1, height: 120, color: const Color(0xff000000)),
               const SizedBox(width: 16),
               Padding(
                   padding: const EdgeInsets.only(top: 8),
@@ -85,7 +86,10 @@ class _ReservationDetailPageState extends ConsumerState<ReservationDetailPage> {
                           routeName: AppRoutes.reviewWritePage,
                         );
                       },
-                      onTabIcon: () {},
+                      onTabIcon: () {
+                        reservationDateDialog(
+                            navigator.navigatorKey.currentContext!);
+                      },
                     );
                   }))
             ],
@@ -97,14 +101,14 @@ class _ReservationDetailPageState extends ConsumerState<ReservationDetailPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(width: 1, height: 130, color: const Color(0xff000000)),
+            Container(width: 1, height: 120, color: const Color(0xff000000)),
             const SizedBox(width: 16),
             Padding(
                 padding: const EdgeInsets.only(top: 8),
                 child: Consumer(builder: (context, ref, _) {
                   final navigator = ref.watch(navigatorProvider);
                   return reservationCard(
-                    date: '12월 31일',
+                    date: '11월 30일',
                     shop: '태닝',
                     shopName: 'Tanning 1',
                     buttonText: '내 리뷰 보기',

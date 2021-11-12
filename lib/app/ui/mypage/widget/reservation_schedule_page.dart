@@ -58,7 +58,7 @@ class _ReservationSchedulePageState
   Widget reservationDivider(int day) {
     return Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Padding(
               padding: EdgeInsets.all(6.0),
@@ -86,7 +86,7 @@ class _ReservationSchedulePageState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                      width: 1, height: 130, color: const Color(0xff000000)),
+                      width: 1, height: 120, color: const Color(0xff000000)),
                   const SizedBox(width: 16),
                   Padding(
                     padding: const EdgeInsets.only(top: 8),
@@ -99,6 +99,7 @@ class _ReservationSchedulePageState
                         buttonText: '문의하기',
                         iconWidget: SvgPicture.asset(
                           'assets/icon/ic_edit.svg',
+                          width: 40,
                         ),
                         onTabButton: () {},
                         onTabIcon: () {
@@ -111,6 +112,16 @@ class _ReservationSchedulePageState
                 ],
               ),
             ),
+          Padding(
+            padding: const EdgeInsets.only(left: 9),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      width: 1, height: 40, color: const Color(0xff000000)),
+                ]),
+          ),
         ],
       ),
     );

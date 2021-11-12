@@ -31,7 +31,7 @@ class StudioRepository implements ShopRepository {
         40,
         (index) => ShopData(
           id: index,
-          name: 'StudioShop $index',
+          name: index % 2 == 0 ? 'StudioShop $index' : '스튜디오 $index',
           address: '서울시 관악구',
           like: false,
           minPrice: 200000,

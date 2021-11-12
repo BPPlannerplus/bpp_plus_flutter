@@ -122,7 +122,11 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Row(children: [
-            CircleAvatar(radius: 32, backgroundImage: NetworkImage(shop.logo)),
+            CircleAvatar(
+                radius: 32,
+                backgroundColor: const Color(0xffbfbfbf),
+                child: CircleAvatar(
+                    radius: 31, backgroundImage: NetworkImage(shop.logo))),
             const SizedBox(width: 16),
             Column(
                 mainAxisAlignment: MainAxisAlignment.center,

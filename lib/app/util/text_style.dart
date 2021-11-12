@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class BppTextStyle {
   static final bigScreenText = TextStyle(
     fontSize: 22.sp,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w600,
     color: const Color(0xff000000),
   );
   static final screenText = TextStyle(
@@ -14,12 +14,12 @@ class BppTextStyle {
   );
   static final dialogText = TextStyle(
     fontSize: 18.sp,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w600,
     color: const Color(0xffffffff),
   );
   static final tabText = TextStyle(
     fontSize: 16.sp,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w600,
     color: const Color(0xff000000),
   );
   static final defaultText = TextStyle(

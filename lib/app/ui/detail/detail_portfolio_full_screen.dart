@@ -27,7 +27,8 @@ class DetailPortfolioFullScreen extends StatelessWidget {
               child: Image.network(
                 profile,
                 height: 480.h,
-                fit: BoxFit.fill,
+                // fit: BoxFit.fill,
+                // fit: BoxFit.cover,
               ),
             ),
             Positioned(

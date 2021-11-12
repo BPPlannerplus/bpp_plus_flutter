@@ -66,15 +66,18 @@ Widget homeGridCard({
         style: BppTextStyle.tabText.copyWith(
           fontWeight: BppTextStyle.isEng(shop.name) ? FontWeight.w500 : null,
           fontFamily: BppTextStyle.isEng(shop.name) ? 'Roboto' : null,
+          // fontSize: BppTextStyle.isEng(shop.name) ? 14 : 16,
           fontSize: BppTextStyle.isEng(shop.name) ? 14.sp : null,
         ),
       ),
       Text(
         shop.address,
+        // style: BppTextStyle.smallText.copyWith(fontSize: 14),
         style: BppTextStyle.smallText,
       ),
       Text(
         priceFormat(shop.minPrice),
+        // style: BppTextStyle.smallText.copyWith(fontSize: 14),
         style: BppTextStyle.smallText,
       ),
     ],

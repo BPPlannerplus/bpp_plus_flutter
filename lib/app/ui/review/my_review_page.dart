@@ -38,7 +38,7 @@ class MyReviewPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 48,
+                height: 56,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

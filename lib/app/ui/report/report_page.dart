@@ -55,11 +55,11 @@ class ReportPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 16.h),
-                reportRow('음란, 욕설 등 부적절한 내용', 0),
-                reportRow('부적절한 홍보 또는 광고 내용', 1),
-                reportRow('개인 정보 노출', 2),
-                reportRow('불법 정보 기재', 3),
-                reportRow('기타(직접 입력)', 4),
+                _reportRow('음란, 욕설 등 부적절한 내용', 0),
+                _reportRow('부적절한 홍보 또는 광고 내용', 1),
+                _reportRow('개인 정보 노출', 2),
+                _reportRow('불법 정보 기재', 3),
+                _reportRow('기타(직접 입력)', 4),
                 SizedBox(
                   height: 128,
                   child: TextField(
@@ -100,6 +100,7 @@ class ReportPage extends StatelessWidget {
                           return const Color(0xff000000);
                         },
                       ),
+                      elevation: MaterialStateProperty.all(0),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -127,7 +128,7 @@ class ReportPage extends StatelessWidget {
     );
   }
 
-  Widget reportRow(String title, int index) {
+  Widget _reportRow(String title, int index) {
     return Consumer(builder: (context, ref, _) {
       final checks = ref.watch(reportCheckProvider(id));
       return Padding(

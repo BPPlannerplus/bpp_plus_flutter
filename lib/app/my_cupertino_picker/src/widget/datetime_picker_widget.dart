@@ -295,7 +295,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
         backgroundColor: widget.pickerTheme.backgroundColor,
         scrollController: scrollCtrl,
         diameterRatio: 3,
-        squeeze: 1,
+        squeeze: 1.25,
         selectionOverlay: widget.pickerTheme.selectionOverlay ??
             Container(
               decoration: const BoxDecoration(

@@ -44,7 +44,7 @@ Widget conceptDialog({required Concept concept}) {
             Positioned.fill(
               child: Image.network(
                 concept.profile,
-                fit: BoxFit.fill,
+                // fit: BoxFit.fill,
               ),
             ),
             Opacity(
@@ -72,10 +72,14 @@ Widget conceptDialog({required Concept concept}) {
                       );
                     },
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(
-                          'Studio name',
-                          style: BppTextStyle.dialogText,
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 3),
+                          child: Text(
+                            'Studio name',
+                            style: BppTextStyle.dialogText,
+                          ),
                         ),
                         const SizedBox(
                           width: 5,

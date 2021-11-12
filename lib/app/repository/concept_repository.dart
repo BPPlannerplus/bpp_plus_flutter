@@ -20,7 +20,7 @@ class FakeConceptRepository implements ConceptRepository {
         (index) => Concept(
           id: index,
           profile:
-              'http://file.mk.co.kr/meet/neds/2021/05/image_readtop_2021_441365_16203623974637324.jpg',
+              'https://www.topdaily.kr/news/photo/202103/97271_67860_5842.jpg',
           shop: IdNamePair(
             id: index,
             name: 'Concept $index',

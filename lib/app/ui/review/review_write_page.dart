@@ -150,6 +150,7 @@ class ReviewWritePage extends StatelessWidget {
                           return const Color(0xff3b75ff);
                         },
                       ),
+                      elevation: MaterialStateProperty.all(0),
                     ),
                     child: Center(
                       child: Text(

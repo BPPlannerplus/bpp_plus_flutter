@@ -25,13 +25,14 @@ class DetailMidBox extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 32,
-              // backgroundColor: const Color(0xffc4c4c4),
-              backgroundColor: Colors.transparent,
-              backgroundImage: NetworkImage(logo),
+              backgroundColor: const Color(0xffbfbfbf),
+              child: CircleAvatar(
+                radius: 31,
+                backgroundColor: Colors.transparent,
+                backgroundImage: NetworkImage(logo),
+              ),
             ),
-            const SizedBox(
-              width: 16,
-            ),
+            const SizedBox(width: 16),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,9 +43,7 @@ class DetailMidBox extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 Text(
                   priceFormat(price),
                   style: BppTextStyle.defaultText,

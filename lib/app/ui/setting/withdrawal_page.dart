@@ -103,29 +103,30 @@ class WithdrawalPage extends StatelessWidget {
                     ),
                     Consumer(builder: (context, ref, _) {
                       final isWithdrawal = ref.watch(withdrawalProvier);
-                      return ElevatedButton(
-                        onPressed: isWithdrawal
-                            ? () async {
-                                // Future<void> _unlink() async {
-                                //   try {
-                                //     final result = await kakaoSignIn.unlink();
-                                //   } on PlatformException catch (e) {}
-                                // }
+                      return SizedBox(
+                        width: 328.w,
+                        height: 48.h,
+                        child: ElevatedButton(
+                          onPressed: isWithdrawal
+                              ? () async {
+                                  // Future<void> _unlink() async {
+                                  //   try {
+                                  //     final result = await kakaoSignIn.unlink();
+                                  //   } on PlatformException catch (e) {}
+                                  // }
+                                }
+                              : null,
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.resolveWith((states) {
+                              if (states.contains(MaterialState.disabled)) {
+                                return const Color(0xffe5e5e5);
+                              } else {
+                                return const Color(0xff000000);
                               }
-                            : null,
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.resolveWith((states) {
-                            if (states.contains(MaterialState.disabled)) {
-                              return const Color(0xffe5e5e5);
-                            } else {
-                              return const Color(0xff000000);
-                            }
-                          }),
-                        ),
-                        child: SizedBox(
-                          width: 328,
-                          height: 48,
+                            }),
+                            elevation: MaterialStateProperty.all(0),
+                          ),
                           child: Center(
                             child: Text(
                               '탈퇴하기',

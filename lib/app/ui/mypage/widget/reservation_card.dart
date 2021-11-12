@@ -13,7 +13,7 @@ Widget reservationCard({
   required Function onTabIcon,
 }) {
   return Container(
-    height: 105,
+    height: 107,
     width: 288.w,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(8),
@@ -21,8 +21,8 @@ Widget reservationCard({
     ),
     child: Center(
       child: Container(
-        padding: const EdgeInsets.only(left: 20, right: 8),
-        height: 103,
+        padding: EdgeInsets.only(left: 20.w, right: 16.w, top: 12, bottom: 12),
+        height: 105,
         width: 286.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
@@ -31,31 +31,25 @@ Widget reservationCard({
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  date,
-                  style: BppTextStyle.defaultText,
-                ),
-                Text(
-                  shop,
-                  style: BppTextStyle.smallText.copyWith(
-                    color: const Color(0xff696969),
-                  ),
-                ),
-                Text(
-                  shopName,
-                  style: BppTextStyle.defaultText.copyWith(
-                    color: const Color(0xff010101),
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(date, style: BppTextStyle.defaultText),
+                  Text(shop,
+                      style: BppTextStyle.smallText
+                          .copyWith(color: const Color(0xff696969))),
+                  Text(shopName,
+                      style: BppTextStyle.defaultText.copyWith(
+                          color: const Color(0xff010101),
+                          fontWeight: FontWeight.w700))
+                ],
+              ),
             ),
             Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 InkWell(
@@ -64,18 +58,21 @@ Widget reservationCard({
                   },
                   child: iconWidget,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    onTabButton();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: const Color(0xfff2f2f2),
-                    elevation: 0,
-                  ),
-                  child: Text(
-                    buttonText,
-                    style: BppTextStyle.smallText.copyWith(
-                      color: const Color(0xff595959),
+                SizedBox(
+                  height: 33,
+                  width: buttonText == '내 리뷰 보기' ? 104 : 88,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      onTabButton();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: const Color(0xfff2f2f2),
+                      elevation: 0,
+                    ),
+                    child: Text(
+                      buttonText,
+                      style: BppTextStyle.smallText.copyWith(
+                          color: const Color(0xff595959), fontSize: 14),
                     ),
                   ),
                 ),

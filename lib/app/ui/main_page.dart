@@ -22,8 +22,6 @@ class MainPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print(MediaQuery.of(context).size.height);
-    print(MediaQuery.of(context).size.width);
     final index = ref.watch(navigationProvier);
     final visible = ref.watch(isShowBottomBar);
 
@@ -70,14 +68,13 @@ class MainPage extends ConsumerWidget {
     );
   }
 
-  Widget bottomIcon({
-    required int index,
-    required String title,
-    required String selectImg,
-    required String unselectImg,
-  }) {
+  Widget bottomIcon(
+      {required int index,
+      required String title,
+      required String selectImg,
+      required String unselectImg}) {
     return Consumer(builder: (context, ref, _) {
-      final tabIndex = ref.watch(navigationProvier);
+      final tabIndex = ref.watch(navigationProvier.state).state;
       return Expanded(
         flex: 1,
         child: InkWell(

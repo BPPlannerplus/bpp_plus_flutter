@@ -33,8 +33,6 @@ ThemeData theme = ThemeData(
   canvasColor: const Color(0xffffffff),
   scaffoldBackgroundColor: const Color(0xffffffff),
   backgroundColor: const Color(0xffffffff),
-  // fontFamily: 'Noto_Sans_KR',
-  // fontFamily: 'Roboto',
   fontFamily: 'Noto_Sans',
 );
 
