@@ -72,6 +72,7 @@ conceptBottomSheet() {
                   '선택완료',
                   style: BppTextStyle.tabText.copyWith(
                     color: const Color(0xffffffff),
+                    fontSize: 16,
                   ),
                 ),
               ),

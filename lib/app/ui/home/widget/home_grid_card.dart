@@ -15,7 +15,7 @@ Widget homeGridCard({
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    mainAxisAlignment: MainAxisAlignment.start,
     children: [
       SizedBox(
         height: 112,
@@ -61,23 +61,21 @@ Widget homeGridCard({
           ],
         ),
       ),
+      const SizedBox(height: 8),
       Text(
         shop.name,
-        style: BppTextStyle.tabText.copyWith(
-          fontWeight: BppTextStyle.isEng(shop.name) ? FontWeight.w500 : null,
-          fontFamily: BppTextStyle.isEng(shop.name) ? 'Roboto' : null,
-          // fontSize: BppTextStyle.isEng(shop.name) ? 14 : 16,
-          fontSize: BppTextStyle.isEng(shop.name) ? 14.sp : null,
-        ),
+        style: !BppTextStyle.isEng(shop.name)
+            ? BppTextStyle.tabText
+            : BppTextStyle.engShopNameText,
       ),
+      // const SizedBox(height: 1),
       Text(
         shop.address,
-        // style: BppTextStyle.smallText.copyWith(fontSize: 14),
         style: BppTextStyle.smallText,
       ),
+      // const SizedBox(height: 1),
       Text(
         priceFormat(shop.minPrice),
-        // style: BppTextStyle.smallText.copyWith(fontSize: 14),
         style: BppTextStyle.smallText,
       ),
     ],

@@ -16,7 +16,7 @@ Widget wishGridCard({
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    mainAxisAlignment: MainAxisAlignment.start,
     children: [
       SizedBox(
         height: 112,
@@ -37,7 +37,7 @@ Widget wishGridCard({
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
                     shop.profile,
-                    height: 112.h,
+                    height: 112,
                     width: 160.w,
                     fit: BoxFit.fill,
                   ),
@@ -67,18 +67,19 @@ Widget wishGridCard({
           ],
         ),
       ),
+      const SizedBox(height: 8),
       Text(
         shop.name,
-        style: BppTextStyle.tabText.copyWith(
-          fontWeight: BppTextStyle.isEng(shop.name) ? FontWeight.w500 : null,
-          fontFamily: BppTextStyle.isEng(shop.name) ? 'Roboto' : null,
-          fontSize: BppTextStyle.isEng(shop.name) ? 14.sp : null,
-        ),
+        style: !BppTextStyle.isEng(shop.name)
+            ? BppTextStyle.tabText
+            : BppTextStyle.engShopNameText,
       ),
+      // const SizedBox(height: 2),
       Text(
         shop.address,
         style: BppTextStyle.smallText,
       ),
+      // const SizedBox(height: 2),
       Text(
         priceFormat(shop.minPrice),
         style: BppTextStyle.smallText,

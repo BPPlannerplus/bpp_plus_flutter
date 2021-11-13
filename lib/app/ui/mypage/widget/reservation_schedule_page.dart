@@ -1,7 +1,7 @@
 import 'package:bpp_riverpod/app/model/mypage/mypage_data.dart';
 import 'package:bpp_riverpod/app/provider/mypage/confirmed_provider.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_card.dart';
-import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_dialog.dart';
+import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_detail_dialog.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
@@ -65,9 +65,17 @@ class _ReservationSchedulePageState
               child:
                   CircleAvatar(radius: 4, backgroundColor: Color(0xff4c81ff))),
           const SizedBox(width: 12),
-          Text('$day일 남았어요!',
-              style:
-                  BppTextStyle.tabText.copyWith(color: const Color(0xff595959)))
+          RichText(
+              text: TextSpan(
+                  text: '$day ',
+                  style: BppTextStyle.tabText
+                      .copyWith(color: const Color(0xff3b75ff), fontSize: 16),
+                  children: [
+                TextSpan(
+                    text: '일 남았어요!',
+                    style: BppTextStyle.tabText
+                        .copyWith(color: const Color(0xff595959), fontSize: 16))
+              ]))
         ]);
   }
 
@@ -86,8 +94,8 @@ class _ReservationSchedulePageState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                      width: 1, height: 120, color: const Color(0xff000000)),
-                  const SizedBox(width: 16),
+                      width: 1, height: 120.h, color: const Color(0xff000000)),
+                  const SizedBox(width: 22),
                   Padding(
                     padding: const EdgeInsets.only(top: 8),
                     child: Consumer(builder: (context, ref, _) {
@@ -119,7 +127,7 @@ class _ReservationSchedulePageState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                      width: 1, height: 40, color: const Color(0xff000000)),
+                      width: 1, height: 28, color: const Color(0xff000000)),
                 ]),
           ),
         ],

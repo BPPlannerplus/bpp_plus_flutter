@@ -20,7 +20,7 @@ class MypageAppBar extends ConsumerWidget {
 
     return SliverToBoxAdapter(
       child: Container(
-        height: tabIndex == 0 && !isInquiryEmpty ? 252 : 208,
+        height: tabIndex == 0 && !isInquiryEmpty ? 252 : 200,
         padding: const EdgeInsets.only(top: 72),
         color: const Color(0xffffffff),
         child: Column(
@@ -37,7 +37,7 @@ class MypageAppBar extends ConsumerWidget {
                     child: Text(
                       '서현님\n환영합니다!',
                       style: BppTextStyle.screenText.copyWith(
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
@@ -54,9 +54,7 @@ class MypageAppBar extends ConsumerWidget {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 24,
-            ),
+            const SizedBox(height: 24),
             Container(
               color: const Color(0xffffffff),
               height: 31,
@@ -75,15 +73,11 @@ class MypageAppBar extends ConsumerWidget {
                   ),
                   Row(
                     children: [
-                      likeTabButton('문의내역', 0),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      likeTabButton('예약일정', 1),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      likeTabButton('예약내역', 2),
+                      inquiryTabButton('문의내역', 0),
+                      const SizedBox(width: 16),
+                      inquiryTabButton('예약일정', 1),
+                      const SizedBox(width: 16),
+                      inquiryTabButton('예약내역', 2),
                     ],
                   ),
                 ],
@@ -137,7 +131,7 @@ class MypageAppBar extends ConsumerWidget {
                   color: idx == index
                       ? const Color(0xffffffff)
                       : const Color(0xff525252),
-                  fontWeight: idx == index ? FontWeight.w700 : null,
+                  fontWeight: idx == index ? FontWeight.w600 : null,
                 ),
               ),
             ),
@@ -147,7 +141,7 @@ class MypageAppBar extends ConsumerWidget {
     });
   }
 
-  Widget likeTabButton(String title, int index) {
+  Widget inquiryTabButton(String title, int index) {
     return Consumer(builder: (context, ref, _) {
       return InkWell(
         onTap: () {
@@ -173,7 +167,8 @@ class MypageAppBar extends ConsumerWidget {
               title,
               style: ref.watch(myPageTabProvider) == index
                   ? BppTextStyle.tabText
-                  : BppTextStyle.defaultText,
+                  : BppTextStyle.defaultText
+                      .copyWith(color: const Color(0xff595959)),
             ),
           ),
         ),

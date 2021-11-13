@@ -5,29 +5,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Widget toggleIcon(String text, bool isCheck) {
   return Padding(
-    padding: const EdgeInsets.only(right: 4.0),
-    child: Container(
-      height: 28,
-      width: 12.0 * text.length + 25,
-      decoration: BoxDecoration(
-        color: isCheck ? const Color(0xff3B75FF) : Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Center(
-        child: Text(
-          text,
-          style: BppTextStyle.filterText.copyWith(
-            color: isCheck
-                ? const Color(0xffffffff)
-                : const Color(
-                    0xff595959,
-                  ),
-            fontWeight: isCheck ? FontWeight.w700 : null,
+      padding: const EdgeInsets.only(right: 4.0),
+      child: Container(
+          height: 28,
+          width: 12.0 * text.length + 25,
+          decoration: BoxDecoration(
+            color: isCheck ? const Color(0xff3B75FF) : const Color(0xfff2f2f2),
+            borderRadius: BorderRadius.circular(15),
           ),
-        ),
-      ),
-    ),
-  );
+          child: Center(
+              child: Text(text,
+                  style: BppTextStyle.filterText.copyWith(
+                      color: isCheck
+                          ? const Color(0xffffffff)
+                          : const Color(
+                              0xff595959,
+                            ),
+                      fontWeight: isCheck ? FontWeight.w600 : null)))));
 }
 
 Widget filterColumn(String title, int num) {

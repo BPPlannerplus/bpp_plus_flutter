@@ -105,7 +105,7 @@ class WithdrawalPage extends StatelessWidget {
                       final isWithdrawal = ref.watch(withdrawalProvier);
                       return SizedBox(
                         width: 328.w,
-                        height: 48.h,
+                        height: 48,
                         child: ElevatedButton(
                           onPressed: isWithdrawal
                               ? () async {
@@ -131,8 +131,7 @@ class WithdrawalPage extends StatelessWidget {
                             child: Text(
                               '탈퇴하기',
                               style: BppTextStyle.tabText.copyWith(
-                                color: const Color(0xffffffff),
-                              ),
+                                  color: const Color(0xffffffff), fontSize: 16),
                             ),
                           ),
                         ),

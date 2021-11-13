@@ -132,7 +132,9 @@ class HomeAppBar extends StatelessWidget {
               title,
               style: tabIndex == index
                   ? BppTextStyle.tabText
-                  : BppTextStyle.defaultText,
+                  : BppTextStyle.defaultText.copyWith(
+                      color: const Color(0xff595959),
+                    ),
             ),
           ),
         ),

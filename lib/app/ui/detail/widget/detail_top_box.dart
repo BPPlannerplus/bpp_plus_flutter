@@ -1,5 +1,6 @@
-import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
+import 'package:bpp_riverpod/app/provider/detail/detail_navigation_provider.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +21,6 @@ class DetailTopBox extends StatelessWidget {
         height: 264,
         width: 360.w,
         child: Consumer(builder: (context, ref, _) {
-          final index = ref.watch(detailPageProvider);
           return Stack(
             alignment: Alignment.bottomCenter,
             children: [
@@ -30,24 +30,12 @@ class DetailTopBox extends StatelessWidget {
                   ref.read(detailPageProvider.state).state = index;
                 },
                 children: [
-                  imageBox(
-                    context: context,
-                    img: profiles[0],
-                    index: 0,
-                  ),
-                  imageBox(
-                    context: context,
-                    img: profiles[1],
-                    index: 1,
-                  ),
-                  imageBox(
-                    context: context,
-                    img: profiles[2],
-                    index: 2,
-                  ),
+                  imageBox(img: profiles[0], index: 0),
+                  imageBox(img: profiles[1], index: 1),
+                  imageBox(img: profiles[2], index: 2),
                 ],
               ),
-              _circleStatus(index),
+              _circleStatus(ref.watch(detailPageProvider)),
             ],
           );
         }),
@@ -56,30 +44,30 @@ class DetailTopBox extends StatelessWidget {
   }
 
   Widget imageBox({
-    required BuildContext context,
     required String img,
     required int index,
   }) {
-    return InkWell(
-      onTap: () {
-        Navigator.pushNamed(
-          context,
-          AppRoutes.detailProfilePage,
-          arguments: ProfileData(
-            profiles: profiles,
-            index: index,
-          ),
-        );
-      },
-      child: SizedBox.expand(
-        child: Hero(
-          tag: 'profile$index',
-          child: Image.network(
-            img,
+    return Consumer(builder: (context, ref, _) {
+      return InkWell(
+        onTap: () {
+          ref.read(navigatorProvider).navigateTo(
+                routeName: AppRoutes.detailProfilePage,
+                argument: ProfileData(
+                  profiles: profiles,
+                  index: index,
+                ),
+              );
+        },
+        child: SizedBox.expand(
+          child: Hero(
+            tag: 'profile$index',
+            child: Image.network(
+              img,
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget _circleStatus(int index) {
@@ -96,9 +84,7 @@ class DetailTopBox extends StatelessWidget {
               color: index == 0 ? Colors.white : const Color(0xff656565),
             ),
           ),
-          const SizedBox(
-            width: 8,
-          ),
+          const SizedBox(width: 8),
           Container(
             width: 8,
             height: 8,
@@ -107,9 +93,7 @@ class DetailTopBox extends StatelessWidget {
               color: index == 1 ? Colors.white : const Color(0xff656565),
             ),
           ),
-          const SizedBox(
-            width: 8,
-          ),
+          const SizedBox(width: 8),
           Container(
             width: 8,
             height: 8,

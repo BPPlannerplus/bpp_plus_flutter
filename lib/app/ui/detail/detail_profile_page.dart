@@ -1,4 +1,4 @@
-import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
+import 'package:bpp_riverpod/app/provider/detail/detail_navigation_provider.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

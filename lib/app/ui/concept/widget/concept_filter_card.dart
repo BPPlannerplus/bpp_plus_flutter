@@ -13,7 +13,7 @@ Widget filterCard(String title) {
     return Container();
   }
   return Padding(
-    padding: const EdgeInsets.only(right: 2, left: 2),
+    padding: const EdgeInsets.only(right: 8),
     child: Stack(
       alignment: Alignment.center,
       children: [
@@ -26,24 +26,18 @@ Widget filterCard(String title) {
           ),
         ),
         Positioned(
-          child: Container(
-            height: 26,
-            width: 12.0 * title.length + 23,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: Colors.white,
-            ),
-            child: Center(
-              child: Text(
-                title,
-                style: BppTextStyle.filterText.copyWith(
-                  color: const Color(0xff3B75FF),
-                  fontWeight: FontWeight.w700,
+            child: Container(
+                height: 26,
+                width: 12.0 * title.length + 23,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  color: const Color(0xffffffff),
                 ),
-              ),
-            ),
-          ),
-        )
+                child: Center(
+                    child: Text(title,
+                        style: BppTextStyle.filterText.copyWith(
+                            color: const Color(0xff3B75FF),
+                            fontWeight: FontWeight.w600)))))
       ],
     ),
   );

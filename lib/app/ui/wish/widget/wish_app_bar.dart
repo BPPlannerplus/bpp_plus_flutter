@@ -4,6 +4,7 @@ import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WishAppBar extends StatelessWidget {
   const WishAppBar({Key? key}) : super(key: key);
@@ -26,7 +27,7 @@ class WishAppBar extends StatelessWidget {
                       child: Center(
                           child: Text('찜 목록',
                               style: BppTextStyle.tabText
-                                  .copyWith(fontSize: 20)))),
+                                  .copyWith(fontSize: 20.sp)))),
                   Container(
                       color: Colors.white,
                       height: 31,
@@ -79,7 +80,8 @@ class WishAppBar extends StatelessWidget {
                   child: Text(title,
                       style: ref.watch(wishTabProvider) == index
                           ? BppTextStyle.tabText
-                          : BppTextStyle.defaultText))));
+                          : BppTextStyle.defaultText
+                              .copyWith(color: const Color(0xff595959))))));
     });
   }
 }

@@ -84,7 +84,7 @@ class ReportPage extends StatelessWidget {
                 final navigator = ref.watch(navigatorProvider);
                 return SizedBox(
                   width: 328.w,
-                  height: 48.h,
+                  height: 48,
                   child: ElevatedButton(
                     onPressed: check
                         ? () {
@@ -114,7 +114,7 @@ class ReportPage extends StatelessWidget {
                           color: check
                               ? const Color(0xffffffff)
                               : const Color(0xffbfbfbf),
-                          fontSize: 16.sp,
+                          fontSize: 16,
                         ),
                       ),
                     ),

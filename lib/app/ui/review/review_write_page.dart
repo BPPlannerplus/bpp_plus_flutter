@@ -94,9 +94,7 @@ class ReviewWritePage extends StatelessWidget {
                           '만족스러우셨나요?\n경험을 공유해주세요!',
                           style: BppTextStyle.tabText,
                         ),
-                        const SizedBox(
-                          height: 16,
-                        ),
+                        const SizedBox(height: 16),
                         Consumer(builder: (context, ref, _) {
                           return RatingBar.builder(
                             initialRating: ref.watch(reviewScoreProvider),
@@ -137,7 +135,7 @@ class ReviewWritePage extends StatelessWidget {
               Consumer(builder: (context, ref, _) {
                 return SizedBox(
                   width: 328.w,
-                  height: 48.h,
+                  height: 48,
                   child: ElevatedButton(
                     onPressed:
                         ref.watch(reviewScoreProvider) == 0.0 ? null : () {},
@@ -156,10 +154,10 @@ class ReviewWritePage extends StatelessWidget {
                       child: Text(
                         '등록하기',
                         style: BppTextStyle.tabText.copyWith(
-                          color: ref.watch(reviewScoreProvider) == 0.0
-                              ? const Color(0xffbfbfbf)
-                              : const Color(0xffffffff),
-                        ),
+                            color: ref.watch(reviewScoreProvider) == 0.0
+                                ? const Color(0xffbfbfbf)
+                                : const Color(0xffffffff),
+                            fontSize: 16),
                       ),
                     ),
                   ),

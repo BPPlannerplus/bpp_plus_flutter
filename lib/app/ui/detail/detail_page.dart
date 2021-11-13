@@ -1,5 +1,5 @@
+import 'package:bpp_riverpod/app/provider/detail/detail_navigation_provider.dart';
 import 'package:bpp_riverpod/app/provider/detail/shop_detail_page_controller.dart';
-import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/provider/detail/shop_detail_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_type_provider.dart';
@@ -97,18 +97,14 @@ class _DetailPageState extends ConsumerState<DetailPage> {
           final navigator = ref.watch(navigatorProvider);
 
           var _pages = [
-            DetailPortfolioPage(
-              pagingController: conceptPageController,
-            ),
+            DetailPortfolioPage(pagingController: conceptPageController),
             DetailInfoPage(
               priceImg: shopData.priceImg,
               map: shopData.mapImg,
               partners: shopData.partnershipList,
               address: shopData.address,
             ),
-            DetailReviewPage(
-              pagingController: reviewPageController,
-            ),
+            DetailReviewPage(pagingController: reviewPageController),
           ];
 
           return Scaffold(
@@ -226,13 +222,15 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
+                        elevation: 0,
                       ),
                       child: Center(
                         child: Text(
                           '예약 및 문의하기',
                           style: BppTextStyle.defaultText.copyWith(
                             color: const Color(0xffffffff),
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
                           ),
                         ),
                       ),

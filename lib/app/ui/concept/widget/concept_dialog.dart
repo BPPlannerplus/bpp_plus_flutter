@@ -20,22 +20,22 @@ Widget conceptDialog({required Concept concept}) {
 
     return Dialog(
       insetPadding: const EdgeInsets.all(1),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(
-            10.0,
-          ),
-        ),
-      ),
+      // shape: const RoundedRectangleBorder(
+      //   borderRadius: BorderRadius.all(
+      //     Radius.circular(
+      //       10.0,
+      //     ),
+      //   ),
+      // ),
       child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              10.0,
-            ),
-          ),
-        ),
+        color: Colors.black,
+        // decoration: const BoxDecoration(
+        //   borderRadius: BorderRadius.all(
+        //     Radius.circular(
+        //       10.0,
+        //     ),
+        //   ),
+        // ),
         height: 387.h,
         width: 360.w,
         child: Stack(

@@ -1,7 +1,7 @@
 import 'package:bpp_riverpod/app/model/mypage/mypage_shop_data.dart';
 import 'package:bpp_riverpod/app/provider/mypage/inquiry_provider.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
-import 'package:bpp_riverpod/app/ui/mypage/widget/mypage_dialog.dart';
+import 'package:bpp_riverpod/app/ui/mypage/widget/set_date_dialog.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
@@ -165,7 +165,7 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
                       final navigator = ref.watch(navigatorProvider);
                       return ElevatedButton(
                           onPressed: () {
-                            reservationDateDialog(
+                            setDateDialog(
                                 navigator.navigatorKey.currentContext!);
                           },
                           style: ElevatedButton.styleFrom(
@@ -174,29 +174,49 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
                               child: Text('일정입력',
                                   style: BppTextStyle.smallText.copyWith(
                                       color: const Color(0xffffffff),
-                                      fontWeight: FontWeight.w500))));
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14))));
                     }))
               ])
         ]));
   }
 
   Widget emptyBox() {
+    final _heght = MediaQuery.of(context).size.height - 256;
+
     return SliverToBoxAdapter(
-        child: Padding(
-            padding: EdgeInsets.only(top: 70.h),
-            child: Center(
-                child: Column(children: [
+      child: Padding(
+        padding: EdgeInsets.only(top: _heght / 4),
+        child: Center(
+          child: Column(
+            children: [
               SvgPicture.asset('assets/image/inquiry_none.svg', width: 221.w),
               const SizedBox(height: 16),
               Consumer(
-                builder: (context, ref, _) => ElevatedButton(
+                builder: (context, ref, _) => SizedBox(
+                  width: 155,
+                  height: 33,
+                  child: ElevatedButton(
                     onPressed: () {
                       ref.read(navigationProvier.state).state = 0;
                     },
-                    child: Text('스튜디오 보러가기',
-                        style: BppTextStyle.defaultText
-                            .copyWith(color: const Color(0xffffffff)))),
+                    style: ElevatedButton.styleFrom(
+                      primary: const Color(0xff3b75ff),
+                    ),
+                    child: Text(
+                      '스튜디오 보러가기',
+                      style: BppTextStyle.defaultText.copyWith(
+                        color: const Color(0xffffffff),
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
               )
-            ]))));
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

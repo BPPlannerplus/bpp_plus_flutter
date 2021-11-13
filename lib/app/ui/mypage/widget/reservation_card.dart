@@ -13,7 +13,7 @@ Widget reservationCard({
   required Function onTabIcon,
 }) {
   return Container(
-    height: 107,
+    height: 107.h,
     width: 288.w,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(8),
@@ -21,8 +21,9 @@ Widget reservationCard({
     ),
     child: Center(
       child: Container(
-        padding: EdgeInsets.only(left: 20.w, right: 16.w, top: 12, bottom: 12),
-        height: 105,
+        padding:
+            EdgeInsets.only(left: 20.w, right: 4.w, top: 12.h, bottom: 16.h),
+        height: 105.h,
         width: 286.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
@@ -31,9 +32,7 @@ Widget reservationCard({
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 4),
-              child: Column(
+            Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -44,10 +43,8 @@ Widget reservationCard({
                   Text(shopName,
                       style: BppTextStyle.defaultText.copyWith(
                           color: const Color(0xff010101),
-                          fontWeight: FontWeight.w700))
-                ],
-              ),
-            ),
+                          fontWeight: FontWeight.w600))
+                ]),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -58,21 +55,24 @@ Widget reservationCard({
                   },
                   child: iconWidget,
                 ),
-                SizedBox(
-                  height: 33,
-                  width: buttonText == '내 리뷰 보기' ? 104 : 88,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      onTabButton();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: const Color(0xfff2f2f2),
-                      elevation: 0,
-                    ),
-                    child: Text(
-                      buttonText,
-                      style: BppTextStyle.smallText.copyWith(
-                          color: const Color(0xff595959), fontSize: 14),
+                Padding(
+                  padding: EdgeInsets.only(right: 12.w),
+                  child: SizedBox(
+                    height: 33,
+                    width: buttonText == '내 리뷰 보기' ? 104 : 88,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        onTabButton();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: const Color(0xfff2f2f2),
+                        elevation: 0,
+                      ),
+                      child: Text(
+                        buttonText,
+                        style: BppTextStyle.smallText.copyWith(
+                            color: const Color(0xff595959), fontSize: 14),
+                      ),
                     ),
                   ),
                 ),

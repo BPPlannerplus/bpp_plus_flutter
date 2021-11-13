@@ -67,6 +67,7 @@ class MyReviewPage extends StatelessWidget {
                         color: const Color(0xffffc142),
                       ),
                       itemCount: 5,
+                      unratedColor: const Color(0xffe6e6e6),
                       itemSize: 25.0,
                       direction: Axis.horizontal,
                     ),
@@ -97,9 +98,8 @@ class MyReviewPage extends StatelessWidget {
                       ),
                       child: Text(
                         '수정',
-                        style: BppTextStyle.tabText.copyWith(
-                          color: const Color(0xff595959),
-                        ),
+                        style: BppTextStyle.defaultText.copyWith(
+                            color: const Color(0xff595959), fontSize: 14),
                       ),
                     ),
                   ),
@@ -115,9 +115,8 @@ class MyReviewPage extends StatelessWidget {
                       ),
                       child: Text(
                         '삭제',
-                        style: BppTextStyle.tabText.copyWith(
-                          color: const Color(0xff595959),
-                        ),
+                        style: BppTextStyle.defaultText.copyWith(
+                            color: const Color(0xff595959), fontSize: 14),
                       ),
                     ),
                   ),

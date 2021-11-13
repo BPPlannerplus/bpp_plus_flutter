@@ -1,4 +1,4 @@
-import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
+import 'package:bpp_riverpod/app/provider/detail/detail_navigation_provider.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,14 +10,14 @@ class DetailAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       automaticallyImplyLeading: false,
-      expandedHeight: 48,
-      toolbarHeight: 48,
-      collapsedHeight: 48,
+      expandedHeight: 80,
+      toolbarHeight: 80,
+      collapsedHeight: 80,
       pinned: true,
       titleSpacing: 0.0,
-      backgroundColor: Colors.white,
+      primary: false,
       title: Padding(
-        padding: const EdgeInsets.only(right: 16, left: 16),
+        padding: const EdgeInsets.only(top: 32, right: 16, left: 16),
         child: Stack(
           children: [
             Container(
@@ -34,13 +34,9 @@ class DetailAppBar extends StatelessWidget {
             Row(
               children: [
                 tabButton('포트폴리오', 0),
-                const SizedBox(
-                  width: 16,
-                ),
+                const SizedBox(width: 16),
                 tabButton('상세정보', 1),
-                const SizedBox(
-                  width: 16,
-                ),
+                const SizedBox(width: 16),
                 tabButton('리뷰', 2),
               ],
             ),
@@ -76,8 +72,9 @@ class DetailAppBar extends StatelessWidget {
             child: Text(
               title,
               style: ref.watch(detailTabProvider) == index
-                  ? BppTextStyle.tabText.copyWith()
-                  : BppTextStyle.defaultText,
+                  ? BppTextStyle.tabText
+                  : BppTextStyle.defaultText
+                      .copyWith(color: const Color(0xff595959)),
             ),
           ),
         ),

@@ -100,6 +100,6 @@ Widget toggleIcon(String text, bool isCheck) {
                       color: isCheck
                           ? const Color(0xffffffff)
                           : const Color(0xff595959),
-                      fontWeight: isCheck ? FontWeight.w700 : null,
+                      fontWeight: isCheck ? FontWeight.w600 : null,
                       fontSize: 14.sp)))));
 }

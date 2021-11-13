@@ -31,8 +31,8 @@ class _DetailPortfolioPageState extends ConsumerState<DetailPortfolioPage> {
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         mainAxisExtent: 144,
-        mainAxisSpacing: 8,
-        crossAxisSpacing: 8,
+        mainAxisSpacing: 5,
+        crossAxisSpacing: 5,
         childAspectRatio: 100 / 150,
       ),
       builderDelegate: PagedChildBuilderDelegate<ShopConcept>(
@@ -47,6 +47,7 @@ class _DetailPortfolioPageState extends ConsumerState<DetailPortfolioPage> {
             child: Image.network(
               sc.profile,
               height: 144,
+              fit: BoxFit.fill,
             ),
           );
         },
