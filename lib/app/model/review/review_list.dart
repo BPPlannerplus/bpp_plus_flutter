@@ -10,7 +10,7 @@ part 'review_list.g.dart';
 class ReviewList with _$ReviewList {
   factory ReviewList({
     @JsonKey(name: 'results') required List<Review> reviews,
-    required String next,
+    String? next,
   }) = _ReviewList;
 
   factory ReviewList.fromJson(Map<String, dynamic> json) =>

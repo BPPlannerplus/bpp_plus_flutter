@@ -26,19 +26,13 @@ class _$ShopDetailDataTearOff {
       required String name,
       required String logo,
       required bool like,
-      @JsonKey(name: 'kakaourl')
-          required String kakaoUrl,
-      @JsonKey(name: 'address_detail')
-          required String address,
+      @JsonKey(name: 'kakaourl') required String kakaoUrl,
+      @JsonKey(name: 'address_detail') required String address,
       required List<String> profiles,
-      @JsonKey(name: 'map')
-          required String mapImg,
-      @JsonKey(name: 'minprice')
-          required int minPrice,
-      @JsonKey(name: 'price_desc')
-          required String priceImg,
-      @JsonKey(name: 'affiliates')
-          required List<PartnershipData> partnershipList}) {
+      @JsonKey(name: 'map') required String mapImg,
+      @JsonKey(name: 'minprice') int? minPrice,
+      @JsonKey(name: 'price_desc') String? priceImg,
+      @JsonKey(name: 'affiliates') List<PartnershipData>? partnershipList}) {
     return _ShopDetailData(
       id: id,
       name: name,
@@ -76,11 +70,11 @@ mixin _$ShopDetailData {
   @JsonKey(name: 'map')
   String get mapImg => throw _privateConstructorUsedError;
   @JsonKey(name: 'minprice')
-  int get minPrice => throw _privateConstructorUsedError;
+  int? get minPrice => throw _privateConstructorUsedError;
   @JsonKey(name: 'price_desc')
-  String get priceImg => throw _privateConstructorUsedError;
+  String? get priceImg => throw _privateConstructorUsedError;
   @JsonKey(name: 'affiliates')
-  List<PartnershipData> get partnershipList =>
+  List<PartnershipData>? get partnershipList =>
       throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -103,9 +97,9 @@ abstract class $ShopDetailDataCopyWith<$Res> {
       @JsonKey(name: 'address_detail') String address,
       List<String> profiles,
       @JsonKey(name: 'map') String mapImg,
-      @JsonKey(name: 'minprice') int minPrice,
-      @JsonKey(name: 'price_desc') String priceImg,
-      @JsonKey(name: 'affiliates') List<PartnershipData> partnershipList});
+      @JsonKey(name: 'minprice') int? minPrice,
+      @JsonKey(name: 'price_desc') String? priceImg,
+      @JsonKey(name: 'affiliates') List<PartnershipData>? partnershipList});
 }
 
 /// @nodoc
@@ -167,15 +161,15 @@ class _$ShopDetailDataCopyWithImpl<$Res>
       minPrice: minPrice == freezed
           ? _value.minPrice
           : minPrice // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       priceImg: priceImg == freezed
           ? _value.priceImg
           : priceImg // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       partnershipList: partnershipList == freezed
           ? _value.partnershipList
           : partnershipList // ignore: cast_nullable_to_non_nullable
-              as List<PartnershipData>,
+              as List<PartnershipData>?,
     ));
   }
 }
@@ -196,9 +190,9 @@ abstract class _$ShopDetailDataCopyWith<$Res>
       @JsonKey(name: 'address_detail') String address,
       List<String> profiles,
       @JsonKey(name: 'map') String mapImg,
-      @JsonKey(name: 'minprice') int minPrice,
-      @JsonKey(name: 'price_desc') String priceImg,
-      @JsonKey(name: 'affiliates') List<PartnershipData> partnershipList});
+      @JsonKey(name: 'minprice') int? minPrice,
+      @JsonKey(name: 'price_desc') String? priceImg,
+      @JsonKey(name: 'affiliates') List<PartnershipData>? partnershipList});
 }
 
 /// @nodoc
@@ -262,15 +256,15 @@ class __$ShopDetailDataCopyWithImpl<$Res>
       minPrice: minPrice == freezed
           ? _value.minPrice
           : minPrice // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       priceImg: priceImg == freezed
           ? _value.priceImg
           : priceImg // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       partnershipList: partnershipList == freezed
           ? _value.partnershipList
           : partnershipList // ignore: cast_nullable_to_non_nullable
-              as List<PartnershipData>,
+              as List<PartnershipData>?,
     ));
   }
 }
@@ -287,9 +281,9 @@ class _$_ShopDetailData implements _ShopDetailData {
       @JsonKey(name: 'address_detail') required this.address,
       required this.profiles,
       @JsonKey(name: 'map') required this.mapImg,
-      @JsonKey(name: 'minprice') required this.minPrice,
-      @JsonKey(name: 'price_desc') required this.priceImg,
-      @JsonKey(name: 'affiliates') required this.partnershipList});
+      @JsonKey(name: 'minprice') this.minPrice,
+      @JsonKey(name: 'price_desc') this.priceImg,
+      @JsonKey(name: 'affiliates') this.partnershipList});
 
   factory _$_ShopDetailData.fromJson(Map<String, dynamic> json) =>
       _$$_ShopDetailDataFromJson(json);
@@ -315,13 +309,13 @@ class _$_ShopDetailData implements _ShopDetailData {
   final String mapImg;
   @override
   @JsonKey(name: 'minprice')
-  final int minPrice;
+  final int? minPrice;
   @override
   @JsonKey(name: 'price_desc')
-  final String priceImg;
+  final String? priceImg;
   @override
   @JsonKey(name: 'affiliates')
-  final List<PartnershipData> partnershipList;
+  final List<PartnershipData>? partnershipList;
 
   @override
   String toString() {
@@ -390,11 +384,11 @@ abstract class _ShopDetailData implements ShopDetailData {
       @JsonKey(name: 'map')
           required String mapImg,
       @JsonKey(name: 'minprice')
-          required int minPrice,
+          int? minPrice,
       @JsonKey(name: 'price_desc')
-          required String priceImg,
+          String? priceImg,
       @JsonKey(name: 'affiliates')
-          required List<PartnershipData> partnershipList}) = _$_ShopDetailData;
+          List<PartnershipData>? partnershipList}) = _$_ShopDetailData;
 
   factory _ShopDetailData.fromJson(Map<String, dynamic> json) =
       _$_ShopDetailData.fromJson;
@@ -420,13 +414,13 @@ abstract class _ShopDetailData implements ShopDetailData {
   String get mapImg;
   @override
   @JsonKey(name: 'minprice')
-  int get minPrice;
+  int? get minPrice;
   @override
   @JsonKey(name: 'price_desc')
-  String get priceImg;
+  String? get priceImg;
   @override
   @JsonKey(name: 'affiliates')
-  List<PartnershipData> get partnershipList;
+  List<PartnershipData>? get partnershipList;
   @override
   @JsonKey(ignore: true)
   _$ShopDetailDataCopyWith<_ShopDetailData> get copyWith =>

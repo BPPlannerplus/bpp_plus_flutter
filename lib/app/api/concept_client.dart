@@ -5,7 +5,8 @@ import 'package:retrofit/retrofit.dart';
 
 part 'concept_client.g.dart';
 
-@RestApi(baseUrl: "http://localhose:8080")
+@RestApi(
+    baseUrl: "http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com")
 abstract class ConceptClient {
   factory ConceptClient(
     Dio dio, {
@@ -15,12 +16,12 @@ abstract class ConceptClient {
   @GET("/concept/studios/")
   Future<ConceptList> getStudioList(
     @Query('page') int page,
-    @Query('head_count') String headCount,
-    @Query('gender') String gender,
-    @Query('background') String background,
-    @Query('prop') String prop,
-    @Query('dress') String dress,
-    @Query('like') bool? like,
+    @Query('like') bool like,
+    @Query('head_count') String? headCount,
+    @Query('gender') String? gender,
+    @Query('background') String? background,
+    @Query('prop') String? prop,
+    @Query('dress') String? dress,
   );
 
   @PUT("/concept/studios/{id}/like")

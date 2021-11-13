@@ -7,7 +7,7 @@ part 'complain.g.dart';
 class Complain with _$Complain {
   factory Complain({
     required String reason,
-    required String contents,
+    String? contents,
   }) = _Complain;
 
   factory Complain.fromJson(Map<String, dynamic> json) =>

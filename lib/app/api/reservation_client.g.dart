@@ -8,7 +8,7 @@ part of 'reservation_client.dart';
 
 class _ReservationClient implements ReservationClient {
   _ReservationClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://localhose:8080';
+    baseUrl ??= 'http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com';
   }
 
   final Dio _dio;

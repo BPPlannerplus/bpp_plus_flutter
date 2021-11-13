@@ -4,7 +4,8 @@ import 'package:retrofit/retrofit.dart';
 
 part 'reservation_client.g.dart';
 
-@RestApi(baseUrl: 'http://localhose:8080')
+@RestApi(
+    baseUrl: 'http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com')
 abstract class ReservationClient {
   factory ReservationClient(
     Dio dio, {

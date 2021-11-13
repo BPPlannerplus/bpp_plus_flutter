@@ -8,7 +8,7 @@ part of 'concept_client.dart';
 
 class _ConceptClient implements ConceptClient {
   _ConceptClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://localhose:8080';
+    baseUrl ??= 'http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com';
   }
 
   final Dio _dio;
@@ -17,16 +17,16 @@ class _ConceptClient implements ConceptClient {
 
   @override
   Future<ConceptList> getStudioList(
-      page, headCount, gender, background, prop, dress, like) async {
+      page, like, headCount, gender, background, prop, dress) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'page': page,
+      r'like': like,
       r'head_count': headCount,
       r'gender': gender,
       r'background': background,
       r'prop': prop,
-      r'dress': dress,
-      r'like': like
+      r'dress': dress
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};

@@ -7,7 +7,8 @@ import 'package:retrofit/retrofit.dart';
 
 part 'shop_client.g.dart';
 
-@RestApi(baseUrl: "http://localhose:8080")
+@RestApi(
+    baseUrl: "http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com")
 abstract class ShopClient {
   factory ShopClient(
     Dio dio, {
@@ -23,6 +24,20 @@ abstract class ShopClient {
 
   @GET("/shops/beautyshops/")
   Future<ShopList> getBeautyList(
+    @Query('page') int page,
+    @Query('like') bool like,
+    @Query('address') List<String>? address,
+  );
+
+  @GET("/shops/waxingshops/")
+  Future<ShopList> getWaxingList(
+    @Query('page') int page,
+    @Query('like') bool like,
+    @Query('address') List<String>? address,
+  );
+
+  @GET("/shops/tanningshops/")
+  Future<ShopList> getTanningList(
     @Query('page') int page,
     @Query('like') bool like,
     @Query('address') List<String>? address,

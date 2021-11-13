@@ -8,7 +8,7 @@ part of 'auth_client.dart';
 
 class _AuthClient implements AuthClient {
   _AuthClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://localhose:8080';
+    baseUrl ??= 'http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com';
   }
 
   final Dio _dio;
@@ -16,12 +16,29 @@ class _AuthClient implements AuthClient {
   String? baseUrl;
 
   @override
-  Future<TokenData> login(token) async {
+  Future<UserInfoResponse> kakaoLogin(token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(token.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UserInfoResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/login/rest-auth/kakao/',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = UserInfoResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<TokenData> newToken(userInfoRequest) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(userInfoRequest.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<TokenData>(
             Options(method: 'POST', headers: _headers, extra: _extra)
@@ -33,7 +50,7 @@ class _AuthClient implements AuthClient {
   }
 
   @override
-  Future<TokenData> newToken(tokenRequest) async {
+  Future<TokenData> refreshToken(tokenRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -50,17 +67,18 @@ class _AuthClient implements AuthClient {
   }
 
   @override
-  Future<void> withdraw() async {
+  Future<dynamic> withdraw() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    await _dio.fetch<void>(_setStreamType<void>(
+    final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'DELETE', headers: _headers, extra: _extra)
             .compose(_dio.options, '/login/withdrawal/',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    return null;
+    final value = _result.data;
+    return value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

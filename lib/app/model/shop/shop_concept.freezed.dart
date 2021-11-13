@@ -21,8 +21,7 @@ ShopConcepts _$ShopConceptsFromJson(Map<String, dynamic> json) {
 class _$ShopConceptsTearOff {
   const _$ShopConceptsTearOff();
 
-  _ShopConcepts call(
-      {required List<ShopConcept> shopConcepts, required String next}) {
+  _ShopConcepts call({required List<ShopConcept> shopConcepts, String? next}) {
     return _ShopConcepts(
       shopConcepts: shopConcepts,
       next: next,
@@ -40,7 +39,7 @@ const $ShopConcepts = _$ShopConceptsTearOff();
 /// @nodoc
 mixin _$ShopConcepts {
   List<ShopConcept> get shopConcepts => throw _privateConstructorUsedError;
-  String get next => throw _privateConstructorUsedError;
+  String? get next => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,7 +52,7 @@ abstract class $ShopConceptsCopyWith<$Res> {
   factory $ShopConceptsCopyWith(
           ShopConcepts value, $Res Function(ShopConcepts) then) =
       _$ShopConceptsCopyWithImpl<$Res>;
-  $Res call({List<ShopConcept> shopConcepts, String next});
+  $Res call({List<ShopConcept> shopConcepts, String? next});
 }
 
 /// @nodoc
@@ -77,7 +76,7 @@ class _$ShopConceptsCopyWithImpl<$Res> implements $ShopConceptsCopyWith<$Res> {
       next: next == freezed
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -89,7 +88,7 @@ abstract class _$ShopConceptsCopyWith<$Res>
           _ShopConcepts value, $Res Function(_ShopConcepts) then) =
       __$ShopConceptsCopyWithImpl<$Res>;
   @override
-  $Res call({List<ShopConcept> shopConcepts, String next});
+  $Res call({List<ShopConcept> shopConcepts, String? next});
 }
 
 /// @nodoc
@@ -115,7 +114,7 @@ class __$ShopConceptsCopyWithImpl<$Res> extends _$ShopConceptsCopyWithImpl<$Res>
       next: next == freezed
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -123,7 +122,7 @@ class __$ShopConceptsCopyWithImpl<$Res> extends _$ShopConceptsCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ShopConcepts implements _ShopConcepts {
-  _$_ShopConcepts({required this.shopConcepts, required this.next});
+  _$_ShopConcepts({required this.shopConcepts, this.next});
 
   factory _$_ShopConcepts.fromJson(Map<String, dynamic> json) =>
       _$$_ShopConceptsFromJson(json);
@@ -131,7 +130,7 @@ class _$_ShopConcepts implements _ShopConcepts {
   @override
   final List<ShopConcept> shopConcepts;
   @override
-  final String next;
+  final String? next;
 
   @override
   String toString() {
@@ -166,7 +165,7 @@ class _$_ShopConcepts implements _ShopConcepts {
 abstract class _ShopConcepts implements ShopConcepts {
   factory _ShopConcepts(
       {required List<ShopConcept> shopConcepts,
-      required String next}) = _$_ShopConcepts;
+      String? next}) = _$_ShopConcepts;
 
   factory _ShopConcepts.fromJson(Map<String, dynamic> json) =
       _$_ShopConcepts.fromJson;
@@ -174,7 +173,7 @@ abstract class _ShopConcepts implements ShopConcepts {
   @override
   List<ShopConcept> get shopConcepts;
   @override
-  String get next;
+  String? get next;
   @override
   @JsonKey(ignore: true)
   _$ShopConceptsCopyWith<_ShopConcepts> get copyWith =>

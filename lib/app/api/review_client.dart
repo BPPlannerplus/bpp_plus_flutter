@@ -7,7 +7,8 @@ import 'package:retrofit/retrofit.dart';
 
 part 'review_client.g.dart';
 
-@RestApi(baseUrl: 'http://localhose:8080')
+@RestApi(
+    baseUrl: 'http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com')
 abstract class ReviewClient {
   factory ReviewClient(
     Dio dio, {
@@ -20,7 +21,7 @@ abstract class ReviewClient {
   );
 
   @POST('/reviews/shops/{id}')
-  Future<void> createReview(
+  Future<dynamic> createReview(
     @Path() int shopId,
     @Body() ReviewRequest reviewRequest,
   );
@@ -31,18 +32,18 @@ abstract class ReviewClient {
   );
 
   @PATCH('/reviews/{id}')
-  Future<void> updateReview(
+  Future<dynamic> updateReview(
     @Path() int reviewId,
     @Body() ReviewRequest reviewRequest,
   );
 
   @DELETE('/reviews/{id}')
-  Future<void> deleteReview(
+  Future<dynamic> deleteReview(
     @Path() int reviewId,
   );
 
   @POST('/reviews/{id}/complains')
-  Future<void> reportReview(
+  Future<dynamic> reportReview(
     @Path() int reviewId,
     @Body() Complain complain,
   );

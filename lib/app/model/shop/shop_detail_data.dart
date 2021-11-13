@@ -16,9 +16,9 @@ class ShopDetailData with _$ShopDetailData {
     @JsonKey(name: 'address_detail') required String address,
     required List<String> profiles,
     @JsonKey(name: 'map') required String mapImg,
-    @JsonKey(name: 'minprice') required int minPrice,
-    @JsonKey(name: 'price_desc') required String priceImg,
-    @JsonKey(name: 'affiliates') required List<PartnershipData> partnershipList,
+    @JsonKey(name: 'minprice') int? minPrice,
+    @JsonKey(name: 'price_desc') String? priceImg,
+    @JsonKey(name: 'affiliates') List<PartnershipData>? partnershipList,
   }) = _ShopDetailData;
 
   factory ShopDetailData.fromJson(Map<String, dynamic> json) =>

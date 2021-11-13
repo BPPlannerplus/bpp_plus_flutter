@@ -1,4 +1,4 @@
-import 'package:bpp_riverpod/app/model/user.dart';
+import 'package:bpp_riverpod/app/model/auth/user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'review.g.dart';
@@ -10,7 +10,7 @@ class Review with _$Review {
     required int id,
     required User user,
     required int score,
-    required String contents,
+    String? contents,
     required String date,
   }) = _Review;
 
@@ -21,7 +21,7 @@ class Review with _$Review {
 class ReviewRequest with _$ReviewRequest {
   factory ReviewRequest({
     int? score,
-    required String contents,
+    String? contents,
   }) = _ReviewRequest;
 
   factory ReviewRequest.fromJson(Map<String, dynamic> json) =>

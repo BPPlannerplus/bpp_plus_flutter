@@ -12,7 +12,7 @@ _$_ReviewDetail _$$_ReviewDetailFromJson(Map<String, dynamic> json) =>
       createdAt: json['created_at'] as String,
       updatedDt: json['updated_dt'] as String,
       score: json['score'] as int,
-      contents: json['contents'] as String,
+      contents: json['contents'] as String?,
       date: json['date'] as String,
       userId: json['user'] as int,
       shopId: json['shop'] as int,

@@ -22,8 +22,7 @@ class _$ReviewListTearOff {
   const _$ReviewListTearOff();
 
   _ReviewList call(
-      {@JsonKey(name: 'results') required List<Review> reviews,
-      required String next}) {
+      {@JsonKey(name: 'results') required List<Review> reviews, String? next}) {
     return _ReviewList(
       reviews: reviews,
       next: next,
@@ -42,7 +41,7 @@ const $ReviewList = _$ReviewListTearOff();
 mixin _$ReviewList {
   @JsonKey(name: 'results')
   List<Review> get reviews => throw _privateConstructorUsedError;
-  String get next => throw _privateConstructorUsedError;
+  String? get next => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -55,7 +54,7 @@ abstract class $ReviewListCopyWith<$Res> {
   factory $ReviewListCopyWith(
           ReviewList value, $Res Function(ReviewList) then) =
       _$ReviewListCopyWithImpl<$Res>;
-  $Res call({@JsonKey(name: 'results') List<Review> reviews, String next});
+  $Res call({@JsonKey(name: 'results') List<Review> reviews, String? next});
 }
 
 /// @nodoc
@@ -79,7 +78,7 @@ class _$ReviewListCopyWithImpl<$Res> implements $ReviewListCopyWith<$Res> {
       next: next == freezed
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -90,7 +89,7 @@ abstract class _$ReviewListCopyWith<$Res> implements $ReviewListCopyWith<$Res> {
           _ReviewList value, $Res Function(_ReviewList) then) =
       __$ReviewListCopyWithImpl<$Res>;
   @override
-  $Res call({@JsonKey(name: 'results') List<Review> reviews, String next});
+  $Res call({@JsonKey(name: 'results') List<Review> reviews, String? next});
 }
 
 /// @nodoc
@@ -116,7 +115,7 @@ class __$ReviewListCopyWithImpl<$Res> extends _$ReviewListCopyWithImpl<$Res>
       next: next == freezed
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -124,8 +123,7 @@ class __$ReviewListCopyWithImpl<$Res> extends _$ReviewListCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ReviewList implements _ReviewList {
-  _$_ReviewList(
-      {@JsonKey(name: 'results') required this.reviews, required this.next});
+  _$_ReviewList({@JsonKey(name: 'results') required this.reviews, this.next});
 
   factory _$_ReviewList.fromJson(Map<String, dynamic> json) =>
       _$$_ReviewListFromJson(json);
@@ -134,7 +132,7 @@ class _$_ReviewList implements _ReviewList {
   @JsonKey(name: 'results')
   final List<Review> reviews;
   @override
-  final String next;
+  final String? next;
 
   @override
   String toString() {
@@ -168,7 +166,7 @@ class _$_ReviewList implements _ReviewList {
 abstract class _ReviewList implements ReviewList {
   factory _ReviewList(
       {@JsonKey(name: 'results') required List<Review> reviews,
-      required String next}) = _$_ReviewList;
+      String? next}) = _$_ReviewList;
 
   factory _ReviewList.fromJson(Map<String, dynamic> json) =
       _$_ReviewList.fromJson;
@@ -177,7 +175,7 @@ abstract class _ReviewList implements ReviewList {
   @JsonKey(name: 'results')
   List<Review> get reviews;
   @override
-  String get next;
+  String? get next;
   @override
   @JsonKey(ignore: true)
   _$ReviewListCopyWith<_ReviewList> get copyWith =>

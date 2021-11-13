@@ -12,7 +12,7 @@ class ReviewDetail with _$ReviewDetail {
     @JsonKey(name: 'created_at') required String createdAt,
     @JsonKey(name: 'updated_dt') required String updatedDt,
     required int score,
-    required String contents,
+    String? contents,
     required String date,
     @JsonKey(name: 'user') required int userId,
     @JsonKey(name: 'shop') required int shopId,

@@ -8,7 +8,7 @@ part of 'review_client.dart';
 
 class _ReviewClient implements ReviewClient {
   _ReviewClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://localhose:8080';
+    baseUrl ??= 'http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com';
   }
 
   final Dio _dio;
@@ -32,18 +32,19 @@ class _ReviewClient implements ReviewClient {
   }
 
   @override
-  Future<void> createReview(shopId, reviewRequest) async {
+  Future<dynamic> createReview(shopId, reviewRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(reviewRequest.toJson());
-    await _dio.fetch<void>(_setStreamType<void>(
+    final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, '/reviews/shops/{id}',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    return null;
+    final value = _result.data;
+    return value;
   }
 
   @override
@@ -63,47 +64,50 @@ class _ReviewClient implements ReviewClient {
   }
 
   @override
-  Future<void> updateReview(reviewId, reviewRequest) async {
+  Future<dynamic> updateReview(reviewId, reviewRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(reviewRequest.toJson());
-    await _dio.fetch<void>(_setStreamType<void>(
+    final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'PATCH', headers: _headers, extra: _extra)
             .compose(_dio.options, '/reviews/{id}',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    return null;
+    final value = _result.data;
+    return value;
   }
 
   @override
-  Future<void> deleteReview(reviewId) async {
+  Future<dynamic> deleteReview(reviewId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    await _dio.fetch<void>(_setStreamType<void>(
+    final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'DELETE', headers: _headers, extra: _extra)
             .compose(_dio.options, '/reviews/{id}',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    return null;
+    final value = _result.data;
+    return value;
   }
 
   @override
-  Future<void> reportReview(reviewId, complain) async {
+  Future<dynamic> reportReview(reviewId, complain) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(complain.toJson());
-    await _dio.fetch<void>(_setStreamType<void>(
+    final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, '/reviews/{id}/complains',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    return null;
+    final value = _result.data;
+    return value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

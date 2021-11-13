@@ -26,7 +26,7 @@ class _$ReviewDetailTearOff {
       @JsonKey(name: 'created_at') required String createdAt,
       @JsonKey(name: 'updated_dt') required String updatedDt,
       required int score,
-      required String contents,
+      String? contents,
       required String date,
       @JsonKey(name: 'user') required int userId,
       @JsonKey(name: 'shop') required int shopId}) {
@@ -58,7 +58,7 @@ mixin _$ReviewDetail {
   @JsonKey(name: 'updated_dt')
   String get updatedDt => throw _privateConstructorUsedError;
   int get score => throw _privateConstructorUsedError;
-  String get contents => throw _privateConstructorUsedError;
+  String? get contents => throw _privateConstructorUsedError;
   String get date => throw _privateConstructorUsedError;
   @JsonKey(name: 'user')
   int get userId => throw _privateConstructorUsedError;
@@ -81,7 +81,7 @@ abstract class $ReviewDetailCopyWith<$Res> {
       @JsonKey(name: 'created_at') String createdAt,
       @JsonKey(name: 'updated_dt') String updatedDt,
       int score,
-      String contents,
+      String? contents,
       String date,
       @JsonKey(name: 'user') int userId,
       @JsonKey(name: 'shop') int shopId});
@@ -126,7 +126,7 @@ class _$ReviewDetailCopyWithImpl<$Res> implements $ReviewDetailCopyWith<$Res> {
       contents: contents == freezed
           ? _value.contents
           : contents // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -155,7 +155,7 @@ abstract class _$ReviewDetailCopyWith<$Res>
       @JsonKey(name: 'created_at') String createdAt,
       @JsonKey(name: 'updated_dt') String updatedDt,
       int score,
-      String contents,
+      String? contents,
       String date,
       @JsonKey(name: 'user') int userId,
       @JsonKey(name: 'shop') int shopId});
@@ -202,7 +202,7 @@ class __$ReviewDetailCopyWithImpl<$Res> extends _$ReviewDetailCopyWithImpl<$Res>
       contents: contents == freezed
           ? _value.contents
           : contents // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -227,7 +227,7 @@ class _$_ReviewDetail implements _ReviewDetail {
       @JsonKey(name: 'created_at') required this.createdAt,
       @JsonKey(name: 'updated_dt') required this.updatedDt,
       required this.score,
-      required this.contents,
+      this.contents,
       required this.date,
       @JsonKey(name: 'user') required this.userId,
       @JsonKey(name: 'shop') required this.shopId});
@@ -246,7 +246,7 @@ class _$_ReviewDetail implements _ReviewDetail {
   @override
   final int score;
   @override
-  final String contents;
+  final String? contents;
   @override
   final String date;
   @override
@@ -300,7 +300,7 @@ abstract class _ReviewDetail implements ReviewDetail {
       @JsonKey(name: 'created_at') required String createdAt,
       @JsonKey(name: 'updated_dt') required String updatedDt,
       required int score,
-      required String contents,
+      String? contents,
       required String date,
       @JsonKey(name: 'user') required int userId,
       @JsonKey(name: 'shop') required int shopId}) = _$_ReviewDetail;
@@ -319,7 +319,7 @@ abstract class _ReviewDetail implements ReviewDetail {
   @override
   int get score;
   @override
-  String get contents;
+  String? get contents;
   @override
   String get date;
   @override

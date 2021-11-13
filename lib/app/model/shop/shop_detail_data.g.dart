@@ -17,10 +17,10 @@ _$_ShopDetailData _$$_ShopDetailDataFromJson(Map<String, dynamic> json) =>
       profiles:
           (json['profiles'] as List<dynamic>).map((e) => e as String).toList(),
       mapImg: json['map'] as String,
-      minPrice: json['minprice'] as int,
-      priceImg: json['price_desc'] as String,
-      partnershipList: (json['affiliates'] as List<dynamic>)
-          .map((e) => PartnershipData.fromJson(e as Map<String, dynamic>))
+      minPrice: json['minprice'] as int?,
+      priceImg: json['price_desc'] as String?,
+      partnershipList: (json['affiliates'] as List<dynamic>?)
+          ?.map((e) => PartnershipData.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

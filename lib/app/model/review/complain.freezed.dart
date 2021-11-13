@@ -21,7 +21,7 @@ Complain _$ComplainFromJson(Map<String, dynamic> json) {
 class _$ComplainTearOff {
   const _$ComplainTearOff();
 
-  _Complain call({required String reason, required String contents}) {
+  _Complain call({required String reason, String? contents}) {
     return _Complain(
       reason: reason,
       contents: contents,
@@ -39,7 +39,7 @@ const $Complain = _$ComplainTearOff();
 /// @nodoc
 mixin _$Complain {
   String get reason => throw _privateConstructorUsedError;
-  String get contents => throw _privateConstructorUsedError;
+  String? get contents => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +51,7 @@ mixin _$Complain {
 abstract class $ComplainCopyWith<$Res> {
   factory $ComplainCopyWith(Complain value, $Res Function(Complain) then) =
       _$ComplainCopyWithImpl<$Res>;
-  $Res call({String reason, String contents});
+  $Res call({String reason, String? contents});
 }
 
 /// @nodoc
@@ -75,7 +75,7 @@ class _$ComplainCopyWithImpl<$Res> implements $ComplainCopyWith<$Res> {
       contents: contents == freezed
           ? _value.contents
           : contents // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -85,7 +85,7 @@ abstract class _$ComplainCopyWith<$Res> implements $ComplainCopyWith<$Res> {
   factory _$ComplainCopyWith(_Complain value, $Res Function(_Complain) then) =
       __$ComplainCopyWithImpl<$Res>;
   @override
-  $Res call({String reason, String contents});
+  $Res call({String reason, String? contents});
 }
 
 /// @nodoc
@@ -110,7 +110,7 @@ class __$ComplainCopyWithImpl<$Res> extends _$ComplainCopyWithImpl<$Res>
       contents: contents == freezed
           ? _value.contents
           : contents // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -118,7 +118,7 @@ class __$ComplainCopyWithImpl<$Res> extends _$ComplainCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Complain implements _Complain {
-  _$_Complain({required this.reason, required this.contents});
+  _$_Complain({required this.reason, this.contents});
 
   factory _$_Complain.fromJson(Map<String, dynamic> json) =>
       _$$_ComplainFromJson(json);
@@ -126,7 +126,7 @@ class _$_Complain implements _Complain {
   @override
   final String reason;
   @override
-  final String contents;
+  final String? contents;
 
   @override
   String toString() {
@@ -158,15 +158,14 @@ class _$_Complain implements _Complain {
 }
 
 abstract class _Complain implements Complain {
-  factory _Complain({required String reason, required String contents}) =
-      _$_Complain;
+  factory _Complain({required String reason, String? contents}) = _$_Complain;
 
   factory _Complain.fromJson(Map<String, dynamic> json) = _$_Complain.fromJson;
 
   @override
   String get reason;
   @override
-  String get contents;
+  String? get contents;
   @override
   @JsonKey(ignore: true)
   _$ComplainCopyWith<_Complain> get copyWith =>

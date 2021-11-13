@@ -11,7 +11,7 @@ _$_ShopConcepts _$$_ShopConceptsFromJson(Map<String, dynamic> json) =>
       shopConcepts: (json['shopConcepts'] as List<dynamic>)
           .map((e) => ShopConcept.fromJson(e as Map<String, dynamic>))
           .toList(),
-      next: json['next'] as String,
+      next: json['next'] as String?,
     );
 
 Map<String, dynamic> _$$_ShopConceptsToJson(_$_ShopConcepts instance) =>

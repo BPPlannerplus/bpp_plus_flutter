@@ -7,7 +7,7 @@ part 'shop_concept.freezed.dart';
 class ShopConcepts with _$ShopConcepts {
   factory ShopConcepts({
     required List<ShopConcept> shopConcepts,
-    required String next,
+    String? next,
   }) = _ShopConcepts;
 
   factory ShopConcepts.fromJson(Map<String, dynamic> json) =>

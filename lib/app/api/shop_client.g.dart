@@ -8,7 +8,7 @@ part of 'shop_client.dart';
 
 class _ShopClient implements ShopClient {
   _ShopClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://localhose:8080';
+    baseUrl ??= 'http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com';
   }
 
   final Dio _dio;
@@ -51,6 +51,48 @@ class _ShopClient implements ShopClient {
         _setStreamType<ShopList>(
             Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/shops/beautyshops/',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ShopList.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ShopList> getWaxingList(page, like, address) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'page': page,
+      r'like': like,
+      r'address': address
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ShopList>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/shops/waxingshops/',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ShopList.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ShopList> getTanningList(page, like, address) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'page': page,
+      r'like': like,
+      r'address': address
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ShopList>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/shops/tanningshops/',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ShopList.fromJson(_result.data!);

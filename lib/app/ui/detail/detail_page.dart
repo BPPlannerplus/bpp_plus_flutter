@@ -99,9 +99,9 @@ class _DetailPageState extends ConsumerState<DetailPage> {
           var _pages = [
             DetailPortfolioPage(pagingController: conceptPageController),
             DetailInfoPage(
-              priceImg: shopData.priceImg,
+              priceImg: shopData.priceImg!,
               map: shopData.mapImg,
-              partners: shopData.partnershipList,
+              partners: shopData.partnershipList!,
               address: shopData.address,
             ),
             DetailReviewPage(pagingController: reviewPageController),
@@ -132,7 +132,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                 ),
                 DetailMidBox(
                   logo: shopData.logo,
-                  price: shopData.minPrice,
+                  price: shopData.minPrice!,
                   shopName: shopData.name,
                 ),
                 const DetailAppBar(),

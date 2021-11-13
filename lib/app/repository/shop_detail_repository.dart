@@ -1,8 +1,8 @@
+import 'package:bpp_riverpod/app/model/auth/user.dart';
 import 'package:bpp_riverpod/app/model/review/review.dart';
 import 'package:bpp_riverpod/app/model/review/review_list.dart';
 import 'package:bpp_riverpod/app/model/shop/shop_concept.dart';
 import 'package:bpp_riverpod/app/model/shop/shop_detail_data.dart';
-import 'package:bpp_riverpod/app/model/user.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final shopDetailRepository =

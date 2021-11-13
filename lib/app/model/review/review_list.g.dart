@@ -11,7 +11,7 @@ _$_ReviewList _$$_ReviewListFromJson(Map<String, dynamic> json) =>
       reviews: (json['results'] as List<dynamic>)
           .map((e) => Review.fromJson(e as Map<String, dynamic>))
           .toList(),
-      next: json['next'] as String,
+      next: json['next'] as String?,
     );
 
 Map<String, dynamic> _$$_ReviewListToJson(_$_ReviewList instance) =>

@@ -25,7 +25,7 @@ class _$ReviewTearOff {
       {required int id,
       required User user,
       required int score,
-      required String contents,
+      String? contents,
       required String date}) {
     return _Review(
       id: id,
@@ -49,7 +49,7 @@ mixin _$Review {
   int get id => throw _privateConstructorUsedError;
   User get user => throw _privateConstructorUsedError;
   int get score => throw _privateConstructorUsedError;
-  String get contents => throw _privateConstructorUsedError;
+  String? get contents => throw _privateConstructorUsedError;
   String get date => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -61,7 +61,7 @@ mixin _$Review {
 abstract class $ReviewCopyWith<$Res> {
   factory $ReviewCopyWith(Review value, $Res Function(Review) then) =
       _$ReviewCopyWithImpl<$Res>;
-  $Res call({int id, User user, int score, String contents, String date});
+  $Res call({int id, User user, int score, String? contents, String date});
 
   $UserCopyWith<$Res> get user;
 }
@@ -98,7 +98,7 @@ class _$ReviewCopyWithImpl<$Res> implements $ReviewCopyWith<$Res> {
       contents: contents == freezed
           ? _value.contents
           : contents // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -119,7 +119,7 @@ abstract class _$ReviewCopyWith<$Res> implements $ReviewCopyWith<$Res> {
   factory _$ReviewCopyWith(_Review value, $Res Function(_Review) then) =
       __$ReviewCopyWithImpl<$Res>;
   @override
-  $Res call({int id, User user, int score, String contents, String date});
+  $Res call({int id, User user, int score, String? contents, String date});
 
   @override
   $UserCopyWith<$Res> get user;
@@ -158,7 +158,7 @@ class __$ReviewCopyWithImpl<$Res> extends _$ReviewCopyWithImpl<$Res>
       contents: contents == freezed
           ? _value.contents
           : contents // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -174,7 +174,7 @@ class _$_Review implements _Review {
       {required this.id,
       required this.user,
       required this.score,
-      required this.contents,
+      this.contents,
       required this.date});
 
   factory _$_Review.fromJson(Map<String, dynamic> json) =>
@@ -187,7 +187,7 @@ class _$_Review implements _Review {
   @override
   final int score;
   @override
-  final String contents;
+  final String? contents;
   @override
   final String date;
 
@@ -228,7 +228,7 @@ abstract class _Review implements Review {
       {required int id,
       required User user,
       required int score,
-      required String contents,
+      String? contents,
       required String date}) = _$_Review;
 
   factory _Review.fromJson(Map<String, dynamic> json) = _$_Review.fromJson;
@@ -240,7 +240,7 @@ abstract class _Review implements Review {
   @override
   int get score;
   @override
-  String get contents;
+  String? get contents;
   @override
   String get date;
   @override
@@ -256,7 +256,7 @@ ReviewRequest _$ReviewRequestFromJson(Map<String, dynamic> json) {
 class _$ReviewRequestTearOff {
   const _$ReviewRequestTearOff();
 
-  _ReviewRequest call({int? score, required String contents}) {
+  _ReviewRequest call({int? score, String? contents}) {
     return _ReviewRequest(
       score: score,
       contents: contents,
@@ -274,7 +274,7 @@ const $ReviewRequest = _$ReviewRequestTearOff();
 /// @nodoc
 mixin _$ReviewRequest {
   int? get score => throw _privateConstructorUsedError;
-  String get contents => throw _privateConstructorUsedError;
+  String? get contents => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -287,7 +287,7 @@ abstract class $ReviewRequestCopyWith<$Res> {
   factory $ReviewRequestCopyWith(
           ReviewRequest value, $Res Function(ReviewRequest) then) =
       _$ReviewRequestCopyWithImpl<$Res>;
-  $Res call({int? score, String contents});
+  $Res call({int? score, String? contents});
 }
 
 /// @nodoc
@@ -312,7 +312,7 @@ class _$ReviewRequestCopyWithImpl<$Res>
       contents: contents == freezed
           ? _value.contents
           : contents // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -324,7 +324,7 @@ abstract class _$ReviewRequestCopyWith<$Res>
           _ReviewRequest value, $Res Function(_ReviewRequest) then) =
       __$ReviewRequestCopyWithImpl<$Res>;
   @override
-  $Res call({int? score, String contents});
+  $Res call({int? score, String? contents});
 }
 
 /// @nodoc
@@ -351,7 +351,7 @@ class __$ReviewRequestCopyWithImpl<$Res>
       contents: contents == freezed
           ? _value.contents
           : contents // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -359,7 +359,7 @@ class __$ReviewRequestCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ReviewRequest implements _ReviewRequest {
-  _$_ReviewRequest({this.score, required this.contents});
+  _$_ReviewRequest({this.score, this.contents});
 
   factory _$_ReviewRequest.fromJson(Map<String, dynamic> json) =>
       _$$_ReviewRequestFromJson(json);
@@ -367,7 +367,7 @@ class _$_ReviewRequest implements _ReviewRequest {
   @override
   final int? score;
   @override
-  final String contents;
+  final String? contents;
 
   @override
   String toString() {
@@ -399,8 +399,7 @@ class _$_ReviewRequest implements _ReviewRequest {
 }
 
 abstract class _ReviewRequest implements ReviewRequest {
-  factory _ReviewRequest({int? score, required String contents}) =
-      _$_ReviewRequest;
+  factory _ReviewRequest({int? score, String? contents}) = _$_ReviewRequest;
 
   factory _ReviewRequest.fromJson(Map<String, dynamic> json) =
       _$_ReviewRequest.fromJson;
@@ -408,7 +407,7 @@ abstract class _ReviewRequest implements ReviewRequest {
   @override
   int? get score;
   @override
-  String get contents;
+  String? get contents;
   @override
   @JsonKey(ignore: true)
   _$ReviewRequestCopyWith<_ReviewRequest> get copyWith =>

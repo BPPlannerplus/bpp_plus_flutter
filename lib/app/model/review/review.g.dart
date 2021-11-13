@@ -10,7 +10,7 @@ _$_Review _$$_ReviewFromJson(Map<String, dynamic> json) => _$_Review(
       id: json['id'] as int,
       user: User.fromJson(json['user'] as Map<String, dynamic>),
       score: json['score'] as int,
-      contents: json['contents'] as String,
+      contents: json['contents'] as String?,
       date: json['date'] as String,
     );
 
@@ -25,7 +25,7 @@ Map<String, dynamic> _$$_ReviewToJson(_$_Review instance) => <String, dynamic>{
 _$_ReviewRequest _$$_ReviewRequestFromJson(Map<String, dynamic> json) =>
     _$_ReviewRequest(
       score: json['score'] as int?,
-      contents: json['contents'] as String,
+      contents: json['contents'] as String?,
     );
 
 Map<String, dynamic> _$$_ReviewRequestToJson(_$_ReviewRequest instance) =>
