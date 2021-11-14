@@ -74,12 +74,10 @@ Widget wishGridCard({
             ? BppTextStyle.tabText
             : BppTextStyle.engShopNameText,
       ),
-      // const SizedBox(height: 2),
       Text(
         shop.address,
         style: BppTextStyle.smallText,
       ),
-      // const SizedBox(height: 2),
       Text(
         priceFormat(shop.minPrice ?? 1000000),
         style: BppTextStyle.smallText,

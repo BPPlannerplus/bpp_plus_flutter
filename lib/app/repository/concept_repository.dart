@@ -1,41 +1,38 @@
-import 'package:bpp_riverpod/app/model/concept/concept.dart';
+import 'package:bpp_riverpod/app/api/api_provider.dart';
+import 'package:bpp_riverpod/app/api/concept_client.dart';
+import 'package:bpp_riverpod/app/model/concept/concept_filter.dart';
 import 'package:bpp_riverpod/app/model/concept/concept_list.dart';
 import 'package:bpp_riverpod/app/model/like.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-abstract class ConceptRepository {
-  // 컨셉 조회
-  Future<ConceptList> getConceptList();
+final conceptRepositoryProvider = Provider<ConceptRepository>((ref) {
+  final conceptClient = ref.watch(conceptClientProvider);
+  return ConceptRepository(conceptClient: conceptClient);
+});
 
-  // 좋아요
-  Future<dynamic> setLike(int id);
-}
+class ConceptRepository {
+  ConceptRepository({
+    required this.conceptClient,
+  });
 
-class FakeConceptRepository implements ConceptRepository {
-  @override
-  Future<ConceptList> getConceptList() async {
-    await Future.delayed(const Duration(seconds: 1));
-    var newData = ConceptList(
-      concepts: List.generate(
-        30,
-        (index) => Concept(
-          id: index,
-          profile:
-              'https://www.topdaily.kr/news/photo/202103/97271_67860_5842.jpg',
-          shop: IdNamePair(
-            id: index,
-            name: 'Concept $index',
-          ),
-          like: false,
-        ),
-      ).toList(),
-      next: 'true',
+  final ConceptClient conceptClient;
+
+  Future<ConceptList> getConceptList(
+      int page, ConceptFilter conceptFilter) async {
+    final conceptList = await conceptClient.getStudioList(
+      page,
+      false,
+      conceptFilter.headNum,
+      conceptFilter.gender,
+      conceptFilter.background,
+      conceptFilter.prop,
+      conceptFilter.cloth,
     );
-
-    return newData;
+    return conceptList;
   }
 
-  @override
-  Future<dynamic> setLike(int id) {
-    throw UnimplementedError();
+  Future<dynamic> setLike(int id, bool like) async {
+    final response = await conceptClient.setLike(id, LikeRequest(like: like));
+    return response;
   }
 }

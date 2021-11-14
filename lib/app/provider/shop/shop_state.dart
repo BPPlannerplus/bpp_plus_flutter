@@ -28,7 +28,6 @@ class ShopListState extends StateNotifier<ShopList> {
         newData = await repository.getTanningList(address, _page);
         break;
     }
-    print('newData: $newData');
     _page++;
 
     state = state.copyWith(
@@ -49,8 +48,7 @@ class ShopListState extends StateNotifier<ShopList> {
         return e.id == id ? e.copyWith(like: !e.like) : e;
       }).toList(),
     );
-    final response = await repository.setLike(id, check);
-    print(response);
+    await repository.setLike(id, check);
   }
 
   void reset() {

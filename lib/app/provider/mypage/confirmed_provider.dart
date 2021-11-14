@@ -35,10 +35,15 @@ class ConfirmedList extends StateNotifier<List<MypageData>> {
     return state;
   }
 
-  void setDate(int shopId) {}
+  Future<dynamic> setDate(int shopId, String date) async {
+    final response = repository.setReservationDate(shopId, date);
+    return response;
+  }
 
-  void deleteById(int shopId) {
+  Future<dynamic> deleteById(int shopId) async {
     state = state.where((e) => e.id != shopId).toList();
+    final response = await repository.deleteInquiring(shopId);
+    return response;
   }
 
   List<List<MypageData>> makeList() {

@@ -9,7 +9,7 @@ part 'mypage_response.freezed.dart';
 @freezed
 class MypageResponse with _$MypageResponse {
   factory MypageResponse({
-    @JsonKey(name: 'remaining_days') required int remainingDays,
+    @JsonKey(name: 'remaining_days') int? remainingDays,
     @JsonKey(name: 'results') required List<MypageData> list,
   }) = _MypageResponse;
 

@@ -1,5 +1,6 @@
 import 'package:bpp_riverpod/app/model/concept/concept.dart';
 import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
+import 'package:bpp_riverpod/app/repository/shop_wish_repository.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,7 +17,8 @@ class ConceptWishGrid extends ConsumerStatefulWidget {
 }
 
 class _ConceptWishGridState extends ConsumerState<ConceptWishGrid> {
-  final int _pageSize = 30;
+  final int _pageSize = 20;
+  int _page = 1;
 
   final PagingController<int, Concept> _pagingController =
       PagingController(firstPageKey: 0);
@@ -31,22 +33,16 @@ class _ConceptWishGridState extends ConsumerState<ConceptWishGrid> {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      await Future.delayed(const Duration(seconds: 1));
-      final newItems = List.generate(
-          30,
-          (index) => Concept(
-              id: index,
-              profile:
-                  'https://www.sciencetimes.co.kr/wp-content/uploads/2021/08/1-%EC%A4%84%EB%A6%AC%EC%97%94%EA%B0%95-%EC%9D%B8%EC%8A%A4%ED%83%80%EA%B7%B8%EB%9E%A8-384x480.jpg',
-              shop: IdNamePair(id: index, name: 'Concept $index'),
-              like: true)).toList();
-      final isLastPage = newItems.length < _pageSize;
+      final newItems =
+          await ref.read(shopWishRepositoryProvider).getConceptList(_page++);
+      _page++;
+      final isLastPage = newItems.concepts.length < _pageSize;
 
       if (isLastPage) {
-        _pagingController.appendLastPage(newItems);
+        _pagingController.appendLastPage(newItems.concepts);
       } else {
-        final nextPageKey = pageKey + newItems.length;
-        _pagingController.appendPage(newItems, nextPageKey);
+        final nextPageKey = pageKey + newItems.concepts.length;
+        _pagingController.appendPage(newItems.concepts, nextPageKey);
       }
     } catch (error) {
       _pagingController.error = error;
@@ -116,6 +112,7 @@ class _ConceptWishGridState extends ConsumerState<ConceptWishGrid> {
           child: InkWell(
             onTap: () {
               conceptState.setLike(id);
+              ref.read(conceptListProvider.notifier).setLike(id);
             },
             child: Icon(
               like ? CupertinoIcons.heart_fill : CupertinoIcons.heart,

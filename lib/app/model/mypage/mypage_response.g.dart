@@ -8,7 +8,7 @@ part of 'mypage_response.dart';
 
 _$_MypageResponse _$$_MypageResponseFromJson(Map<String, dynamic> json) =>
     _$_MypageResponse(
-      remainingDays: json['remaining_days'] as int,
+      remainingDays: json['remaining_days'] as int?,
       list: (json['results'] as List<dynamic>)
           .map((e) => MypageData.fromJson(e as Map<String, dynamic>))
           .toList(),

@@ -17,11 +17,11 @@ abstract class ConceptClient {
   Future<ConceptList> getStudioList(
     @Query('page') int page,
     @Query('like') bool like,
-    @Query('head_count') String? headCount,
-    @Query('gender') String? gender,
-    @Query('background') String? background,
-    @Query('prop') String? prop,
-    @Query('dress') String? dress,
+    @Query('head_count') List<String>? headCount,
+    @Query('gender') List<String>? gender,
+    @Query('background') List<String>? background,
+    @Query('prop') List<String>? prop,
+    @Query('dress') List<String>? dress,
   );
 
   @PUT("/concept/studios/{id}/like")

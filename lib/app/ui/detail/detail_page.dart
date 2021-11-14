@@ -2,7 +2,6 @@ import 'package:bpp_riverpod/app/provider/detail/detail_navigation_provider.dart
 import 'package:bpp_riverpod/app/provider/detail/shop_detail_page_controller.dart';
 import 'package:bpp_riverpod/app/provider/detail/shop_detail_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
-import 'package:bpp_riverpod/app/provider/shop/shop_type_provider.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_app_bar.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_info_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_mid_box.dart';
@@ -47,7 +46,6 @@ class _DetailPageState extends ConsumerState<DetailPage> {
 
   void scrollToTop() {
     scrollController.animateTo(
-      // 345,
       0,
       duration: const Duration(milliseconds: 300),
       curve: Curves.linear,
@@ -93,7 +91,6 @@ class _DetailPageState extends ConsumerState<DetailPage> {
           final reviewPageController =
               ref.watch(shopDetailReviewPageControllerProvider(widget.shopId));
 
-          final shopType = ref.watch(shopTypeProvider);
           final navigator = ref.watch(navigatorProvider);
 
           var _pages = [
@@ -108,138 +105,114 @@ class _DetailPageState extends ConsumerState<DetailPage> {
           ];
 
           return Scaffold(
-            appBar: AppBar(
-              backgroundColor: const Color(0x00000000),
-              leading: InkWell(
-                onTap: () {
-                  navigator.pop();
-                },
-                child: SvgPicture.asset(
-                  'assets/icon/ic_back.svg',
-                  color: ref.watch(detailPageLeadingProvier)
-                      ? const Color(0xffffffff)
-                      : const Color(0xff000000),
-                ),
-              ),
-              toolbarHeight: 40,
-            ),
-            extendBodyBehindAppBar: true,
-            body: CustomScrollView(
-              controller: scrollController,
-              slivers: [
-                DetailTopBox(
-                  profiles: shopData.profiles,
-                ),
-                DetailMidBox(
-                  logo: shopData.logo,
-                  price: shopData.minPrice!,
-                  shopName: shopData.name,
-                ),
-                const DetailAppBar(),
-                SliverPadding(
-                  padding: const EdgeInsets.only(top: 8, right: 16, left: 16),
-                  sliver: _pages[index],
-                ),
-              ],
-            ),
-            bottomNavigationBar: Container(
-              padding: const EdgeInsets.only(right: 16, left: 16),
-              height: 68,
-              width: double.infinity,
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      ref
-                          .read(shopDetailStateProvider(shopData).notifier)
-                          .setLike();
-
-                      switch (shopType) {
-                        case ShopType.stduio:
-                          ref
-                              .read(studioListProvider.notifier)
-                              .setLike(shopData.id);
-                          break;
-                        case ShopType.beauty:
-                          ref
-                              .read(beautyListProvider.notifier)
-                              .setLike(shopData.id);
-                          break;
-                        case ShopType.waxing:
-                          ref
-                              .read(waxingListProvider.notifier)
-                              .setLike(shopData.id);
-                          break;
-                        case ShopType.tanning:
-                          ref
-                              .read(tanningListProvider.notifier)
-                              .setLike(shopData.id);
-                          break;
-                      }
-                    },
-                    child: Stack(
-                      children: [
-                        Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: const Color(0xffe6e6e6),
-                          ),
-                        ),
-                        Positioned(
-                          top: 1,
-                          left: 1,
-                          child: Container(
-                            width: 38,
-                            height: 38,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                            ),
-                            child: Icon(
-                              shopDetailData.like
-                                  ? Icons.favorite
-                                  : Icons.favorite_border_outlined,
-                              color: Colors.red,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+              appBar: AppBar(
+                backgroundColor: const Color(0x00000000),
+                leading: InkWell(
+                  onTap: () {
+                    navigator.pop();
+                  },
+                  child: SvgPicture.asset(
+                    'assets/icon/ic_back.svg',
+                    color: ref.watch(detailPageLeadingProvier)
+                        ? const Color(0xffffffff)
+                        : const Color(0xff000000),
                   ),
-                  SizedBox(
-                    height: 44,
-                    width: 272.w,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        await launch(shopData.kakaoUrl);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: const Color(0xFF3b75ff),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        elevation: 0,
-                      ),
-                      child: Center(
-                        child: Text(
-                          '예약 및 문의하기',
-                          style: BppTextStyle.defaultText.copyWith(
-                            color: const Color(0xffffffff),
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ),
+                ),
+                toolbarHeight: 40,
+              ),
+              extendBodyBehindAppBar: true,
+              body: CustomScrollView(
+                controller: scrollController,
+                slivers: [
+                  DetailTopBox(
+                    profiles: shopData.profiles,
+                  ),
+                  DetailMidBox(
+                    logo: shopData.logo,
+                    price: shopData.minPrice!,
+                    shopName: shopData.name,
+                  ),
+                  const DetailAppBar(),
+                  SliverPadding(
+                    padding: const EdgeInsets.only(top: 8, right: 16, left: 16),
+                    sliver: _pages[index],
                   ),
                 ],
               ),
-            ),
-          );
+              bottomNavigationBar: Container(
+                  padding: const EdgeInsets.only(right: 16, left: 16),
+                  height: 68,
+                  width: double.infinity,
+                  color: Colors.white,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            ref
+                                .read(
+                                    shopDetailStateProvider(shopData).notifier)
+                                .setLike();
+                            ref.read(shopListProvider).setLike(shopData.id);
+                          },
+                          child: Stack(
+                            children: [
+                              Container(
+                                width: 40,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: const Color(0xffe6e6e6),
+                                ),
+                              ),
+                              Positioned(
+                                top: 1,
+                                left: 1,
+                                child: Container(
+                                  width: 38,
+                                  height: 38,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white,
+                                  ),
+                                  child: Icon(
+                                    shopDetailData.like
+                                        ? Icons.favorite
+                                        : Icons.favorite_border_outlined,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                            height: 44,
+                            width: 272.w,
+                            child: ElevatedButton(
+                                onPressed: () async {
+                                  await ref
+                                      .read(shopDetailStateProvider(shopData)
+                                          .notifier)
+                                      .createReservation(shopData.id);
+                                  await launch(shopData.kakaoUrl);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  primary: const Color(0xFF3b75ff),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  elevation: 0,
+                                ),
+                                child: Center(
+                                    child: Text('예약 및 문의하기',
+                                        style:
+                                            BppTextStyle.defaultText.copyWith(
+                                          color: const Color(0xffffffff),
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                        )))))
+                      ])));
         },
       ),
     );

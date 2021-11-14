@@ -50,9 +50,9 @@ conceptBottomSheet() {
             onPressed: () {
               ref.read(conceptFilter.state).state =
                   ref.read(conceptFilterCheckProvider.notifier).makeFilter();
-              ref.read(conceptReqFilter.state).state =
+              final filter = ref.read(conceptReqFilter.state).state =
                   ref.read(conceptFilterCheckProvider.notifier).makeReqFilter();
-              ref.read(conceptListProvider.notifier).reset();
+              ref.read(conceptListProvider.notifier).reset(filter);
               navigator.pop();
             },
             style: ButtonStyle(

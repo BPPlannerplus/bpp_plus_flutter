@@ -18,17 +18,18 @@ abstract class ReservationClient {
   );
 
   @POST('/reservations/shops/{id}')
-  Future<void> setShopReservation(
+  Future<dynamic> setShopReservation(
     @Path() int shopId,
   );
 
   @PATCH('/reservations/{id}')
-  Future<void> setShopReservationDate(
+  Future<dynamic> setShopReservationDate(
     @Path() int reservationId,
+    @Body() Map<String, dynamic> date,
   );
 
   @DELETE('/reservations/{id}')
-  Future<void> deleteShopReservation(
+  Future<dynamic> deleteShopReservation(
     @Path() int id,
   );
 }

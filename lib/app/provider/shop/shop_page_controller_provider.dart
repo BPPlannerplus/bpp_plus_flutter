@@ -43,7 +43,6 @@ final studioPageControllerProvider =
         _pagingController.appendPage(newItems.shopDatas, nextPageKey);
       }
     } catch (error) {
-      print(error);
       _pagingController.error = error;
     }
   }

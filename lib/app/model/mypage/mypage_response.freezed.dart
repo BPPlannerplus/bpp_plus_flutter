@@ -22,7 +22,7 @@ class _$MypageResponseTearOff {
   const _$MypageResponseTearOff();
 
   _MypageResponse call(
-      {@JsonKey(name: 'remaining_days') required int remainingDays,
+      {@JsonKey(name: 'remaining_days') int? remainingDays,
       @JsonKey(name: 'results') required List<MypageData> list}) {
     return _MypageResponse(
       remainingDays: remainingDays,
@@ -41,7 +41,7 @@ const $MypageResponse = _$MypageResponseTearOff();
 /// @nodoc
 mixin _$MypageResponse {
   @JsonKey(name: 'remaining_days')
-  int get remainingDays => throw _privateConstructorUsedError;
+  int? get remainingDays => throw _privateConstructorUsedError;
   @JsonKey(name: 'results')
   List<MypageData> get list => throw _privateConstructorUsedError;
 
@@ -57,7 +57,7 @@ abstract class $MypageResponseCopyWith<$Res> {
           MypageResponse value, $Res Function(MypageResponse) then) =
       _$MypageResponseCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'remaining_days') int remainingDays,
+      {@JsonKey(name: 'remaining_days') int? remainingDays,
       @JsonKey(name: 'results') List<MypageData> list});
 }
 
@@ -79,7 +79,7 @@ class _$MypageResponseCopyWithImpl<$Res>
       remainingDays: remainingDays == freezed
           ? _value.remainingDays
           : remainingDays // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       list: list == freezed
           ? _value.list
           : list // ignore: cast_nullable_to_non_nullable
@@ -96,7 +96,7 @@ abstract class _$MypageResponseCopyWith<$Res>
       __$MypageResponseCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'remaining_days') int remainingDays,
+      {@JsonKey(name: 'remaining_days') int? remainingDays,
       @JsonKey(name: 'results') List<MypageData> list});
 }
 
@@ -120,7 +120,7 @@ class __$MypageResponseCopyWithImpl<$Res>
       remainingDays: remainingDays == freezed
           ? _value.remainingDays
           : remainingDays // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       list: list == freezed
           ? _value.list
           : list // ignore: cast_nullable_to_non_nullable
@@ -133,7 +133,7 @@ class __$MypageResponseCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_MypageResponse implements _MypageResponse {
   _$_MypageResponse(
-      {@JsonKey(name: 'remaining_days') required this.remainingDays,
+      {@JsonKey(name: 'remaining_days') this.remainingDays,
       @JsonKey(name: 'results') required this.list});
 
   factory _$_MypageResponse.fromJson(Map<String, dynamic> json) =>
@@ -141,7 +141,7 @@ class _$_MypageResponse implements _MypageResponse {
 
   @override
   @JsonKey(name: 'remaining_days')
-  final int remainingDays;
+  final int? remainingDays;
   @override
   @JsonKey(name: 'results')
   final List<MypageData> list;
@@ -178,7 +178,7 @@ class _$_MypageResponse implements _MypageResponse {
 
 abstract class _MypageResponse implements MypageResponse {
   factory _MypageResponse(
-          {@JsonKey(name: 'remaining_days') required int remainingDays,
+          {@JsonKey(name: 'remaining_days') int? remainingDays,
           @JsonKey(name: 'results') required List<MypageData> list}) =
       _$_MypageResponse;
 
@@ -187,7 +187,7 @@ abstract class _MypageResponse implements MypageResponse {
 
   @override
   @JsonKey(name: 'remaining_days')
-  int get remainingDays;
+  int? get remainingDays;
   @override
   @JsonKey(name: 'results')
   List<MypageData> get list;

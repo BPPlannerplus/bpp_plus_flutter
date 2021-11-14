@@ -1,11 +1,11 @@
+import 'package:bpp_riverpod/app/api/api_provider.dart';
 import 'package:bpp_riverpod/app/api/shop_client.dart';
-import 'package:bpp_riverpod/app/dio/dio.dart';
 import 'package:bpp_riverpod/app/model/like.dart';
 import 'package:bpp_riverpod/app/model/shop/shop_list.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final shopRepositroyProvider = Provider<ShopRepository>((ref) {
-  final shopClient = ref.watch(shopClientProvier);
+  final shopClient = ref.watch(shopClientProvider);
   return ShopRepository(shopClient: shopClient);
 });
 
@@ -36,6 +36,7 @@ class ShopRepository {
   }
 
   Future<dynamic> setLike(int id, bool like) async {
-    return await shopClient.setLike(id, LikeRequest(like: like));
+    final response = await shopClient.setLike(id, LikeRequest(like: like));
+    return response;
   }
 }

@@ -1,5 +1,6 @@
 import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
+import 'package:bpp_riverpod/app/repository/shop_wish_repository.dart';
 import 'package:bpp_riverpod/app/ui/wish/widget/wish_grid_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,7 +14,8 @@ class BeautyWishGrid extends ConsumerStatefulWidget {
 }
 
 class _BeautyWishGridState extends ConsumerState<BeautyWishGrid> {
-  final int _pageSize = 30;
+  final int _pageSize = 20;
+  int _page = 1;
 
   final PagingController<int, ShopData> _pagingController =
       PagingController(firstPageKey: 0);
@@ -27,26 +29,16 @@ class _BeautyWishGridState extends ConsumerState<BeautyWishGrid> {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      await Future.delayed(const Duration(seconds: 1));
-      final newItems = List.generate(
-        30,
-        (index) => ShopData(
-          id: index,
-          name: 'Shop $index',
-          address: '서울시 마포구',
-          like: true,
-          minPrice: 300000,
-          profile:
-              'https://cdn.topstarnews.net/news/photo/201805/416744_63740_479.jpg',
-        ),
-      ).toList();
-      final isLastPage = newItems.length < _pageSize;
+      final newItems =
+          await ref.read(shopWishRepositoryProvider).getBeautyList(_page);
+      _page++;
+      final isLastPage = newItems.shopDatas.length < _pageSize;
 
       if (isLastPage) {
-        _pagingController.appendLastPage(newItems);
+        _pagingController.appendLastPage(newItems.shopDatas);
       } else {
-        final nextPageKey = pageKey + newItems.length;
-        _pagingController.appendPage(newItems, nextPageKey);
+        final nextPageKey = pageKey + newItems.shopDatas.length;
+        _pagingController.appendPage(newItems.shopDatas, nextPageKey);
       }
     } catch (error) {
       _pagingController.error = error;

@@ -12,7 +12,8 @@ final shopDetailConceptPageControllerProvider = Provider.family
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newItems = await ref.read(shopDetailRepository).getShopConcepts();
+      final newItems =
+          await ref.read(shopDetailRepository).getShopConcepts(id, 1);
       final isLastPage = newItems.shopConcepts.length < 20;
 
       if (isLastPage) {
@@ -40,7 +41,7 @@ final shopDetailReviewPageControllerProvider =
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newItems = await ref.read(shopDetailRepository).getShopReviews();
+      final newItems = await ref.read(shopDetailRepository).getShopReviews(id);
       final isLastPage = newItems.reviews.length < 20;
 
       if (isLastPage) {

@@ -38,7 +38,6 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   void initState() {
-    print('MyApp init');
     super.initState();
     Future.delayed(const Duration(seconds: 0), () async {
       initKakao();
@@ -49,8 +48,6 @@ class _MyAppState extends ConsumerState<MyApp> {
   void initKakao() async {
     final kakaoLogin = ref.watch(flutterKakaoLogin);
     await kakaoLogin.init('728c87e40ccd496fb94f1000585da2df');
-    final hashKey = await kakaoLogin.hashKey;
-    print('hashKey: $hashKey');
   }
 
   Future<String> checkToken() async {

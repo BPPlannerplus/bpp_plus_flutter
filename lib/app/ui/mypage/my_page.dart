@@ -49,8 +49,6 @@ class _MyPageState extends ConsumerState<MyPage> {
     ref.listen(myPageTabProvider, (pre, next) {
       scrollToTop();
       ref.watch(isShowBottomBar.state).state = true;
-      print(
-          'ref.watch(isShowBottomBar.state).state: ${ref.watch(isShowBottomBar.state).state}');
     });
 
     return SafeArea(

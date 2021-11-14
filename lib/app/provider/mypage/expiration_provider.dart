@@ -34,6 +34,4 @@ class ExpirationList extends StateNotifier<List<MypageData>> {
     read(isExpirationLoading.state).state = false;
     return state;
   }
-
-  void setDate(int shopId) {}
 }

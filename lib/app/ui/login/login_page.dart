@@ -6,13 +6,11 @@ import 'package:bpp_riverpod/app/provider/auth/user_provider.dart';
 import 'package:bpp_riverpod/app/repository/auth_repository.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:video_player/video_player.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -45,7 +43,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       //  refreshToken 저장
       final prefs = await ref.read(sharedProvider.future);
       prefs.setString('token', tokenData.refreshToken!);
-      print('refreshToken 저장: ${tokenData.refreshToken!}');
     } on PlatformException catch (e) {
       print(e);
     }

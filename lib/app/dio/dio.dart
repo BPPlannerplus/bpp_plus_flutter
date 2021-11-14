@@ -1,5 +1,4 @@
 import 'package:bpp_riverpod/app/api/auth_client.dart';
-import 'package:bpp_riverpod/app/api/shop_client.dart';
 import 'package:bpp_riverpod/app/model/auth/token_data.dart';
 import 'package:bpp_riverpod/app/model/auth/user_info.dart';
 import 'package:bpp_riverpod/app/provider/auth/shared_provider.dart';
@@ -9,16 +8,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
 Logger logger = Logger();
-
-final authClientProvider = Provider<AuthClient>((ref) {
-  // final dio = ref.watch(dioProvider);
-  return AuthClient(Dio());
-});
-
-final shopClientProvier = Provider<ShopClient>((ref) {
-  final dio = ref.watch(dioProvider);
-  return ShopClient(dio);
-});
 
 final dioProvider = Provider<Dio>((ref) {
   final dio = Dio();
@@ -132,6 +121,9 @@ class CustomLogInterceptor extends Interceptor {
   void onError(DioError err, ErrorInterceptorHandler handler) {
     print(
         'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}');
+    print('ERROR err: [${err.error}]');
+    print('ERROR msg: [${err.message}]');
+    print('ERROR stack: [${err.stackTrace}]');
     super.onError(err, handler);
   }
 }

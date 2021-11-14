@@ -8,10 +8,11 @@ import 'package:bpp_riverpod/app/ui/review/my_review_page.dart';
 import 'package:bpp_riverpod/app/ui/review/review_write_page.dart';
 import 'package:bpp_riverpod/app/ui/setting/setting_page.dart';
 import 'package:bpp_riverpod/app/ui/setting/withdrawal_page.dart';
+import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
-  static const mainPage = '/';
+  static const mainPage = '/main';
   static const detailPage = '/detail';
   static const reportPage = '/report';
   static const detailProfilePage = '/detailProfile';
@@ -63,9 +64,12 @@ class AppRouter {
           settings: settings,
         );
       case AppRoutes.reportPage:
-        final int args = settings.arguments;
+        final List<int> args = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => ReportPage(id: args),
+          builder: (_) => ReportPage(
+            id: args[0],
+            reviewId: args[1],
+          ),
           settings: settings,
         );
       case AppRoutes.settingPage:

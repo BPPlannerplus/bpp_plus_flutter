@@ -32,7 +32,7 @@ abstract class ReviewClient {
   );
 
   @PATCH('/reviews/{id}')
-  Future<dynamic> updateReview(
+  Future<ReviewDetail> updateReview(
     @Path() int reviewId,
     @Body() ReviewRequest reviewRequest,
   );

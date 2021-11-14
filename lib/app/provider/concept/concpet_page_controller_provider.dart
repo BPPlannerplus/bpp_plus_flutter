@@ -1,4 +1,5 @@
 import 'package:bpp_riverpod/app/model/concept/concept.dart';
+import 'package:bpp_riverpod/app/provider/concept/concept_filter_provider.dart';
 import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -11,7 +12,9 @@ final conceptPageControllerProvider =
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newItems = await ref.read(conceptListProvider.notifier).getData();
+      final newItems = await ref
+          .read(conceptListProvider.notifier)
+          .getData(ref.read(conceptReqFilter));
       final isLastPage = newItems.concepts.length < 20;
 
       if (isLastPage) {

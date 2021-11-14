@@ -1,3 +1,4 @@
+import 'package:bpp_riverpod/app/provider/concept/concept_filter_provider.dart';
 import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_app_bar.dart';
@@ -29,12 +30,16 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
       if (scrollController.offset >=
               scrollController.position.maxScrollExtent &&
           !scrollController.position.outOfRange) {
-        ref.read(conceptListProvider.notifier).getData();
+        ref
+            .read(conceptListProvider.notifier)
+            .getData(ref.read(conceptReqFilter));
       }
     });
 
     if (ref.read(conceptListProvider).concepts.isEmpty) {
-      ref.read(conceptListProvider.notifier).getData();
+      ref
+          .read(conceptListProvider.notifier)
+          .getData(ref.read(conceptReqFilter));
     }
     super.initState();
   }

@@ -1,122 +1,74 @@
-import 'package:bpp_riverpod/app/model/mypage/mypage_data.dart';
+import 'package:bpp_riverpod/app/api/api_provider.dart';
+import 'package:bpp_riverpod/app/api/reservation_client.dart';
+import 'package:bpp_riverpod/app/api/review_client.dart';
 import 'package:bpp_riverpod/app/model/mypage/mypage_response.dart';
-import 'package:bpp_riverpod/app/model/mypage/mypage_shop_data.dart';
+import 'package:bpp_riverpod/app/model/review/review.dart';
+import 'package:bpp_riverpod/app/model/review/review_detail.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final mypageRepsitory =
-    Provider<MypageRepository>((ref) => FakeMypageRepository());
+final mypageRepsitory = Provider<MypageRepository>((ref) {
+  final reservationClient = ref.watch(reservationClientProvider);
+  final reviewClient = ref.watch(reviewClientProvider);
+  return MypageRepository(
+      reservationClient: reservationClient, reviewClient: reviewClient);
+});
 
-abstract class MypageRepository {
+class MypageRepository {
+  MypageRepository({
+    required this.reservationClient,
+    required this.reviewClient,
+  });
+
+  final ReservationClient reservationClient;
+  final ReviewClient reviewClient;
+
   // 샵 문의 중 조회
-  Future<MypageResponse> getShopInquiring();
+  Future<MypageResponse> getShopInquiring() async {
+    final response = await reservationClient.getShopReservations(true);
+    return response;
+  }
 
   // 샵 확정/만료 조회
-  Future<MypageResponse> getShopReservation();
+  Future<MypageResponse> getShopReservation() async {
+    final response = await reservationClient.getShopReservations(false);
+    return response;
+  }
 
   // 확정날짜 받기
-  Future<void> setReservationDate();
+  Future<dynamic> setReservationDate(int id, String date) async {
+    final response =
+        await reservationClient.setShopReservationDate(id, {'date': date});
+    return response;
+  }
 
   // 문의중 삭제
-  Future<void> deleteInquiring();
+  Future<dynamic> deleteInquiring(int id) async {
+    final response = await reservationClient.deleteShopReservation(id);
+    return response;
+  }
 
   // 리뷰  작성
-  Future<void> createReview();
+  Future<dynamic> createReview(int id, int score, String? text) async {
+    final response = await reviewClient.createReview(
+      id,
+      ReviewRequest(
+        score: score,
+        contents: text,
+      ),
+    );
+    return response;
+  }
 
   // 리뷰 수정
-  Future<void> updateReview();
+  Future<ReviewDetail> updateReview(int id, String text) async {
+    final reviewDetail =
+        await reviewClient.updateReview(id, ReviewRequest(contents: text));
+    return reviewDetail;
+  }
 
   // 리뷰 삭제
-  Future<void> deleteReview();
-}
-
-class FakeMypageRepository implements MypageRepository {
-  @override
-  Future<MypageResponse> getShopInquiring() async {
-    await Future.delayed(const Duration(seconds: 1));
-    return MypageResponse(
-      remainingDays: 16,
-      list: List.generate(
-        10,
-        (index) => MypageData(
-          id: index,
-          state: 0,
-          shop: MypageShopData(
-            id: index,
-            name: 'Shop 1',
-            logo:
-                'https://www.loud.kr/upload/ordersub/b_file1/thumimg2/order_sub_2322404_1_191116000058.jpg',
-            kakaoUrl: 'https://pf.kakao.com/_xgCxjfj',
-            type: index % 4,
-          ),
-          reservedData: '2021.12.31',
-        ),
-      ),
-    );
-  }
-
-  @override
-  Future<MypageResponse> getShopReservation() async {
-    await Future.delayed(const Duration(seconds: 1));
-    return MypageResponse(
-      remainingDays: 16,
-      list: List.generate(
-        20,
-        (index) => MypageData(
-          id: index,
-          state: index % 2 + 1,
-          shop: MypageShopData(
-            id: index,
-            name: 'Shop 1',
-            logo:
-                'https://www.loud.kr/upload/ordersub/b_file1/thumimg2/order_sub_2322404_1_191116000058.jpg',
-            kakaoUrl: 'https://pf.kakao.com/_xgCxjfj',
-            type: index % 4,
-          ),
-          reservedData: makeDate(index),
-        ),
-      ),
-    );
-  }
-
-  String makeDate(int index) {
-    if (index < 5) {
-      return '2021-12-01';
-    } else if (index < 10) {
-      return '2021-12-09';
-    } else if (index < 15) {
-      return '2021-12-20';
-    } else {
-      return '2021-12-31';
-    }
-  }
-
-  @override
-  Future<void> createReview() {
-    // TODO: implement createReview
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> deleteInquiring() {
-    // TODO: implement deleteInquiring
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> deleteReview() {
-    // TODO: implement deleteReview
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> setReservationDate() {
-    // TODO: implement setReservationDate
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> updateReview() {
-    // TODO: implement updateReview
-    throw UnimplementedError();
+  Future<dynamic> deleteReview(int id) async {
+    final response = await reviewClient.deleteReview(id);
+    return response;
   }
 }
