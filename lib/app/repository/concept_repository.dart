@@ -7,7 +7,7 @@ abstract class ConceptRepository {
   Future<ConceptList> getConceptList();
 
   // 좋아요
-  Future<LikeResponse> setLike(int id);
+  Future<dynamic> setLike(int id);
 }
 
 class FakeConceptRepository implements ConceptRepository {
@@ -35,7 +35,7 @@ class FakeConceptRepository implements ConceptRepository {
   }
 
   @override
-  Future<LikeResponse> setLike(int id) {
+  Future<dynamic> setLike(int id) {
     throw UnimplementedError();
   }
 }

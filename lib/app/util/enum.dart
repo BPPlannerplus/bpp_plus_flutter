@@ -16,3 +16,5 @@ Map<int, String> shopTypeToName = {
   2: '왁싱',
   3: '태닝',
 };
+
+const pageSize = 20;

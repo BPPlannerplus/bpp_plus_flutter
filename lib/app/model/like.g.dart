@@ -14,12 +14,3 @@ Map<String, dynamic> _$LikeRequestToJson(LikeRequest instance) =>
     <String, dynamic>{
       'change_to_like': instance.like,
     };
-
-LikeResponse _$LikeResponseFromJson(Map<String, dynamic> json) => LikeResponse(
-      results: json['results'] as String,
-    );
-
-Map<String, dynamic> _$LikeResponseToJson(LikeResponse instance) =>
-    <String, dynamic>{
-      'results': instance.results,
-    };

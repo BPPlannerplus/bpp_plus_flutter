@@ -1,17 +1,36 @@
 import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
 import 'package:bpp_riverpod/app/model/shop/shop_list.dart';
 import 'package:bpp_riverpod/app/repository/shop_repository.dart';
+import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ShopListState extends StateNotifier<ShopList> {
   ShopListState({
     required this.repository,
-  }) : super(ShopList(shopDatas: [], next: 'true'));
+  }) : super(ShopList(shopDatas: []));
 
   final ShopRepository repository;
+  int _page = 1;
 
-  Future<ShopList> getData() async {
-    var newData = await repository.getShopList();
+  Future<ShopList> getData(ShopType shopType, List<String> address) async {
+    late ShopList newData;
+    switch (shopType) {
+      case ShopType.stduio:
+        newData = await repository.getStudioList(address, _page);
+        break;
+      case ShopType.beauty:
+        newData = await repository.getBeautyList(address, _page);
+        break;
+      case ShopType.waxing:
+        newData = await repository.getWaxingList(address, _page);
+        break;
+      case ShopType.tanning:
+        newData = await repository.getTanningList(address, _page);
+        break;
+    }
+    print('newData: $newData');
+    _page++;
+
     state = state.copyWith(
       shopDatas: [
         ...state.shopDatas,
@@ -22,15 +41,22 @@ class ShopListState extends StateNotifier<ShopList> {
     return newData;
   }
 
-  void setLike(int id) {
+  Future<dynamic> setLike(int id) async {
+    final check =
+        state.shopDatas.where((element) => element.id == id).first.like;
     state = state.copyWith(
       shopDatas: state.shopDatas.map<ShopData>((e) {
         return e.id == id ? e.copyWith(like: !e.like) : e;
       }).toList(),
     );
+    final response = await repository.setLike(id, check);
+    print(response);
   }
 
-  void reset() => state.shopDatas.clear();
+  void reset() {
+    _page = 1;
+    state.shopDatas.clear();
+  }
 }
 
 class ShopDataState extends StateNotifier<ShopData> {

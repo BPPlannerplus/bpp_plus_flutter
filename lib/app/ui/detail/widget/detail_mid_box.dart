@@ -6,13 +6,13 @@ class DetailMidBox extends StatelessWidget {
   const DetailMidBox({
     Key? key,
     required this.shopName,
-    this.price,
-    this.logo,
+    required this.price,
+    required this.logo,
   }) : super(key: key);
 
   final String shopName;
-  int? price;
-  String? logo;
+  final int price;
+  final String logo;
 
   @override
   Widget build(BuildContext context) {

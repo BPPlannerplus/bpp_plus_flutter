@@ -1,6 +1,12 @@
+import 'package:bpp_riverpod/app/model/auth/token_data.dart';
+import 'package:bpp_riverpod/app/model/auth/user_info.dart';
 import 'package:bpp_riverpod/app/provider/auth/login_provider.dart';
+import 'package:bpp_riverpod/app/provider/auth/shared_provider.dart';
+import 'package:bpp_riverpod/app/provider/auth/user_provider.dart';
+import 'package:bpp_riverpod/app/repository/auth_repository.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,57 +22,33 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class _LoginPageState extends ConsumerState<LoginPage> {
-  late VideoPlayerController _videoPlayerController;
-
-  @override
-  void initState() {
-    super.initState();
-    _videoPlayerController =
-        VideoPlayerController.asset('assets/video/login.mp4')
-          ..initialize().then((_) {
-            _videoPlayerController.play();
-            _videoPlayerController.setLooping(true);
-            _videoPlayerController.setVolume(0.0);
-            setState(() {});
-          });
-  }
-
   Future<void> _login() async {
     final kakaoLogin = ref.watch(flutterKakaoLogin);
+    final authRepository = ref.watch(authRepositoryProvider);
 
     try {
       final result = await kakaoLogin.logIn();
-    } on PlatformException catch (e) {}
-  }
+      final token = result.token!.accessToken!;
 
-  Future<void> _getAccountInfo() async {
-    final kakaoLogin = ref.watch(flutterKakaoLogin);
+      // 카카오 토큰으로 유저 정보 요청
+      final userData =
+          await authRepository.kakaoLogin(LoginRequest(accessToken: token));
 
-    try {
-      final result = await kakaoLogin.getUserMe();
-      final account = result.account;
+      //  유저 정보로 자체 토큰 요청
+      final tokenData = await authRepository
+          .getNewToken(UserInfoRequest(userInfo: userData.userInfo));
 
-      print('account!.userID: ${account!.userID}');
-      print('account.userEmail: ${account.userEmail}');
-    } on PlatformException catch (e) {}
-  }
+      // 유저 정보 업데이트
+      ref.watch(userInfoProvider.state).state = userData.userInfo;
+      ref.watch(tokenDataProvider.state).state = tokenData;
 
-  Future<void> _getAccessToken() async {
-    final kakaoLogin = ref.watch(flutterKakaoLogin);
-
-    final token = await kakaoLogin.currentToken;
-
-    final accessToken = token?.accessToken;
-
-    print('accessToken: $accessToken');
-    if (accessToken != null) {
-    } else {}
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _videoPlayerController.dispose();
+      //  refreshToken 저장
+      final prefs = await ref.read(sharedProvider.future);
+      prefs.setString('token', tokenData.refreshToken!);
+      print('refreshToken 저장: ${tokenData.refreshToken!}');
+    } on PlatformException catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -77,16 +59,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       child: Scaffold(
         body: Stack(
           children: [
-            SizedBox.expand(
-              child: FittedBox(
-                fit: BoxFit.fill,
-                child: SizedBox(
-                  width: _videoPlayerController.value.size.width,
-                  height: _videoPlayerController.value.size.height,
-                  child: VideoPlayer(_videoPlayerController),
-                ),
-              ),
-            ),
             Positioned(
               top: 133.h,
               left: 32.w,
@@ -101,11 +73,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               left: 32.w,
               child: InkWell(
                 onTap: () async {
-                  // await _login();
-                  // // await _getAccountInfo();
-                  // await _getAccessToken();
-                  // await _getRefreshToken();
-
+                  await _login();
                   navigator.navigateToRemove(routeName: AppRoutes.mainPage);
                 },
                 child: Image.asset(

@@ -22,6 +22,7 @@ class MainPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print('메인페이지 Build');
     final index = ref.watch(navigationProvier);
     final visible = ref.watch(isShowBottomBar);
 

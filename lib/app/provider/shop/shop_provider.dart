@@ -46,19 +46,19 @@ final studioListProvider =
 
 final beautyListProvider =
     StateNotifierProvider<ShopListState, ShopList>((ref) {
-  final repository = ref.watch(beautyRepositroyProvider);
+  final repository = ref.watch(shopRepositroyProvider);
   return ShopListState(repository: repository);
 });
 
 final waxingListProvider =
     StateNotifierProvider<ShopListState, ShopList>((ref) {
-  final repository = ref.watch(waxingRepositroyProvider);
+  final repository = ref.watch(shopRepositroyProvider);
   return ShopListState(repository: repository);
 });
 
 final tanningListProvider =
     StateNotifierProvider<ShopListState, ShopList>((ref) {
-  final repository = ref.watch(tanningRepositroyProvider);
+  final repository = ref.watch(shopRepositroyProvider);
   return ShopListState(repository: repository);
 });
 

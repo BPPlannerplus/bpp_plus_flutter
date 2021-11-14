@@ -22,8 +22,8 @@ class _$TokenDataTearOff {
   const _$TokenDataTearOff();
 
   _TokenData call(
-      {@JsonKey(name: 'access') required String accessToken,
-      @JsonKey(name: 'refresh') String? refreshToken}) {
+      {@JsonKey(name: 'access_token') required String accessToken,
+      @JsonKey(name: 'refresh_token') String? refreshToken}) {
     return _TokenData(
       accessToken: accessToken,
       refreshToken: refreshToken,
@@ -40,9 +40,9 @@ const $TokenData = _$TokenDataTearOff();
 
 /// @nodoc
 mixin _$TokenData {
-  @JsonKey(name: 'access')
+  @JsonKey(name: 'access_token')
   String get accessToken => throw _privateConstructorUsedError;
-  @JsonKey(name: 'refresh')
+  @JsonKey(name: 'refresh_token')
   String? get refreshToken => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -56,8 +56,8 @@ abstract class $TokenDataCopyWith<$Res> {
   factory $TokenDataCopyWith(TokenData value, $Res Function(TokenData) then) =
       _$TokenDataCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'access') String accessToken,
-      @JsonKey(name: 'refresh') String? refreshToken});
+      {@JsonKey(name: 'access_token') String accessToken,
+      @JsonKey(name: 'refresh_token') String? refreshToken});
 }
 
 /// @nodoc
@@ -93,8 +93,8 @@ abstract class _$TokenDataCopyWith<$Res> implements $TokenDataCopyWith<$Res> {
       __$TokenDataCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'access') String accessToken,
-      @JsonKey(name: 'refresh') String? refreshToken});
+      {@JsonKey(name: 'access_token') String accessToken,
+      @JsonKey(name: 'refresh_token') String? refreshToken});
 }
 
 /// @nodoc
@@ -128,17 +128,17 @@ class __$TokenDataCopyWithImpl<$Res> extends _$TokenDataCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_TokenData implements _TokenData {
   _$_TokenData(
-      {@JsonKey(name: 'access') required this.accessToken,
-      @JsonKey(name: 'refresh') this.refreshToken});
+      {@JsonKey(name: 'access_token') required this.accessToken,
+      @JsonKey(name: 'refresh_token') this.refreshToken});
 
   factory _$_TokenData.fromJson(Map<String, dynamic> json) =>
       _$$_TokenDataFromJson(json);
 
   @override
-  @JsonKey(name: 'access')
+  @JsonKey(name: 'access_token')
   final String accessToken;
   @override
-  @JsonKey(name: 'refresh')
+  @JsonKey(name: 'refresh_token')
   final String? refreshToken;
 
   @override
@@ -173,17 +173,17 @@ class _$_TokenData implements _TokenData {
 
 abstract class _TokenData implements TokenData {
   factory _TokenData(
-      {@JsonKey(name: 'access') required String accessToken,
-      @JsonKey(name: 'refresh') String? refreshToken}) = _$_TokenData;
+      {@JsonKey(name: 'access_token') required String accessToken,
+      @JsonKey(name: 'refresh_token') String? refreshToken}) = _$_TokenData;
 
   factory _TokenData.fromJson(Map<String, dynamic> json) =
       _$_TokenData.fromJson;
 
   @override
-  @JsonKey(name: 'access')
+  @JsonKey(name: 'access_token')
   String get accessToken;
   @override
-  @JsonKey(name: 'refresh')
+  @JsonKey(name: 'refresh_token')
   String? get refreshToken;
   @override
   @JsonKey(ignore: true)

@@ -81,7 +81,7 @@ Widget wishGridCard({
       ),
       // const SizedBox(height: 2),
       Text(
-        priceFormat(shop.minPrice),
+        priceFormat(shop.minPrice ?? 1000000),
         style: BppTextStyle.smallText,
       ),
     ],

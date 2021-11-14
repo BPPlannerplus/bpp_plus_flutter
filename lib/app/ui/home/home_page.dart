@@ -28,6 +28,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   void initState() {
+    print('HomePage init');
     scrollController.addListener(() {
       final direction = scrollController.position.userScrollDirection;
       if (direction == ScrollDirection.forward) {

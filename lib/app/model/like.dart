@@ -16,17 +16,3 @@ class LikeRequest {
 
   Map<String, dynamic> toJson() => _$LikeRequestToJson(this);
 }
-
-@JsonSerializable()
-class LikeResponse {
-  String results;
-
-  LikeResponse({
-    required this.results,
-  });
-
-  factory LikeResponse.fromJson(Map<String, dynamic> json) =>
-      _$LikeResponseFromJson(json);
-
-  Map<String, dynamic> toJson() => _$LikeResponseToJson(this);
-}

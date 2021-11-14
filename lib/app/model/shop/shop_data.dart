@@ -12,7 +12,7 @@ class ShopData with _$ShopData {
     required String name,
     required String address,
     required bool like,
-    @JsonKey(name: 'minprice') required int minPrice,
+    @JsonKey(name: 'minprice') int? minPrice,
     required String profile,
   }) = _ShopData;
 

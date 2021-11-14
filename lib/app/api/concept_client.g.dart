@@ -42,19 +42,18 @@ class _ConceptClient implements ConceptClient {
   }
 
   @override
-  Future<LikeResponse> setLike(id, like) async {
+  Future<dynamic> setLike(id, like) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(like.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<LikeResponse>(
-            Options(method: 'PUT', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/concept/studios/$id/like',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = LikeResponse.fromJson(_result.data!);
+    final _result = await _dio.fetch(_setStreamType<dynamic>(
+        Options(method: 'PUT', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/concept/studios/$id/like',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data;
     return value;
   }
 

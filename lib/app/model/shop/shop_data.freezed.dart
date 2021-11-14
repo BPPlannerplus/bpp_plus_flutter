@@ -26,7 +26,7 @@ class _$ShopDataTearOff {
       required String name,
       required String address,
       required bool like,
-      @JsonKey(name: 'minprice') required int minPrice,
+      @JsonKey(name: 'minprice') int? minPrice,
       required String profile}) {
     return _ShopData(
       id: id,
@@ -53,7 +53,7 @@ mixin _$ShopData {
   String get address => throw _privateConstructorUsedError;
   bool get like => throw _privateConstructorUsedError;
   @JsonKey(name: 'minprice')
-  int get minPrice => throw _privateConstructorUsedError;
+  int? get minPrice => throw _privateConstructorUsedError;
   String get profile => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -71,7 +71,7 @@ abstract class $ShopDataCopyWith<$Res> {
       String name,
       String address,
       bool like,
-      @JsonKey(name: 'minprice') int minPrice,
+      @JsonKey(name: 'minprice') int? minPrice,
       String profile});
 }
 
@@ -112,7 +112,7 @@ class _$ShopDataCopyWithImpl<$Res> implements $ShopDataCopyWith<$Res> {
       minPrice: minPrice == freezed
           ? _value.minPrice
           : minPrice // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       profile: profile == freezed
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
@@ -131,7 +131,7 @@ abstract class _$ShopDataCopyWith<$Res> implements $ShopDataCopyWith<$Res> {
       String name,
       String address,
       bool like,
-      @JsonKey(name: 'minprice') int minPrice,
+      @JsonKey(name: 'minprice') int? minPrice,
       String profile});
 }
 
@@ -173,7 +173,7 @@ class __$ShopDataCopyWithImpl<$Res> extends _$ShopDataCopyWithImpl<$Res>
       minPrice: minPrice == freezed
           ? _value.minPrice
           : minPrice // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       profile: profile == freezed
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
@@ -190,7 +190,7 @@ class _$_ShopData implements _ShopData {
       required this.name,
       required this.address,
       required this.like,
-      @JsonKey(name: 'minprice') required this.minPrice,
+      @JsonKey(name: 'minprice') this.minPrice,
       required this.profile});
 
   factory _$_ShopData.fromJson(Map<String, dynamic> json) =>
@@ -206,7 +206,7 @@ class _$_ShopData implements _ShopData {
   final bool like;
   @override
   @JsonKey(name: 'minprice')
-  final int minPrice;
+  final int? minPrice;
   @override
   final String profile;
 
@@ -250,7 +250,7 @@ abstract class _ShopData implements ShopData {
       required String name,
       required String address,
       required bool like,
-      @JsonKey(name: 'minprice') required int minPrice,
+      @JsonKey(name: 'minprice') int? minPrice,
       required String profile}) = _$_ShopData;
 
   factory _ShopData.fromJson(Map<String, dynamic> json) = _$_ShopData.fromJson;
@@ -265,7 +265,7 @@ abstract class _ShopData implements ShopData {
   bool get like;
   @override
   @JsonKey(name: 'minprice')
-  int get minPrice;
+  int? get minPrice;
   @override
   String get profile;
   @override

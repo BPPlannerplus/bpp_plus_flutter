@@ -1,4 +1,5 @@
 import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
+import 'package:bpp_riverpod/app/provider/shop/shop_filter_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_type_provider.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
@@ -26,9 +27,13 @@ final studioPageControllerProvider =
     firstPageKey: 0,
   );
 
+  final address = ref.watch(studioFilterProvider.notifier).makeFilter();
+
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newItems = await ref.read(studioListProvider.notifier).getData();
+      final newItems = await ref
+          .read(studioListProvider.notifier)
+          .getData(ShopType.stduio, address);
       final isLastPage = newItems.shopDatas.length < 20;
 
       if (isLastPage) {
@@ -38,6 +43,7 @@ final studioPageControllerProvider =
         _pagingController.appendPage(newItems.shopDatas, nextPageKey);
       }
     } catch (error) {
+      print(error);
       _pagingController.error = error;
     }
   }
@@ -54,9 +60,13 @@ final beautyPageControllerProvider =
     firstPageKey: 0,
   );
 
+  final adress = ref.watch(beautyFilterProvider.notifier).makeFilter();
+
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newItems = await ref.read(beautyListProvider.notifier).getData();
+      final newItems = await ref
+          .read(beautyListProvider.notifier)
+          .getData(ShopType.beauty, adress);
       final isLastPage = newItems.shopDatas.length < 20;
 
       if (isLastPage) {
@@ -82,9 +92,13 @@ final waxingPageControllerProvider =
     firstPageKey: 0,
   );
 
+  final adress = ref.watch(waxingFilterProvider.notifier).makeFilter();
+
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newItems = await ref.read(waxingListProvider.notifier).getData();
+      final newItems = await ref
+          .read(waxingListProvider.notifier)
+          .getData(ShopType.waxing, adress);
       final isLastPage = newItems.shopDatas.length < 20;
 
       if (isLastPage) {
@@ -109,10 +123,13 @@ final tanningPageControllerProvider =
   final _pagingController = PagingController<int, ShopData>(
     firstPageKey: 0,
   );
+  final adress = ref.watch(tanningFilterProvider.notifier).makeFilter();
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newItems = await ref.read(tanningListProvider.notifier).getData();
+      final newItems = await ref
+          .read(tanningListProvider.notifier)
+          .getData(ShopType.tanning, adress);
       final isLastPage = newItems.shopDatas.length < 20;
 
       if (isLastPage) {

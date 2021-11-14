@@ -11,7 +11,7 @@ _$_ShopData _$$_ShopDataFromJson(Map<String, dynamic> json) => _$_ShopData(
       name: json['name'] as String,
       address: json['address'] as String,
       like: json['like'] as bool,
-      minPrice: json['minprice'] as int,
+      minPrice: json['minprice'] as int?,
       profile: json['profile'] as String,
     );
 

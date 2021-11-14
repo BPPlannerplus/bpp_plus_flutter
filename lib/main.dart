@@ -38,10 +38,11 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   void initState() {
+    print('MyApp init');
     super.initState();
-    Future.delayed(const Duration(seconds: 0), () {
+    Future.delayed(const Duration(seconds: 0), () async {
       initKakao();
-      checkToken();
+      initRoute = await checkToken();
     });
   }
 
@@ -52,15 +53,15 @@ class _MyAppState extends ConsumerState<MyApp> {
     print('hashKey: $hashKey');
   }
 
-  void checkToken() async {
+  Future<String> checkToken() async {
     final prefs = await ref.watch(sharedProvider.future);
     final token = prefs.getString('token') ?? 'no token';
     if (token == 'no token') {
       print('토큰 없음');
-      return;
+      return AppRoutes.loginPage;
     }
     print('토큰 있음 token: $token');
-    initRoute = AppRoutes.mainPage;
+    return AppRoutes.mainPage;
   }
 
   @override

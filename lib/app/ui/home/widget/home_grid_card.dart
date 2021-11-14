@@ -75,7 +75,7 @@ Widget homeGridCard({
       ),
       // const SizedBox(height: 1),
       Text(
-        priceFormat(shop.minPrice),
+        priceFormat(shop.minPrice ?? 100000),
         style: BppTextStyle.smallText,
       ),
     ],
