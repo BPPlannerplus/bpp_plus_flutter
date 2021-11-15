@@ -3,6 +3,50 @@
 part of 'user_info.dart';
 
 // **************************************************************************
+// TypeAdapterGenerator
+// **************************************************************************
+
+class UserInfoAdapter extends TypeAdapter<_$_UserInfo> {
+  @override
+  final int typeId = 1;
+
+  @override
+  _$_UserInfo read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return _$_UserInfo(
+      uid: fields[0] as int,
+      userName: fields[1] as String,
+      pk: fields[2] as int,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, _$_UserInfo obj) {
+    writer
+      ..writeByte(3)
+      ..writeByte(0)
+      ..write(obj.uid)
+      ..writeByte(1)
+      ..write(obj.userName)
+      ..writeByte(2)
+      ..write(obj.pk);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is UserInfoAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+// **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 

@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive/hive.dart';
 
 part 'user_info.g.dart';
 part 'user_info.freezed.dart';
@@ -26,10 +27,11 @@ class UserInfoRequest with _$UserInfoRequest {
 
 @freezed
 class UserInfo with _$UserInfo {
+  @HiveType(typeId: 1, adapterName: 'UserInfoAdapter')
   factory UserInfo({
-    required int uid,
-    @JsonKey(name: 'username') required String userName,
-    required int pk,
+    @HiveField(0) required int uid,
+    @JsonKey(name: 'username') @HiveField(1) required String userName,
+    @HiveField(2) required int pk,
   }) = _UserInfo;
 
   factory UserInfo.fromJson(Map<String, dynamic> json) =>

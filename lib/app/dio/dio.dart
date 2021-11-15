@@ -1,10 +1,10 @@
 import 'package:bpp_riverpod/app/api/auth_client.dart';
 import 'package:bpp_riverpod/app/model/auth/token_data.dart';
 import 'package:bpp_riverpod/app/model/auth/user_info.dart';
-import 'package:bpp_riverpod/app/provider/auth/shared_provider.dart';
 import 'package:bpp_riverpod/app/provider/auth/user_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:logger/logger.dart';
 
 Logger logger = Logger();
@@ -20,14 +20,11 @@ final dioProvider = Provider<Dio>((ref) {
   dio.interceptors.add(
     InterceptorsWrapper(
       onRequest: (options, handler) async {
-        final token = ref.read(tokenDataProvider);
-        final prefs = await ref.read(sharedProvider.future);
-        final userInfo = ref.read(userInfoProvider);
-        logger.d('access_token: ${token.accessToken}');
-        logger.d('refresh_token: ${token.refreshToken}');
-        logger.d('token.accessToken.isEmpty: ${token.accessToken.isEmpty}');
+        final tokenData = ref.read(tokenDataProvider);
+        // final token = Hive.box('auth').get('token');
+        final userInfo = Hive.box('auth').get('userInfo');
 
-        if (token.accessToken.isEmpty) {
+        if (tokenData.accessToken.isEmpty) {
           dio.lock();
           authClient
               .newToken(
@@ -39,10 +36,9 @@ final dioProvider = Provider<Dio>((ref) {
             (d) {
               logger.d('access_token: ${d.accessToken}');
               logger.d('refresh_token: ${d.refreshToken}');
-              ref.read(tokenDataProvider.state).state = token.copyWith(
-                  accessToken: d.accessToken, refreshToken: d.refreshToken);
-              options.headers['Authorization'] = 'Bearer ${token.accessToken}';
-              prefs.setString('token', token.refreshToken!);
+              ref.read(tokenDataProvider.state).state = d;
+              options.headers['Authorization'] = 'Bearer ${d.accessToken}';
+              Hive.box('auth').put('token', d.refreshToken);
               handler.next(options);
             },
           ).catchError(
@@ -53,13 +49,14 @@ final dioProvider = Provider<Dio>((ref) {
             () => dio.unlock(),
           );
         } else {
-          options.headers['Authorization'] = 'Bearer ${token.accessToken}';
+          options.headers['Authorization'] = 'Bearer ${tokenData.accessToken}';
           return handler.next(options);
         }
       },
       onError: (error, handler) async {
         final token = ref.read(tokenDataProvider);
-        final userInfo = ref.read(userInfoProvider);
+        final userInfo = Hive.box('auth').get('userInfo');
+        print(token.accessToken);
 
         // refreshToken 만료
         if (error.response?.statusCode == 401) {
@@ -77,21 +74,33 @@ final dioProvider = Provider<Dio>((ref) {
           dio.interceptors.errorLock.lock();
 
           authClient
-              .refreshToken(TokenRequest(
-                  userId: userInfo.pk, refreshToken: token.refreshToken!))
-              .then((d) {
-            ref.read(tokenDataProvider.state).state =
-                token.copyWith(accessToken: d.accessToken);
-            options.headers['Authorization'] = 'Bearer ${token.accessToken}';
-          }).whenComplete(() {
-            dio.unlock();
-            dio.interceptors.responseLock.unlock();
-            dio.interceptors.errorLock.unlock();
-          }).then((e) {
-            dio.fetch(options).then((r) => handler.resolve(r), onError: (e) {
-              handler.reject(e);
-            });
-          });
+              .refreshToken(
+            TokenRequest(
+              userId: userInfo!.uid,
+              refreshToken: token.refreshToken!,
+            ),
+          )
+              .then(
+            (d) {
+              Hive.box('auth').put('token', token.refreshToken!);
+              options.headers['Authorization'] = 'Bearer ${token.accessToken}';
+            },
+          ).whenComplete(
+            () {
+              dio.unlock();
+              dio.interceptors.responseLock.unlock();
+              dio.interceptors.errorLock.unlock();
+            },
+          ).then(
+            (e) {
+              dio.fetch(options).then(
+                (r) => handler.resolve(r),
+                onError: (e) {
+                  handler.reject(e);
+                },
+              );
+            },
+          );
           return;
         }
         return handler.next(error);
@@ -121,6 +130,7 @@ class CustomLogInterceptor extends Interceptor {
   void onError(DioError err, ErrorInterceptorHandler handler) {
     print(
         'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}');
+    print('ERROR headers: [${err.requestOptions.headers}]');
     print('ERROR err: [${err.error}]');
     print('ERROR msg: [${err.message}]');
     print('ERROR stack: [${err.stackTrace}]');

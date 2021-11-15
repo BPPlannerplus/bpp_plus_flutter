@@ -30,12 +30,14 @@ class _DetailReviewPageState extends ConsumerState<DetailReviewPage> {
         if (index == 0) {
           return topReviewCard();
         }
-        return reviewCard(
-          rating: review.score.toDouble(),
-          name: review.user.userName,
-          date: review.date,
-          text: review.contents,
-        );
+        return widget.pagingController.itemList!.isEmpty
+            ? emptyReview()
+            : reviewCard(
+                rating: review.score.toDouble(),
+                name: review.user.userName,
+                date: review.date,
+                text: review.contents,
+              );
       }),
     );
   }

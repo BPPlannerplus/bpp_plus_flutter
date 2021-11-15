@@ -28,6 +28,9 @@ dependencies:
   logger: ^1.1.0
   flutter_kakao_login: ^3.4.0
   flutter_staggered_grid_view: ^0.4.1
+  get_it: ^7.2.0
+  hive: ^2.0.4
+  hive_flutter: ^1.1.0
 
   cupertino_icons: ^1.0.2
 
@@ -38,6 +41,7 @@ dev_dependencies:
   json_serializable:
   freezed:
   retrofit_generator:
+  hive_generator: ^1.1.1
 
   flutter_lints: ^1.0.0
 
@@ -47,7 +51,6 @@ flutter:
   assets:
     - assets/image/
     - assets/icon/
-    - assets/video/
 
   fonts:
     - family: Roboto

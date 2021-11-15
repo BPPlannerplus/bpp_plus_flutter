@@ -375,9 +375,9 @@ class _$UserInfoTearOff {
   const _$UserInfoTearOff();
 
   _UserInfo call(
-      {required int uid,
-      @JsonKey(name: 'username') required String userName,
-      required int pk}) {
+      {@HiveField(0) required int uid,
+      @JsonKey(name: 'username') @HiveField(1) required String userName,
+      @HiveField(2) required int pk}) {
     return _UserInfo(
       uid: uid,
       userName: userName,
@@ -395,9 +395,12 @@ const $UserInfo = _$UserInfoTearOff();
 
 /// @nodoc
 mixin _$UserInfo {
+  @HiveField(0)
   int get uid => throw _privateConstructorUsedError;
   @JsonKey(name: 'username')
+  @HiveField(1)
   String get userName => throw _privateConstructorUsedError;
+  @HiveField(2)
   int get pk => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -410,7 +413,10 @@ mixin _$UserInfo {
 abstract class $UserInfoCopyWith<$Res> {
   factory $UserInfoCopyWith(UserInfo value, $Res Function(UserInfo) then) =
       _$UserInfoCopyWithImpl<$Res>;
-  $Res call({int uid, @JsonKey(name: 'username') String userName, int pk});
+  $Res call(
+      {@HiveField(0) int uid,
+      @JsonKey(name: 'username') @HiveField(1) String userName,
+      @HiveField(2) int pk});
 }
 
 /// @nodoc
@@ -449,7 +455,10 @@ abstract class _$UserInfoCopyWith<$Res> implements $UserInfoCopyWith<$Res> {
   factory _$UserInfoCopyWith(_UserInfo value, $Res Function(_UserInfo) then) =
       __$UserInfoCopyWithImpl<$Res>;
   @override
-  $Res call({int uid, @JsonKey(name: 'username') String userName, int pk});
+  $Res call(
+      {@HiveField(0) int uid,
+      @JsonKey(name: 'username') @HiveField(1) String userName,
+      @HiveField(2) int pk});
 }
 
 /// @nodoc
@@ -486,21 +495,25 @@ class __$UserInfoCopyWithImpl<$Res> extends _$UserInfoCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
+@HiveType(typeId: 1, adapterName: 'UserInfoAdapter')
 class _$_UserInfo implements _UserInfo {
   _$_UserInfo(
-      {required this.uid,
-      @JsonKey(name: 'username') required this.userName,
-      required this.pk});
+      {@HiveField(0) required this.uid,
+      @JsonKey(name: 'username') @HiveField(1) required this.userName,
+      @HiveField(2) required this.pk});
 
   factory _$_UserInfo.fromJson(Map<String, dynamic> json) =>
       _$$_UserInfoFromJson(json);
 
   @override
+  @HiveField(0)
   final int uid;
   @override
   @JsonKey(name: 'username')
+  @HiveField(1)
   final String userName;
   @override
+  @HiveField(2)
   final int pk;
 
   @override
@@ -535,18 +548,21 @@ class _$_UserInfo implements _UserInfo {
 
 abstract class _UserInfo implements UserInfo {
   factory _UserInfo(
-      {required int uid,
-      @JsonKey(name: 'username') required String userName,
-      required int pk}) = _$_UserInfo;
+      {@HiveField(0) required int uid,
+      @JsonKey(name: 'username') @HiveField(1) required String userName,
+      @HiveField(2) required int pk}) = _$_UserInfo;
 
   factory _UserInfo.fromJson(Map<String, dynamic> json) = _$_UserInfo.fromJson;
 
   @override
+  @HiveField(0)
   int get uid;
   @override
   @JsonKey(name: 'username')
+  @HiveField(1)
   String get userName;
   @override
+  @HiveField(2)
   int get pk;
   @override
   @JsonKey(ignore: true)

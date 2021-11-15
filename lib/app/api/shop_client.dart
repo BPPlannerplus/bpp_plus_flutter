@@ -55,7 +55,7 @@ abstract class ShopClient {
   );
 
   @PUT("/shops/{id}/like")
-  Future<dynamic> setLike(
+  Future<void> setLike(
     @Path('id') int id,
     @Body() LikeRequest like,
   );

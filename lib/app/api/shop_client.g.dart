@@ -132,19 +132,18 @@ class _ShopClient implements ShopClient {
   }
 
   @override
-  Future<dynamic> setLike(id, like) async {
+  Future<void> setLike(id, like) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(like.toJson());
-    final _result = await _dio.fetch(_setStreamType<dynamic>(
+    await _dio.fetch<void>(_setStreamType<void>(
         Options(method: 'PUT', headers: _headers, extra: _extra)
             .compose(_dio.options, '/shops/$id/like',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data;
-    return value;
+    return null;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

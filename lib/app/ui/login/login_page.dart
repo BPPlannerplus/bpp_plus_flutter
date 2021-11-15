@@ -1,7 +1,6 @@
 import 'package:bpp_riverpod/app/model/auth/token_data.dart';
 import 'package:bpp_riverpod/app/model/auth/user_info.dart';
 import 'package:bpp_riverpod/app/provider/auth/login_provider.dart';
-import 'package:bpp_riverpod/app/provider/auth/shared_provider.dart';
 import 'package:bpp_riverpod/app/provider/auth/user_provider.dart';
 import 'package:bpp_riverpod/app/repository/auth_repository.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
@@ -11,6 +10,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -41,8 +42,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       ref.watch(tokenDataProvider.state).state = tokenData;
 
       //  refreshToken 저장
-      final prefs = await ref.read(sharedProvider.future);
-      prefs.setString('token', tokenData.refreshToken!);
+      Hive.box('auth').put('token', tokenData.refreshToken);
+      Hive.box('auth').put('userInfo', userData.userInfo);
     } on PlatformException catch (e) {
       print(e);
     }
@@ -54,21 +55,18 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
     return SafeArea(
       child: Scaffold(
-        body: Stack(
-          children: [
-            Positioned(
-              top: 133.h,
-              left: 32.w,
-              child: SvgPicture.asset(
-                'assets/image/login_text.svg',
-                width: 188,
-                height: 66,
+        body: Padding(
+          padding:
+              const EdgeInsets.only(top: 133, left: 40, right: 40, bottom: 56),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SvgPicture.asset(
+                'assets/image/login_img.svg',
+                width: 225.w,
               ),
-            ),
-            Positioned(
-              bottom: 56,
-              left: 32.w,
-              child: InkWell(
+              InkWell(
                 onTap: () async {
                   await _login();
                   navigator.navigateToRemove(routeName: AppRoutes.mainPage);
@@ -79,8 +77,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   height: 44.h,
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -3,12 +3,12 @@ import 'package:bpp_riverpod/app/ui/detail/detail_portfolio_full_screen.dart';
 import 'package:bpp_riverpod/app/ui/detail/detail_profile_page.dart';
 import 'package:bpp_riverpod/app/ui/login/login_page.dart';
 import 'package:bpp_riverpod/app/ui/main_page.dart';
+import 'package:bpp_riverpod/app/ui/onboarding/onboarding_page.dart';
 import 'package:bpp_riverpod/app/ui/report/report_page.dart';
 import 'package:bpp_riverpod/app/ui/review/my_review_page.dart';
 import 'package:bpp_riverpod/app/ui/review/review_write_page.dart';
 import 'package:bpp_riverpod/app/ui/setting/setting_page.dart';
 import 'package:bpp_riverpod/app/ui/setting/withdrawal_page.dart';
-import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
@@ -19,10 +19,11 @@ class AppRoutes {
   static const detailPortfolioPage = '/detailPortfolio';
   static const loginPage = '/login';
   static const settingPage = '/setting';
-  static const withdrawalPage = '/withdrawalPage';
-  static const reviewWritePage = '/reviewWritePage';
-  static const myReviewPage = '/myReviewPage';
-  static const licensePage = '/licensePage';
+  static const withdrawalPage = '/withdrawal';
+  static const reviewWritePage = '/reviewWrite';
+  static const myReviewPage = '/myReview';
+  static const licensePage = '/license';
+  static const onboardingPage = '/onboarding';
 }
 
 class AppRouter {
@@ -33,6 +34,11 @@ class AppRouter {
       case AppRoutes.loginPage:
         return MaterialPageRoute<dynamic>(
           builder: (_) => const LoginPage(),
+          settings: settings,
+        );
+      case AppRoutes.onboardingPage:
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => const OnBoardingPage(),
           settings: settings,
         );
       case AppRoutes.mainPage:
