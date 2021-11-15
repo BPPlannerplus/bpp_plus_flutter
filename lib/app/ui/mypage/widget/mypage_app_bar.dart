@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class MypageAppBar extends ConsumerWidget {
   const MypageAppBar({Key? key}) : super(key: key);
@@ -17,6 +18,7 @@ class MypageAppBar extends ConsumerWidget {
     final tabIndex = ref.watch(myPageTabProvider);
     final isInquiryEmpty = ref.watch(isInquiryEmptyProvider);
     final navigator = ref.watch(navigatorProvider);
+    final userInfo = Hive.box('auth').get('userInfo');
 
     return SliverToBoxAdapter(
       child: Container(
@@ -35,7 +37,7 @@ class MypageAppBar extends ConsumerWidget {
                   child: FittedBox(
                     fit: BoxFit.fitHeight,
                     child: Text(
-                      '서현님\n환영합니다!',
+                      '${userInfo.userName}님\n환영합니다!',
                       style: BppTextStyle.screenText.copyWith(
                         fontWeight: FontWeight.w600,
                       ),

@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-// 기본 64, 2줄 112, 4줄 148
+// 기본 64, 2줄 112, 4줄 148`
 class DetailReviewPage extends ConsumerStatefulWidget {
   const DetailReviewPage({Key? key, required this.pagingController})
       : super(key: key);
@@ -28,7 +28,7 @@ class _DetailReviewPageState extends ConsumerState<DetailReviewPage> {
       builderDelegate: PagedChildBuilderDelegate<Review>(
           itemBuilder: (context, review, index) {
         if (index == 0) {
-          return topReviewCard();
+          return topReviewCard(4);
         }
         return widget.pagingController.itemList!.isEmpty
             ? emptyReview()
@@ -38,11 +38,18 @@ class _DetailReviewPageState extends ConsumerState<DetailReviewPage> {
                 date: review.date,
                 text: review.contents,
               );
+      }, noItemsFoundIndicatorBuilder: (context) {
+        return Column(
+          children: [
+            topReviewCard(0),
+            emptyReview(),
+          ],
+        );
       }),
     );
   }
 
-  Widget topReviewCard() {
+  Widget topReviewCard(int score) {
     return Container(
       height: 72,
       padding: const EdgeInsets.only(top: 8, bottom: 8),
@@ -50,16 +57,16 @@ class _DetailReviewPageState extends ConsumerState<DetailReviewPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            '4.6',
+            '$score',
             style: BppTextStyle.bigScreenText.copyWith(
-              fontSize: 30,
+              fontSize: 30.sp,
             ),
           ),
           SizedBox(
             width: 10.w,
           ),
           RatingBarIndicator(
-            rating: 4.6,
+            rating: score.toDouble(),
             itemBuilder: (context, index) => const Icon(
               Icons.star,
               color: Color(0xffffc142),

@@ -55,13 +55,9 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   String checkToken() {
     final token = Hive.box('auth').get('token') ?? 'no token';
-    final userInfo = Hive.box('auth').get('userInfo');
     if (token == 'no token') {
-      print('토큰 없음');
       return AppRoutes.onboardingPage;
     }
-    print('유저 정보: ${userInfo}');
-    print('토큰 있음 token: $token');
     return AppRoutes.mainPage;
   }
 

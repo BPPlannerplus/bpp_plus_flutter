@@ -49,8 +49,8 @@ Widget wishGridCard({
               child: Consumer(builder: (context, ref, _) {
                 return InkWell(
                   onTap: () {
+                    ref.read(shopWishListProvider).setLike(shop.id, shop.like);
                     stateRead.setLike(shop.id);
-                    ref.read(shopWishListProvider).setLike(shop.id);
                   },
                   child: Icon(
                     shop.like
@@ -74,10 +74,12 @@ Widget wishGridCard({
             ? BppTextStyle.tabText
             : BppTextStyle.engShopNameText,
       ),
+      // const SizedBox(height: 2),
       Text(
         shop.address,
         style: BppTextStyle.smallText,
       ),
+      // const SizedBox(height: 2),
       Text(
         priceFormat(shop.minPrice ?? 1000000),
         style: BppTextStyle.smallText,

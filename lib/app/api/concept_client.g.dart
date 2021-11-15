@@ -34,7 +34,7 @@ class _ConceptClient implements ConceptClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ConceptList>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/concept/studios/',
+                .compose(_dio.options, '/concepts/studios/',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ConceptList.fromJson(_result.data!);
@@ -50,7 +50,7 @@ class _ConceptClient implements ConceptClient {
     _data.addAll(like.toJson());
     final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'PUT', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/concept/studios/$id/like',
+            .compose(_dio.options, '/concepts/studios/$id/like',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data;

@@ -44,7 +44,7 @@ Widget conceptDialog({required Concept concept}) {
             Positioned.fill(
               child: Image.network(
                 concept.profile,
-                // fit: BoxFit.fill,
+                fit: BoxFit.contain,
               ),
             ),
             Opacity(

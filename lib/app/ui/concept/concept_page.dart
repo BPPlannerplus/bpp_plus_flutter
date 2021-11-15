@@ -66,11 +66,23 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
                 slivers: [
                   const ConceptAppBar(),
                   concepts.isEmpty
-                      ? const SliverToBoxAdapter(
-                          child: SizedBox(
-                              height: 350,
-                              child:
-                                  Center(child: CircularProgressIndicator())))
+                      ? ref.watch(conceptListProvider).next! == 'yes'
+                          ? const SliverToBoxAdapter(
+                              child: SizedBox(
+                                height: 350,
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              ),
+                            )
+                          : const SliverToBoxAdapter(
+                              child: SizedBox(
+                                height: 350,
+                                child: Center(
+                                  child: Text('아이템이 없습니다'),
+                                ),
+                              ),
+                            )
                       : SliverStaggeredGrid.countBuilder(
                           mainAxisSpacing: 8,
                           crossAxisSpacing: 8,
@@ -82,10 +94,7 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
                               return conceptCard(concept: concepts[index]);
                             }
 
-                            return ref
-                                    .watch(conceptListProvider)
-                                    .next!
-                                    .isNotEmpty
+                            return ref.watch(conceptListProvider).next! == 'yes'
                                 ? const Center(
                                     child: CircularProgressIndicator())
                                 : const SizedBox();

@@ -47,7 +47,7 @@ Widget homeGridCard({
               padding: const EdgeInsets.all(5.0),
               child: InkWell(
                 onTap: () {
-                  shopState.setLike(shop.id);
+                  shopState.setLike(shop.id, shop.like);
                 },
                 child: Icon(
                   shop.like ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
@@ -68,12 +68,12 @@ Widget homeGridCard({
             ? BppTextStyle.tabText
             : BppTextStyle.engShopNameText,
       ),
-      // const SizedBox(height: 1),
+      // const SizedBox(height: 2),
       Text(
         shop.address,
         style: BppTextStyle.smallText,
       ),
-      // const SizedBox(height: 1),
+      // const SizedBox(height: 2),
       Text(
         priceFormat(shop.minPrice ?? 100000),
         style: BppTextStyle.smallText,

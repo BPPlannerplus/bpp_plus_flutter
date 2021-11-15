@@ -40,15 +40,13 @@ class ShopListState extends StateNotifier<ShopList> {
     return newData;
   }
 
-  Future<dynamic> setLike(int id) async {
-    final check =
-        state.shopDatas.where((element) => element.id == id).first.like;
+  Future<dynamic> setLike(int id, bool like) async {
+    await repository.setLike(id, !like);
     state = state.copyWith(
       shopDatas: state.shopDatas.map<ShopData>((e) {
-        return e.id == id ? e.copyWith(like: !e.like) : e;
+        return e.id == id ? e.copyWith(like: !like) : e;
       }).toList(),
     );
-    await repository.setLike(id, check);
   }
 
   void reset() {

@@ -8,7 +8,6 @@ import 'package:bpp_riverpod/app/ui/detail/widget/detail_mid_box.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_portfolio_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_review_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_top_box.dart';
-import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
@@ -129,7 +128,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                   ),
                   DetailMidBox(
                     logo: shopData.logo,
-                    price: shopData.minPrice!,
+                    price: shopData.minPrice ?? 123123,
                     shopName: shopData.name,
                   ),
                   const DetailAppBar(),
@@ -153,7 +152,9 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                                 .read(
                                     shopDetailStateProvider(shopData).notifier)
                                 .setLike();
-                            ref.read(shopListProvider).setLike(shopData.id);
+                            ref
+                                .read(shopListProvider)
+                                .setLike(shopData.id, shopData.like);
                           },
                           child: Stack(
                             children: [

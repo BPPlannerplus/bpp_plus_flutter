@@ -1,4 +1,5 @@
 import 'package:bpp_riverpod/app/model/mypage/mypage_response.dart';
+import 'package:bpp_riverpod/app/model/mypage/reservation_request.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -19,13 +20,13 @@ abstract class ReservationClient {
 
   @POST('/reservations/shops/{id}')
   Future<dynamic> setShopReservation(
-    @Path() int shopId,
+    @Path() int id,
   );
 
   @PATCH('/reservations/{id}')
   Future<dynamic> setShopReservationDate(
-    @Path() int reservationId,
-    @Body() Map<String, dynamic> date,
+    @Path() int id,
+    @Body() ReservationRequest date,
   );
 
   @DELETE('/reservations/{id}')

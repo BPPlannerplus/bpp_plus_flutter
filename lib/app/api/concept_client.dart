@@ -13,7 +13,7 @@ abstract class ConceptClient {
     String baseUrl,
   }) = _ConceptClient;
 
-  @GET("/concept/studios/")
+  @GET("/concepts/studios/")
   Future<ConceptList> getStudioList(
     @Query('page') int page,
     @Query('like') bool like,
@@ -24,7 +24,7 @@ abstract class ConceptClient {
     @Query('dress') List<String>? dress,
   );
 
-  @PUT("/concept/studios/{id}/like")
+  @PUT("/concepts/studios/{id}/like")
   Future<dynamic> setLike(
     @Path('id') int id,
     @Body() LikeRequest like,

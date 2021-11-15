@@ -21,7 +21,9 @@ ShopConcepts _$ShopConceptsFromJson(Map<String, dynamic> json) {
 class _$ShopConceptsTearOff {
   const _$ShopConceptsTearOff();
 
-  _ShopConcepts call({required List<ShopConcept> shopConcepts, String? next}) {
+  _ShopConcepts call(
+      {@JsonKey(name: 'results') required List<ShopConcept> shopConcepts,
+      String? next}) {
     return _ShopConcepts(
       shopConcepts: shopConcepts,
       next: next,
@@ -38,6 +40,7 @@ const $ShopConcepts = _$ShopConceptsTearOff();
 
 /// @nodoc
 mixin _$ShopConcepts {
+  @JsonKey(name: 'results')
   List<ShopConcept> get shopConcepts => throw _privateConstructorUsedError;
   String? get next => throw _privateConstructorUsedError;
 
@@ -52,7 +55,8 @@ abstract class $ShopConceptsCopyWith<$Res> {
   factory $ShopConceptsCopyWith(
           ShopConcepts value, $Res Function(ShopConcepts) then) =
       _$ShopConceptsCopyWithImpl<$Res>;
-  $Res call({List<ShopConcept> shopConcepts, String? next});
+  $Res call(
+      {@JsonKey(name: 'results') List<ShopConcept> shopConcepts, String? next});
 }
 
 /// @nodoc
@@ -88,7 +92,8 @@ abstract class _$ShopConceptsCopyWith<$Res>
           _ShopConcepts value, $Res Function(_ShopConcepts) then) =
       __$ShopConceptsCopyWithImpl<$Res>;
   @override
-  $Res call({List<ShopConcept> shopConcepts, String? next});
+  $Res call(
+      {@JsonKey(name: 'results') List<ShopConcept> shopConcepts, String? next});
 }
 
 /// @nodoc
@@ -122,12 +127,14 @@ class __$ShopConceptsCopyWithImpl<$Res> extends _$ShopConceptsCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ShopConcepts implements _ShopConcepts {
-  _$_ShopConcepts({required this.shopConcepts, this.next});
+  _$_ShopConcepts(
+      {@JsonKey(name: 'results') required this.shopConcepts, this.next});
 
   factory _$_ShopConcepts.fromJson(Map<String, dynamic> json) =>
       _$$_ShopConceptsFromJson(json);
 
   @override
+  @JsonKey(name: 'results')
   final List<ShopConcept> shopConcepts;
   @override
   final String? next;
@@ -164,13 +171,14 @@ class _$_ShopConcepts implements _ShopConcepts {
 
 abstract class _ShopConcepts implements ShopConcepts {
   factory _ShopConcepts(
-      {required List<ShopConcept> shopConcepts,
+      {@JsonKey(name: 'results') required List<ShopConcept> shopConcepts,
       String? next}) = _$_ShopConcepts;
 
   factory _ShopConcepts.fromJson(Map<String, dynamic> json) =
       _$_ShopConcepts.fromJson;
 
   @override
+  @JsonKey(name: 'results')
   List<ShopConcept> get shopConcepts;
   @override
   String? get next;

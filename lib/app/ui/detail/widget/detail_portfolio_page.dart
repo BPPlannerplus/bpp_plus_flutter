@@ -51,6 +51,16 @@ class _DetailPortfolioPageState extends ConsumerState<DetailPortfolioPage> {
             ),
           );
         },
+        noItemsFoundIndicatorBuilder: (context) {
+          return const SizedBox(
+            height: 100,
+            child: Center(
+              child: Text(
+                '등록된 포트폴리오가 없습니다!',
+              ),
+            ),
+          );
+        },
       ),
     );
   }

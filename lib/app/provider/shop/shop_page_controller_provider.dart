@@ -27,9 +27,8 @@ final studioPageControllerProvider =
     firstPageKey: 0,
   );
 
-  final address = ref.watch(studioFilterProvider.notifier).makeFilter();
-
   Future<void> _fetchPage(int pageKey) async {
+    final address = ref.watch(studioFilterProvider.notifier).makeFilter();
     try {
       final newItems = await ref
           .read(studioListProvider.notifier)
@@ -59,9 +58,8 @@ final beautyPageControllerProvider =
     firstPageKey: 0,
   );
 
-  final adress = ref.watch(beautyFilterProvider.notifier).makeFilter();
-
   Future<void> _fetchPage(int pageKey) async {
+    final adress = ref.watch(beautyFilterProvider.notifier).makeFilter();
     try {
       final newItems = await ref
           .read(beautyListProvider.notifier)
@@ -91,9 +89,8 @@ final waxingPageControllerProvider =
     firstPageKey: 0,
   );
 
-  final adress = ref.watch(waxingFilterProvider.notifier).makeFilter();
-
   Future<void> _fetchPage(int pageKey) async {
+    final adress = ref.watch(waxingFilterProvider.notifier).makeFilter();
     try {
       final newItems = await ref
           .read(waxingListProvider.notifier)
@@ -122,9 +119,9 @@ final tanningPageControllerProvider =
   final _pagingController = PagingController<int, ShopData>(
     firstPageKey: 0,
   );
-  final adress = ref.watch(tanningFilterProvider.notifier).makeFilter();
 
   Future<void> _fetchPage(int pageKey) async {
+    final adress = ref.watch(tanningFilterProvider.notifier).makeFilter();
     try {
       final newItems = await ref
           .read(tanningListProvider.notifier)

@@ -27,8 +27,8 @@ class ConfirmedList extends StateNotifier<List<MypageData>> {
     final lists = await repository.getShopReservation();
     state = lists.list.where((e) => e.state == 1).toList();
     state.sort((a, b) {
-      final aa = DateTime.parse(a.reservedData);
-      final bb = DateTime.parse(b.reservedData);
+      final aa = DateTime.parse(a.reservedData!);
+      final bb = DateTime.parse(b.reservedData!);
       return bb.difference(aa).inDays;
     });
     read(isConfirmedLoading.state).state = false;
@@ -47,7 +47,7 @@ class ConfirmedList extends StateNotifier<List<MypageData>> {
   }
 
   List<List<MypageData>> makeList() {
-    Set<String> dates = state.map((e) => e.reservedData).toSet();
+    Set<String> dates = state.map((e) => e.reservedData!).toSet();
     List<List<MypageData>> dateList = [];
     for (String date in dates) {
       List<MypageData> rd = state.where((e) => e.reservedData == date).toList();

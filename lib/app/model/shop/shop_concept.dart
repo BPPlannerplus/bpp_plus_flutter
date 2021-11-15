@@ -6,7 +6,7 @@ part 'shop_concept.freezed.dart';
 @freezed
 class ShopConcepts with _$ShopConcepts {
   factory ShopConcepts({
-    required List<ShopConcept> shopConcepts,
+    @JsonKey(name: 'results') required List<ShopConcept> shopConcepts,
     String? next,
   }) = _ShopConcepts;
 

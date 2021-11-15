@@ -48,8 +48,8 @@ class ShopWishRepository {
   }
 
   Future<ConceptList> getConceptList(int page) async {
-    final conceptList = await conceptClient.getStudioList(
-        page, true, null, null, null, null, null);
+    final conceptList =
+        await conceptClient.getStudioList(page, true, [], [], [], [], []);
     return conceptList;
   }
 

@@ -15,23 +15,27 @@ class ConceptListState extends StateNotifier<ConceptList> {
   Future<ConceptList> getData(ConceptFilter filter) async {
     var newData = await repository.getConceptList(_page, filter);
     _page++;
+
     state = state.copyWith(
       concepts: [
         ...state.concepts,
         ...newData.concepts,
       ],
-      next: newData.next,
+      next: newData.concepts.length < 20 ? 'no' : 'yes',
     );
 
     return newData;
   }
 
   void setLike(int id) {
+    final check =
+        state.concepts.where((element) => element.id == id).first.like;
     state = state.copyWith(
       concepts: state.concepts.map<Concept>((e) {
         return e.id == id ? e.copyWith(like: !e.like) : e;
       }).toList(),
     );
+    repository.setLike(id, !check);
   }
 
   reset(ConceptFilter filter) {

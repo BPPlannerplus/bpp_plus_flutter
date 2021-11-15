@@ -80,7 +80,7 @@ class _ReservationDetailPageState extends ConsumerState<ReservationDetailPage> {
                   child: Consumer(builder: (context, ref, _) {
                     final navigator = ref.watch(navigatorProvider);
                     return reservationCard(
-                      date: reservationDateFormat(datas[i].reservedData),
+                      date: reservationDateFormat(datas[i].reservedData!),
                       shop: shopTypeToName[datas[i].shop.type]!,
                       shopName: datas[i].shop.name,
                       buttonText: '리뷰 작성',
@@ -95,7 +95,8 @@ class _ReservationDetailPageState extends ConsumerState<ReservationDetailPage> {
                         );
                       },
                       onTabIcon: () {
-                        setDateDialog(navigator.navigatorKey.currentContext!);
+                        setDateDialog(datas[i].shop.id,
+                            navigator.navigatorKey.currentContext!);
                       },
                     );
                   }))

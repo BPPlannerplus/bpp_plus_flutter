@@ -12,7 +12,7 @@ class MypageData with _$MypageData {
     required int id,
     required int state,
     required MypageShopData shop,
-    @JsonKey(name: 'reserved_date') required String reservedData,
+    @JsonKey(name: 'reserved_date') String? reservedData,
   }) = _MypageData;
 
   factory MypageData.fromJson(Map<String, dynamic> json) =>

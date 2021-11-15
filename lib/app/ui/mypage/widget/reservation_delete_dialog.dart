@@ -1,3 +1,4 @@
+import 'package:bpp_riverpod/app/repository/mypage_repository.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_detail_dialog.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
@@ -5,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-reservationDeleteDialog(BuildContext context) {
+reservationDeleteDialog(int id, BuildContext context) {
   showCupertinoDialog(
       context: context,
       builder: (context) {
@@ -44,7 +45,7 @@ reservationDeleteDialog(BuildContext context) {
                         onTap: () {
                           navigator.pop();
                           reservationDetailDialog(
-                              navigator.navigatorKey.currentContext!);
+                              id, navigator.navigatorKey.currentContext!);
                         },
                         child: Text(
                           '취소',
@@ -58,19 +59,22 @@ reservationDeleteDialog(BuildContext context) {
                       const SizedBox(
                         width: 10,
                       ),
-                      InkWell(
-                        onTap: () {
-                          navigator.pop();
-                        },
-                        child: Text(
-                          '삭제',
-                          style: BppTextStyle.defaultText.copyWith(
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xff3b75ff),
-                            fontSize: 16,
+                      Consumer(builder: (context, ref, _) {
+                        return InkWell(
+                          onTap: () async {
+                            await ref.read(mypageRepsitory).deleteInquiring(id);
+                            navigator.pop();
+                          },
+                          child: Text(
+                            '삭제',
+                            style: BppTextStyle.defaultText.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: const Color(0xff3b75ff),
+                              fontSize: 16,
+                            ),
                           ),
-                        ),
-                      ),
+                        );
+                      }),
                     ],
                   );
                 }),

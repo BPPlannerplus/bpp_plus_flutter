@@ -1,4 +1,4 @@
-import 'package:bpp_riverpod/app/model/mypage/mypage_shop_data.dart';
+import 'package:bpp_riverpod/app/model/mypage/mypage_data.dart';
 import 'package:bpp_riverpod/app/repository/mypage_repository.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,7 +14,7 @@ final inquiryShopTypeProvider =
     StateProvider.autoDispose<ShopType>((ref) => ShopType.stduio);
 
 final inquiryListProvider =
-    StateNotifierProvider.autoDispose<InquiryList, List<MypageShopData>>((ref) {
+    StateNotifierProvider.autoDispose<InquiryList, List<MypageData>>((ref) {
   final repository = ref.watch(mypageRepsitory);
   return InquiryList(
     repository: repository,
@@ -22,7 +22,7 @@ final inquiryListProvider =
   );
 });
 
-class InquiryList extends StateNotifier<List<MypageShopData>> {
+class InquiryList extends StateNotifier<List<MypageData>> {
   InquiryList({
     required this.repository,
     required this.read,
@@ -31,21 +31,22 @@ class InquiryList extends StateNotifier<List<MypageShopData>> {
   final MypageRepository repository;
   final Reader read;
 
-  Future<List<MypageShopData>> getList() async {
+  Future<List<MypageData>> getList() async {
     read(isInquiryLoading.state).state = true;
     final lists = await repository.getShopInquiring();
-    state = lists.list.map<MypageShopData>((e) => e.shop).toList();
+    state = lists.list;
     read(isInquiryLoading.state).state = false;
     return state;
   }
 
   Future<dynamic> setDate(int shopId, String date) async {
     final response = await repository.setReservationDate(shopId, date);
+    state = state.where((element) => element.id != shopId).toList();
     return response;
   }
 
   void deleteAll(ShopType shopType) {
-    state = state.where((e) => e.type != shopType.index).toList();
+    state = state.where((e) => e.shop.type != shopType.index).toList();
     // final reponse = await repository.deleteInquiring(id);
   }
 

@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ReservationSchedulePage extends ConsumerStatefulWidget {
   const ReservationSchedulePage({Key? key}) : super(key: key);
@@ -67,7 +68,7 @@ class _ReservationSchedulePageState
           const SizedBox(width: 12),
           RichText(
               text: TextSpan(
-                  text: '$day ',
+                  text: '${day + 1}',
                   style: BppTextStyle.tabText
                       .copyWith(color: const Color(0xff3b75ff), fontSize: 16),
                   children: [
@@ -80,7 +81,7 @@ class _ReservationSchedulePageState
   }
 
   Widget reservationCards(List<MypageData> shopDatas) {
-    final remainingDay = calRemainigDay(shopDatas[0].reservedData);
+    final remainingDay = calRemainigDay(shopDatas[0].reservedData!);
     return Padding(
       padding: const EdgeInsets.only(left: 12),
       child: Column(
@@ -101,7 +102,7 @@ class _ReservationSchedulePageState
                     child: Consumer(builder: (context, ref, _) {
                       final navigator = ref.watch(navigatorProvider);
                       return reservationCard(
-                        date: reservationDateFormat(shopDatas[i].reservedData),
+                        date: reservationDateFormat(shopDatas[i].reservedData!),
                         shop: shopTypeToName[shopDatas[i].shop.type]!,
                         shopName: shopDatas[i].shop.name,
                         buttonText: '문의하기',
@@ -109,10 +110,14 @@ class _ReservationSchedulePageState
                           'assets/icon/ic_edit.svg',
                           width: 40,
                         ),
-                        onTabButton: () {},
+                        onTabButton: () async {
+                          await launch(shopDatas[i].shop.kakaoUrl);
+                        },
                         onTabIcon: () {
                           reservationDetailDialog(
-                              navigator.navigatorKey.currentContext!);
+                            shopDatas[i].id,
+                            navigator.navigatorKey.currentContext!,
+                          );
                         },
                       );
                     }),

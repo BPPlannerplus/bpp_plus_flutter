@@ -32,14 +32,14 @@ class _ReservationClient implements ReservationClient {
   }
 
   @override
-  Future<dynamic> setShopReservation(shopId) async {
+  Future<dynamic> setShopReservation(id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'POST', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/reservations/shops/{id}',
+            .compose(_dio.options, '/reservations/shops/$id',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data;
@@ -47,15 +47,15 @@ class _ReservationClient implements ReservationClient {
   }
 
   @override
-  Future<dynamic> setShopReservationDate(reservationId, date) async {
+  Future<dynamic> setShopReservationDate(id, date) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(date);
+    _data.addAll(date.toJson());
     final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'PATCH', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/reservations/{id}',
+            .compose(_dio.options, '/reservations/$id',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data;

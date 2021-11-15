@@ -20,8 +20,8 @@ final dioProvider = Provider<Dio>((ref) {
   dio.interceptors.add(
     InterceptorsWrapper(
       onRequest: (options, handler) async {
+        print('>>> onRequest <<<');
         final tokenData = ref.read(tokenDataProvider);
-        // final token = Hive.box('auth').get('token');
         final userInfo = Hive.box('auth').get('userInfo');
 
         if (tokenData.accessToken.isEmpty) {
@@ -34,8 +34,6 @@ final dioProvider = Provider<Dio>((ref) {
           )
               .then(
             (d) {
-              logger.d('access_token: ${d.accessToken}');
-              logger.d('refresh_token: ${d.refreshToken}');
               ref.read(tokenDataProvider.state).state = d;
               options.headers['Authorization'] = 'Bearer ${d.accessToken}';
               Hive.box('auth').put('token', d.refreshToken);
@@ -54,9 +52,9 @@ final dioProvider = Provider<Dio>((ref) {
         }
       },
       onError: (error, handler) async {
+        print('>>> onError <<<');
         final token = ref.read(tokenDataProvider);
         final userInfo = Hive.box('auth').get('userInfo');
-        print(token.accessToken);
 
         // refreshToken 만료
         if (error.response?.statusCode == 401) {
@@ -103,6 +101,10 @@ final dioProvider = Provider<Dio>((ref) {
           );
           return;
         }
+        print('error.error: ${error.error}');
+        print('error.type: ${error.type}');
+        print('error.response: ${error.response}');
+        print('error.requestOptions: ${error.requestOptions.data}');
         return handler.next(error);
       },
     ),
@@ -115,6 +117,8 @@ class CustomLogInterceptor extends Interceptor {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     print('REQUEST[${options.method}] => PATH: ${options.path}');
     print('REQUEST DATA: ${options.data}');
+    print('REQUEST PARAM: ${options.queryParameters}');
+    print('REQUEST URL: ${options.uri}');
     super.onRequest(options, handler);
   }
 

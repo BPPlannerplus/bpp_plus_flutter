@@ -7,7 +7,8 @@ enum ShopType {
 enum ShopState {
   inquiry,
   confirmed,
-  expiration,
+  reviewed,
+  unreviewd,
 }
 
 Map<int, String> shopTypeToName = {

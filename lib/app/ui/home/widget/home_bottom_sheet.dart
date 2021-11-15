@@ -64,8 +64,8 @@ homeBottomSheet(int index) {
               ),
               ElevatedButton(
                   onPressed: () {
-                    ref.read(shopPageControllerProvider).refresh();
                     ref.read(shopListProvider).reset();
+                    ref.read(shopPageControllerProvider).refresh();
                     navigator.pop();
                   },
                   style: ButtonStyle(

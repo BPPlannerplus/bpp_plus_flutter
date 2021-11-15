@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-reservationDetailDialog(BuildContext context) {
+reservationDetailDialog(int id, BuildContext context) {
   showCupertinoDialog(
       context: context,
       builder: (context) {
@@ -61,7 +61,7 @@ reservationDetailDialog(BuildContext context) {
                               onPressed: () {
                                 navigator.pop();
                                 setDateDialog(
-                                    navigator.navigatorKey.currentContext!);
+                                    id, navigator.navigatorKey.currentContext!);
                               },
                               style: ElevatedButton.styleFrom(
                                   primary: const Color(0xff3b75ff),
@@ -74,7 +74,9 @@ reservationDetailDialog(BuildContext context) {
                             onTap: () {
                               navigator.pop();
                               reservationDeleteDialog(
-                                  navigator.navigatorKey.currentContext!);
+                                id,
+                                navigator.navigatorKey.currentContext!,
+                              );
                             },
                             child: Container(
                               decoration: BoxDecoration(

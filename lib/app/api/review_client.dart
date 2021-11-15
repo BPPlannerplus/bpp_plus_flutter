@@ -17,34 +17,34 @@ abstract class ReviewClient {
 
   @GET('/reviews/shops/{id}')
   Future<ReviewList> getReviews(
-    @Path() int shopId,
+    @Path() int id,
   );
 
   @POST('/reviews/shops/{id}')
   Future<dynamic> createReview(
-    @Path() int shopId,
+    @Path() int id,
     @Body() ReviewRequest reviewRequest,
   );
 
   @GET('/reviews/{id}')
   Future<ReviewDetail> getReview(
-    @Path() int reviewId,
+    @Path() int id,
   );
 
   @PATCH('/reviews/{id}')
   Future<ReviewDetail> updateReview(
-    @Path() int reviewId,
+    @Path() int id,
     @Body() ReviewRequest reviewRequest,
   );
 
   @DELETE('/reviews/{id}')
   Future<dynamic> deleteReview(
-    @Path() int reviewId,
+    @Path() int id,
   );
 
   @POST('/reviews/{id}/complains')
   Future<dynamic> reportReview(
-    @Path() int reviewId,
+    @Path() int id,
     @Body() Complain complain,
   );
 }

@@ -8,7 +8,7 @@ part of 'shop_concept.dart';
 
 _$_ShopConcepts _$$_ShopConceptsFromJson(Map<String, dynamic> json) =>
     _$_ShopConcepts(
-      shopConcepts: (json['shopConcepts'] as List<dynamic>)
+      shopConcepts: (json['results'] as List<dynamic>)
           .map((e) => ShopConcept.fromJson(e as Map<String, dynamic>))
           .toList(),
       next: json['next'] as String?,
@@ -16,7 +16,7 @@ _$_ShopConcepts _$$_ShopConceptsFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_ShopConceptsToJson(_$_ShopConcepts instance) =>
     <String, dynamic>{
-      'shopConcepts': instance.shopConcepts,
+      'results': instance.shopConcepts,
       'next': instance.next,
     };
 

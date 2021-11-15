@@ -59,7 +59,10 @@ class WishAppBar extends StatelessWidget {
       return InkWell(
           onTap: () {
             ref.read(wishTabProvider.state).state = index;
-            ref.read(shopWishTypeProvider.state).state = ShopType.values[index];
+            if (index != 4) {
+              ref.read(shopWishTypeProvider.state).state =
+                  ShopType.values[index];
+            }
           },
           child: Container(
               width: 15.0 * title.length,

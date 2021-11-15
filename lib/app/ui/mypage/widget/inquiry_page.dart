@@ -1,3 +1,4 @@
+import 'package:bpp_riverpod/app/model/mypage/mypage_data.dart';
 import 'package:bpp_riverpod/app/model/mypage/mypage_shop_data.dart';
 import 'package:bpp_riverpod/app/provider/mypage/inquiry_provider.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
@@ -33,7 +34,7 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
     final inquiryList = ref.watch(inquiryListProvider);
     final shopType = ref.watch(inquiryShopTypeProvider);
     final shopDatas =
-        inquiryList.where((shop) => shop.type == shopType.index).toList();
+        inquiryList.where((data) => data.shop.type == shopType.index).toList();
     if (ref.watch(isInquiryLoading)) {
       return const SliverToBoxAdapter(
           child: SizedBox(
@@ -45,7 +46,8 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
               delegate: SliverChildListDelegate([
               infoText(),
               titleRow(shopDatas.length),
-              for (MypageShopData shop in shopDatas) inquiryCard(shop: shop)
+              for (MypageData shop in shopDatas)
+                inquiryCard(shop.id, shop: shop.shop)
             ]));
     }
   }
@@ -110,7 +112,7 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
     );
   }
 
-  Widget inquiryCard({required MypageShopData shop}) {
+  Widget inquiryCard(int reservationID, {required MypageShopData shop}) {
     return Container(
         padding: const EdgeInsets.only(top: 16, bottom: 12),
         height: 107,
@@ -153,7 +155,7 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
                         onTap: () {
                           ref
                               .read(inquiryListProvider.notifier)
-                              .deleteById(shop.id);
+                              .deleteById(reservationID);
                         },
                         child: const Icon(CupertinoIcons.xmark, size: 20));
                   }),
@@ -166,7 +168,9 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
                       return ElevatedButton(
                           onPressed: () {
                             setDateDialog(
-                                navigator.navigatorKey.currentContext!);
+                              reservationID,
+                              navigator.navigatorKey.currentContext!,
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                               primary: const Color(0xff3b75ff), elevation: 0),

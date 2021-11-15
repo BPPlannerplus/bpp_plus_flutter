@@ -25,7 +25,7 @@ class _$MypageDataTearOff {
       {required int id,
       required int state,
       required MypageShopData shop,
-      @JsonKey(name: 'reserved_date') required String reservedData}) {
+      @JsonKey(name: 'reserved_date') String? reservedData}) {
     return _MypageData(
       id: id,
       state: state,
@@ -48,7 +48,7 @@ mixin _$MypageData {
   int get state => throw _privateConstructorUsedError;
   MypageShopData get shop => throw _privateConstructorUsedError;
   @JsonKey(name: 'reserved_date')
-  String get reservedData => throw _privateConstructorUsedError;
+  String? get reservedData => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -65,7 +65,7 @@ abstract class $MypageDataCopyWith<$Res> {
       {int id,
       int state,
       MypageShopData shop,
-      @JsonKey(name: 'reserved_date') String reservedData});
+      @JsonKey(name: 'reserved_date') String? reservedData});
 
   $MypageShopDataCopyWith<$Res> get shop;
 }
@@ -101,7 +101,7 @@ class _$MypageDataCopyWithImpl<$Res> implements $MypageDataCopyWith<$Res> {
       reservedData: reservedData == freezed
           ? _value.reservedData
           : reservedData // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 
@@ -123,7 +123,7 @@ abstract class _$MypageDataCopyWith<$Res> implements $MypageDataCopyWith<$Res> {
       {int id,
       int state,
       MypageShopData shop,
-      @JsonKey(name: 'reserved_date') String reservedData});
+      @JsonKey(name: 'reserved_date') String? reservedData});
 
   @override
   $MypageShopDataCopyWith<$Res> get shop;
@@ -162,7 +162,7 @@ class __$MypageDataCopyWithImpl<$Res> extends _$MypageDataCopyWithImpl<$Res>
       reservedData: reservedData == freezed
           ? _value.reservedData
           : reservedData // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -174,7 +174,7 @@ class _$_MypageData implements _MypageData {
       {required this.id,
       required this.state,
       required this.shop,
-      @JsonKey(name: 'reserved_date') required this.reservedData});
+      @JsonKey(name: 'reserved_date') this.reservedData});
 
   factory _$_MypageData.fromJson(Map<String, dynamic> json) =>
       _$$_MypageDataFromJson(json);
@@ -187,7 +187,7 @@ class _$_MypageData implements _MypageData {
   final MypageShopData shop;
   @override
   @JsonKey(name: 'reserved_date')
-  final String reservedData;
+  final String? reservedData;
 
   @override
   String toString() {
@@ -222,11 +222,10 @@ class _$_MypageData implements _MypageData {
 
 abstract class _MypageData implements MypageData {
   factory _MypageData(
-          {required int id,
-          required int state,
-          required MypageShopData shop,
-          @JsonKey(name: 'reserved_date') required String reservedData}) =
-      _$_MypageData;
+      {required int id,
+      required int state,
+      required MypageShopData shop,
+      @JsonKey(name: 'reserved_date') String? reservedData}) = _$_MypageData;
 
   factory _MypageData.fromJson(Map<String, dynamic> json) =
       _$_MypageData.fromJson;
@@ -239,7 +238,7 @@ abstract class _MypageData implements MypageData {
   MypageShopData get shop;
   @override
   @JsonKey(name: 'reserved_date')
-  String get reservedData;
+  String? get reservedData;
   @override
   @JsonKey(ignore: true)
   _$MypageDataCopyWith<_MypageData> get copyWith =>

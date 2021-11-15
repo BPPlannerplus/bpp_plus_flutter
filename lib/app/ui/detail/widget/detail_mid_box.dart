@@ -3,15 +3,15 @@ import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
 
 class DetailMidBox extends StatelessWidget {
-  const DetailMidBox({
+  DetailMidBox({
     Key? key,
     required this.shopName,
-    required this.price,
+    this.price,
     required this.logo,
   }) : super(key: key);
 
   final String shopName;
-  final int price;
+  int? price;
   final String logo;
 
   @override
@@ -45,7 +45,7 @@ class DetailMidBox extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  priceFormat(price),
+                  price != null ? priceFormat(price!) : '가격 정보 없음',
                   style: BppTextStyle.defaultText,
                 ),
               ],

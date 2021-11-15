@@ -2,6 +2,7 @@ import 'package:bpp_riverpod/app/api/api_provider.dart';
 import 'package:bpp_riverpod/app/api/reservation_client.dart';
 import 'package:bpp_riverpod/app/api/review_client.dart';
 import 'package:bpp_riverpod/app/model/mypage/mypage_response.dart';
+import 'package:bpp_riverpod/app/model/mypage/reservation_request.dart';
 import 'package:bpp_riverpod/app/model/review/review.dart';
 import 'package:bpp_riverpod/app/model/review/review_detail.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,8 +37,8 @@ class MypageRepository {
 
   // 확정날짜 받기
   Future<dynamic> setReservationDate(int id, String date) async {
-    final response =
-        await reservationClient.setShopReservationDate(id, {'date': date});
+    final response = await reservationClient.setShopReservationDate(
+        id, ReservationRequest(date: date));
     return response;
   }
 

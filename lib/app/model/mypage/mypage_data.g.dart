@@ -11,7 +11,7 @@ _$_MypageData _$$_MypageDataFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int,
       state: json['state'] as int,
       shop: MypageShopData.fromJson(json['shop'] as Map<String, dynamic>),
-      reservedData: json['reserved_date'] as String,
+      reservedData: json['reserved_date'] as String?,
     );
 
 Map<String, dynamic> _$$_MypageDataToJson(_$_MypageData instance) =>

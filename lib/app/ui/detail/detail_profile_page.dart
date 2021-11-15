@@ -85,6 +85,7 @@ class DetailProfilePage extends StatelessWidget {
         child: Image.network(
           profiles[index],
           height: 480.h,
+          fit: BoxFit.contain,
         ),
       ),
     );

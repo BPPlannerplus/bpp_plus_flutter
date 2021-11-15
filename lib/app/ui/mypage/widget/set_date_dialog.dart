@@ -1,12 +1,15 @@
 import 'package:bpp_riverpod/app/my_cupertino_picker/flutter_cupertino_datetime_picker.dart';
+import 'package:bpp_riverpod/app/provider/mypage/date_provider.dart';
+import 'package:bpp_riverpod/app/repository/mypage_repository.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/confirm_dialog.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
-setDateDialog(BuildContext context) {
+setDateDialog(int id, BuildContext context) {
   showCupertinoDialog(
     context: context,
     builder: (context) {
@@ -37,11 +40,15 @@ setDateDialog(BuildContext context) {
                   ),
                   const SizedBox(height: 2),
                   DateTimePickerWidget(
-                      minDateTime: DateTime.now(),
+                      minDateTime: DateTime(DateTime.now().day + 1),
                       maxDateTime: DateTime(DateTime.now().year + 5),
                       locale: DateTimePickerLocale.ko,
                       initDateTime: DateTime.now(),
                       dateFormat: 'yyyy-MM-dd',
+                      onChange: (date, _) {
+                        ref.read(dateStateProvider.state).state =
+                            DateFormat('yyyy-MM-dd').format(date);
+                      },
                       pickerTheme: DateTimePickerTheme(
                           showTitle: false,
                           pickerHeight: 106,
@@ -73,7 +80,10 @@ setDateDialog(BuildContext context) {
                                 fontSize: 16))),
                     const SizedBox(width: 12),
                     InkWell(
-                        onTap: () {
+                        onTap: () async {
+                          await ref
+                              .read(mypageRepsitory)
+                              .setReservationDate(id, ref.read(dateProvider));
                           navigator.pop();
                           confirmDialog(navigator.navigatorKey.currentContext!);
                         },

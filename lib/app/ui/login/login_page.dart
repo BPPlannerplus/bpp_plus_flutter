@@ -41,11 +41,16 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       ref.watch(userInfoProvider.state).state = userData.userInfo;
       ref.watch(tokenDataProvider.state).state = tokenData;
 
-      //  refreshToken 저장
       Hive.box('auth').put('token', tokenData.refreshToken);
       Hive.box('auth').put('userInfo', userData.userInfo);
     } on PlatformException catch (e) {
-      print(e);
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Login실패'),
+          content: Text(e.toString()),
+        ),
+      );
     }
   }
 
