@@ -56,7 +56,7 @@ final dioProvider = Provider<Dio>((ref) {
         final token = ref.read(tokenDataProvider);
         final userInfo = Hive.box('auth').get('userInfo');
 
-        // refreshToken 만료
+        // accessToken 만료
         if (error.response?.statusCode == 401) {
           var options = error.response!.requestOptions;
           if ('Bearer ${token.accessToken}' !=

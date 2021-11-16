@@ -2,6 +2,7 @@ import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
 import 'package:bpp_riverpod/app/ui/home/widget/home_grid_card.dart';
+import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -32,6 +33,17 @@ class BeautyGrid extends ConsumerWidget {
           return homeGridCard(
             shop: beauty,
             shopState: beautyState,
+          );
+        },
+        noItemsFoundIndicatorBuilder: (context) {
+          return SizedBox(
+            height: 100,
+            child: Center(
+              child: Text(
+                '아이템이 없습니다!',
+                style: BppTextStyle.defaultText,
+              ),
+            ),
           );
         },
       ),

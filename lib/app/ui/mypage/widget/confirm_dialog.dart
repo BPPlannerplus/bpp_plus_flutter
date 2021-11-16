@@ -1,3 +1,4 @@
+import 'package:bpp_riverpod/app/provider/mypage/inquiry_provider.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-confirmDialog(BuildContext context) {
+confirmDialog(BuildContext context, int id) {
   showCupertinoDialog(
     context: context,
     builder: (context) {
@@ -34,9 +35,13 @@ confirmDialog(BuildContext context) {
                         width: 232, height: 1, color: const Color(0xffbfbfbf)),
                     Consumer(builder: (context, ref, _) {
                       final navigator = ref.watch(navigatorProvider);
+
                       return InkWell(
                           onTap: () {
                             navigator.pop();
+                            ref
+                                .read(inquiryListProvider.notifier)
+                                .changeState(id);
                           },
                           child: Text('확인',
                               style: BppTextStyle.smallText.copyWith(

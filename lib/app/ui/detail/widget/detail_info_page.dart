@@ -57,9 +57,12 @@ class DetailInfoPage extends StatelessWidget {
                         width: 1,
                       ),
                     ),
-                    child: Image.network(
-                      priceImg,
-                      // fit: BoxFit.fill,
+                    child: Hero(
+                      tag: priceImg,
+                      child: Image.network(
+                        priceImg,
+                        // fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                 );

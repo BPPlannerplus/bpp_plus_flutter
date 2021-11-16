@@ -55,4 +55,8 @@ class ConfirmedList extends StateNotifier<List<MypageData>> {
     }
     return dateList.reversed.toList();
   }
+
+  void changeState(int shopId) {
+    state = state.where((e) => e.id != shopId).toList();
+  }
 }

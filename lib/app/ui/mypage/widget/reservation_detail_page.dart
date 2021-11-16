@@ -145,9 +145,10 @@ class _ReservationDetailPageState extends ConsumerState<ReservationDetailPage> {
   }
 
   Widget emptyBox() {
+    final _heght = MediaQuery.of(context).size.height - 256;
     return SliverToBoxAdapter(
         child: Padding(
-            padding: EdgeInsets.only(top: 70.h),
+            padding: EdgeInsets.only(top: _heght / 4),
             child: Center(
                 child: Column(children: [
               SvgPicture.asset('assets/image/reservation_detail_none.svg',

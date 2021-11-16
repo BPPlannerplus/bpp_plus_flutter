@@ -19,16 +19,18 @@ class DetailPortfolioFullScreen extends StatelessWidget {
         backgroundColor: const Color(0xff232323),
         body: Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 64,
-                bottom: 72,
-              ),
-              child: Image.network(
-                profile,
-                height: 480.h,
-                fit: BoxFit.contain,
-                // fit: BoxFit.cover,
+            Hero(
+              tag: profile,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  top: 64,
+                  bottom: 72,
+                ),
+                child: Image.network(
+                  profile,
+                  height: 480.h,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
             Positioned(

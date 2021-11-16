@@ -76,12 +76,7 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
                               ),
                             )
                           : const SliverToBoxAdapter(
-                              child: SizedBox(
-                                height: 350,
-                                child: Center(
-                                  child: Text('아이템이 없습니다'),
-                                ),
-                              ),
+                              child: SizedBox(),
                             )
                       : SliverStaggeredGrid.countBuilder(
                           mainAxisSpacing: 8,

@@ -40,8 +40,9 @@ setDateDialog(int id, BuildContext context) {
                   ),
                   const SizedBox(height: 2),
                   DateTimePickerWidget(
-                      minDateTime: DateTime(DateTime.now().day + 1),
-                      maxDateTime: DateTime(DateTime.now().year + 5),
+                      minDateTime: DateTime(DateTime.now().year,
+                          DateTime.now().month, DateTime.now().day + 1),
+                      maxDateTime: DateTime(DateTime.now().year + 2),
                       locale: DateTimePickerLocale.ko,
                       initDateTime: DateTime.now(),
                       dateFormat: 'yyyy-MM-dd',
@@ -85,7 +86,8 @@ setDateDialog(int id, BuildContext context) {
                               .read(mypageRepsitory)
                               .setReservationDate(id, ref.read(dateProvider));
                           navigator.pop();
-                          confirmDialog(navigator.navigatorKey.currentContext!);
+                          confirmDialog(
+                              navigator.navigatorKey.currentContext!, id);
                         },
                         child: Text(
                           '저장',

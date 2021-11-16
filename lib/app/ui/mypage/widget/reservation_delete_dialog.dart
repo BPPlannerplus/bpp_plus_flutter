@@ -1,4 +1,4 @@
-import 'package:bpp_riverpod/app/repository/mypage_repository.dart';
+import 'package:bpp_riverpod/app/provider/mypage/confirmed_provider.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_detail_dialog.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
@@ -62,8 +62,13 @@ reservationDeleteDialog(int id, BuildContext context) {
                       Consumer(builder: (context, ref, _) {
                         return InkWell(
                           onTap: () async {
-                            await ref.read(mypageRepsitory).deleteInquiring(id);
+                            await ref
+                                .read(confirmedListProvider.notifier)
+                                .deleteById(id);
                             navigator.pop();
+                            ref
+                                .read(confirmedListProvider.notifier)
+                                .changeState(id);
                           },
                           child: Text(
                             '삭제',

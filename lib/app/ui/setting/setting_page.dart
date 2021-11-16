@@ -1,3 +1,5 @@
+import 'package:bpp_riverpod/app/provider/login_provider.dart';
+import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
@@ -5,12 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-class SettingPage extends StatelessWidget {
+class SettingPage extends ConsumerWidget {
   const SettingPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -63,11 +66,26 @@ class SettingPage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () async {
-                  // Future<void> _logOut() async {
-                  //   try {
-                  //     final result = await kakaoSignIn.logOut();
-                  //   } on PlatformException catch (e) {}
-                  // }
+                  final kakaoLogin = ref.read(flutterKakaoLoginProvider);
+                  try {
+                    await kakaoLogin.logOut();
+                    Hive.box('auth').delete('token');
+                    Hive.box('auth').delete('userInfo');
+                    ref.read(navigationProvier.state).state = 0;
+                  } catch (e) {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const AlertDialog(
+                          title: Text('로그 아웃 실패'),
+                          content: Text('로그 아웃에 실패했습니다\n\n다시 시도해주세요'),
+                        );
+                      },
+                    );
+                  }
+                  ref
+                      .read(navigatorProvider)
+                      .navigateToRemove(routeName: AppRoutes.loginPage);
                 },
                 child: Text(
                   '로그아웃',
