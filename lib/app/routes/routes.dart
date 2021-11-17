@@ -9,6 +9,7 @@ import 'package:bpp_riverpod/app/ui/review/my_review_page.dart';
 import 'package:bpp_riverpod/app/ui/review/review_write_page.dart';
 import 'package:bpp_riverpod/app/ui/setting/setting_page.dart';
 import 'package:bpp_riverpod/app/ui/setting/withdrawal_page.dart';
+import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
@@ -89,13 +90,19 @@ class AppRouter {
           settings: settings,
         );
       case AppRoutes.reviewWritePage:
+        final ReviewArgs arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => const ReviewWritePage(),
+          builder: (_) => ReviewWritePage(
+              reservationId: arg.id,
+              shopType: arg.shopType,
+              shopName: arg.shopName),
           settings: settings,
         );
       case AppRoutes.myReviewPage:
+        final ReviewArgs arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => const MyReviewPage(),
+          builder: (_) => MyReviewPage(
+              id: arg.id, shopType: arg.shopType, shopName: arg.shopName),
           settings: settings,
         );
       case AppRoutes.licensePage:
@@ -127,5 +134,17 @@ class ProfileData {
   ProfileData({
     required this.profiles,
     required this.index,
+  });
+}
+
+class ReviewArgs {
+  final int id;
+  final String shopType;
+  final String shopName;
+
+  ReviewArgs({
+    required this.id,
+    required this.shopType,
+    required this.shopName,
   });
 }

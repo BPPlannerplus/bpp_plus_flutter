@@ -12,7 +12,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'dart:developer' as dp;
 
 class ReservationSchedulePage extends ConsumerStatefulWidget {
   const ReservationSchedulePage({Key? key}) : super(key: key);
@@ -42,7 +41,6 @@ class _ReservationSchedulePageState
               height: 250, child: Center(child: CircularProgressIndicator())));
     } else {
       final shopDatas = ref.watch(confirmedListProvider.notifier).makeList();
-      dp.log('shopDatas: $shopDatas');
       return confirmList.isEmpty
           ? emptyBox()
           : SliverList(
@@ -70,7 +68,7 @@ class _ReservationSchedulePageState
           const SizedBox(width: 12),
           RichText(
               text: TextSpan(
-                  text: '${day + 1}',
+                  text: '$day',
                   style: BppTextStyle.tabText
                       .copyWith(color: const Color(0xff3b75ff), fontSize: 16),
                   children: [

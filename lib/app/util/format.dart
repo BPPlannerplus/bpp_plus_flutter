@@ -13,3 +13,6 @@ String reservationDateFormat(String date) {
 
 int calRemainigDay(String date) =>
     DateTime.parse(date).difference(DateTime.now()).inDays;
+
+String changeDateFormat(String date) =>
+    DateFormat('yyyy-MM-dd').format(DateTime.parse(date));

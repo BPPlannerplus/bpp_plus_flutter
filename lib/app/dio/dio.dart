@@ -6,8 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:logger/logger.dart';
-
-Logger logger = Logger();
+import 'dart:developer' as dp;
 
 final dioProvider = Provider<Dio>((ref) {
   final dio = Dio();
@@ -52,7 +51,7 @@ final dioProvider = Provider<Dio>((ref) {
         }
       },
       onError: (error, handler) async {
-        print('>>> onError <<<');
+        dp.log('>>> onError <<<');
         final token = ref.read(tokenDataProvider);
         final userInfo = Hive.box('auth').get('userInfo');
 
@@ -101,10 +100,10 @@ final dioProvider = Provider<Dio>((ref) {
           );
           return;
         }
-        print('error.error: ${error.error}');
-        print('error.type: ${error.type}');
-        print('error.response: ${error.response}');
-        print('error.requestOptions: ${error.requestOptions.data}');
+        dp.log('error.error: ${error.error}');
+        dp.log('error.type: ${error.type}');
+        dp.log('error.response: ${error.response}');
+        dp.log('error.requestOptions: ${error.requestOptions.data}');
         return handler.next(error);
       },
     ),
@@ -115,29 +114,29 @@ final dioProvider = Provider<Dio>((ref) {
 class CustomLogInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    print('REQUEST[${options.method}] => PATH: ${options.path}');
-    print('REQUEST DATA: ${options.data}');
-    print('REQUEST PARAM: ${options.queryParameters}');
-    print('REQUEST URL: ${options.uri}');
+    dp.log('REQUEST[${options.method}] => PATH: ${options.path}');
+    dp.log('REQUEST DATA: ${options.data}');
+    dp.log('REQUEST PARAM: ${options.queryParameters}');
+    dp.log('REQUEST URL: ${options.uri}');
     super.onRequest(options, handler);
   }
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    print(
+    dp.log(
         'RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}');
-    print('RESPONSE DATA => DATA: ${response.data}');
+    dp.log('RESPONSE DATA => DATA: ${response.data}');
     super.onResponse(response, handler);
   }
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
-    print(
+    dp.log(
         'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}');
-    print('ERROR headers: [${err.requestOptions.headers}]');
-    print('ERROR err: [${err.error}]');
-    print('ERROR msg: [${err.message}]');
-    print('ERROR stack: [${err.stackTrace}]');
+    dp.log('ERROR headers: [${err.requestOptions.headers}]');
+    dp.log('ERROR err: [${err.error}]');
+    dp.log('ERROR msg: [${err.message}]');
+    dp.log('ERROR stack: [${err.stackTrace}]');
     super.onError(err, handler);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:bpp_riverpod/app/model/mypage/mypage_data.dart';
 import 'package:bpp_riverpod/app/provider/mypage/expiration_provider.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
+import 'package:bpp_riverpod/app/repository/shop_detail_repository.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_card.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/set_date_dialog.dart';
@@ -83,19 +84,42 @@ class _ReservationDetailPageState extends ConsumerState<ReservationDetailPage> {
                       date: reservationDateFormat(datas[i].reservedData!),
                       shop: shopTypeToName[datas[i].shop.type]!,
                       shopName: datas[i].shop.name,
-                      buttonText: '리뷰 작성',
+                      buttonText: datas[i].state == 2 ? '내 리뷰 보기' : '리뷰 작성',
                       iconWidget: Padding(
-                          padding: EdgeInsets.only(right: 12.w),
-                          child: Text('다시 추가하기',
-                              style: BppTextStyle.smallText
-                                  .copyWith(color: const Color(0xff3b75ff)))),
-                      onTabButton: () {
-                        navigator.navigateTo(
-                          routeName: AppRoutes.reviewWritePage,
-                        );
-                      },
-                      onTabIcon: () {
-                        setDateDialog(datas[i].shop.id,
+                        padding: EdgeInsets.only(right: 12.w),
+                        child: Text(
+                          '다시 추가하기',
+                          style: BppTextStyle.smallText.copyWith(
+                            color: const Color(0xff3b75ff),
+                          ),
+                        ),
+                      ),
+                      onTabButton: datas[i].state == 2
+                          ? () {
+                              navigator.navigateTo(
+                                routeName: AppRoutes.myReviewPage,
+                                argument: ReviewArgs(
+                                    id: datas[i].id,
+                                    shopType:
+                                        shopTypeToName[datas[i].shop.type]!,
+                                    shopName: datas[i].shop.name),
+                              );
+                            }
+                          : () {
+                              navigator.navigateTo(
+                                routeName: AppRoutes.reviewWritePage,
+                                argument: ReviewArgs(
+                                    id: datas[i].id,
+                                    shopType:
+                                        shopTypeToName[datas[i].shop.type]!,
+                                    shopName: datas[i].shop.name),
+                              );
+                            },
+                      onTabIcon: () async {
+                        await ref
+                            .read(shopDetailRepository)
+                            .shopReservation(datas[i].shop.id);
+                        setDateDialog(datas[i].id,
                             navigator.navigatorKey.currentContext!);
                       },
                     );
@@ -103,39 +127,6 @@ class _ReservationDetailPageState extends ConsumerState<ReservationDetailPage> {
             ],
           ),
         ),
-      Padding(
-        padding: const EdgeInsets.only(left: 21),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(width: 1, height: 120.h, color: const Color(0xff000000)),
-            const SizedBox(width: 22),
-            Padding(
-                padding: const EdgeInsets.only(top: 8),
-                child: Consumer(builder: (context, ref, _) {
-                  final navigator = ref.watch(navigatorProvider);
-                  return reservationCard(
-                    date: '11월 30일',
-                    shop: '태닝',
-                    shopName: 'Tanning 1',
-                    buttonText: '내 리뷰 보기',
-                    iconWidget: Padding(
-                        padding: EdgeInsets.only(right: 12.w),
-                        child: Text('다시 추가하기',
-                            style: BppTextStyle.smallText
-                                .copyWith(color: const Color(0xff3b75ff)))),
-                    onTabButton: () {
-                      navigator.navigateTo(
-                        routeName: AppRoutes.myReviewPage,
-                      );
-                    },
-                    onTabIcon: () {},
-                  );
-                }))
-          ],
-        ),
-      ),
       Row(mainAxisAlignment: MainAxisAlignment.start, children: const [
         Padding(
             padding: EdgeInsets.only(top: 4, bottom: 16, left: 18),

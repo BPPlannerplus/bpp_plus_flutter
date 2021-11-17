@@ -1,5 +1,7 @@
+import 'package:bpp_riverpod/app/provider/detail/complain_provider.dart';
 import 'package:bpp_riverpod/app/provider/detail/shop_detail_page_controller.dart';
-import 'package:bpp_riverpod/app/provider/mypage/report_provider.dart';
+import 'package:bpp_riverpod/app/provider/detail/report_provider.dart';
+import 'package:bpp_riverpod/app/repository/shop_detail_repository.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
@@ -65,16 +67,23 @@ class ReportPage extends StatelessWidget {
                             _reportRow('개인 정보 노출', 2),
                             _reportRow('불법 정보 기재', 3),
                             _reportRow('기타(직접 입력)', 4),
-                            SizedBox(
-                              height: 128,
-                              child: TextField(
-                                maxLines: 6,
-                                style: BppTextStyle.smallText,
-                                decoration: const InputDecoration(
-                                  hintText: '신고하시는 이유를 입력해주세요',
+                            Consumer(builder: (context, ref, _) {
+                              return SizedBox(
+                                height: 128,
+                                child: TextField(
+                                  maxLines: 6,
+                                  style: BppTextStyle.smallText,
+                                  decoration: const InputDecoration(
+                                    hintText: '신고하시는 이유를 입력해주세요',
+                                  ),
+                                  onChanged: (text) {
+                                    ref
+                                        .read(complaingContentsProvider.state)
+                                        .state = text;
+                                  },
                                 ),
-                              ),
-                            ),
+                              );
+                            }),
                             SizedBox(height: 16.h),
                             Container(
                                 height: 56.h,
@@ -94,6 +103,12 @@ class ReportPage extends StatelessWidget {
                             child: ElevatedButton(
                                 onPressed: check
                                     ? () async {
+                                        final complain =
+                                            ref.read(complainProvider);
+                                        await ref
+                                            .read(shopDetailRepository)
+                                            .reportReview(reviewId, complain);
+
                                         ref
                                             .read(
                                                 shopDetailReviewPageControllerProvider(

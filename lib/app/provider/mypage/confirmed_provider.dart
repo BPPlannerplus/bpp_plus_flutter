@@ -26,11 +26,11 @@ class ConfirmedList extends StateNotifier<List<MypageData>> {
     read(isConfirmedLoading.state).state = true;
     final lists = await repository.getShopReservation();
     state = lists.list.where((e) => e.state == 1).toList();
-    state.sort((a, b) {
-      final aa = DateTime.parse(a.reservedData!);
-      final bb = DateTime.parse(b.reservedData!);
-      return bb.difference(aa).inDays;
-    });
+    // state.sort((a, b) {
+    //   final aa = DateTime.parse(a.reservedData!);
+    //   final bb = DateTime.parse(b.reservedData!);
+    //   return bb.difference(aa).inDays;
+    // });
     read(isConfirmedLoading.state).state = false;
     return state;
   }
@@ -47,6 +47,11 @@ class ConfirmedList extends StateNotifier<List<MypageData>> {
   }
 
   List<List<MypageData>> makeList() {
+    state.sort((a, b) {
+      final aa = DateTime.parse(a.reservedData!);
+      final bb = DateTime.parse(b.reservedData!);
+      return bb.difference(aa).inDays;
+    });
     Set<String> dates = state.map((e) => e.reservedData!).toSet();
     List<List<MypageData>> dateList = [];
     for (String date in dates) {
@@ -58,5 +63,14 @@ class ConfirmedList extends StateNotifier<List<MypageData>> {
 
   void changeState(int shopId) {
     state = state.where((e) => e.id != shopId).toList();
+  }
+
+  void changeDateState(int shopId, String date) {
+    state = state.map((e) {
+      if (e.id == shopId) {
+        return e.copyWith(reservedData: date);
+      }
+      return e;
+    }).toList();
   }
 }

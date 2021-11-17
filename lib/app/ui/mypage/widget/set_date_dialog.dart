@@ -86,8 +86,8 @@ setDateDialog(int id, BuildContext context) {
                               .read(mypageRepsitory)
                               .setReservationDate(id, ref.read(dateProvider));
                           navigator.pop();
-                          confirmDialog(
-                              navigator.navigatorKey.currentContext!, id);
+                          confirmDialog(navigator.navigatorKey.currentContext!,
+                              id, ref.read(dateProvider));
                         },
                         child: Text(
                           '저장',

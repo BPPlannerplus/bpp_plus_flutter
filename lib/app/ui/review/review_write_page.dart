@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:bpp_riverpod/app/provider/mypage/review_provider.dart';
+import 'package:bpp_riverpod/app/repository/mypage_repository.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,7 +12,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ReviewWritePage extends StatelessWidget {
-  const ReviewWritePage({Key? key}) : super(key: key);
+  const ReviewWritePage({
+    Key? key,
+    required this.reservationId,
+    required this.shopName,
+    required this.shopType,
+  }) : super(key: key);
+
+  final int reservationId;
+  final String shopName;
+  final String shopType;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +69,7 @@ class ReviewWritePage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '스튜디오',
+                          shopType,
                           style: BppTextStyle.smallText
                               .copyWith(color: const Color(0xff4d4d4d)),
                         ),
@@ -67,7 +77,7 @@ class ReviewWritePage extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              '아날로그핏',
+                              shopName,
                               style: BppTextStyle.tabText,
                             ),
                             const SizedBox(width: 8),
@@ -97,7 +107,8 @@ class ReviewWritePage extends StatelessWidget {
                         const SizedBox(height: 16),
                         Consumer(builder: (context, ref, _) {
                           return RatingBar.builder(
-                            initialRating: ref.watch(reviewScoreProvider),
+                            initialRating:
+                                ref.watch(reviewScoreProvider).toDouble(),
                             minRating: 0,
                             glow: false,
                             direction: Axis.horizontal,
@@ -112,7 +123,7 @@ class ReviewWritePage extends StatelessWidget {
                             ),
                             onRatingUpdate: (rating) {
                               ref.read(reviewScoreProvider.state).state =
-                                  rating;
+                                  rating.toInt();
                             },
                           );
                         }),
@@ -120,16 +131,21 @@ class ReviewWritePage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 24),
-                  SizedBox(
-                    height: 128,
-                    child: TextField(
-                      maxLines: 6,
-                      style: BppTextStyle.smallText,
-                      decoration: const InputDecoration(
-                        hintText: '좀 더 자세하게 공유해주실 수 있나요?',
+                  Consumer(builder: (context, ref, _) {
+                    return SizedBox(
+                      height: 128,
+                      child: TextField(
+                        maxLines: 6,
+                        style: BppTextStyle.smallText,
+                        decoration: const InputDecoration(
+                          hintText: '좀 더 자세하게 공유해주실 수 있나요?',
+                        ),
+                        onChanged: (text) {
+                          ref.read(reviewTextProvider.state).state = text;
+                        },
                       ),
-                    ),
-                  ),
+                    );
+                  }),
                 ],
               ),
               Consumer(builder: (context, ref, _) {
@@ -137,8 +153,17 @@ class ReviewWritePage extends StatelessWidget {
                   width: 328.w,
                   height: 48,
                   child: ElevatedButton(
-                    onPressed:
-                        ref.watch(reviewScoreProvider) == 0.0 ? null : () {},
+                    onPressed: ref.watch(reviewScoreProvider) == 0.0
+                        ? null
+                        : () async {
+                            final reviewRequest =
+                                ref.read(reviewRequestProvider);
+                            await ref.read(mypageRepsitory).createReview(
+                                reservationId,
+                                reviewRequest.score!,
+                                reviewRequest.contents);
+                            ref.read(navigatorProvider).pop();
+                          },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.resolveWith(
                         (states) {
