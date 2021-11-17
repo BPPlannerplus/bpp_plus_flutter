@@ -31,7 +31,7 @@ class SettingPage extends ConsumerWidget {
               ),
             );
           }),
-          title: Text(
+          title: const Text(
             '설정',
             style: BppTextStyle.tabText,
           ),
@@ -47,7 +47,7 @@ class SettingPage extends ConsumerWidget {
                   onTap: () {
                     navigator.navigateTo(routeName: AppRoutes.licensePage);
                   },
-                  child: Text(
+                  child: const Text(
                     '라이센스',
                     style: BppTextStyle.defaultText,
                   ),
@@ -87,7 +87,7 @@ class SettingPage extends ConsumerWidget {
                       .read(navigatorProvider)
                       .navigateToRemove(routeName: AppRoutes.loginPage);
                 },
-                child: Text(
+                child: const Text(
                   '로그아웃',
                   style: BppTextStyle.defaultText,
                 ),
@@ -111,7 +111,7 @@ class SettingPage extends ConsumerWidget {
                       routeName: AppRoutes.withdrawalPage,
                     );
                   },
-                  child: Text(
+                  child: const Text(
                     '회원탈퇴',
                     style: BppTextStyle.defaultText,
                   ),

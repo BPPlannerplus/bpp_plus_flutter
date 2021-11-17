@@ -74,8 +74,8 @@ Widget conceptDialog({required Concept concept}) {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 3),
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 3),
                           child: Text(
                             'Studio name',
                             style: BppTextStyle.dialogText,

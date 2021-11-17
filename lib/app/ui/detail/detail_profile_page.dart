@@ -80,13 +80,10 @@ class DetailProfilePage extends StatelessWidget {
 
   Widget _imgPage(int index) {
     return SizedBox.expand(
-      child: Hero(
-        tag: 'profile$index',
-        child: Image.network(
-          profiles[index],
-          height: 480.h,
-          fit: BoxFit.contain,
-        ),
+      child: Image.network(
+        profiles[index],
+        height: 480.h,
+        fit: BoxFit.contain,
       ),
     );
   }

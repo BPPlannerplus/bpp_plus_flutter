@@ -2,7 +2,8 @@ import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
 import 'package:bpp_riverpod/app/ui/home/widget/home_grid_card.dart';
-import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/util/widget/custom_load_indicator.dart';
+import 'package:bpp_riverpod/app/util/widget/empty_box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,26 +28,15 @@ class StudioGrid extends ConsumerWidget {
       ),
       builderDelegate: PagedChildBuilderDelegate<ShopData>(
         itemBuilder: (context, shop, index) {
-          final studio = ref.watch<ShopData>(
-              studioListProvider.select((value) => value.shopDatas[index]));
+          final studios = ref.watch(studioListProvider);
           final studioState = ref.read(studioListProvider.notifier);
 
           return homeGridCard(
-            shop: studio,
-            shopState: studioState,
-          );
+              shop: studios.shopDatas[index], shopState: studioState);
         },
-        noItemsFoundIndicatorBuilder: (context) {
-          return SizedBox(
-            height: 100,
-            child: Center(
-              child: Text(
-                '아이템이 없습니다!',
-                style: BppTextStyle.defaultText,
-              ),
-            ),
-          );
-        },
+        firstPageErrorIndicatorBuilder: (context) => customLoadingIndicator(),
+        newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),
+        noItemsFoundIndicatorBuilder: (context) => emptyBox(),
       ),
     );
   }

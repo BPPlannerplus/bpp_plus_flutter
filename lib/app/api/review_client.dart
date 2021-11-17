@@ -20,17 +20,6 @@ abstract class ReviewClient {
     @Path() int id,
   );
 
-  @POST('/reviews/shops/{id}')
-  Future<dynamic> createReview(
-    @Path() int id,
-    @Body() ReviewRequest reviewRequest,
-  );
-
-  @GET('/reviews/{id}')
-  Future<ReviewDetail> getReview(
-    @Path() int id,
-  );
-
   @PATCH('/reviews/{id}')
   Future<ReviewDetail> updateReview(
     @Path() int id,

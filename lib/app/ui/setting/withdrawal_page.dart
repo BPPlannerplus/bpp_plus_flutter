@@ -1,14 +1,10 @@
-import 'package:bpp_riverpod/app/provider/login_provider.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
-import 'package:bpp_riverpod/app/repository/auth_repository.dart';
-import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hive_flutter/adapters.dart';
 
 class WithdrawalPage extends StatelessWidget {
   const WithdrawalPage({Key? key}) : super(key: key);
@@ -39,7 +35,7 @@ class WithdrawalPage extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     '회원탈퇴',
                     style: BppTextStyle.bigScreenText,
                   ),
@@ -96,7 +92,7 @@ class WithdrawalPage extends StatelessWidget {
                             ),
                           );
                         }),
-                        Text(
+                        const Text(
                           '안내사항을 확인하였으며, 동의합니다.',
                           style: BppTextStyle.smallText,
                         )

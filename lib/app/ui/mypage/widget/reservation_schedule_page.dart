@@ -6,6 +6,7 @@ import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/util/widget/custom_load_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,9 +37,8 @@ class _ReservationSchedulePageState
     final confirmList = ref.watch(confirmedListProvider);
 
     if (ref.watch(isConfirmedLoading)) {
-      return const SliverToBoxAdapter(
-          child: SizedBox(
-              height: 250, child: Center(child: CircularProgressIndicator())));
+      return SliverToBoxAdapter(
+          child: SizedBox(height: 250, child: customLoadingIndicator()));
     } else {
       final shopDatas = ref.watch(confirmedListProvider.notifier).makeList();
       return confirmList.isEmpty

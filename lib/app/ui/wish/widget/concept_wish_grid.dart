@@ -4,6 +4,8 @@ import 'package:bpp_riverpod/app/repository/shop_wish_repository.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/util/widget/custom_load_indicator.dart';
+import 'package:bpp_riverpod/app/util/widget/empty_box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -75,17 +77,9 @@ class _ConceptWishGridState extends ConsumerState<ConceptWishGrid> {
             conceptState: conceptState,
           );
         },
-        noItemsFoundIndicatorBuilder: (context) {
-          return SizedBox(
-            height: 100,
-            child: Center(
-              child: Text(
-                '아이템이 없습니다!',
-                style: BppTextStyle.defaultText,
-              ),
-            ),
-          );
-        },
+        firstPageErrorIndicatorBuilder: (context) => customLoadingIndicator(),
+        newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),
+        noItemsFoundIndicatorBuilder: (context) => emptyBox(),
       ),
     );
   }

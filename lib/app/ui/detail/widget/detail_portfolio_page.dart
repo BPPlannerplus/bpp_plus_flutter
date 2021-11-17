@@ -44,13 +44,10 @@ class _DetailPortfolioPageState extends ConsumerState<DetailPortfolioPage> {
                 argument: sc.profile,
               );
             },
-            child: Hero(
-              tag: sc.profile,
-              child: Image.network(
-                sc.profile,
-                height: 144,
-                fit: BoxFit.fill,
-              ),
+            child: Image.network(
+              sc.profile,
+              height: 144,
+              fit: BoxFit.fill,
             ),
           );
         },

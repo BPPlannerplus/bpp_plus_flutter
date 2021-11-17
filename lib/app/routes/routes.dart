@@ -9,7 +9,6 @@ import 'package:bpp_riverpod/app/ui/review/my_review_page.dart';
 import 'package:bpp_riverpod/app/ui/review/review_write_page.dart';
 import 'package:bpp_riverpod/app/ui/setting/setting_page.dart';
 import 'package:bpp_riverpod/app/ui/setting/withdrawal_page.dart';
-import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {

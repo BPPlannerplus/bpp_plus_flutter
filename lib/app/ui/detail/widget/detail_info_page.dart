@@ -28,7 +28,7 @@ class DetailInfoPage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 '가격',
                 style: BppTextStyle.defaultText,
               ),
@@ -75,7 +75,7 @@ class DetailInfoPage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 '위치',
                 style: BppTextStyle.defaultText,
               ),
@@ -111,7 +111,7 @@ class DetailInfoPage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 '제휴업체',
                 style: BppTextStyle.defaultText,
               ),

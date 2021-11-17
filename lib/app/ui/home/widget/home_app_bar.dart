@@ -88,7 +88,7 @@ class HomeAppBar extends StatelessWidget {
                         width: 30,
                         height: 30,
                       ),
-                      Text(
+                      const Text(
                         '필터',
                         style: BppTextStyle.filterText,
                       ),

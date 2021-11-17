@@ -32,38 +32,6 @@ class _ReviewClient implements ReviewClient {
   }
 
   @override
-  Future<dynamic> createReview(id, reviewRequest) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(reviewRequest.toJson());
-    final _result = await _dio.fetch(_setStreamType<dynamic>(
-        Options(method: 'POST', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/reviews/shops/$id',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data;
-    return value;
-  }
-
-  @override
-  Future<ReviewDetail> getReview(id) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ReviewDetail>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/reviews/$id',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ReviewDetail.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
   Future<ReviewDetail> updateReview(id, reviewRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

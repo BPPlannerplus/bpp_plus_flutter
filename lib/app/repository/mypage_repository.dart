@@ -50,19 +50,20 @@ class MypageRepository {
 
   // 특정 리뷰 조회
   Future<ReviewDetail> getReview(int id) async {
-    final review = await reviewClient.getReview(id);
+    final review = await reservationClient.getReview(id);
     return review;
   }
 
   // 리뷰  작성
   Future<dynamic> createReview(int id, int score, String? text) async {
-    final response = await reviewClient.createReview(
+    final response = await reservationClient.createReview(
       id,
       ReviewRequest(
         score: score,
         contents: text,
       ),
     );
+
     return response;
   }
 

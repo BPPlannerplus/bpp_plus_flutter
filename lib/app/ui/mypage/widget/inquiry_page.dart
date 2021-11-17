@@ -6,6 +6,7 @@ import 'package:bpp_riverpod/app/ui/mypage/widget/set_date_dialog.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/util/widget/custom_load_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,9 +37,8 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
     final shopDatas =
         inquiryList.where((data) => data.shop.type == shopType.index).toList();
     if (ref.watch(isInquiryLoading)) {
-      return const SliverToBoxAdapter(
-          child: SizedBox(
-              height: 250, child: Center(child: CircularProgressIndicator())));
+      return SliverToBoxAdapter(
+          child: SizedBox(height: 250, child: customLoadingIndicator()));
     } else {
       return shopDatas.isEmpty
           ? emptyBox()
@@ -101,7 +101,7 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
               onTap: () {
                 ref.read(inquiryListProvider.notifier).deleteAll(shopType);
               },
-              child: Text(
+              child: const Text(
                 '전체 삭제',
                 style: BppTextStyle.filterText,
               ),

@@ -5,7 +5,6 @@ import 'package:bpp_riverpod/app/provider/auth/user_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:logger/logger.dart';
 import 'dart:developer' as dp;
 
 final dioProvider = Provider<Dio>((ref) {
@@ -19,7 +18,7 @@ final dioProvider = Provider<Dio>((ref) {
   dio.interceptors.add(
     InterceptorsWrapper(
       onRequest: (options, handler) async {
-        print('>>> onRequest <<<');
+        dp.log('>>> onRequest <<<');
         final tokenData = ref.read(tokenDataProvider);
         final userInfo = Hive.box('auth').get('userInfo');
 
@@ -100,10 +99,10 @@ final dioProvider = Provider<Dio>((ref) {
           );
           return;
         }
-        dp.log('error.error: ${error.error}');
-        dp.log('error.type: ${error.type}');
-        dp.log('error.response: ${error.response}');
-        dp.log('error.requestOptions: ${error.requestOptions.data}');
+        // dp.log('error.error: ${error.error}');
+        // dp.log('error.type: ${error.type}');
+        // dp.log('error.response: ${error.response}');
+        // dp.log('error.requestOptions: ${error.requestOptions.data}');
         return handler.next(error);
       },
     ),
@@ -136,7 +135,7 @@ class CustomLogInterceptor extends Interceptor {
     dp.log('ERROR headers: [${err.requestOptions.headers}]');
     dp.log('ERROR err: [${err.error}]');
     dp.log('ERROR msg: [${err.message}]');
-    dp.log('ERROR stack: [${err.stackTrace}]');
+    // dp.log('ERROR stack: [${err.stackTrace}]');
     super.onError(err, handler);
   }
 }

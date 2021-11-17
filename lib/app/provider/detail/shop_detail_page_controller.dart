@@ -42,7 +42,6 @@ final shopDetailReviewPageControllerProvider =
   Future<void> _fetchPage(int pageKey) async {
     try {
       final newItems = await ref.read(shopDetailRepository).getShopReviews(id);
-      print('newItems: ${newItems}');
       final isLastPage = newItems.reviews.length < 20;
 
       if (isLastPage) {

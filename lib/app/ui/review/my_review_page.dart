@@ -2,6 +2,7 @@ import 'package:bpp_riverpod/app/provider/mypage/review_detail_provider.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/util/widget/custom_load_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,17 +27,15 @@ class MyReviewPage extends ConsumerWidget {
 
     return SafeArea(
       child: review.when(
-          loading: () => const Scaffold(
-                body: Center(
-                  child: CircularProgressIndicator(),
-                ),
+          loading: () => Scaffold(
+                body: customLoadingIndicator(),
               ),
           error: (error, stack) => Scaffold(
                 body: Center(
                   child: Text(
                     error.toString(),
                     style: const TextStyle(
-                      fontSize: 32,
+                      fontSize: 24,
                     ),
                   ),
                 ),
@@ -46,7 +45,7 @@ class MyReviewPage extends ConsumerWidget {
               child: Scaffold(
                 appBar: AppBar(
                   centerTitle: true,
-                  title: Text(
+                  title: const Text(
                     '내 리뷰 보기',
                     style: BppTextStyle.defaultText,
                   ),

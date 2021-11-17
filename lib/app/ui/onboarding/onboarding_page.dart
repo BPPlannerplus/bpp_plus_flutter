@@ -7,6 +7,7 @@ import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OnBoardingPage extends ConsumerWidget {
   const OnBoardingPage({Key? key}) : super(key: key);
@@ -50,7 +51,7 @@ class OnBoardingPage extends ConsumerWidget {
                   }),
                 ),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 56.h),
               Expanded(
                 child: PageView(
                   onPageChanged: (index) {

@@ -1,13 +1,15 @@
-import 'package:bpp_riverpod/app/model/review/review.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final reviewScoreProvider = StateProvider.autoDispose<int>((ref) => 0);
+final reviewScoreStateProvider = StateProvider.autoDispose<int>((ref) => 0);
 
-final reviewTextProvider = StateProvider.autoDispose<String>((ref) => '');
+final reviewTextStateProvider = StateProvider.autoDispose<String>((ref) => '');
 
-final reviewRequestProvider = Provider.autoDispose<ReviewRequest>((ref) {
-  final score = ref.watch(reviewScoreProvider);
-  final contents = ref.watch(reviewTextProvider);
+final reviewScoreProvider = Provider.autoDispose<int>((ref) {
+  final reviewScroeState = ref.watch(reviewScoreStateProvider);
+  return reviewScroeState;
+});
 
-  return ReviewRequest(score: score, contents: contents);
+final reviewTextProvider = Provider.autoDispose<String>((ref) {
+  final reviewTextState = ref.watch(reviewTextStateProvider);
+  return reviewTextState;
 });

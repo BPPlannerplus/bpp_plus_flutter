@@ -35,4 +35,13 @@ class ExpirationList extends StateNotifier<List<MypageData>> {
     read(isExpirationLoading.state).state = false;
     return state;
   }
+
+  void changeShopState(int reservationId) {
+    state = state.map((e) {
+      if (e.id == reservationId) {
+        return e.copyWith(state: 3);
+      }
+      return e;
+    }).toList();
+  }
 }

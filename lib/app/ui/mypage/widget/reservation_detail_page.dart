@@ -9,6 +9,7 @@ import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/util/widget/custom_load_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,14 +38,8 @@ class _ReservationDetailPageState extends ConsumerState<ReservationDetailPage> {
     final expirationList = ref.watch(expirationListProvider);
 
     if (ref.watch(isExpirationLoading)) {
-      return const SliverToBoxAdapter(
-        child: SizedBox(
-          height: 250,
-          child: Center(
-            child: CircularProgressIndicator(),
-          ),
-        ),
-      );
+      return SliverToBoxAdapter(
+          child: SizedBox(height: 250, child: customLoadingIndicator()));
     } else {
       return expirationList.isEmpty ? emptyBox() : reservedList(expirationList);
     }
@@ -58,12 +53,12 @@ class _ReservationDetailPageState extends ConsumerState<ReservationDetailPage> {
           child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Padding(
+              children: const [
+                Padding(
                     padding: EdgeInsets.all(6.0),
                     child: CircleAvatar(
                         radius: 4, backgroundColor: Color(0xff4c81ff))),
-                const SizedBox(width: 16),
+                SizedBox(width: 16),
                 Text('이전 예약 내역을 확인해보세요', style: BppTextStyle.tabText)
               ])),
       for (int i = 0; i < datas.length; i++)

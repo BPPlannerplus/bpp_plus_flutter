@@ -1,46 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BppTextStyle {
-  static final bigScreenText = TextStyle(
-    fontSize: 22.sp,
+  static const bigScreenText = TextStyle(
+    fontSize: 22,
     fontWeight: FontWeight.w600,
-    color: const Color(0xff000000),
+    color: Color(0xff000000),
   );
-  static final screenText = TextStyle(
-    fontSize: 20.sp,
+  static const screenText = TextStyle(
+    fontSize: 20,
     fontWeight: FontWeight.w400,
-    color: const Color(0xff000000),
+    color: Color(0xff000000),
   );
-  static final dialogText = TextStyle(
-    fontSize: 18.sp,
+  static const dialogText = TextStyle(
+    fontSize: 18,
     fontWeight: FontWeight.w600,
-    color: const Color(0xffffffff),
+    color: Color(0xffffffff),
   );
-  static final tabText = TextStyle(
-    fontSize: 16.sp,
+  static const tabText = TextStyle(
+    fontSize: 16,
     fontWeight: FontWeight.w600,
-    color: const Color(0xff000000),
+    color: Color(0xff000000),
   );
-  static final defaultText = TextStyle(
-    fontSize: 16.sp,
+  static const defaultText = TextStyle(
+    fontSize: 16,
     fontWeight: FontWeight.w400,
-    color: const Color(0xff000000),
+    color: Color(0xff000000),
   );
-  static final smallText = TextStyle(
-    fontSize: 14.sp,
+  static const smallText = TextStyle(
+    fontSize: 14,
     fontWeight: FontWeight.w400,
-    color: const Color(0xff000000),
+    color: Color(0xff000000),
   );
-  static final filterText = TextStyle(
-    fontSize: 13.sp,
+  static const filterText = TextStyle(
+    fontSize: 13,
     fontWeight: FontWeight.w400,
-    color: const Color(0xff000000),
+    color: Color(0xff000000),
   );
-  static final engShopNameText = TextStyle(
-    fontSize: 14.sp,
+  static const engShopNameText = TextStyle(
+    fontSize: 14,
     fontWeight: FontWeight.w500,
-    color: const Color(0xff000000),
+    color: Color(0xff000000),
     fontFamily: 'Roboto',
   );
 

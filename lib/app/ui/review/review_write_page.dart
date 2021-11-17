@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:bpp_riverpod/app/provider/mypage/expiration_provider.dart';
 import 'package:bpp_riverpod/app/provider/mypage/review_provider.dart';
 import 'package:bpp_riverpod/app/repository/mypage_repository.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
@@ -30,7 +31,7 @@ class ReviewWritePage extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           centerTitle: true,
-          title: Text(
+          title: const Text(
             '리뷰 작성하기',
             style: BppTextStyle.defaultText,
           ),
@@ -100,7 +101,7 @@ class ReviewWritePage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           '만족스러우셨나요?\n경험을 공유해주세요!',
                           style: BppTextStyle.tabText,
                         ),
@@ -122,7 +123,7 @@ class ReviewWritePage extends StatelessWidget {
                               color: const Color(0xffffc142),
                             ),
                             onRatingUpdate: (rating) {
-                              ref.read(reviewScoreProvider.state).state =
+                              ref.read(reviewScoreStateProvider.state).state =
                                   rating.toInt();
                             },
                           );
@@ -141,7 +142,7 @@ class ReviewWritePage extends StatelessWidget {
                           hintText: '좀 더 자세하게 공유해주실 수 있나요?',
                         ),
                         onChanged: (text) {
-                          ref.read(reviewTextProvider.state).state = text;
+                          ref.read(reviewTextStateProvider.state).state = text;
                         },
                       ),
                     );
@@ -149,6 +150,8 @@ class ReviewWritePage extends StatelessWidget {
                 ],
               ),
               Consumer(builder: (context, ref, _) {
+                final score = ref.watch(reviewScoreProvider);
+                final content = ref.watch(reviewTextProvider);
                 return SizedBox(
                   width: 328.w,
                   height: 48,
@@ -156,13 +159,15 @@ class ReviewWritePage extends StatelessWidget {
                     onPressed: ref.watch(reviewScoreProvider) == 0.0
                         ? null
                         : () async {
-                            final reviewRequest =
-                                ref.read(reviewRequestProvider);
                             await ref.read(mypageRepsitory).createReview(
-                                reservationId,
-                                reviewRequest.score!,
-                                reviewRequest.contents);
+                                  reservationId,
+                                  score,
+                                  content,
+                                );
                             ref.read(navigatorProvider).pop();
+                            ref
+                                .read(expirationListProvider.notifier)
+                                .changeShopState(reservationId);
                           },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.resolveWith(

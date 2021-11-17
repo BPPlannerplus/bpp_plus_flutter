@@ -68,16 +68,21 @@ Widget homeGridCard({
             ? BppTextStyle.tabText
             : BppTextStyle.engShopNameText,
       ),
-      // const SizedBox(height: 2),
+      const SizedBox(height: 2),
       Text(
         shop.address,
         style: BppTextStyle.smallText,
       ),
-      // const SizedBox(height: 2),
-      Text(
-        priceFormat(shop.minPrice ?? 100000),
-        style: BppTextStyle.smallText,
-      ),
+      const SizedBox(height: 2),
+      shop.minPrice != null
+          ? Text(
+              priceFormat(shop.minPrice!),
+              style: BppTextStyle.smallText,
+            )
+          : const Text(
+              '가격 정보 없음',
+              style: BppTextStyle.smallText,
+            ),
     ],
   );
 }

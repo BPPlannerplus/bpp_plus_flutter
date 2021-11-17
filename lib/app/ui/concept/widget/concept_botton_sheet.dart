@@ -24,7 +24,7 @@ conceptBottomSheet() {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 '컨셉필터',
                 style: BppTextStyle.defaultText,
               ),

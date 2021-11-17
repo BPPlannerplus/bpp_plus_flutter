@@ -30,7 +30,8 @@ confirmDialog(BuildContext context, int id, String date) {
                       SvgPicture.asset('assets/icon/ic_check_on.svg',
                           width: 30),
                       const SizedBox(width: 5),
-                      Text('일정이 저장되었습니다!', style: BppTextStyle.defaultText)
+                      const Text('일정이 저장되었습니다!',
+                          style: BppTextStyle.defaultText)
                     ]),
                     Container(
                         width: 232, height: 1, color: const Color(0xffbfbfbf)),

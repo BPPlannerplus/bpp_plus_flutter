@@ -33,7 +33,8 @@ reservationDetailDialog(int id, BuildContext context) {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('9월 27일', style: BppTextStyle.defaultText),
+                            const Text('9월 27일',
+                                style: BppTextStyle.defaultText),
                             InkWell(
                               onTap: () {
                                 navigator.pop();
