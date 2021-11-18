@@ -102,7 +102,7 @@ class _ReservationClient implements ReservationClient {
     _data.addAll(reviewRequest.toJson());
     final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'POST', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/reservations/$id/reviews',
+            .compose(_dio.options, '/reservations/$id/reviews/',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data;

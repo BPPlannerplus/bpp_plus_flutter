@@ -47,7 +47,7 @@ abstract class ReservationClient {
   );
 
   // 특정 예약의 리뷰 추가
-  @POST('/reservations/{id}/reviews')
+  @POST('/reservations/{id}/reviews/')
   Future<dynamic> createReview(
     @Path() int id,
     @Body() ReviewRequest reviewRequest,
