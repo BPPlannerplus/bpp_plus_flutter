@@ -70,7 +70,7 @@ class MypageRepository {
   // 리뷰 수정
   Future<ReviewDetail> updateReview(int id, String text) async {
     final reviewDetail =
-        await reviewClient.updateReview(id, ReviewRequest(contents: text));
+        await reviewClient.updateReview(id, ReviewContent(contents: text));
     return reviewDetail;
   }
 

@@ -6,6 +6,7 @@ import 'package:bpp_riverpod/app/ui/main_page.dart';
 import 'package:bpp_riverpod/app/ui/onboarding/onboarding_page.dart';
 import 'package:bpp_riverpod/app/ui/report/report_page.dart';
 import 'package:bpp_riverpod/app/ui/review/my_review_page.dart';
+import 'package:bpp_riverpod/app/ui/review/review_edit_page.dart';
 import 'package:bpp_riverpod/app/ui/review/review_write_page.dart';
 import 'package:bpp_riverpod/app/ui/setting/setting_page.dart';
 import 'package:bpp_riverpod/app/ui/setting/withdrawal_page.dart';
@@ -21,6 +22,7 @@ class AppRoutes {
   static const settingPage = '/setting';
   static const withdrawalPage = '/withdrawal';
   static const reviewWritePage = '/reviewWrite';
+  static const reviewEditPage = '/reviewEdit';
   static const myReviewPage = '/myReview';
   static const licensePage = '/license';
   static const onboardingPage = '/onboarding';
@@ -97,6 +99,17 @@ class AppRouter {
               shopName: arg.shopName),
           settings: settings,
         );
+      case AppRoutes.reviewEditPage:
+        final ReviewArgs arg = settings.arguments;
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => ReviewEditPage(
+            id: arg.id,
+            shopType: arg.shopType,
+            shopName: arg.shopName,
+            score: arg.score!,
+          ),
+          settings: settings,
+        );
       case AppRoutes.myReviewPage:
         final ReviewArgs arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
@@ -140,10 +153,12 @@ class ReviewArgs {
   final int id;
   final String shopType;
   final String shopName;
+  int? score;
 
   ReviewArgs({
     required this.id,
     required this.shopType,
     required this.shopName,
+    this.score,
   });
 }

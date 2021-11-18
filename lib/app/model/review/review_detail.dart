@@ -10,12 +10,10 @@ class ReviewDetail with _$ReviewDetail {
   factory ReviewDetail({
     required int id,
     @JsonKey(name: 'created_at') required String createdAt,
-    @JsonKey(name: 'updated_dt') required String updatedDt,
+    @JsonKey(name: 'updated_at') required String updatedDt,
     required int score,
     String? contents,
     required String date,
-    @JsonKey(name: 'user') required int userId,
-    @JsonKey(name: 'shop') required int shopId,
   }) = _ReviewDetail;
 
   factory ReviewDetail.fromJson(Map<String, dynamic> json) =>

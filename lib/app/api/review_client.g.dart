@@ -32,12 +32,12 @@ class _ReviewClient implements ReviewClient {
   }
 
   @override
-  Future<ReviewDetail> updateReview(id, reviewRequest) async {
+  Future<ReviewDetail> updateReview(id, reviewContent) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(reviewRequest.toJson());
+    _data.addAll(reviewContent.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ReviewDetail>(
             Options(method: 'PATCH', headers: _headers, extra: _extra)

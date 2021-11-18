@@ -2,7 +2,6 @@ import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
 import 'package:bpp_riverpod/app/ui/home/widget/home_grid_card.dart';
-import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:bpp_riverpod/app/util/widget/custom_load_indicator.dart';
 import 'package:bpp_riverpod/app/util/widget/empty_box.dart';
 import 'package:flutter/material.dart';

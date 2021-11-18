@@ -167,7 +167,7 @@ class ReviewWritePage extends StatelessWidget {
                             ref.read(navigatorProvider).pop();
                             ref
                                 .read(expirationListProvider.notifier)
-                                .changeShopState(reservationId);
+                                .changeShopStateReviewed(reservationId);
                           },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.resolveWith(

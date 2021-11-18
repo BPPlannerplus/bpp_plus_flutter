@@ -1,5 +1,4 @@
 import 'package:bpp_riverpod/app/model/review/complain.dart';
-import 'package:bpp_riverpod/app/model/review/review.dart';
 import 'package:bpp_riverpod/app/model/review/review_detail.dart';
 import 'package:bpp_riverpod/app/model/review/review_list.dart';
 import 'package:dio/dio.dart';
@@ -23,7 +22,7 @@ abstract class ReviewClient {
   @PATCH('/reviews/{id}')
   Future<ReviewDetail> updateReview(
     @Path() int id,
-    @Body() ReviewRequest reviewRequest,
+    @Body() ReviewContent reviewContent,
   );
 
   @DELETE('/reviews/{id}')

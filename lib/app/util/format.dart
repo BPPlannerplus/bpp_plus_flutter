@@ -11,8 +11,9 @@ String reservationDateFormat(String date) {
   return '$month월 $day일';
 }
 
-int calRemainigDay(String date) =>
-    DateTime.parse(date).difference(DateTime.now()).inDays;
+int calRemainigDay(String date) {
+  return DateTime.parse(date).difference(DateTime.now()).inDays;
+}
 
 String changeDateFormat(String date) =>
     DateFormat('yyyy-MM-dd').format(DateTime.parse(date));

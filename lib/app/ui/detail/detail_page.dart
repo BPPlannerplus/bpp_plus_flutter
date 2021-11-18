@@ -147,14 +147,14 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         InkWell(
-                          onTap: () {
+                          onTap: () async {
+                            await ref
+                                .read(shopListProvider)
+                                .setLike(shopData.id, shopDetailData.like);
                             ref
                                 .read(
                                     shopDetailStateProvider(shopData).notifier)
                                 .setLike();
-                            ref
-                                .read(shopListProvider)
-                                .setLike(shopData.id, shopData.like);
                           },
                           child: Stack(
                             children: [

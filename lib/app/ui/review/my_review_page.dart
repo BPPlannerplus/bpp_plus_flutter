@@ -1,4 +1,7 @@
+import 'package:bpp_riverpod/app/provider/mypage/expiration_provider.dart';
 import 'package:bpp_riverpod/app/provider/mypage/review_detail_provider.dart';
+import 'package:bpp_riverpod/app/repository/mypage_repository.dart';
+import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
@@ -8,6 +11,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'dart:developer' as dp;
 
 class MyReviewPage extends ConsumerWidget {
   const MyReviewPage({
@@ -30,16 +35,19 @@ class MyReviewPage extends ConsumerWidget {
           loading: () => Scaffold(
                 body: customLoadingIndicator(),
               ),
-          error: (error, stack) => Scaffold(
-                body: Center(
-                  child: Text(
-                    error.toString(),
-                    style: const TextStyle(
-                      fontSize: 24,
-                    ),
+          error: (error, stack) {
+            dp.log(stack.toString());
+            return Scaffold(
+              body: Center(
+                child: Text(
+                  error.toString(),
+                  style: const TextStyle(
+                    fontSize: 24,
                   ),
                 ),
               ),
+            );
+          },
           data: (reviewDetail) {
             return SafeArea(
               child: Scaffold(
@@ -115,7 +123,15 @@ class MyReviewPage extends ConsumerWidget {
                         style: BppTextStyle.smallText,
                       ),
                       const SizedBox(height: 24),
-                      _editRow(changeDateFormat(reviewDetail.createdAt)),
+                      _editRow(
+                        changeDateFormat(reviewDetail.createdAt),
+                        ReviewArgs(
+                          id: reviewDetail.id,
+                          shopType: shopType,
+                          shopName: shopName,
+                          score: reviewDetail.score,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -125,72 +141,90 @@ class MyReviewPage extends ConsumerWidget {
     );
   }
 
-  Widget _editRow(String date) {
+  Widget _editRow(String date, ReviewArgs args) {
     bool _canEdit = -1 * calRemainigDay(date) < 15;
-    return _canEdit
-        ? Row(
-            children: [
-              SizedBox(
-                width: 80,
-                height: 32,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    primary: const Color(0xfff2f2f2),
-                    elevation: 0,
-                  ),
-                  child: Text(
-                    '수정',
-                    style: BppTextStyle.defaultText
-                        .copyWith(color: const Color(0xff595959), fontSize: 14),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
-              SizedBox(
-                width: 80,
-                height: 32,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    primary: const Color(0xfff2f2f2),
-                    elevation: 0,
-                  ),
-                  child: Text(
-                    '삭제',
-                    style: BppTextStyle.defaultText
-                        .copyWith(color: const Color(0xff595959), fontSize: 14),
+    return Consumer(builder: (context, ref, _) {
+      return _canEdit
+          ? Row(
+              children: [
+                SizedBox(
+                  width: 80,
+                  height: 32,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      await ref.read(navigatorProvider).navigateTo(
+                          routeName: AppRoutes.reviewEditPage, argument: args);
+                      ref.read(navigatorProvider).pop();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: const Color(0xfff2f2f2),
+                      elevation: 0,
+                    ),
+                    child: Text(
+                      '수정',
+                      style: BppTextStyle.defaultText.copyWith(
+                          color: const Color(0xff595959), fontSize: 14),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          )
-        : Column(
-            children: [
-              SizedBox(
-                width: 80,
-                height: 32,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    primary: const Color(0xfff2f2f2),
-                    elevation: 0,
-                  ),
-                  child: Text(
-                    '삭제',
-                    style: BppTextStyle.defaultText
-                        .copyWith(color: const Color(0xff595959), fontSize: 14),
+                const SizedBox(width: 12),
+                SizedBox(
+                  width: 80,
+                  height: 32,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      await ref.read(mypageRepsitory).deleteReview(args.id);
+                      ref
+                          .read(expirationListProvider.notifier)
+                          .changeShopStateUnReviewed(id);
+                      ref.read(navigatorProvider).pop();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: const Color(0xfff2f2f2),
+                      elevation: 0,
+                    ),
+                    child: Text(
+                      '삭제',
+                      style: BppTextStyle.defaultText.copyWith(
+                          color: const Color(0xff595959), fontSize: 14),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 12),
-              Text(
-                '리뷰 수정 기간이 지났습니다',
-                style: BppTextStyle.smallText.copyWith(
-                  color: const Color(0xffbfbfbf),
+              ],
+            )
+          : Column(
+              children: [
+                SizedBox(
+                  width: 80,
+                  height: 32,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      await ref.read(mypageRepsitory).deleteReview(args.id);
+                      ref
+                          .read(expirationListProvider.notifier)
+                          .changeShopStateUnReviewed(id);
+                      ref.read(navigatorProvider).pop();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: const Color(0xfff2f2f2),
+                      elevation: 0,
+                    ),
+                    child: Text(
+                      '삭제',
+                      style: BppTextStyle.defaultText.copyWith(
+                          color: const Color(0xff595959), fontSize: 14),
+                    ),
+                  ),
                 ),
-              ),
-            ],
-          );
+                const SizedBox(width: 12),
+                Text(
+                  '리뷰 수정 기간이 지났습니다',
+                  style: BppTextStyle.smallText.copyWith(
+                    color: const Color(0xffbfbfbf),
+                  ),
+                ),
+              ],
+            );
+    });
   }
 }

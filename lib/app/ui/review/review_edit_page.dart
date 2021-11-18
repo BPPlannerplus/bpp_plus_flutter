@@ -1,3 +1,5 @@
+import 'package:bpp_riverpod/app/provider/mypage/review_provider.dart';
+import 'package:bpp_riverpod/app/repository/mypage_repository.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
@@ -7,16 +9,28 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ReviewEditPage extends StatelessWidget {
-  const ReviewEditPage({Key? key}) : super(key: key);
+  const ReviewEditPage({
+    Key? key,
+    required this.id,
+    required this.shopType,
+    required this.shopName,
+    required this.score,
+  }) : super(key: key);
+
+  final int id;
+  final String shopName;
+  final String shopType;
+  final int score;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           centerTitle: true,
           title: const Text(
-            '내 리뷰 보기',
+            '리뷰 수정하기',
             style: BppTextStyle.defaultText,
           ),
           leading: Consumer(builder: (context, ref, _) {
@@ -33,95 +47,124 @@ class ReviewEditPage extends StatelessWidget {
           toolbarHeight: 40,
         ),
         body: Padding(
-          padding: const EdgeInsets.only(top: 24, left: 16, right: 16),
+          padding:
+              const EdgeInsets.only(top: 24, right: 16, left: 16, bottom: 24),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(
-                height: 56,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '스튜디오',
-                      style: BppTextStyle.smallText
-                          .copyWith(color: const Color(0xff4d4d4d)),
-                    ),
-                    SizedBox(height: 5.h),
-                    const Text(
-                      '아날로그핏',
-                      style: BppTextStyle.tabText,
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(height: 12),
-              SizedBox(
-                height: 48,
-                child: Row(
-                  children: [
-                    RatingBarIndicator(
-                      rating: 4.6,
-                      itemBuilder: (context, _) => SvgPicture.asset(
-                        'assets/icon/star.svg',
-                        color: const Color(0xffffc142),
-                      ),
-                      itemCount: 5,
-                      unratedColor: const Color(0xffe6e6e6),
-                      itemSize: 25.0,
-                      direction: Axis.horizontal,
-                    ),
-                    const SizedBox(width: 12),
-                    const Text(
-                      '4.6',
-                      style: BppTextStyle.filterText,
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(height: 18),
-              const Text(
-                '바프 촬용이 처음인데 잘 해주셔서 너무 좋았습니다!\n다음번에 또 재촬영 하고 싶어요',
-                style: BppTextStyle.smallText,
-              ),
-              const SizedBox(height: 24),
-              Row(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    width: 80,
-                    height: 32,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        primary: const Color(0xfff2f2f2),
-                        elevation: 0,
-                      ),
-                      child: Text(
-                        '수정',
-                        style: BppTextStyle.defaultText.copyWith(
-                            color: const Color(0xff595959), fontSize: 14),
+                  Container(
+                    height: 63,
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Color(0xffe6e6e6),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 12),
-                  SizedBox(
-                    width: 80,
-                    height: 32,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        primary: const Color(0xfff2f2f2),
-                        elevation: 0,
-                      ),
-                      child: Text(
-                        '삭제',
-                        style: BppTextStyle.defaultText.copyWith(
-                            color: const Color(0xff595959), fontSize: 14),
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          shopType,
+                          style: BppTextStyle.smallText
+                              .copyWith(color: const Color(0xff4d4d4d)),
+                        ),
+                        SizedBox(height: 5.h),
+                        Text(
+                          shopName,
+                          style: BppTextStyle.tabText,
+                        ),
+                        const SizedBox(width: 8)
+                      ],
                     ),
                   ),
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    height: 110,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          '만족스러우셨나요?\n경험을 공유해주세요!',
+                          style: BppTextStyle.tabText,
+                        ),
+                        const SizedBox(height: 16),
+                        RatingBarIndicator(
+                          rating: score.toDouble(),
+                          direction: Axis.horizontal,
+                          itemCount: 5,
+                          unratedColor: const Color(0xffe6e6e6),
+                          itemPadding:
+                              const EdgeInsets.symmetric(horizontal: 4.0),
+                          itemBuilder: (context, _) => SvgPicture.asset(
+                            'assets/icon/star.svg',
+                            color: const Color(0xffffc142),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Consumer(builder: (context, ref, _) {
+                    return SizedBox(
+                      height: 128,
+                      child: TextField(
+                        maxLines: 6,
+                        style: BppTextStyle.smallText,
+                        decoration: const InputDecoration(
+                          hintText: '수정 할 내용을 입력해주세요!',
+                        ),
+                        onChanged: (text) {
+                          ref.read(reviewEditTextStateProvider.state).state =
+                              text;
+                        },
+                      ),
+                    );
+                  }),
                 ],
               ),
+              Consumer(builder: (context, ref, _) {
+                final content = ref.watch(reviewEditTextProvider);
+                return SizedBox(
+                  width: 328.w,
+                  height: 48,
+                  child: ElevatedButton(
+                    onPressed: content.isEmpty
+                        ? null
+                        : () async {
+                            await ref
+                                .read(mypageRepsitory)
+                                .updateReview(id, content);
+                            ref.read(navigatorProvider).pop();
+                          },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith(
+                        (states) {
+                          if (states.contains(MaterialState.disabled)) {
+                            return const Color(0xfff2f2f2);
+                          }
+                          return const Color(0xff3b75ff);
+                        },
+                      ),
+                      elevation: MaterialStateProperty.all(0),
+                    ),
+                    child: Center(
+                      child: Text(
+                        '수정하기',
+                        style: BppTextStyle.tabText.copyWith(
+                            color: content.isEmpty
+                                ? const Color(0xffbfbfbf)
+                                : const Color(0xffffffff),
+                            fontSize: 16),
+                      ),
+                    ),
+                  ),
+                );
+              }),
             ],
           ),
         ),
