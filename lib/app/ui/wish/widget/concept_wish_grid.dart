@@ -70,7 +70,7 @@ class _ConceptWishGridState extends ConsumerState<ConceptWishGrid> {
           final c = ref.watch(conceptProvider(concept));
           final conceptState = ref.read(conceptProvider(concept).notifier);
           return wishConceptCard(
-            id: c.id,
+            id: c.shop.id,
             profile: c.profile,
             like: c.like,
             conceptState: conceptState,

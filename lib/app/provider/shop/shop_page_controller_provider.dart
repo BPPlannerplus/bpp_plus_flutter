@@ -33,9 +33,9 @@ final studioPageControllerProvider =
       final newItems = await ref
           .read(studioListProvider.notifier)
           .getData(ShopType.stduio, address);
-      final isLastPage = newItems.shopDatas.length < 20;
+      final isLastPage = newItems.next ?? 'no Data';
 
-      if (isLastPage) {
+      if (isLastPage == 'no Data') {
         _pagingController.appendLastPage(newItems.shopDatas);
       } else {
         final nextPageKey = pageKey + newItems.shopDatas.length;
@@ -64,9 +64,9 @@ final beautyPageControllerProvider =
       final newItems = await ref
           .read(beautyListProvider.notifier)
           .getData(ShopType.beauty, adress);
-      final isLastPage = newItems.shopDatas.length < 20;
+      final isLastPage = newItems.next ?? 'no Data';
 
-      if (isLastPage) {
+      if (isLastPage == 'no Data') {
         _pagingController.appendLastPage(newItems.shopDatas);
       } else {
         final nextPageKey = pageKey + newItems.shopDatas.length;
@@ -95,9 +95,9 @@ final waxingPageControllerProvider =
       final newItems = await ref
           .read(waxingListProvider.notifier)
           .getData(ShopType.waxing, adress);
-      final isLastPage = newItems.shopDatas.length < 20;
+      final isLastPage = newItems.next ?? 'no Data';
 
-      if (isLastPage) {
+      if (isLastPage == 'no Data') {
         _pagingController.appendLastPage(newItems.shopDatas);
       } else {
         final nextPageKey = pageKey + newItems.shopDatas.length;
@@ -126,9 +126,9 @@ final tanningPageControllerProvider =
       final newItems = await ref
           .read(tanningListProvider.notifier)
           .getData(ShopType.tanning, adress);
-      final isLastPage = newItems.shopDatas.length < 20;
+      final isLastPage = newItems.next ?? 'no Data';
 
-      if (isLastPage) {
+      if (isLastPage == 'no Data') {
         _pagingController.appendLastPage(newItems.shopDatas);
       } else {
         final nextPageKey = pageKey + newItems.shopDatas.length;

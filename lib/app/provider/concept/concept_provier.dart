@@ -21,7 +21,7 @@ class ConceptListState extends StateNotifier<ConceptList> {
         ...state.concepts,
         ...newData.concepts,
       ],
-      next: newData.concepts.length < 20 ? 'no' : 'yes',
+      next: newData.next ?? 'no Data',
     );
 
     return newData;
@@ -62,4 +62,9 @@ final conceptListProvider =
 final conceptProvider = StateNotifierProvider.family
     .autoDispose<ConceptState, Concept, Concept>((ref, concept) {
   return ConceptState(concept);
+});
+
+final conceptListReadProvider = Provider<ConceptList>((ref) {
+  final conceptState = ref.watch(conceptListProvider);
+  return conceptState;
 });

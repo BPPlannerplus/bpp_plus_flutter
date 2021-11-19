@@ -3,6 +3,7 @@ import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_app_bar.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_card.dart';
+import 'package:bpp_riverpod/app/util/widget/custom_load_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,7 +30,8 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
       }
       if (scrollController.offset >=
               scrollController.position.maxScrollExtent &&
-          !scrollController.position.outOfRange) {
+          !scrollController.position.outOfRange &&
+          ref.read(conceptListReadProvider).next != 'no Data') {
         ref
             .read(conceptListProvider.notifier)
             .getData(ref.read(conceptReqFilter));
@@ -53,7 +55,7 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
 
   @override
   Widget build(BuildContext context) {
-    final concepts = ref.watch(conceptListProvider).concepts;
+    final concepts = ref.watch(conceptListReadProvider).concepts;
 
     return SafeArea(
       child: Padding(
@@ -66,13 +68,11 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
                 slivers: [
                   const ConceptAppBar(),
                   concepts.isEmpty
-                      ? ref.watch(conceptListProvider).next! == 'yes'
-                          ? const SliverToBoxAdapter(
+                      ? ref.watch(conceptListReadProvider).next!.isNotEmpty
+                          ? SliverToBoxAdapter(
                               child: SizedBox(
                                 height: 350,
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
+                                child: customLoadingIndicator(),
                               ),
                             )
                           : const SliverToBoxAdapter(
@@ -89,10 +89,10 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
                               return conceptCard(concept: concepts[index]);
                             }
 
-                            return ref.watch(conceptListProvider).next! == 'yes'
-                                ? const Center(
-                                    child: CircularProgressIndicator())
-                                : const SizedBox();
+                            return ref.watch(conceptListReadProvider).next! ==
+                                    'no Data'
+                                ? const SizedBox()
+                                : customLoadingIndicator();
                           },
                           itemCount: concepts.length + 1,
                         ),

@@ -10,7 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget conceptDialog({required Concept concept}) {
+Widget conceptDialog({
+  required Concept concept,
+}) {
   return Consumer(builder: (context, ref, _) {
     final navigator = ref.watch(navigatorProvider);
     final c = ref.watch<Concept>(conceptListProvider.select((value) => value
@@ -20,22 +22,8 @@ Widget conceptDialog({required Concept concept}) {
 
     return Dialog(
       insetPadding: const EdgeInsets.all(1),
-      // shape: const RoundedRectangleBorder(
-      //   borderRadius: BorderRadius.all(
-      //     Radius.circular(
-      //       10.0,
-      //     ),
-      //   ),
-      // ),
       child: Container(
         color: Colors.black,
-        // decoration: const BoxDecoration(
-        //   borderRadius: BorderRadius.all(
-        //     Radius.circular(
-        //       10.0,
-        //     ),
-        //   ),
-        // ),
         height: 387.h,
         width: 360.w,
         child: Stack(
@@ -68,16 +56,16 @@ Widget conceptDialog({required Concept concept}) {
                     onTap: () {
                       navigator.navigateTo(
                         routeName: AppRoutes.detailPage,
-                        argument: concept.id,
+                        argument: concept.shop.id,
                       );
                     },
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.only(bottom: 3),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 3),
                           child: Text(
-                            'Studio name',
+                            concept.shop.name,
                             style: BppTextStyle.dialogText,
                           ),
                         ),

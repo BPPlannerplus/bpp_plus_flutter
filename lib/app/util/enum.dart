@@ -24,6 +24,7 @@ Map<String, String> shopAddrToKR = {
   'gwangjin': '광진구',
   'mapo': '마포구',
   'seocho': '서초구',
+  'yangchun': '양천구',
 };
 
 const pageSize = 20;

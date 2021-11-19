@@ -6,6 +6,8 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 final shopDetailConceptPageControllerProvider = Provider.family
     .autoDispose<PagingController<int, ShopConcept>, int>((ref, id) {
+  int _page = 1;
+
   final _pagingController = PagingController<int, ShopConcept>(
     firstPageKey: 0,
   );
@@ -13,10 +15,10 @@ final shopDetailConceptPageControllerProvider = Provider.family
   Future<void> _fetchPage(int pageKey) async {
     try {
       final newItems =
-          await ref.read(shopDetailRepository).getShopConcepts(id, 1);
-      final isLastPage = newItems.shopConcepts.length < 20;
+          await ref.read(shopDetailRepository).getShopConcepts(id, _page++);
+      final isLastPage = newItems.next ?? 'no Data';
 
-      if (isLastPage) {
+      if (isLastPage == 'no Data') {
         _pagingController.appendLastPage(newItems.shopConcepts);
       } else {
         final nextPageKey = pageKey + newItems.shopConcepts.length;
@@ -42,9 +44,9 @@ final shopDetailReviewPageControllerProvider =
   Future<void> _fetchPage(int pageKey) async {
     try {
       final newItems = await ref.read(shopDetailRepository).getShopReviews(id);
-      final isLastPage = newItems.reviews.length < 20;
+      final isLastPage = newItems.next ?? 'no Data';
 
-      if (isLastPage) {
+      if (isLastPage == 'no Data') {
         _pagingController.appendLastPage(newItems.reviews);
       } else {
         final nextPageKey = pageKey + newItems.reviews.length;

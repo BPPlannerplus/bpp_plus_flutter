@@ -35,7 +35,7 @@ class ShopListState extends StateNotifier<ShopList> {
         ...state.shopDatas,
         ...newData.shopDatas,
       ],
-      next: newData.next,
+      next: newData.next ?? 'no Data',
     );
     return newData;
   }
