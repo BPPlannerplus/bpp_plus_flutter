@@ -1,4 +1,3 @@
-import 'package:bpp_riverpod/app/model/auth/user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'review.g.dart';
@@ -8,7 +7,7 @@ part 'review.freezed.dart';
 class Review with _$Review {
   factory Review({
     required int id,
-    required User user,
+    @JsonKey(name: 'reserved_user') required String userName,
     required int score,
     String? contents,
     required String date,

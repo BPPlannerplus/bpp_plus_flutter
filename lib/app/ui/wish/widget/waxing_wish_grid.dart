@@ -69,7 +69,8 @@ class _WaxingWishGridState extends ConsumerState<WaxingWishGrid> {
             stateRead: waxingState,
           );
         },
-        firstPageErrorIndicatorBuilder: (context) => customLoadingIndicator(),
+        firstPageProgressIndicatorBuilder: (context) =>
+            customLoadingIndicator(),
         newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),
         noItemsFoundIndicatorBuilder: (context) => emptyBox(),
       ),

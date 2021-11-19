@@ -33,7 +33,8 @@ class TanningGrid extends ConsumerWidget {
           return homeGridCard(
               shop: tannings.shopDatas[index], shopState: tanningState);
         },
-        firstPageErrorIndicatorBuilder: (context) => customLoadingIndicator(),
+        firstPageProgressIndicatorBuilder: (context) =>
+            customLoadingIndicator(),
         newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),
         noItemsFoundIndicatorBuilder: (context) => emptyBox(),
       ),

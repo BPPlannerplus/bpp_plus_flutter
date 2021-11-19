@@ -1,6 +1,7 @@
 import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_state.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
@@ -70,7 +71,7 @@ Widget homeGridCard({
       ),
       const SizedBox(height: 2),
       Text(
-        shop.address,
+        shopAddrToKR[shop.address]!,
         style: BppTextStyle.smallText,
       ),
       const SizedBox(height: 2),

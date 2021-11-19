@@ -100,7 +100,10 @@ class _DetailPageState extends ConsumerState<DetailPage> {
               partners: shopData.partnershipList!,
               address: shopData.address,
             ),
-            DetailReviewPage(pagingController: reviewPageController),
+            DetailReviewPage(
+              pagingController: reviewPageController,
+              shopId: shopData.id,
+            ),
           ];
 
           return Scaffold(

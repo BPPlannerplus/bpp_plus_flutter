@@ -69,7 +69,8 @@ class _TanningWishGridState extends ConsumerState<TanningWishGrid> {
             stateRead: tanningState,
           );
         },
-        firstPageErrorIndicatorBuilder: (context) => customLoadingIndicator(),
+        firstPageProgressIndicatorBuilder: (context) =>
+            customLoadingIndicator(),
         newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),
         noItemsFoundIndicatorBuilder: (context) => emptyBox(),
       ),

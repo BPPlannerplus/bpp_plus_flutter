@@ -70,7 +70,8 @@ class _BeautyWishGridState extends ConsumerState<BeautyWishGrid> {
             stateRead: beautyState,
           );
         },
-        firstPageErrorIndicatorBuilder: (context) => customLoadingIndicator(),
+        firstPageProgressIndicatorBuilder: (context) =>
+            customLoadingIndicator(),
         newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),
         noItemsFoundIndicatorBuilder: (context) => emptyBox(),
       ),

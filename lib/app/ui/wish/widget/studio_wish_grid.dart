@@ -70,7 +70,8 @@ class _StudioWishGridState extends ConsumerState<StudioWishGrid> {
             stateRead: studioState,
           );
         },
-        firstPageErrorIndicatorBuilder: (context) => customLoadingIndicator(),
+        firstPageProgressIndicatorBuilder: (context) =>
+            customLoadingIndicator(),
         newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),
         noItemsFoundIndicatorBuilder: (context) => emptyBox(),
       ),

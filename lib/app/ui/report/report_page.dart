@@ -1,3 +1,4 @@
+import 'package:bpp_riverpod/app/model/review/complain.dart';
 import 'package:bpp_riverpod/app/provider/detail/complain_provider.dart';
 import 'package:bpp_riverpod/app/provider/detail/shop_detail_page_controller.dart';
 import 'package:bpp_riverpod/app/provider/detail/report_provider.dart';
@@ -78,7 +79,8 @@ class ReportPage extends StatelessWidget {
                                   ),
                                   onChanged: (text) {
                                     ref
-                                        .read(complaingContentsProvider.state)
+                                        .read(complaingContentsStateProvider
+                                            .state)
                                         .state = text;
                                   },
                                 ),
@@ -97,17 +99,24 @@ class ReportPage extends StatelessWidget {
                       Consumer(builder: (context, ref, _) {
                         final check = ref.watch(isReportCheckProvider);
                         final navigator = ref.watch(navigatorProvider);
+
+                        final reason = ref.watch(complaingReasonProvider);
+                        final contents = ref.watch(complaingContentsProvider);
                         return SizedBox(
                             width: 328.w,
                             height: 48,
                             child: ElevatedButton(
                                 onPressed: check
                                     ? () async {
-                                        final complain =
-                                            ref.read(complainProvider);
                                         await ref
                                             .read(shopDetailRepository)
-                                            .reportReview(reviewId, complain);
+                                            .reportReview(
+                                              reviewId,
+                                              Complain(
+                                                reason: reason,
+                                                contents: contents,
+                                              ),
+                                            );
 
                                         ref
                                             .read(

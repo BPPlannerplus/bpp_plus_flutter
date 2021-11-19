@@ -1,7 +1,9 @@
 import 'package:bpp_riverpod/app/model/review/review.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/util/widget/custom_load_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,10 +13,14 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 // 기본 64, 2줄 112, 4줄 148`
 class DetailReviewPage extends ConsumerStatefulWidget {
-  const DetailReviewPage({Key? key, required this.pagingController})
-      : super(key: key);
+  const DetailReviewPage({
+    Key? key,
+    required this.pagingController,
+    required this.shopId,
+  }) : super(key: key);
 
   final PagingController<int, Review> pagingController;
+  final int shopId;
 
   @override
   ConsumerState<DetailReviewPage> createState() => _DetailReviewPageState();
@@ -26,30 +32,55 @@ class _DetailReviewPageState extends ConsumerState<DetailReviewPage> {
     return PagedSliverList(
       pagingController: widget.pagingController,
       builderDelegate: PagedChildBuilderDelegate<Review>(
-          itemBuilder: (context, review, index) {
-        if (index == 0) {
-          return topReviewCard(4);
-        }
-        return widget.pagingController.itemList!.isEmpty
-            ? emptyReview()
-            : reviewCard(
+        itemBuilder: (context, review, index) {
+          final lists = widget.pagingController.itemList!;
+
+          if (lists.length == 1) {
+            return Column(
+              children: [
+                topReviewCard(review.score.toDouble()),
+                reviewCard(
+                  reviewId: review.id,
+                  rating: review.score.toDouble(),
+                  name: changeReviewNameFormat(review.userName),
+                  date: changeReviewDateFormat(review.date),
+                  text: review.contents,
+                ),
+              ],
+            );
+          } else {
+            List<int> scores = lists.map((e) => e.score).toList();
+            double reviewScore = calReviewScore(scores);
+
+            if (index == 0) {
+              return topReviewCard(reviewScore);
+            } else {
+              return reviewCard(
+                reviewId: review.id,
                 rating: review.score.toDouble(),
-                name: review.user.userName,
+                name: review.userName,
                 date: review.date,
                 text: review.contents,
               );
-      }, noItemsFoundIndicatorBuilder: (context) {
-        return Column(
-          children: [
-            topReviewCard(0),
-            emptyReview(),
-          ],
-        );
-      }),
+            }
+          }
+        },
+        noItemsFoundIndicatorBuilder: (context) {
+          return Column(
+            children: [
+              topReviewCard(0),
+              emptyReview(),
+            ],
+          );
+        },
+        firstPageProgressIndicatorBuilder: (context) =>
+            customLoadingIndicator(),
+        newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),
+      ),
     );
   }
 
-  Widget topReviewCard(int score) {
+  Widget topReviewCard(double score) {
     return Container(
       height: 72,
       padding: const EdgeInsets.only(top: 8, bottom: 8),
@@ -82,6 +113,7 @@ class _DetailReviewPageState extends ConsumerState<DetailReviewPage> {
   }
 
   Widget reviewCard({
+    required int reviewId,
     required double rating,
     required String name,
     required String date,
@@ -122,7 +154,7 @@ class _DetailReviewPageState extends ConsumerState<DetailReviewPage> {
                   onTap: () {
                     navigator.navigateTo(
                       routeName: AppRoutes.reportPage,
-                      argument: 0,
+                      argument: [widget.shopId, reviewId],
                     );
                   },
                   child: Text(

@@ -34,7 +34,8 @@ class StudioGrid extends ConsumerWidget {
           return homeGridCard(
               shop: studios.shopDatas[index], shopState: studioState);
         },
-        firstPageErrorIndicatorBuilder: (context) => customLoadingIndicator(),
+        firstPageProgressIndicatorBuilder: (context) =>
+            customLoadingIndicator(),
         newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),
         noItemsFoundIndicatorBuilder: (context) => emptyBox(),
       ),

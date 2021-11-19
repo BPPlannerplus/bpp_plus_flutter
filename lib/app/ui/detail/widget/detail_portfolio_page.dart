@@ -1,6 +1,7 @@
 import 'package:bpp_riverpod/app/model/shop/shop_concept.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/app/util/widget/custom_load_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -61,6 +62,9 @@ class _DetailPortfolioPageState extends ConsumerState<DetailPortfolioPage> {
             ),
           );
         },
+        firstPageProgressIndicatorBuilder: (context) =>
+            customLoadingIndicator(),
+        newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),
       ),
     );
   }

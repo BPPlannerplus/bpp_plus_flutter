@@ -72,7 +72,7 @@ class _ReviewClient implements ReviewClient {
     _data.addAll(complain.toJson());
     final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'POST', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/reviews/$id/complains',
+            .compose(_dio.options, '/reviews/$id/complains/',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data;

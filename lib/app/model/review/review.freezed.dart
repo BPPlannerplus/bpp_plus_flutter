@@ -23,13 +23,13 @@ class _$ReviewTearOff {
 
   _Review call(
       {required int id,
-      required User user,
+      @JsonKey(name: 'reserved_user') required String userName,
       required int score,
       String? contents,
       required String date}) {
     return _Review(
       id: id,
-      user: user,
+      userName: userName,
       score: score,
       contents: contents,
       date: date,
@@ -47,7 +47,8 @@ const $Review = _$ReviewTearOff();
 /// @nodoc
 mixin _$Review {
   int get id => throw _privateConstructorUsedError;
-  User get user => throw _privateConstructorUsedError;
+  @JsonKey(name: 'reserved_user')
+  String get userName => throw _privateConstructorUsedError;
   int get score => throw _privateConstructorUsedError;
   String? get contents => throw _privateConstructorUsedError;
   String get date => throw _privateConstructorUsedError;
@@ -61,9 +62,12 @@ mixin _$Review {
 abstract class $ReviewCopyWith<$Res> {
   factory $ReviewCopyWith(Review value, $Res Function(Review) then) =
       _$ReviewCopyWithImpl<$Res>;
-  $Res call({int id, User user, int score, String? contents, String date});
-
-  $UserCopyWith<$Res> get user;
+  $Res call(
+      {int id,
+      @JsonKey(name: 'reserved_user') String userName,
+      int score,
+      String? contents,
+      String date});
 }
 
 /// @nodoc
@@ -77,7 +81,7 @@ class _$ReviewCopyWithImpl<$Res> implements $ReviewCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
-    Object? user = freezed,
+    Object? userName = freezed,
     Object? score = freezed,
     Object? contents = freezed,
     Object? date = freezed,
@@ -87,10 +91,10 @@ class _$ReviewCopyWithImpl<$Res> implements $ReviewCopyWith<$Res> {
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      user: user == freezed
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as User,
+      userName: userName == freezed
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
       score: score == freezed
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
@@ -105,13 +109,6 @@ class _$ReviewCopyWithImpl<$Res> implements $ReviewCopyWith<$Res> {
               as String,
     ));
   }
-
-  @override
-  $UserCopyWith<$Res> get user {
-    return $UserCopyWith<$Res>(_value.user, (value) {
-      return _then(_value.copyWith(user: value));
-    });
-  }
 }
 
 /// @nodoc
@@ -119,10 +116,12 @@ abstract class _$ReviewCopyWith<$Res> implements $ReviewCopyWith<$Res> {
   factory _$ReviewCopyWith(_Review value, $Res Function(_Review) then) =
       __$ReviewCopyWithImpl<$Res>;
   @override
-  $Res call({int id, User user, int score, String? contents, String date});
-
-  @override
-  $UserCopyWith<$Res> get user;
+  $Res call(
+      {int id,
+      @JsonKey(name: 'reserved_user') String userName,
+      int score,
+      String? contents,
+      String date});
 }
 
 /// @nodoc
@@ -137,7 +136,7 @@ class __$ReviewCopyWithImpl<$Res> extends _$ReviewCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? user = freezed,
+    Object? userName = freezed,
     Object? score = freezed,
     Object? contents = freezed,
     Object? date = freezed,
@@ -147,10 +146,10 @@ class __$ReviewCopyWithImpl<$Res> extends _$ReviewCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      user: user == freezed
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as User,
+      userName: userName == freezed
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
       score: score == freezed
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
@@ -172,7 +171,7 @@ class __$ReviewCopyWithImpl<$Res> extends _$ReviewCopyWithImpl<$Res>
 class _$_Review implements _Review {
   _$_Review(
       {required this.id,
-      required this.user,
+      @JsonKey(name: 'reserved_user') required this.userName,
       required this.score,
       this.contents,
       required this.date});
@@ -183,7 +182,8 @@ class _$_Review implements _Review {
   @override
   final int id;
   @override
-  final User user;
+  @JsonKey(name: 'reserved_user')
+  final String userName;
   @override
   final int score;
   @override
@@ -193,7 +193,7 @@ class _$_Review implements _Review {
 
   @override
   String toString() {
-    return 'Review(id: $id, user: $user, score: $score, contents: $contents, date: $date)';
+    return 'Review(id: $id, userName: $userName, score: $score, contents: $contents, date: $date)';
   }
 
   @override
@@ -202,7 +202,8 @@ class _$_Review implements _Review {
         (other.runtimeType == runtimeType &&
             other is _Review &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.user, user) || other.user == user) &&
+            (identical(other.userName, userName) ||
+                other.userName == userName) &&
             (identical(other.score, score) || other.score == score) &&
             (identical(other.contents, contents) ||
                 other.contents == contents) &&
@@ -210,7 +211,8 @@ class _$_Review implements _Review {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, user, score, contents, date);
+  int get hashCode =>
+      Object.hash(runtimeType, id, userName, score, contents, date);
 
   @JsonKey(ignore: true)
   @override
@@ -226,7 +228,7 @@ class _$_Review implements _Review {
 abstract class _Review implements Review {
   factory _Review(
       {required int id,
-      required User user,
+      @JsonKey(name: 'reserved_user') required String userName,
       required int score,
       String? contents,
       required String date}) = _$_Review;
@@ -236,7 +238,8 @@ abstract class _Review implements Review {
   @override
   int get id;
   @override
-  User get user;
+  @JsonKey(name: 'reserved_user')
+  String get userName;
   @override
   int get score;
   @override

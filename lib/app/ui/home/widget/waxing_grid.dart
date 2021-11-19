@@ -33,7 +33,8 @@ class WaxingGrid extends ConsumerWidget {
           return homeGridCard(
               shop: waxings.shopDatas[index], shopState: waxingState);
         },
-        firstPageErrorIndicatorBuilder: (context) => customLoadingIndicator(),
+        firstPageProgressIndicatorBuilder: (context) =>
+            customLoadingIndicator(),
         newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),
         noItemsFoundIndicatorBuilder: (context) => emptyBox(),
       ),

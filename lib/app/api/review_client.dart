@@ -30,7 +30,7 @@ abstract class ReviewClient {
     @Path() int id,
   );
 
-  @POST('/reviews/{id}/complains')
+  @POST('/reviews/{id}/complains/')
   Future<dynamic> reportReview(
     @Path() int id,
     @Body() Complain complain,

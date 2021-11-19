@@ -33,7 +33,8 @@ class BeautyGrid extends ConsumerWidget {
           return homeGridCard(
               shop: beauties.shopDatas[index], shopState: beautyState);
         },
-        firstPageErrorIndicatorBuilder: (context) => customLoadingIndicator(),
+        firstPageProgressIndicatorBuilder: (context) =>
+            customLoadingIndicator(),
         newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),
         noItemsFoundIndicatorBuilder: (context) => emptyBox(),
       ),
