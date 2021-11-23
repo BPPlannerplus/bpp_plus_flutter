@@ -1,3 +1,4 @@
+import 'package:bpp_riverpod/app/provider/navigation/bottom_bar_provider.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/ui/concept/concept_page.dart';
 import 'package:bpp_riverpod/app/ui/home/home_page.dart';
@@ -22,8 +23,8 @@ class MainPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final index = ref.watch(navigationProvier);
-    final visible = ref.watch(isShowBottomBar);
+    final index = ref.watch(bottomNavigationProvider);
+    final visible = ref.watch(isShowBottomBarProvider);
 
     return Scaffold(
       body: _pages[index],
@@ -68,18 +69,19 @@ class MainPage extends ConsumerWidget {
     );
   }
 
-  Widget bottomIcon(
-      {required int index,
-      required String title,
-      required String selectImg,
-      required String unselectImg}) {
+  Widget bottomIcon({
+    required int index,
+    required String title,
+    required String selectImg,
+    required String unselectImg,
+  }) {
     return Consumer(builder: (context, ref, _) {
-      final tabIndex = ref.watch(navigationProvier.state).state;
+      final tabIndex = ref.watch(bottomNavigationProvider.state).state;
       return Expanded(
         flex: 1,
         child: InkWell(
           onTap: () {
-            ref.read(navigationProvier.state).state = index;
+            ref.read(bottomNavigationProvider.state).state = index;
           },
           child: ListView(
             physics: const NeverScrollableScrollPhysics(),

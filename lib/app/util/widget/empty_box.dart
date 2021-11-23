@@ -1,7 +1,7 @@
 import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
 
-Widget emptyBox() {
+Widget emptyItemText() {
   return const SizedBox(
     height: 100,
     child: Center(

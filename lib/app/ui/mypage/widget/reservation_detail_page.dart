@@ -1,8 +1,8 @@
 import 'package:bpp_riverpod/app/model/mypage/mypage_data.dart';
 import 'package:bpp_riverpod/app/provider/mypage/expiration_provider.dart';
-import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/repository/shop_detail_repository.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/ui/mypage/widget/empty_box.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_card.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/set_date_dialog.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
@@ -14,7 +14,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class ReservationDetailPage extends ConsumerStatefulWidget {
   const ReservationDetailPage({Key? key}) : super(key: key);
@@ -41,7 +40,13 @@ class _ReservationDetailPageState extends ConsumerState<ReservationDetailPage> {
       return SliverToBoxAdapter(
           child: SizedBox(height: 250, child: customLoadingIndicator()));
     } else {
-      return expirationList.isEmpty ? emptyBox() : reservedList(expirationList);
+      return expirationList.isEmpty
+          ? emptyBox(
+              img: 'assets/image/reservation_detail_none.svg',
+              isButton: true,
+              topPadding: (MediaQuery.of(context).size.height - 256) / 4,
+            )
+          : reservedList(expirationList);
     }
   }
 
@@ -128,30 +133,5 @@ class _ReservationDetailPageState extends ConsumerState<ReservationDetailPage> {
             child: CircleAvatar(radius: 4, backgroundColor: Color(0xff4c81ff)))
       ])
     ]));
-  }
-
-  Widget emptyBox() {
-    final _heght = MediaQuery.of(context).size.height - 256;
-    return SliverToBoxAdapter(
-        child: Padding(
-            padding: EdgeInsets.only(top: _heght / 4),
-            child: Center(
-                child: Column(children: [
-              SvgPicture.asset('assets/image/reservation_detail_none.svg',
-                  width: 221.w),
-              const SizedBox(height: 16),
-              Consumer(builder: (context, ref, _) {
-                return ElevatedButton(
-                    onPressed: () {
-                      ref.read(navigationProvier.state).state = 0;
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: const Color(0xff3b75ff),
-                    ),
-                    child: Text('스튜디오 보러가기',
-                        style: BppTextStyle.defaultText
-                            .copyWith(color: const Color(0xffffffff))));
-              })
-            ]))));
   }
 }

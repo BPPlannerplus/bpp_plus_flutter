@@ -1,3 +1,4 @@
+import 'package:bpp_riverpod/app/provider/navigation/bottom_bar_provider.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/ui/wish/widget/concept_wish_grid.dart';
 import 'package:bpp_riverpod/app/ui/wish/widget/beauty_wish_grid.dart';
@@ -32,9 +33,9 @@ class _WishPageState extends ConsumerState<WishPage> {
     scrollController.addListener(() {
       final direction = scrollController.position.userScrollDirection;
       if (direction == ScrollDirection.forward) {
-        ref.read(isShowBottomBar.state).state = true;
+        ref.read(isShowBottomBarStateProvider.state).state = true;
       } else {
-        ref.read(isShowBottomBar.state).state = false;
+        ref.read(isShowBottomBarStateProvider.state).state = false;
       }
     });
     super.initState();

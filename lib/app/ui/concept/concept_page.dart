@@ -1,6 +1,6 @@
 import 'package:bpp_riverpod/app/provider/concept/concept_filter_provider.dart';
 import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
-import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
+import 'package:bpp_riverpod/app/provider/navigation/bottom_bar_provider.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_app_bar.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_card.dart';
 import 'package:bpp_riverpod/app/util/widget/custom_load_indicator.dart';
@@ -24,9 +24,9 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
     scrollController.addListener(() {
       final direction = scrollController.position.userScrollDirection;
       if (direction == ScrollDirection.forward) {
-        ref.read(isShowBottomBar.state).state = true;
+        ref.read(isShowBottomBarStateProvider.state).state = true;
       } else {
-        ref.read(isShowBottomBar.state).state = false;
+        ref.read(isShowBottomBarStateProvider.state).state = false;
       }
       if (scrollController.offset >=
               scrollController.position.maxScrollExtent &&

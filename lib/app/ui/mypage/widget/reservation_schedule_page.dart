@@ -1,5 +1,6 @@
 import 'package:bpp_riverpod/app/model/mypage/mypage_data.dart';
 import 'package:bpp_riverpod/app/provider/mypage/confirmed_provider.dart';
+import 'package:bpp_riverpod/app/ui/mypage/widget/empty_box.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_card.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_detail_dialog.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
@@ -42,7 +43,11 @@ class _ReservationSchedulePageState
     } else {
       final shopDatas = ref.watch(confirmedListProvider.notifier).makeList();
       return confirmList.isEmpty
-          ? emptyBox()
+          ? emptyBox(
+              img: 'assets/image/reservation_schedule_none.svg',
+              isButton: false,
+              topPadding: (MediaQuery.of(context).size.height - 256) / 4,
+            )
           : SliverList(
               delegate: SliverChildListDelegate([
               for (var shopData in shopDatas) reservationCards(shopData),
@@ -138,16 +143,5 @@ class _ReservationSchedulePageState
         ],
       ),
     );
-  }
-
-  Widget emptyBox() {
-    final _heght = MediaQuery.of(context).size.height - 256;
-    return SliverToBoxAdapter(
-        child: Padding(
-            padding: EdgeInsets.only(top: _heght / 4),
-            child: Center(
-                child: SvgPicture.asset(
-                    'assets/image/reservation_schedule_none.svg',
-                    width: 251.w))));
   }
 }

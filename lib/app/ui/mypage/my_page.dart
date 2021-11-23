@@ -1,3 +1,4 @@
+import 'package:bpp_riverpod/app/provider/navigation/bottom_bar_provider.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/inquiry_page.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/mypage_app_bar.dart';
@@ -28,9 +29,9 @@ class _MyPageState extends ConsumerState<MyPage> {
     scrollController.addListener(() {
       final direction = scrollController.position.userScrollDirection;
       if (direction == ScrollDirection.forward) {
-        ref.read(isShowBottomBar.state).state = true;
+        ref.read(isShowBottomBarStateProvider.state).state = true;
       } else {
-        ref.read(isShowBottomBar.state).state = false;
+        ref.read(isShowBottomBarStateProvider.state).state = false;
       }
     });
     super.initState();
@@ -48,7 +49,7 @@ class _MyPageState extends ConsumerState<MyPage> {
   Widget build(BuildContext context) {
     ref.listen(myPageTabProvider, (pre, next) {
       scrollToTop();
-      ref.watch(isShowBottomBar.state).state = true;
+      ref.watch(isShowBottomBarStateProvider.state).state = true;
     });
 
     return SafeArea(

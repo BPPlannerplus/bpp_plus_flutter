@@ -78,7 +78,7 @@ class _ConceptWishGridState extends ConsumerState<ConceptWishGrid> {
         },
         firstPageErrorIndicatorBuilder: (context) => customLoadingIndicator(),
         newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),
-        noItemsFoundIndicatorBuilder: (context) => emptyBox(),
+        noItemsFoundIndicatorBuilder: (context) => emptyItemText(),
       ),
     );
   }

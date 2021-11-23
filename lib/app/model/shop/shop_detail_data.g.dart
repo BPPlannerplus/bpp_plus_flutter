@@ -19,6 +19,7 @@ _$_ShopDetailData _$$_ShopDetailDataFromJson(Map<String, dynamic> json) =>
       mapImg: json['map'] as String,
       minPrice: json['minprice'] as int?,
       priceImg: json['price_desc'] as String?,
+      priceImaExtra: json['price_decs_extra'] as String?,
       partnershipList: (json['affiliates'] as List<dynamic>?)
           ?.map((e) => PartnershipData.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -36,6 +37,7 @@ Map<String, dynamic> _$$_ShopDetailDataToJson(_$_ShopDetailData instance) =>
       'map': instance.mapImg,
       'minprice': instance.minPrice,
       'price_desc': instance.priceImg,
+      'price_decs_extra': instance.priceImaExtra,
       'affiliates': instance.partnershipList,
     };
 

@@ -32,6 +32,7 @@ class _$ShopDetailDataTearOff {
       @JsonKey(name: 'map') required String mapImg,
       @JsonKey(name: 'minprice') int? minPrice,
       @JsonKey(name: 'price_desc') String? priceImg,
+      @JsonKey(name: 'price_decs_extra') String? priceImaExtra,
       @JsonKey(name: 'affiliates') List<PartnershipData>? partnershipList}) {
     return _ShopDetailData(
       id: id,
@@ -44,6 +45,7 @@ class _$ShopDetailDataTearOff {
       mapImg: mapImg,
       minPrice: minPrice,
       priceImg: priceImg,
+      priceImaExtra: priceImaExtra,
       partnershipList: partnershipList,
     );
   }
@@ -73,6 +75,8 @@ mixin _$ShopDetailData {
   int? get minPrice => throw _privateConstructorUsedError;
   @JsonKey(name: 'price_desc')
   String? get priceImg => throw _privateConstructorUsedError;
+  @JsonKey(name: 'price_decs_extra')
+  String? get priceImaExtra => throw _privateConstructorUsedError;
   @JsonKey(name: 'affiliates')
   List<PartnershipData>? get partnershipList =>
       throw _privateConstructorUsedError;
@@ -99,6 +103,7 @@ abstract class $ShopDetailDataCopyWith<$Res> {
       @JsonKey(name: 'map') String mapImg,
       @JsonKey(name: 'minprice') int? minPrice,
       @JsonKey(name: 'price_desc') String? priceImg,
+      @JsonKey(name: 'price_decs_extra') String? priceImaExtra,
       @JsonKey(name: 'affiliates') List<PartnershipData>? partnershipList});
 }
 
@@ -123,6 +128,7 @@ class _$ShopDetailDataCopyWithImpl<$Res>
     Object? mapImg = freezed,
     Object? minPrice = freezed,
     Object? priceImg = freezed,
+    Object? priceImaExtra = freezed,
     Object? partnershipList = freezed,
   }) {
     return _then(_value.copyWith(
@@ -166,6 +172,10 @@ class _$ShopDetailDataCopyWithImpl<$Res>
           ? _value.priceImg
           : priceImg // ignore: cast_nullable_to_non_nullable
               as String?,
+      priceImaExtra: priceImaExtra == freezed
+          ? _value.priceImaExtra
+          : priceImaExtra // ignore: cast_nullable_to_non_nullable
+              as String?,
       partnershipList: partnershipList == freezed
           ? _value.partnershipList
           : partnershipList // ignore: cast_nullable_to_non_nullable
@@ -192,6 +202,7 @@ abstract class _$ShopDetailDataCopyWith<$Res>
       @JsonKey(name: 'map') String mapImg,
       @JsonKey(name: 'minprice') int? minPrice,
       @JsonKey(name: 'price_desc') String? priceImg,
+      @JsonKey(name: 'price_decs_extra') String? priceImaExtra,
       @JsonKey(name: 'affiliates') List<PartnershipData>? partnershipList});
 }
 
@@ -218,6 +229,7 @@ class __$ShopDetailDataCopyWithImpl<$Res>
     Object? mapImg = freezed,
     Object? minPrice = freezed,
     Object? priceImg = freezed,
+    Object? priceImaExtra = freezed,
     Object? partnershipList = freezed,
   }) {
     return _then(_ShopDetailData(
@@ -261,6 +273,10 @@ class __$ShopDetailDataCopyWithImpl<$Res>
           ? _value.priceImg
           : priceImg // ignore: cast_nullable_to_non_nullable
               as String?,
+      priceImaExtra: priceImaExtra == freezed
+          ? _value.priceImaExtra
+          : priceImaExtra // ignore: cast_nullable_to_non_nullable
+              as String?,
       partnershipList: partnershipList == freezed
           ? _value.partnershipList
           : partnershipList // ignore: cast_nullable_to_non_nullable
@@ -283,6 +299,7 @@ class _$_ShopDetailData implements _ShopDetailData {
       @JsonKey(name: 'map') required this.mapImg,
       @JsonKey(name: 'minprice') this.minPrice,
       @JsonKey(name: 'price_desc') this.priceImg,
+      @JsonKey(name: 'price_decs_extra') this.priceImaExtra,
       @JsonKey(name: 'affiliates') this.partnershipList});
 
   factory _$_ShopDetailData.fromJson(Map<String, dynamic> json) =>
@@ -314,12 +331,15 @@ class _$_ShopDetailData implements _ShopDetailData {
   @JsonKey(name: 'price_desc')
   final String? priceImg;
   @override
+  @JsonKey(name: 'price_decs_extra')
+  final String? priceImaExtra;
+  @override
   @JsonKey(name: 'affiliates')
   final List<PartnershipData>? partnershipList;
 
   @override
   String toString() {
-    return 'ShopDetailData(id: $id, name: $name, logo: $logo, like: $like, kakaoUrl: $kakaoUrl, address: $address, profiles: $profiles, mapImg: $mapImg, minPrice: $minPrice, priceImg: $priceImg, partnershipList: $partnershipList)';
+    return 'ShopDetailData(id: $id, name: $name, logo: $logo, like: $like, kakaoUrl: $kakaoUrl, address: $address, profiles: $profiles, mapImg: $mapImg, minPrice: $minPrice, priceImg: $priceImg, priceImaExtra: $priceImaExtra, partnershipList: $partnershipList)';
   }
 
   @override
@@ -340,6 +360,8 @@ class _$_ShopDetailData implements _ShopDetailData {
                 other.minPrice == minPrice) &&
             (identical(other.priceImg, priceImg) ||
                 other.priceImg == priceImg) &&
+            (identical(other.priceImaExtra, priceImaExtra) ||
+                other.priceImaExtra == priceImaExtra) &&
             const DeepCollectionEquality()
                 .equals(other.partnershipList, partnershipList));
   }
@@ -357,6 +379,7 @@ class _$_ShopDetailData implements _ShopDetailData {
       mapImg,
       minPrice,
       priceImg,
+      priceImaExtra,
       const DeepCollectionEquality().hash(partnershipList));
 
   @JsonKey(ignore: true)
@@ -387,6 +410,8 @@ abstract class _ShopDetailData implements ShopDetailData {
           int? minPrice,
       @JsonKey(name: 'price_desc')
           String? priceImg,
+      @JsonKey(name: 'price_decs_extra')
+          String? priceImaExtra,
       @JsonKey(name: 'affiliates')
           List<PartnershipData>? partnershipList}) = _$_ShopDetailData;
 
@@ -418,6 +443,9 @@ abstract class _ShopDetailData implements ShopDetailData {
   @override
   @JsonKey(name: 'price_desc')
   String? get priceImg;
+  @override
+  @JsonKey(name: 'price_decs_extra')
+  String? get priceImaExtra;
   @override
   @JsonKey(name: 'affiliates')
   List<PartnershipData>? get partnershipList;

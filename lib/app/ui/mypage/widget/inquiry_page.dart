@@ -1,7 +1,8 @@
 import 'package:bpp_riverpod/app/model/mypage/mypage_data.dart';
 import 'package:bpp_riverpod/app/model/mypage/mypage_shop_data.dart';
 import 'package:bpp_riverpod/app/provider/mypage/inquiry_provider.dart';
-import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
+import 'package:bpp_riverpod/app/ui/mypage/widget/empty_box.dart';
+import 'package:bpp_riverpod/app/ui/mypage/widget/info_text.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/set_date_dialog.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
@@ -11,7 +12,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class InquiryPage extends ConsumerStatefulWidget {
   const InquiryPage({Key? key}) : super(key: key);
@@ -36,53 +36,35 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
     final shopType = ref.watch(inquiryShopTypeProvider);
     final shopDatas =
         inquiryList.where((data) => data.shop.type == shopType.index).toList();
+
     if (ref.watch(isInquiryLoading)) {
       return SliverToBoxAdapter(
-          child: SizedBox(height: 250, child: customLoadingIndicator()));
+        child: SizedBox(
+          height: 250,
+          child: customLoadingIndicator(),
+        ),
+      );
     } else {
       return shopDatas.isEmpty
-          ? emptyBox()
-          : SliverList(
-              delegate: SliverChildListDelegate([
-              infoText(),
-              titleRow(shopDatas.length),
-              for (MypageData shop in shopDatas)
-                inquiryCard(shop.id, shop: shop.shop)
-            ]));
-    }
-  }
-
-  Widget infoText() {
-    return Consumer(builder: (context, ref, _) {
-      final visible = ref.watch(inquiryInfoTextShowProvier);
-      return visible
-          ? Stack(
-              alignment: Alignment.centerLeft,
-              children: [
-                SvgPicture.asset('assets/image/inquiry_text_background.svg',
-                    width: 328.w),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: SvgPicture.asset('assets/image/inquiry_text.svg',
-                      width: 311.w),
-                ),
-                Positioned(
-                  top: 10,
-                  right: 10,
-                  child: InkWell(
-                    onTap: () {
-                      ref.read(inquiryInfoTextShowProvier.state).state = false;
-                    },
-                    child: const Icon(
-                      CupertinoIcons.xmark,
-                      size: 20,
-                    ),
-                  ),
-                ),
-              ],
+          ? emptyBox(
+              img: 'assets/image/inquiry_none.svg',
+              topPadding: (MediaQuery.of(context).size.height - 256) / 4,
+              isButton: true,
             )
-          : const SizedBox();
-    });
+          : SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  infoText(),
+                  titleRow(shopDatas.length),
+                  for (MypageData shop in shopDatas)
+                    inquiryCard(
+                      shop.id,
+                      shop: shop.shop,
+                    )
+                ],
+              ),
+            );
+    }
   }
 
   Widget titleRow(int count) {
@@ -183,44 +165,5 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
                     }))
               ])
         ]));
-  }
-
-  Widget emptyBox() {
-    final _heght = MediaQuery.of(context).size.height - 256;
-
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: EdgeInsets.only(top: _heght / 4),
-        child: Center(
-          child: Column(
-            children: [
-              SvgPicture.asset('assets/image/inquiry_none.svg', width: 221.w),
-              const SizedBox(height: 16),
-              Consumer(
-                builder: (context, ref, _) => SizedBox(
-                  width: 155,
-                  height: 33,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      ref.read(navigationProvier.state).state = 0;
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: const Color(0xff3b75ff),
-                    ),
-                    child: Text(
-                      '스튜디오 보러가기',
-                      style: BppTextStyle.defaultText.copyWith(
-                        color: const Color(0xffffffff),
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }

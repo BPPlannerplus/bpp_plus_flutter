@@ -18,6 +18,7 @@ class ShopDetailData with _$ShopDetailData {
     @JsonKey(name: 'map') required String mapImg,
     @JsonKey(name: 'minprice') int? minPrice,
     @JsonKey(name: 'price_desc') String? priceImg,
+    @JsonKey(name: 'price_decs_extra') String? priceImaExtra,
     @JsonKey(name: 'affiliates') List<PartnershipData>? partnershipList,
   }) = _ShopDetailData;
 

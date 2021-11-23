@@ -36,7 +36,7 @@ class TanningGrid extends ConsumerWidget {
         firstPageProgressIndicatorBuilder: (context) =>
             customLoadingIndicator(),
         newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),
-        noItemsFoundIndicatorBuilder: (context) => emptyBox(),
+        noItemsFoundIndicatorBuilder: (context) => emptyItemText(),
       ),
     );
   }
