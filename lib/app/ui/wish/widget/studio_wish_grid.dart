@@ -1,6 +1,7 @@
 import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
 import 'package:bpp_riverpod/app/repository/shop_wish_repository.dart';
+import 'package:bpp_riverpod/app/ui/wish/widget/no_item_card.dart';
 import 'package:bpp_riverpod/app/ui/wish/widget/wish_grid_card.dart';
 import 'package:bpp_riverpod/app/util/widget/custom_load_indicator.dart';
 import 'package:bpp_riverpod/app/util/widget/empty_box.dart';
@@ -73,7 +74,7 @@ class _StudioWishGridState extends ConsumerState<StudioWishGrid> {
         firstPageProgressIndicatorBuilder: (context) =>
             customLoadingIndicator(),
         newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),
-        noItemsFoundIndicatorBuilder: (context) => emptyItemText(),
+        noItemsFoundIndicatorBuilder: (context) => noItemCard(),
       ),
     );
   }

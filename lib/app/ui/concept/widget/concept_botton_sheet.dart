@@ -1,7 +1,6 @@
 import 'package:bpp_riverpod/app/provider/concept/concept_filter_provider.dart';
 import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
 import 'package:bpp_riverpod/app/provider/navigation/bottom_bar_provider.dart';
-import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_bts_icon.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/text_style.dart';
@@ -36,9 +35,7 @@ conceptBottomSheet() {
                       .read(conceptFilterCheckProvider.notifier)
                       .refreshFilterState();
                 },
-                child: SvgPicture.asset(
-                  'assets/icon/ic_refresh.svg',
-                ),
+                child: SvgPicture.asset('assets/icon/ic_refresh.svg'),
               ),
             ],
           ),

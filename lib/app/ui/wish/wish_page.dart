@@ -41,19 +41,18 @@ class _WishPageState extends ConsumerState<WishPage> {
     super.initState();
   }
 
-  void scrollToTop() {
-    scrollController.animateTo(
+  Future<void> scrollToTop() async {
+    await scrollController.animateTo(
       0,
       duration: const Duration(milliseconds: 300),
       curve: Curves.linear,
     );
+    ref.watch(isShowBottomBarStateProvider.state).state = true;
   }
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(wishTabProvider, (pre, next) {
-      scrollToTop();
-    });
+    ref.listen(wishTabProvider, (pre, next) => scrollToTop());
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(right: 16, left: 16),
