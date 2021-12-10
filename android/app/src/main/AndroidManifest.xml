@@ -3,7 +3,7 @@
         <!-- 인터넷 사용 권한 설정-->
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="바디플래너"
+        android:label="바프플래너"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
