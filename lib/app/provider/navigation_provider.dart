@@ -1,6 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final bottomNavigationProvider = StateProvider<int>((ref) => 0);
+final bottomIndexProvider =
+    Provider<int>((ref) => ref.watch(bottomIndexStateProvider));
+
+final bottomIndexStateProvider = StateProvider<int>((ref) => 0);
 
 final onboardingPageProvider = StateProvider<int>((ref) => 0);
 

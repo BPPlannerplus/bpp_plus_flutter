@@ -71,7 +71,7 @@ class SettingPage extends ConsumerWidget {
                     await kakaoLogin.logOut();
                     Hive.box('auth').delete('token');
                     Hive.box('auth').delete('userInfo');
-                    ref.read(bottomNavigationProvider.state).state = 0;
+                    ref.read(bottomIndexStateProvider.state).state = 0;
                   } catch (e) {
                     showDialog(
                       context: context,

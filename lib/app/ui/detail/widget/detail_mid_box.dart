@@ -3,7 +3,7 @@ import 'package:bpp_riverpod/app/util/text_style.dart';
 import 'package:flutter/material.dart';
 
 class DetailMidBox extends StatelessWidget {
-  DetailMidBox({
+  const DetailMidBox({
     Key? key,
     required this.shopName,
     this.price,
@@ -11,7 +11,7 @@ class DetailMidBox extends StatelessWidget {
   }) : super(key: key);
 
   final String shopName;
-  int? price;
+  final int? price;
   final String logo;
 
   @override

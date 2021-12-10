@@ -30,8 +30,10 @@ class WaxingGrid extends ConsumerWidget {
           final waxings = ref.watch(waxingListProvider);
           final waxingState = ref.read(waxingListProvider.notifier);
 
-          return homeGridCard(
-              shop: waxings.shopDatas[index], shopState: waxingState);
+          return HomeGridCard(
+            shop: waxings.shopDatas[index],
+            shopState: waxingState,
+          );
         },
         firstPageProgressIndicatorBuilder: (context) =>
             customLoadingIndicator(),

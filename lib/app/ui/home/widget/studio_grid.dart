@@ -31,8 +31,10 @@ class StudioGrid extends ConsumerWidget {
           final studios = ref.watch(studioListProvider);
           final studioState = ref.read(studioListProvider.notifier);
 
-          return homeGridCard(
-              shop: studios.shopDatas[index], shopState: studioState);
+          return HomeGridCard(
+            shop: studios.shopDatas[index],
+            shopState: studioState,
+          );
         },
         firstPageProgressIndicatorBuilder: (context) =>
             customLoadingIndicator(),

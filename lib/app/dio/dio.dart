@@ -24,13 +24,7 @@ final dioProvider = Provider<Dio>((ref) {
 
         if (tokenData.accessToken.isEmpty) {
           dio.lock();
-          authClient
-              .newToken(
-            UserInfoRequest(
-              userInfo: userInfo,
-            ),
-          )
-              .then(
+          authClient.newToken(UserInfoRequest(userInfo: userInfo)).then(
             (d) {
               ref.read(tokenDataProvider.state).state = d;
               options.headers['Authorization'] = 'Bearer ${d.accessToken}';
@@ -69,7 +63,7 @@ final dioProvider = Provider<Dio>((ref) {
           dio.interceptors.responseLock.lock();
           dio.interceptors.errorLock.lock();
 
-          authClient
+          await authClient
               .refreshToken(
             TokenRequest(
               userId: userInfo!.uid,
@@ -92,17 +86,19 @@ final dioProvider = Provider<Dio>((ref) {
               dio.fetch(options).then(
                 (r) => handler.resolve(r),
                 onError: (e) {
+                  dp.log('>>> onError on Error <<<');
                   handler.reject(e);
                 },
               );
             },
+          ).catchError(
+            (error, stackTrace) {
+              dp.log('>>> onError onError onError <<<');
+              handler.reject(error);
+            },
           );
           return;
         }
-        // dp.log('error.error: ${error.error}');
-        // dp.log('error.type: ${error.type}');
-        // dp.log('error.response: ${error.response}');
-        // dp.log('error.requestOptions: ${error.requestOptions.data}');
         return handler.next(error);
       },
     ),

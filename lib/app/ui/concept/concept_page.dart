@@ -86,7 +86,7 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
                               StaggeredTile.count(1, cnt(index)),
                           itemBuilder: (context, index) {
                             if (index < concepts.length) {
-                              return conceptCard(concept: concepts[index]);
+                              return ConceptCard(concept: concepts[index]);
                             }
 
                             return ref.watch(conceptListReadProvider).next! ==

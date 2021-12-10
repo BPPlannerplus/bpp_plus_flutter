@@ -10,9 +10,12 @@ import 'package:bpp_riverpod/app/ui/detail/widget/detail_portfolio_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_review_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_top_box.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/util/widget/custom_load_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailPage extends ConsumerStatefulWidget {
@@ -30,6 +33,8 @@ class DetailPage extends ConsumerStatefulWidget {
 class _DetailPageState extends ConsumerState<DetailPage> {
   final scrollController = ScrollController();
 
+  final fToast = FToast();
+
   @override
   void initState() {
     scrollController.addListener(() {
@@ -39,6 +44,8 @@ class _DetailPageState extends ConsumerState<DetailPage> {
         ref.read(detailPageLeadingProvier.state).state = true;
       }
     });
+    fToast.init(context);
+
     super.initState();
   }
 
@@ -67,21 +74,13 @@ class _DetailPageState extends ConsumerState<DetailPage> {
 
     return SafeArea(
       child: detailData.when(
-        loading: () => const Scaffold(
-          body: Center(
-            child: CircularProgressIndicator(),
-          ),
+        loading: () => Scaffold(
+          body: customLoadingIndicator(),
         ),
         error: (error, stack) => Scaffold(
-          body: Center(
-            child: Text(
-              error.toString(),
-              style: const TextStyle(
-                fontSize: 32,
-              ),
-            ),
-          ),
-        ),
+            body: Center(
+                child: Text(error.toString(),
+                    style: const TextStyle(fontSize: 24)))),
         data: (shopData) {
           final shopDetailData = ref.watch(shopDetailStateProvider(shopData));
           final conceptPageController =
@@ -142,6 +141,9 @@ class _DetailPageState extends ConsumerState<DetailPage> {
             ),
             bottomNavigationBar: detailBottomBar(
               onTabIcon: () async {
+                if (!shopDetailData.like) {
+                  _showToast();
+                }
                 await ref
                     .read(shopListProvider)
                     .setLike(shopData.id, shopDetailData.like);
@@ -153,11 +155,41 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                     .createReservation(shopData.id);
                 await launch(shopData.kakaoUrl);
               },
-              isLike: shopData.like,
+              isLike: shopDetailData.like,
             ),
           );
         },
       ),
     );
+  }
+
+  void _showToast() {
+    fToast.removeQueuedCustomToasts();
+    fToast.showToast(
+        child: Container(
+          width: 173,
+          height: 37,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(37.0),
+            color: const Color(0xff595959),
+          ),
+          child: Center(
+            child: Text(
+              '찜 목록에 추가되었습니다!',
+              style: BppTextStyle.smallText.copyWith(
+                color: const Color(0xffffffff),
+              ),
+            ),
+          ),
+        ),
+        // gravity: ToastGravity.TOP,
+        toastDuration: const Duration(seconds: 1),
+        positionedToastBuilder: (context, child) {
+          return Positioned(
+            top: 37,
+            right: (MediaQuery.of(context).size.width - 173) / 2,
+            child: child,
+          );
+        });
   }
 }

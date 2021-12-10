@@ -28,7 +28,7 @@ Widget emptyBox({
                       height: 33,
                       child: ElevatedButton(
                         onPressed: () {
-                          ref.read(bottomNavigationProvider.state).state = 0;
+                          ref.read(bottomIndexStateProvider.state).state = 0;
                         },
                         style: ElevatedButton.styleFrom(
                           primary: const Color(0xff3b75ff),

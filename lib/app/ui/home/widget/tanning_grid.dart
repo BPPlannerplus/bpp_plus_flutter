@@ -30,8 +30,10 @@ class TanningGrid extends ConsumerWidget {
           final tannings = ref.watch(tanningListProvider);
           final tanningState = ref.read(tanningListProvider.notifier);
 
-          return homeGridCard(
-              shop: tannings.shopDatas[index], shopState: tanningState);
+          return HomeGridCard(
+            shop: tannings.shopDatas[index],
+            shopState: tanningState,
+          );
         },
         firstPageProgressIndicatorBuilder: (context) =>
             customLoadingIndicator(),

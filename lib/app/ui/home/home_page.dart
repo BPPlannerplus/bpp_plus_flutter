@@ -40,20 +40,18 @@ class _HomePageState extends ConsumerState<HomePage> {
     super.initState();
   }
 
-  void scrollToTop() {
-    scrollController.animateTo(
-      200,
+  Future<void> scrollToTop() async {
+    await scrollController.animateTo(
+      0,
       duration: const Duration(milliseconds: 300),
       curve: Curves.linear,
     );
+    ref.watch(isShowBottomBarStateProvider.state).state = true;
   }
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(homeTabProvider, (pre, next) {
-      scrollToTop();
-      ref.watch(isShowBottomBarStateProvider.state).state = true;
-    });
+    ref.listen(homeTabProvider, (pre, next) => scrollToTop());
 
     return Padding(
       padding: const EdgeInsets.only(right: 16, left: 16),

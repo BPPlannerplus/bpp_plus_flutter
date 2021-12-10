@@ -30,8 +30,10 @@ class BeautyGrid extends ConsumerWidget {
           final beauties = ref.watch(beautyListProvider);
           final beautyState = ref.read(beautyListProvider.notifier);
 
-          return homeGridCard(
-              shop: beauties.shopDatas[index], shopState: beautyState);
+          return HomeGridCard(
+            shop: beauties.shopDatas[index],
+            shopState: beautyState,
+          );
         },
         firstPageProgressIndicatorBuilder: (context) =>
             customLoadingIndicator(),
