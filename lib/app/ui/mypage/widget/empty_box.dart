@@ -31,8 +31,7 @@ Widget emptyBox({
                           ref.read(bottomIndexStateProvider.state).state = 0;
                         },
                         style: ElevatedButton.styleFrom(
-                          primary: const Color(0xff3b75ff),
-                        ),
+                            primary: const Color(0xff3b75ff), elevation: 0),
                         child: Text(
                           '스튜디오 보러가기',
                           style: BppTextStyle.defaultText.copyWith(

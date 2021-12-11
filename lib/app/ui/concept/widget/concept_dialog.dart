@@ -11,23 +11,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class ConceptDialog extends StatefulWidget {
-  const ConceptDialog({Key? key, required this.concept}) : super(key: key);
+class ConceptDialog extends StatelessWidget {
+  ConceptDialog({Key? key, required this.concept}) : super(key: key);
 
   final Concept concept;
-
-  @override
-  _ConceptDialogState createState() => _ConceptDialogState();
-}
-
-class _ConceptDialogState extends State<ConceptDialog> {
   final fToast = FToast();
-
-  @override
-  void initState() {
-    super.initState();
-    fToast.init(context);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +23,7 @@ class _ConceptDialogState extends State<ConceptDialog> {
       final navigator = ref.watch(navigatorProvider);
       final c = ref.watch<Concept>(conceptListProvider.select((value) => value
           .concepts
-          .where((element) => element.id == widget.concept.id)
+          .where((element) => element.id == concept.id)
           .toList()[0]));
 
       return Dialog(
@@ -48,18 +36,10 @@ class _ConceptDialogState extends State<ConceptDialog> {
             alignment: AlignmentDirectional.bottomCenter,
             children: [
               Positioned.fill(
-                child: Image.network(
-                  widget.concept.profile,
-                  fit: BoxFit.contain,
-                ),
-              ),
+                  child: Image.network(concept.profile, fit: BoxFit.contain)),
               Opacity(
-                opacity: 0.5,
-                child: Container(
-                  height: 40,
-                  color: Colors.grey,
-                ),
-              ),
+                  opacity: 0.5,
+                  child: Container(height: 40, color: Colors.grey)),
               Padding(
                 padding: const EdgeInsets.only(
                   left: 16,
@@ -74,7 +54,7 @@ class _ConceptDialogState extends State<ConceptDialog> {
                       onTap: () {
                         navigator.navigateTo(
                           routeName: AppRoutes.detailPage,
-                          argument: widget.concept.shop.id,
+                          argument: concept.shop.id,
                         );
                       },
                       child: Row(
@@ -83,7 +63,7 @@ class _ConceptDialogState extends State<ConceptDialog> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 3),
                             child: Text(
-                              widget.concept.shop.name,
+                              concept.shop.name,
                               style: BppTextStyle.dialogText,
                             ),
                           ),
@@ -103,7 +83,7 @@ class _ConceptDialogState extends State<ConceptDialog> {
                       onTap: () {
                         ref
                             .read(conceptListProvider.notifier)
-                            .setLike(widget.concept.id);
+                            .setLike(concept.id);
                         if (!c.like) {
                           _showToast();
                         }
@@ -146,7 +126,7 @@ class _ConceptDialogState extends State<ConceptDialog> {
             ),
           ),
         ),
-        toastDuration: const Duration(seconds: 1),
+        toastDuration: const Duration(milliseconds: 500),
         positionedToastBuilder: (context, child) {
           return Positioned(
             top: 37,

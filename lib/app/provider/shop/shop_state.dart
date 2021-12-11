@@ -5,9 +5,7 @@ import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ShopListState extends StateNotifier<ShopList> {
-  ShopListState({
-    required this.repository,
-  }) : super(ShopList(shopDatas: []));
+  ShopListState({required this.repository}) : super(ShopList(shopDatas: []));
 
   final ShopRepository repository;
   int _page = 1;

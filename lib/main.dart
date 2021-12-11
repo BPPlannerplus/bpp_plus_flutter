@@ -3,7 +3,6 @@ import 'package:bpp_riverpod/app/provider/auth/login_provider.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/theme.dart';
-import 'package:bpp_riverpod/app/util/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,7 +43,6 @@ class _MyAppState extends ConsumerState<MyApp> {
     Future.delayed(const Duration(seconds: 0), () async {
       initKakao();
     });
-    fToast.init(context);
   }
 
   void initKakao() async {

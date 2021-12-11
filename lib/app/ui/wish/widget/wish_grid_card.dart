@@ -20,7 +20,7 @@ Widget wishGridCard({
     mainAxisAlignment: MainAxisAlignment.start,
     children: [
       SizedBox(
-        height: 112,
+        height: 112.h,
         width: 160.w,
         child: Stack(
           alignment: Alignment.bottomRight,
@@ -34,13 +34,19 @@ Widget wishGridCard({
                     argument: shop.id,
                   );
                 },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    shop.profile,
-                    height: 112,
-                    width: 160.w,
-                    fit: BoxFit.fill,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: const Color(0xff000000),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      shop.profile,
+                      height: 112.h,
+                      width: 160.w,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
               );
@@ -70,9 +76,11 @@ Widget wishGridCard({
       ),
       const SizedBox(height: 8),
       Text(shop.name, style: BppTextStyle.isEng(shop.name)),
-      const SizedBox(height: 2),
-      Text(shopAddrToKR[shop.address]!, style: BppTextStyle.smallText),
-      const SizedBox(height: 2),
+      const SizedBox(height: 4),
+      Text(shopAddrToKR[shop.address]!,
+          style:
+              BppTextStyle.smallText.copyWith(color: const Color(0xff595959))),
+      const SizedBox(height: 4),
       shop.minPrice != null
           ? Text(priceFormat(shop.minPrice!), style: BppTextStyle.smallText)
           : const Text('가격 정보 없음', style: BppTextStyle.smallText),

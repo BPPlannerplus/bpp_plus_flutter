@@ -99,7 +99,7 @@ class MainPage extends ConsumerWidget {
                     style: BppTextStyle.filterText.copyWith(
                       color: tabIndex == index
                           ? const Color(0xff3B75FF)
-                          : const Color(0xff000000),
+                          : const Color(0xff595959),
                       fontSize: 10.sp,
                     ),
                   ),

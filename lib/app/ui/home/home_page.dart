@@ -37,6 +37,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         ref.read(isShowBottomBarStateProvider.state).state = false;
       }
     });
+
     super.initState();
   }
 

@@ -2,6 +2,7 @@ import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
 import 'package:bpp_riverpod/app/repository/shop_wish_repository.dart';
 import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
+import 'package:bpp_riverpod/app/ui/components/studio_grid/studio_paged_sliver_grid.dart';
 import 'package:bpp_riverpod/app/ui/wish/widget/no_item_card.dart';
 import 'package:bpp_riverpod/app/ui/wish/widget/wish_grid_card.dart';
 import 'package:flutter/material.dart';
@@ -29,18 +30,8 @@ class _WaxingWishGridState extends ConsumerState<WaxingWishGrid> {
 
   @override
   Widget build(BuildContext context) {
-    return PagedSliverGrid(
-      pagingController: _pagingController,
-      showNewPageProgressIndicatorAsGridChild: false,
-      showNewPageErrorIndicatorAsGridChild: false,
-      showNoMoreItemsIndicatorAsGridChild: false,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisExtent: 188,
-        mainAxisSpacing: 8,
-        crossAxisSpacing: 8,
-        childAspectRatio: 100 / 150,
-      ),
+    return StudioPagedSliverGrid(
+      pageController: _pagingController,
       builderDelegate: PagedChildBuilderDelegate<ShopData>(
         itemBuilder: (context, s, index) {
           final waxing = ref.watch(shopProvider(s));

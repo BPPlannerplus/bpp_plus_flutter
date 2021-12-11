@@ -18,24 +18,22 @@ class DetailPortfolioFullScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: const Color(0xff232323),
         body: Stack(
+          fit: StackFit.expand,
           children: [
-            Hero(
-              tag: profile,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  top: 64,
-                  bottom: 72,
-                ),
-                child: Image.network(
-                  profile,
-                  height: 480.h,
-                  fit: BoxFit.contain,
-                ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 64,
+                bottom: 72,
+              ),
+              child: Image.network(
+                profile,
+                height: 480.h,
+                fit: BoxFit.contain,
               ),
             ),
             Positioned(
               top: 16,
-              right: 16,
+              right: 1,
               child: Consumer(builder: (context, ref, _) {
                 final navigator = ref.watch(navigatorProvider);
                 return InkWell(

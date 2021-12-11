@@ -9,30 +9,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
-class HomeGridCard extends StatefulWidget {
+class HomeGridCard extends StatelessWidget {
   const HomeGridCard({
     Key? key,
     required this.shop,
-    required this.shopState,
+    required this.setLike,
   }) : super(key: key);
 
   final ShopData shop;
-  final ShopListState shopState;
-
-  @override
-  _HomeGridCardState createState() => _HomeGridCardState();
-}
-
-class _HomeGridCardState extends State<HomeGridCard> {
-  final fToast = FToast();
-
-  @override
-  void initState() {
-    super.initState();
-    fToast.init(context);
-  }
+  final Function setLike;
 
   @override
   Widget build(BuildContext context) {
@@ -41,92 +27,54 @@ class _HomeGridCardState extends State<HomeGridCard> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         SizedBox(
-          height: 112.h,
-          width: 160.w,
-          child: Stack(
-            alignment: Alignment.bottomRight,
-            children: [
+            height: 112.h,
+            width: 160.w,
+            child: Stack(alignment: Alignment.bottomRight, children: [
               Consumer(builder: (context, ref, _) {
                 final navigator = ref.watch(navigatorProvider);
                 return InkWell(
-                  onTap: () => navigator.navigateTo(
-                    routeName: AppRoutes.detailPage,
-                    argument: widget.shop.id,
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.network(
-                      widget.shop.profile,
-                      height: 112.h,
-                      width: 160.w,
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                );
+                    onTap: () async {
+                      await navigator.navigateTo(
+                          routeName: AppRoutes.detailPage, argument: shop.id);
+                    },
+                    child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: const Color(0xff000000)),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.network(shop.profile,
+                                height: 112.h,
+                                width: 160.w,
+                                fit: BoxFit.contain))));
               }),
               Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: InkWell(
-                  onTap: () async {
-                    await widget.shopState
-                        .setLike(widget.shop.id, widget.shop.like);
-                    if (!widget.shop.like) {
-                      _showToast();
-                    }
-                  },
-                  child: Icon(
-                    widget.shop.like
-                        ? CupertinoIcons.heart_fill
-                        : CupertinoIcons.heart,
-                    color: widget.shop.like
-                        ? const Color(0xffff5757)
-                        : const Color(0xffffffff),
-                    size: 30,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+                  padding: const EdgeInsets.all(5.0),
+                  child: InkWell(
+                      onTap: () {
+                        // await shopState.setLike(shop.id, shop.like);
+                        setLike();
+                      },
+                      child: Icon(
+                          shop.like
+                              ? CupertinoIcons.heart_fill
+                              : CupertinoIcons.heart,
+                          color: shop.like
+                              ? const Color(0xffff5757)
+                              : const Color(0xffffffff),
+                          size: 30)))
+            ])),
         const SizedBox(height: 8),
-        Text(widget.shop.name, style: BppTextStyle.isEng(widget.shop.name)),
+        Text(shop.name, style: BppTextStyle.isEng(shop.name)),
         const SizedBox(height: 4),
-        Text(shopAddrToKR[widget.shop.address]!, style: BppTextStyle.smallText),
+        Text(shopAddrToKR[shop.address]!,
+            style: BppTextStyle.smallText
+                .copyWith(color: const Color(0xff595959))),
         const SizedBox(height: 4),
-        widget.shop.minPrice != null
-            ? Text(priceFormat(widget.shop.minPrice!),
-                style: BppTextStyle.smallText)
+        shop.minPrice != null
+            ? Text(priceFormat(shop.minPrice!), style: BppTextStyle.smallText)
             : const Text('가격 정보 없음', style: BppTextStyle.smallText),
       ],
     );
-  }
-
-  void _showToast() {
-    fToast.removeQueuedCustomToasts();
-    fToast.showToast(
-        child: Container(
-          width: 173,
-          height: 37,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(37.0),
-            color: const Color(0xff595959),
-          ),
-          child: Center(
-            child: Text(
-              '찜 목록에 추가되었습니다!',
-              style: BppTextStyle.smallText.copyWith(
-                color: const Color(0xffffffff),
-              ),
-            ),
-          ),
-        ),
-        toastDuration: const Duration(seconds: 1),
-        positionedToastBuilder: (context, child) {
-          return Positioned(
-            top: 37,
-            right: (MediaQuery.of(context).size.width - 173) / 2,
-            child: child,
-          );
-        });
   }
 }
