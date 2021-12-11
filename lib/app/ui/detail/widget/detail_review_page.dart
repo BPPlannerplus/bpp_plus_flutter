@@ -1,9 +1,9 @@
 import 'package:bpp_riverpod/app/model/review/review.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
-import 'package:bpp_riverpod/app/util/text_style.dart';
-import 'package:bpp_riverpod/app/util/widget/custom_load_indicator.dart';
+import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

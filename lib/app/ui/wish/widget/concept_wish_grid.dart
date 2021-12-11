@@ -2,10 +2,9 @@ import 'package:bpp_riverpod/app/model/concept/concept.dart';
 import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
 import 'package:bpp_riverpod/app/repository/shop_wish_repository.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
 import 'package:bpp_riverpod/app/ui/wish/widget/no_item_card.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
-import 'package:bpp_riverpod/app/util/widget/custom_load_indicator.dart';
-import 'package:bpp_riverpod/app/util/widget/empty_box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,10 +20,9 @@ class ConceptWishGrid extends ConsumerStatefulWidget {
 
 class _ConceptWishGridState extends ConsumerState<ConceptWishGrid> {
   final int _pageSize = 20;
-  int _page = 1;
 
   final PagingController<int, Concept> _pagingController =
-      PagingController(firstPageKey: 0);
+      PagingController(firstPageKey: 1);
 
   @override
   void initState() {
@@ -32,24 +30,6 @@ class _ConceptWishGridState extends ConsumerState<ConceptWishGrid> {
       _fetchPage(pageKey);
     });
     super.initState();
-  }
-
-  Future<void> _fetchPage(int pageKey) async {
-    try {
-      final newItems =
-          await ref.read(shopWishRepositoryProvider).getConceptList(_page++);
-      _page++;
-      final isLastPage = newItems.concepts.length < _pageSize;
-
-      if (isLastPage) {
-        _pagingController.appendLastPage(newItems.concepts);
-      } else {
-        final nextPageKey = pageKey + newItems.concepts.length;
-        _pagingController.appendPage(newItems.concepts, nextPageKey);
-      }
-    } catch (error) {
-      _pagingController.error = error;
-    }
   }
 
   @override
@@ -129,5 +109,21 @@ class _ConceptWishGridState extends ConsumerState<ConceptWishGrid> {
         ),
       ],
     );
+  }
+
+  Future<void> _fetchPage(int pageKey) async {
+    try {
+      final newItems =
+          await ref.read(shopWishRepositoryProvider).getConceptList(pageKey++);
+      final isLastPage = newItems.concepts.length < _pageSize;
+
+      if (isLastPage) {
+        _pagingController.appendLastPage(newItems.concepts);
+      } else {
+        _pagingController.appendPage(newItems.concepts, pageKey);
+      }
+    } catch (error) {
+      _pagingController.error = error;
+    }
   }
 }

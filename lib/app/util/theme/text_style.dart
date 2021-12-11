@@ -43,11 +43,11 @@ class BppTextStyle {
     fontFamily: 'Roboto',
   );
 
-  static bool isEng(String str) {
+  static TextStyle isEng(String str) {
     if (str.startsWith(RegExp(r'[a-zA-Z]'))) {
-      return true;
+      return engShopNameText;
     } else {
-      return false;
+      return tabText;
     }
   }
 }

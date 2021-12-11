@@ -4,7 +4,7 @@ import 'package:bpp_riverpod/app/ui/concept/concept_page.dart';
 import 'package:bpp_riverpod/app/ui/home/home_page.dart';
 import 'package:bpp_riverpod/app/ui/mypage/my_page.dart';
 import 'package:bpp_riverpod/app/ui/wish/wish_page.dart';
-import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

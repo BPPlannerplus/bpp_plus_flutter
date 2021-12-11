@@ -1,7 +1,7 @@
 import 'package:bpp_riverpod/app/provider/mypage/review_provider.dart';
 import 'package:bpp_riverpod/app/repository/mypage_repository.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
-import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

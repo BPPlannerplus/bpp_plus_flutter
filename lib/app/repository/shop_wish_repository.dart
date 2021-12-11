@@ -33,12 +33,12 @@ class ShopWishRepository {
   }
 
   Future<ShopList> getWaxingList(int page) async {
-    final shopList = await shopClient.getTanningList(page, true, null);
+    final shopList = await shopClient.getWaxingList(page, true, null);
     return shopList;
   }
 
   Future<ShopList> getTanningList(int page) async {
-    final shopList = await shopClient.getBeautyList(page, true, null);
+    final shopList = await shopClient.getTanningList(page, true, null);
     return shopList;
   }
 

@@ -1,12 +1,13 @@
 import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
+import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
+import 'package:bpp_riverpod/app/ui/components/state/empty_item_text.dart';
 import 'package:bpp_riverpod/app/ui/home/widget/home_grid_card.dart';
-import 'package:bpp_riverpod/app/util/widget/custom_load_indicator.dart';
-import 'package:bpp_riverpod/app/util/widget/empty_box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class StudioGrid extends ConsumerWidget {
@@ -19,9 +20,9 @@ class StudioGrid extends ConsumerWidget {
       showNewPageProgressIndicatorAsGridChild: false,
       showNewPageErrorIndicatorAsGridChild: false,
       showNoMoreItemsIndicatorAsGridChild: false,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        mainAxisExtent: 188,
+        mainAxisExtent: 188.h,
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,
         childAspectRatio: 100 / 150,
@@ -39,7 +40,8 @@ class StudioGrid extends ConsumerWidget {
         firstPageProgressIndicatorBuilder: (context) =>
             customLoadingIndicator(),
         newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),
-        noItemsFoundIndicatorBuilder: (context) => emptyItemText(),
+        noItemsFoundIndicatorBuilder: (context) =>
+            emptyItemText('해당 스튜디오가 존재하지 않습니다!'),
       ),
     );
   }

@@ -4,7 +4,7 @@ import 'package:bpp_riverpod/app/model/concept/concept.dart';
 import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
-import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,10 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class ConceptDialog extends StatefulWidget {
-  const ConceptDialog({
-    Key? key,
-    required this.concept,
-  }) : super(key: key);
+  const ConceptDialog({Key? key, required this.concept}) : super(key: key);
 
   final Concept concept;
 
@@ -90,9 +87,7 @@ class _ConceptDialogState extends State<ConceptDialog> {
                               style: BppTextStyle.dialogText,
                             ),
                           ),
-                          const SizedBox(
-                            width: 5,
-                          ),
+                          const SizedBox(width: 5),
                           Transform.rotate(
                             angle: pi,
                             child: const Icon(
@@ -134,7 +129,6 @@ class _ConceptDialogState extends State<ConceptDialog> {
   }
 
   void _showToast() {
-    fToast.removeQueuedCustomToasts();
     fToast.showToast(
         child: Container(
           width: 173,
@@ -152,7 +146,6 @@ class _ConceptDialogState extends State<ConceptDialog> {
             ),
           ),
         ),
-        // gravity: ToastGravity.TOP,
         toastDuration: const Duration(seconds: 1),
         positionedToastBuilder: (context, child) {
           return Positioned(

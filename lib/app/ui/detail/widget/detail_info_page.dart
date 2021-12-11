@@ -1,7 +1,7 @@
 import 'package:bpp_riverpod/app/model/shop/shop_detail_data.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
-import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,13 +28,8 @@ class DetailInfoPage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                '가격',
-                style: BppTextStyle.defaultText,
-              ),
-              const SizedBox(
-                height: 12,
-              ),
+              const Text('가격', style: BppTextStyle.defaultText),
+              const SizedBox(height: 12),
               Consumer(builder: (context, ref, _) {
                 final navigator = ref.watch(navigatorProvider);
                 return InkWell(
@@ -61,7 +56,7 @@ class DetailInfoPage extends StatelessWidget {
                       tag: priceImg,
                       child: Image.network(
                         priceImg,
-                        // fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
@@ -69,55 +64,45 @@ class DetailInfoPage extends StatelessWidget {
               }),
             ],
           ),
-          const SizedBox(
-            height: 24,
-          ),
+          const SizedBox(height: 24),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                '위치',
-                style: BppTextStyle.defaultText,
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              Container(
-                height: 192,
-                width: 328.w,
-                padding: const EdgeInsets.all(2),
-                margin: const EdgeInsets.all(2),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(
-                    color: const Color(0xffe6e6e6),
-                    width: 1,
+              const Text('위치', style: BppTextStyle.defaultText),
+              const SizedBox(height: 12),
+              Consumer(builder: (context, ref, _) {
+                return InkWell(
+                  onTap: () {
+                    ref.read(navigatorProvider).navigateTo(
+                          routeName: AppRoutes.detailPortfolioPage,
+                          argument: map,
+                        );
+                  },
+                  child: Container(
+                    height: 192,
+                    width: 328.w,
+                    padding: const EdgeInsets.all(2),
+                    margin: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        color: const Color(0xffe6e6e6),
+                        width: 1,
+                      ),
+                    ),
+                    child: Image.network(map, fit: BoxFit.cover),
                   ),
-                ),
-                child: Image.network(
-                  map,
-                  fit: BoxFit.fill,
-                ),
-              ),
-              Text(
-                address,
-                style: BppTextStyle.defaultText,
-              ),
+                );
+              }),
+              Text(address, style: BppTextStyle.defaultText),
             ],
           ),
-          const SizedBox(
-            height: 24,
-          ),
+          const SizedBox(height: 24),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                '제휴업체',
-                style: BppTextStyle.defaultText,
-              ),
-              const SizedBox(
-                height: 12,
-              ),
+              const Text('제휴업체', style: BppTextStyle.defaultText),
+              const SizedBox(height: 12),
               SizedBox(
                 height: 110,
                 child: ListView(
@@ -135,13 +120,9 @@ class DetailInfoPage extends StatelessWidget {
                               width: 104,
                               fit: BoxFit.fill,
                             ),
-                            const SizedBox(
-                              height: 12,
-                            ),
-                            Text(
-                              partners[i].name,
-                              style: BppTextStyle.smallText,
-                            ),
+                            const SizedBox(height: 12),
+                            Text(partners[i].name,
+                                style: BppTextStyle.smallText),
                           ],
                         ),
                       )

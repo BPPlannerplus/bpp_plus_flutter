@@ -23,9 +23,7 @@ final shopPageControllerProvider =
 
 final studioPageControllerProvider =
     Provider<PagingController<int, ShopData>>((ref) {
-  final _pagingController = PagingController<int, ShopData>(
-    firstPageKey: 0,
-  );
+  final _pagingController = PagingController<int, ShopData>(firstPageKey: 0);
 
   Future<void> _fetchPage(int pageKey) async {
     final address = ref.watch(studioFilterProvider.notifier).makeFilter();
@@ -46,17 +44,13 @@ final studioPageControllerProvider =
     }
   }
 
-  _pagingController.addPageRequestListener((pageKey) {
-    _fetchPage(pageKey);
-  });
+  _pagingController.addPageRequestListener((pageKey) => _fetchPage(pageKey));
   return _pagingController;
 });
 
 final beautyPageControllerProvider =
     Provider<PagingController<int, ShopData>>((ref) {
-  final _pagingController = PagingController<int, ShopData>(
-    firstPageKey: 0,
-  );
+  final _pagingController = PagingController<int, ShopData>(firstPageKey: 0);
 
   Future<void> _fetchPage(int pageKey) async {
     final adress = ref.watch(beautyFilterProvider.notifier).makeFilter();
@@ -77,17 +71,13 @@ final beautyPageControllerProvider =
     }
   }
 
-  _pagingController.addPageRequestListener((pageKey) {
-    _fetchPage(pageKey);
-  });
+  _pagingController.addPageRequestListener((pageKey) => _fetchPage(pageKey));
   return _pagingController;
 });
 
 final waxingPageControllerProvider =
     Provider<PagingController<int, ShopData>>((ref) {
-  final _pagingController = PagingController<int, ShopData>(
-    firstPageKey: 0,
-  );
+  final _pagingController = PagingController<int, ShopData>(firstPageKey: 0);
 
   Future<void> _fetchPage(int pageKey) async {
     final adress = ref.watch(waxingFilterProvider.notifier).makeFilter();
@@ -108,17 +98,13 @@ final waxingPageControllerProvider =
     }
   }
 
-  _pagingController.addPageRequestListener((pageKey) {
-    _fetchPage(pageKey);
-  });
+  _pagingController.addPageRequestListener((pageKey) => _fetchPage(pageKey));
   return _pagingController;
 });
 
 final tanningPageControllerProvider =
     Provider<PagingController<int, ShopData>>((ref) {
-  final _pagingController = PagingController<int, ShopData>(
-    firstPageKey: 0,
-  );
+  final _pagingController = PagingController<int, ShopData>(firstPageKey: 0);
 
   Future<void> _fetchPage(int pageKey) async {
     final adress = ref.watch(tanningFilterProvider.notifier).makeFilter();
@@ -139,8 +125,6 @@ final tanningPageControllerProvider =
     }
   }
 
-  _pagingController.addPageRequestListener((pageKey) {
-    _fetchPage(pageKey);
-  });
+  _pagingController.addPageRequestListener((pageKey) => _fetchPage(pageKey));
   return _pagingController;
 });

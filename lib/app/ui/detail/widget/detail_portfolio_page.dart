@@ -1,9 +1,10 @@
 import 'package:bpp_riverpod/app/model/shop/shop_concept.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
-import 'package:bpp_riverpod/app/util/widget/custom_load_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class DetailPortfolioPage extends ConsumerStatefulWidget {
@@ -29,9 +30,9 @@ class _DetailPortfolioPageState extends ConsumerState<DetailPortfolioPage> {
       showNewPageProgressIndicatorAsGridChild: false,
       showNewPageErrorIndicatorAsGridChild: false,
       showNoMoreItemsIndicatorAsGridChild: false,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        mainAxisExtent: 144,
+        mainAxisExtent: 144.h,
         mainAxisSpacing: 5,
         crossAxisSpacing: 5,
         childAspectRatio: 100 / 150,
@@ -39,29 +40,17 @@ class _DetailPortfolioPageState extends ConsumerState<DetailPortfolioPage> {
       builderDelegate: PagedChildBuilderDelegate<ShopConcept>(
         itemBuilder: (context, sc, index) {
           return InkWell(
-            onTap: () {
-              navigator.navigateTo(
-                routeName: AppRoutes.detailPortfolioPage,
-                argument: sc.profile,
-              );
-            },
-            child: Image.network(
-              sc.profile,
-              height: 144,
-              fit: BoxFit.fill,
-            ),
-          );
+              onTap: () {
+                navigator.navigateTo(
+                  routeName: AppRoutes.detailPortfolioPage,
+                  argument: sc.profile,
+                );
+              },
+              child:
+                  Image.network(sc.profile, height: 144.h, fit: BoxFit.fill));
         },
-        noItemsFoundIndicatorBuilder: (context) {
-          return const SizedBox(
-            height: 100,
-            child: Center(
-              child: Text(
-                '등록된 포트폴리오가 없습니다!',
-              ),
-            ),
-          );
-        },
+        noItemsFoundIndicatorBuilder: (context) => const SizedBox(
+            height: 100, child: Center(child: Text('등록된 포트폴리오가 없습니다!'))),
         firstPageProgressIndicatorBuilder: (context) =>
             customLoadingIndicator(),
         newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),

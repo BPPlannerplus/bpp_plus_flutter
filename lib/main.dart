@@ -2,7 +2,8 @@ import 'package:bpp_riverpod/app/model/auth/user_info.dart';
 import 'package:bpp_riverpod/app/provider/auth/login_provider.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
-import 'package:bpp_riverpod/app/util/theme.dart';
+import 'package:bpp_riverpod/app/util/theme/theme.dart';
+import 'package:bpp_riverpod/app/util/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,10 +16,7 @@ Future<void> main() async {
   Hive.registerAdapter(UserInfoAdapter());
   await Hive.openBox('auth');
   SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Color(0xffe0e0e0),
-    ),
-  );
+      const SystemUiOverlayStyle(statusBarColor: Color(0xffe0e0e0)));
 
   runApp(
     const ProviderScope(
@@ -46,6 +44,7 @@ class _MyAppState extends ConsumerState<MyApp> {
     Future.delayed(const Duration(seconds: 0), () async {
       initKakao();
     });
+    fToast.init(context);
   }
 
   void initKakao() async {

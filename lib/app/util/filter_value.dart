@@ -1,31 +1,4 @@
-Map<String, String> studioFilterValue = {
-  '강남구': 'gangnam',
-  '강동구': 'gangdong',
-  '광진구': 'gwangjin',
-  '마포구': 'mapo',
-  '서초구': 'seocho',
-  '양천구': 'yangchun'
-};
-
-Map<String, String> beautyFilterValue = {
-  '강남구': 'gangnam',
-  '강동구': 'gangdong',
-  '광진구': 'gwangjin',
-  '마포구': 'mapo',
-  '서초구': 'seocho',
-  '양천구': 'yangchun'
-};
-
-Map<String, String> waxingFilterValue = {
-  '강남구': 'gangnam',
-  '강동구': 'gangdong',
-  '광진구': 'gwangjin',
-  '마포구': 'mapo',
-  '서초구': 'seocho',
-  '양천구': 'yangchun'
-};
-
-Map<String, String> tanningFilterValue = {
+Map<String, String> shopFilterValue = {
   '강남구': 'gangnam',
   '강동구': 'gangdong',
   '광진구': 'gwangjin',

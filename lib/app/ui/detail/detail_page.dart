@@ -2,6 +2,8 @@ import 'package:bpp_riverpod/app/provider/detail/detail_navigation_provider.dart
 import 'package:bpp_riverpod/app/provider/detail/shop_detail_page_controller.dart';
 import 'package:bpp_riverpod/app/provider/detail/shop_detail_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
+import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
+import 'package:bpp_riverpod/app/ui/components/state/error_card.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_app_bar.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_bottom_bar.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_info_page.dart';
@@ -10,19 +12,15 @@ import 'package:bpp_riverpod/app/ui/detail/widget/detail_portfolio_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_review_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_top_box.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
-import 'package:bpp_riverpod/app/util/text_style.dart';
-import 'package:bpp_riverpod/app/util/widget/custom_load_indicator.dart';
+import 'package:bpp_riverpod/app/util/theme/text_style.dart';
+import 'package:bpp_riverpod/app/util/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailPage extends ConsumerStatefulWidget {
-  const DetailPage({
-    Key? key,
-    required this.shopId,
-  }) : super(key: key);
+  const DetailPage({Key? key, required this.shopId}) : super(key: key);
 
   final int shopId;
 
@@ -33,8 +31,6 @@ class DetailPage extends ConsumerStatefulWidget {
 class _DetailPageState extends ConsumerState<DetailPage> {
   final scrollController = ScrollController();
 
-  final fToast = FToast();
-
   @override
   void initState() {
     scrollController.addListener(() {
@@ -44,17 +40,12 @@ class _DetailPageState extends ConsumerState<DetailPage> {
         ref.read(detailPageLeadingProvier.state).state = true;
       }
     });
-    fToast.init(context);
-
     super.initState();
   }
 
   void scrollToTop() {
-    scrollController.animateTo(
-      0,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.linear,
-    );
+    scrollController.animateTo(0,
+        duration: const Duration(milliseconds: 300), curve: Curves.linear);
   }
 
   @override
@@ -65,22 +56,15 @@ class _DetailPageState extends ConsumerState<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen<int>(detailTabProvider, (pre, next) {
-      scrollToTop();
-    });
+    ref.listen<int>(detailTabProvider, (pre, next) => scrollToTop());
 
     final index = ref.watch(detailTabProvider);
     final detailData = ref.watch(shopDetailProvider(widget.shopId));
 
     return SafeArea(
       child: detailData.when(
-        loading: () => Scaffold(
-          body: customLoadingIndicator(),
-        ),
-        error: (error, stack) => Scaffold(
-            body: Center(
-                child: Text(error.toString(),
-                    style: const TextStyle(fontSize: 24)))),
+        loading: () => Scaffold(body: customLoadingIndicator()),
+        error: (error, stack) => Scaffold(body: errorCard()),
         data: (shopData) {
           final shopDetailData = ref.watch(shopDetailStateProvider(shopData));
           final conceptPageController =
@@ -108,9 +92,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
             appBar: AppBar(
               backgroundColor: const Color(0x00000000),
               leading: InkWell(
-                onTap: () {
-                  navigator.pop();
-                },
+                onTap: () => navigator.pop(),
                 child: SvgPicture.asset(
                   'assets/icon/ic_back.svg',
                   color: ref.watch(detailPageLeadingProvier)
@@ -142,7 +124,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
             bottomNavigationBar: detailBottomBar(
               onTabIcon: () async {
                 if (!shopDetailData.like) {
-                  _showToast();
+                  showToast();
                 }
                 await ref
                     .read(shopListProvider)
@@ -150,10 +132,39 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                 ref.read(shopDetailStateProvider(shopData).notifier).setLike();
               },
               onTabButton: () async {
-                await ref
-                    .read(shopDetailStateProvider(shopData).notifier)
-                    .createReservation(shopData.id);
-                await launch(shopData.kakaoUrl);
+                try {
+                  await ref
+                      .read(shopDetailStateProvider(shopData).notifier)
+                      .createReservation(shopData.id);
+                  await launch(shopData.kakaoUrl);
+                } catch (e) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => Dialog(
+                      child: Container(
+                        height: 200,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              '이미 예약 된 스튜디오 입니다',
+                              style: BppTextStyle.dialogText.copyWith(
+                                color: const Color(0xff000000),
+                              ),
+                            ),
+                            Consumer(builder: (context, ref, _) {
+                              return ElevatedButton(
+                                onPressed: () =>
+                                    ref.read(navigatorProvider).pop(),
+                                child: const Text('확인'),
+                              );
+                            }),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                }
               },
               isLike: shopDetailData.like,
             ),
@@ -161,35 +172,5 @@ class _DetailPageState extends ConsumerState<DetailPage> {
         },
       ),
     );
-  }
-
-  void _showToast() {
-    fToast.removeQueuedCustomToasts();
-    fToast.showToast(
-        child: Container(
-          width: 173,
-          height: 37,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(37.0),
-            color: const Color(0xff595959),
-          ),
-          child: Center(
-            child: Text(
-              '찜 목록에 추가되었습니다!',
-              style: BppTextStyle.smallText.copyWith(
-                color: const Color(0xffffffff),
-              ),
-            ),
-          ),
-        ),
-        // gravity: ToastGravity.TOP,
-        toastDuration: const Duration(seconds: 1),
-        positionedToastBuilder: (context, child) {
-          return Positioned(
-            top: 37,
-            right: (MediaQuery.of(context).size.width - 173) / 2,
-            child: child,
-          );
-        });
   }
 }

@@ -4,7 +4,7 @@ import 'package:bpp_riverpod/app/provider/detail/shop_detail_page_controller.dar
 import 'package:bpp_riverpod/app/provider/detail/report_provider.dart';
 import 'package:bpp_riverpod/app/repository/shop_detail_repository.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
-import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

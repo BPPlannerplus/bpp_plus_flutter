@@ -5,7 +5,7 @@ import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
-import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -69,27 +69,13 @@ Widget wishGridCard({
         ),
       ),
       const SizedBox(height: 8),
-      Text(
-        shop.name,
-        style: !BppTextStyle.isEng(shop.name)
-            ? BppTextStyle.tabText
-            : BppTextStyle.engShopNameText,
-      ),
+      Text(shop.name, style: BppTextStyle.isEng(shop.name)),
       const SizedBox(height: 2),
-      Text(
-        shopAddrToKR[shop.address]!,
-        style: BppTextStyle.smallText,
-      ),
+      Text(shopAddrToKR[shop.address]!, style: BppTextStyle.smallText),
       const SizedBox(height: 2),
       shop.minPrice != null
-          ? Text(
-              priceFormat(shop.minPrice!),
-              style: BppTextStyle.smallText,
-            )
-          : const Text(
-              '가격 정보 없음',
-              style: BppTextStyle.smallText,
-            ),
+          ? Text(priceFormat(shop.minPrice!), style: BppTextStyle.smallText)
+          : const Text('가격 정보 없음', style: BppTextStyle.smallText),
     ],
   );
 }

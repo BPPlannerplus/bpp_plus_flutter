@@ -1,5 +1,5 @@
 import 'package:bpp_riverpod/app/provider/detail/detail_navigation_provider.dart';
-import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

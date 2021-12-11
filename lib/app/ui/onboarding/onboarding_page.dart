@@ -4,7 +4,7 @@ import 'package:bpp_riverpod/app/ui/onboarding/widget/first_onboarding_card.dart
 import 'package:bpp_riverpod/app/ui/onboarding/widget/second_onboarding_card.dart';
 import 'package:bpp_riverpod/app/ui/onboarding/widget/third_onboarding_card.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
-import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -63,6 +63,7 @@ class DetailTopBox extends StatelessWidget {
             tag: 'profile$index',
             child: Image.network(
               img,
+              fit: BoxFit.cover,
             ),
           ),
         ),

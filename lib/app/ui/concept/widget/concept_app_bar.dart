@@ -29,10 +29,7 @@ class ConceptAppBar extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SvgPicture.asset(
-                  'assets/image/concept_text.svg',
-                  width: 190,
-                ),
+                SvgPicture.asset('assets/image/concept_text.svg', width: 190),
                 InkWell(
                   onTap: () {
                     showModalBottomSheet(

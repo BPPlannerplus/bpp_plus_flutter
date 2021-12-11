@@ -2,7 +2,7 @@ import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_type_provider.dart';
 import 'package:bpp_riverpod/app/ui/home/widget/home_bottom_sheet.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
-import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

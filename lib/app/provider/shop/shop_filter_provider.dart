@@ -58,7 +58,7 @@ class ShopFilterCheckState extends StateNotifier<List<FilterCheckPair>> {
 final studioFilterProvider =
     StateNotifierProvider<ShopFilterCheckState, List<FilterCheckPair>>(
   (ref) => ShopFilterCheckState(
-      filters: studioFilterValue.entries
+      filters: shopFilterValue.entries
           .map<FilterCheckPair>(
               (data) => FilterCheckPair(id: data.key, value: data.value))
           .toList()),
@@ -67,7 +67,7 @@ final studioFilterProvider =
 final beautyFilterProvider =
     StateNotifierProvider<ShopFilterCheckState, List<FilterCheckPair>>(
   (ref) => ShopFilterCheckState(
-      filters: beautyFilterValue.entries
+      filters: shopFilterValue.entries
           .map<FilterCheckPair>(
               (data) => FilterCheckPair(id: data.key, value: data.value))
           .toList()),
@@ -76,7 +76,7 @@ final beautyFilterProvider =
 final waxingFilterProvider =
     StateNotifierProvider<ShopFilterCheckState, List<FilterCheckPair>>(
   (ref) => ShopFilterCheckState(
-      filters: waxingFilterValue.entries
+      filters: shopFilterValue.entries
           .map<FilterCheckPair>(
               (data) => FilterCheckPair(id: data.key, value: data.value))
           .toList()),
@@ -85,7 +85,7 @@ final waxingFilterProvider =
 final tanningFilterProvider =
     StateNotifierProvider<ShopFilterCheckState, List<FilterCheckPair>>(
   (ref) => ShopFilterCheckState(
-      filters: tanningFilterValue.entries
+      filters: shopFilterValue.entries
           .map<FilterCheckPair>(
               (data) => FilterCheckPair(id: data.key, value: data.value))
           .toList()),

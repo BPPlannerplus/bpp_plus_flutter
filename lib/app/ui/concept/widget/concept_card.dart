@@ -2,7 +2,7 @@ import 'package:bpp_riverpod/app/model/concept/concept.dart';
 import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_dialog.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
-import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -83,7 +83,7 @@ class _ConceptCardState extends State<ConceptCard> {
   }
 
   void _showToast() {
-    fToast.removeQueuedCustomToasts();
+    fToast.removeCustomToast();
     fToast.showToast(
         child: Container(
           width: 173,
@@ -101,7 +101,6 @@ class _ConceptCardState extends State<ConceptCard> {
             ),
           ),
         ),
-        // gravity: ToastGravity.TOP,
         toastDuration: const Duration(seconds: 1),
         positionedToastBuilder: (context, child) {
           return Positioned(

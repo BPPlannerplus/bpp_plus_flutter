@@ -2,17 +2,16 @@ import 'package:bpp_riverpod/app/provider/mypage/expiration_provider.dart';
 import 'package:bpp_riverpod/app/provider/mypage/review_detail_provider.dart';
 import 'package:bpp_riverpod/app/repository/mypage_repository.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
+import 'package:bpp_riverpod/app/ui/components/state/error_card.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
-import 'package:bpp_riverpod/app/util/text_style.dart';
-import 'package:bpp_riverpod/app/util/widget/custom_load_indicator.dart';
+import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import 'dart:developer' as dp;
 
 class MyReviewPage extends ConsumerWidget {
   const MyReviewPage({
@@ -32,22 +31,8 @@ class MyReviewPage extends ConsumerWidget {
 
     return SafeArea(
       child: review.when(
-          loading: () => Scaffold(
-                body: customLoadingIndicator(),
-              ),
-          error: (error, stack) {
-            dp.log(stack.toString());
-            return Scaffold(
-              body: Center(
-                child: Text(
-                  error.toString(),
-                  style: const TextStyle(
-                    fontSize: 24,
-                  ),
-                ),
-              ),
-            );
-          },
+          loading: () => Scaffold(body: customLoadingIndicator()),
+          error: (error, stack) => Scaffold(body: errorCard()),
           data: (reviewDetail) {
             return SafeArea(
               child: Scaffold(
@@ -60,12 +45,8 @@ class MyReviewPage extends ConsumerWidget {
                   leading: Consumer(builder: (context, ref, _) {
                     final navigator = ref.watch(navigatorProvider);
                     return InkWell(
-                      onTap: () {
-                        navigator.pop();
-                      },
-                      child: SvgPicture.asset(
-                        'assets/icon/ic_back.svg',
-                      ),
+                      onTap: () => navigator.pop(),
+                      child: SvgPicture.asset('assets/icon/ic_back.svg'),
                     );
                   }),
                   toolbarHeight: 40,

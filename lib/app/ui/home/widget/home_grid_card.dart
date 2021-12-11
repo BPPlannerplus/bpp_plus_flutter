@@ -4,7 +4,7 @@ import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
-import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,7 +41,7 @@ class _HomeGridCardState extends State<HomeGridCard> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         SizedBox(
-          height: 112,
+          height: 112.h,
           width: 160.w,
           child: Stack(
             alignment: Alignment.bottomRight,
@@ -49,17 +49,15 @@ class _HomeGridCardState extends State<HomeGridCard> {
               Consumer(builder: (context, ref, _) {
                 final navigator = ref.watch(navigatorProvider);
                 return InkWell(
-                  onTap: () {
-                    navigator.navigateTo(
-                      routeName: AppRoutes.detailPage,
-                      argument: widget.shop.id,
-                    );
-                  },
+                  onTap: () => navigator.navigateTo(
+                    routeName: AppRoutes.detailPage,
+                    argument: widget.shop.id,
+                  ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.network(
                       widget.shop.profile,
-                      height: 112,
+                      height: 112.h,
                       width: 160.w,
                       fit: BoxFit.fill,
                     ),
@@ -69,8 +67,9 @@ class _HomeGridCardState extends State<HomeGridCard> {
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: InkWell(
-                  onTap: () {
-                    widget.shopState.setLike(widget.shop.id, widget.shop.like);
+                  onTap: () async {
+                    await widget.shopState
+                        .setLike(widget.shop.id, widget.shop.like);
                     if (!widget.shop.like) {
                       _showToast();
                     }
@@ -90,27 +89,14 @@ class _HomeGridCardState extends State<HomeGridCard> {
           ),
         ),
         const SizedBox(height: 8),
-        Text(
-          widget.shop.name,
-          style: !BppTextStyle.isEng(widget.shop.name)
-              ? BppTextStyle.tabText
-              : BppTextStyle.engShopNameText,
-        ),
-        const SizedBox(height: 2),
-        Text(
-          shopAddrToKR[widget.shop.address]!,
-          style: BppTextStyle.smallText,
-        ),
-        const SizedBox(height: 2),
+        Text(widget.shop.name, style: BppTextStyle.isEng(widget.shop.name)),
+        const SizedBox(height: 4),
+        Text(shopAddrToKR[widget.shop.address]!, style: BppTextStyle.smallText),
+        const SizedBox(height: 4),
         widget.shop.minPrice != null
-            ? Text(
-                priceFormat(widget.shop.minPrice!),
-                style: BppTextStyle.smallText,
-              )
-            : const Text(
-                '가격 정보 없음',
-                style: BppTextStyle.smallText,
-              ),
+            ? Text(priceFormat(widget.shop.minPrice!),
+                style: BppTextStyle.smallText)
+            : const Text('가격 정보 없음', style: BppTextStyle.smallText),
       ],
     );
   }
@@ -134,7 +120,6 @@ class _HomeGridCardState extends State<HomeGridCard> {
             ),
           ),
         ),
-        // gravity: ToastGravity.TOP,
         toastDuration: const Duration(seconds: 1),
         positionedToastBuilder: (context, child) {
           return Positioned(
