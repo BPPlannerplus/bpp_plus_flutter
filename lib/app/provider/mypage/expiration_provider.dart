@@ -36,6 +36,11 @@ class ExpirationList extends StateNotifier<List<MypageData>> {
     return state;
   }
 
+  Future<dynamic> setDate(int shopId, String date) async {
+    final response = await repository.setReservationDate(shopId, date);
+    return response;
+  }
+
   void changeShopStateUnReviewed(int reservationId) {
     state = state.map((e) {
       if (e.id == reservationId) {

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:bpp_riverpod/app/model/concept/concept.dart';
 import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/ui/components/toast/toast.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/cupertino.dart';
@@ -85,7 +86,7 @@ class ConceptDialog extends StatelessWidget {
                             .read(conceptListProvider.notifier)
                             .setLike(concept.id);
                         if (!c.like) {
-                          _showToast();
+                          showToast(fToast);
                         }
                       },
                       child: Icon(
@@ -106,33 +107,5 @@ class ConceptDialog extends StatelessWidget {
         ),
       );
     });
-  }
-
-  void _showToast() {
-    fToast.showToast(
-        child: Container(
-          width: 173,
-          height: 37,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(37.0),
-            color: const Color(0xff595959),
-          ),
-          child: Center(
-            child: Text(
-              '찜 목록에 추가되었습니다!',
-              style: BppTextStyle.smallText.copyWith(
-                color: const Color(0xffffffff),
-              ),
-            ),
-          ),
-        ),
-        toastDuration: const Duration(milliseconds: 500),
-        positionedToastBuilder: (context, child) {
-          return Positioned(
-            top: 37,
-            right: (MediaQuery.of(context).size.width - 173) / 2,
-            child: child,
-          );
-        });
   }
 }

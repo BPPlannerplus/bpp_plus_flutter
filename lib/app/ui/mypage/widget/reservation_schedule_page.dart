@@ -6,12 +6,10 @@ import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_card.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_detail_dialog.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
-import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -44,20 +42,20 @@ class _ReservationSchedulePageState
       final shopDatas = ref.watch(confirmedListProvider.notifier).makeList();
       return confirmList.isEmpty
           ? emptyBox(
-              img: 'assets/image/reservation_schedule_none.svg',
               isButton: false,
-              topPadding: (MediaQuery.of(context).size.height - 256) / 4,
-            )
+              title: '아직 예약한 스튜디오가 없어요.',
+              subTitle: '예약 날짜를 입력하고 예약을 관리해보세요')
           : SliverList(
-              delegate: SliverChildListDelegate([
-              for (var shopData in shopDatas) reservationCards(shopData),
-              Row(mainAxisAlignment: MainAxisAlignment.start, children: const [
-                Padding(
-                    padding: EdgeInsets.only(top: 6, bottom: 16, left: 18),
-                    child: CircleAvatar(
-                        radius: 4, backgroundColor: Color(0xff4c81ff)))
-              ])
-            ]));
+              delegate: SliverChildListDelegate(
+                [
+                  for (int i = 0; i < shopDatas.length; i++)
+                    if (i == shopDatas.length - 1)
+                      _lastCard(shopDatas[i])
+                    else
+                      reservationCards(shopDatas[i])
+                ],
+              ),
+            );
     }
   }
 
@@ -100,13 +98,13 @@ class _ReservationSchedulePageState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                      width: 1, height: 120.h, color: const Color(0xff000000)),
+                      width: 1, height: 120, color: const Color(0xff000000)),
                   const SizedBox(width: 22),
                   Padding(
                     padding: const EdgeInsets.only(top: 8),
                     child: Consumer(builder: (context, ref, _) {
-                      final navigator = ref.watch(navigatorProvider);
                       return reservationCard(
+                        shopId: shopDatas[i].shop.id,
                         date: reservationDateFormat(shopDatas[i].reservedData!),
                         shop: shopTypeToName[shopDatas[i].shop.type]!,
                         shopName: shopDatas[i].shop.name,
@@ -119,10 +117,10 @@ class _ReservationSchedulePageState
                           await launch(shopDatas[i].shop.kakaoUrl);
                         },
                         onTabIcon: () {
-                          reservationDetailDialog(
-                            shopDatas[i].id,
-                            navigator.navigatorKey.currentContext!,
-                          );
+                          showDialog(
+                              context: context,
+                              builder: (context) => reservationDetailDialog(
+                                  reservationData: shopDatas[i]));
                         },
                       );
                     }),
@@ -140,6 +138,55 @@ class _ReservationSchedulePageState
                       width: 1, height: 28, color: const Color(0xff000000)),
                 ]),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _lastCard(List<MypageData> shopDatas) {
+    final remainingDay = calRemainigDay(shopDatas[0].reservedData!);
+    return Padding(
+      padding: const EdgeInsets.only(left: 12),
+      child: Column(
+        children: [
+          reservationDivider(remainingDay),
+          for (int i = 0; i < shopDatas.length; i++)
+            Padding(
+              padding: const EdgeInsets.only(left: 9),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(width: 22),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Consumer(builder: (context, ref, _) {
+                      return reservationCard(
+                        shopId: shopDatas[i].shop.id,
+                        date: reservationDateFormat(shopDatas[i].reservedData!),
+                        shop: shopTypeToName[shopDatas[i].shop.type]!,
+                        shopName: shopDatas[i].shop.name,
+                        buttonText: '문의하기',
+                        iconWidget: SvgPicture.asset(
+                          'assets/icon/ic_edit.svg',
+                          width: 40,
+                        ),
+                        onTabButton: () async {
+                          await launch(shopDatas[i].shop.kakaoUrl);
+                        },
+                        onTabIcon: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) => reservationDetailDialog(
+                                  reservationData: shopDatas[i]));
+                        },
+                      );
+                    }),
+                  ),
+                ],
+              ),
+            ),
+          const SizedBox(height: 24),
         ],
       ),
     );

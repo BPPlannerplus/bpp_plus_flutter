@@ -44,10 +44,10 @@ class InquiryList extends StateNotifier<List<MypageData>> {
     return response;
   }
 
-  void deleteAll(ShopType shopType) {
-    state = state.where((e) => e.shop.type != shopType.index).toList();
-    // final reponse = await repository.deleteInquiring(id);
-  }
+  // void deleteAll(ShopType shopType) async{
+  //   state = state.where((e) => e.shop.type != shopType.index).toList();
+  //   final reponse = await repository.deleteInquiring(id);
+  // }
 
   Future<dynamic> deleteById(int shopId) async {
     state = state.where((e) => e.id != shopId).toList();
@@ -56,7 +56,7 @@ class InquiryList extends StateNotifier<List<MypageData>> {
     return response;
   }
 
-  void changeState(int shopId) {
+  void changeState(int shopId, String date) {
     state = state.where((e) => e.id != shopId).toList();
   }
 }

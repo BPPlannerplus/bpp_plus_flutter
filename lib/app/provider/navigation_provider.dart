@@ -7,11 +7,11 @@ final bottomIndexStateProvider = StateProvider<int>((ref) => 0);
 
 final onboardingPageProvider = StateProvider<int>((ref) => 0);
 
-final homeTabProvider = StateProvider<int>((ref) => 0);
+final homeTabProvider = StateProvider.autoDispose<int>((ref) => 0);
 
-final wishTabProvider = StateProvider<int>((ref) => 0);
+final wishTabProvider = StateProvider.autoDispose<int>((ref) => 0);
 
-final myPageTabProvider = StateProvider<int>((ref) => 0);
+final myPageTabProvider = StateProvider.autoDispose<int>((ref) => 1);
 
 final inquiryTabProvider = StateProvider<int>((ref) => 0);
 

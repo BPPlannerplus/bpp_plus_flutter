@@ -1,6 +1,5 @@
 import 'package:bpp_riverpod/app/model/mypage/mypage_data.dart';
 import 'package:bpp_riverpod/app/provider/mypage/expiration_provider.dart';
-import 'package:bpp_riverpod/app/repository/shop_detail_repository.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/empty_box.dart';
@@ -42,10 +41,9 @@ class _ReservationDetailPageState extends ConsumerState<ReservationDetailPage> {
     } else {
       return expirationList.isEmpty
           ? emptyBox(
-              img: 'assets/image/reservation_detail_none.svg',
               isButton: true,
-              topPadding: (MediaQuery.of(context).size.height - 256) / 4,
-            )
+              title: '아직 예약 내역이 없어요.',
+              subTitle: '마음에 드는 스튜디오를 예약해보세요.')
           : reservedList(expirationList);
     }
   }
@@ -73,20 +71,20 @@ class _ReservationDetailPageState extends ConsumerState<ReservationDetailPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                  width: 1, height: 120.h, color: const Color(0xff000000)),
+              Container(width: 1, height: 120, color: const Color(0xff000000)),
               const SizedBox(width: 22),
               Padding(
                   padding: const EdgeInsets.only(top: 8),
                   child: Consumer(builder: (context, ref, _) {
                     final navigator = ref.watch(navigatorProvider);
                     return reservationCard(
+                      shopId: datas[i].shop.id,
                       date: reservationDateFormat(datas[i].reservedData!),
                       shop: shopTypeToName[datas[i].shop.type]!,
                       shopName: datas[i].shop.name,
                       buttonText: datas[i].state == 2 ? '내 리뷰 보기' : '리뷰 작성',
                       iconWidget: Padding(
-                        padding: EdgeInsets.only(right: 12.w),
+                        padding: EdgeInsets.only(top: 8, right: 8.w),
                         child: Text(
                           '다시 추가하기',
                           style: BppTextStyle.smallText.copyWith(
@@ -116,11 +114,13 @@ class _ReservationDetailPageState extends ConsumerState<ReservationDetailPage> {
                               );
                             },
                       onTabIcon: () async {
-                        await ref
-                            .read(shopDetailRepository)
-                            .shopReservation(datas[i].shop.id);
-                        setDateDialog(datas[i].id,
-                            navigator.navigatorKey.currentContext!);
+                        showDialog(
+                          context: context,
+                          builder: (context) => setDateDialog(
+                            reservationId: datas[i].id,
+                            confirm: (id, date) {},
+                          ),
+                        );
                       },
                     );
                   }))

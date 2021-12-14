@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,12 +21,7 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<HomePage> {
   final scrollController = ScrollController();
-  final _pages = const [
-    StudioGrid(),
-    BeautyGrid(),
-    WaxingGrid(),
-    TanningGrid(),
-  ];
+  final FToast fToast = FToast();
 
   @override
   void initState() {
@@ -37,22 +33,26 @@ class _HomePageState extends ConsumerState<HomePage> {
         ref.read(isShowBottomBarStateProvider.state).state = false;
       }
     });
-
+    fToast.init(context);
     super.initState();
   }
 
   Future<void> scrollToTop() async {
-    await scrollController.animateTo(
-      0,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.linear,
-    );
+    await scrollController.animateTo(0,
+        duration: const Duration(milliseconds: 300), curve: Curves.linear);
     ref.watch(isShowBottomBarStateProvider.state).state = true;
   }
 
   @override
   Widget build(BuildContext context) {
     ref.listen(homeTabProvider, (pre, next) => scrollToTop());
+
+    final _pages = [
+      StudioGrid(fToast: fToast),
+      BeautyGrid(fToast: fToast),
+      WaxingGrid(fToast: fToast),
+      TanningGrid(fToast: fToast),
+    ];
 
     return Padding(
       padding: const EdgeInsets.only(right: 16, left: 16),

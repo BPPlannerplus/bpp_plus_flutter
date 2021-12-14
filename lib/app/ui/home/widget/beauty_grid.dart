@@ -3,39 +3,42 @@ import 'package:bpp_riverpod/app/provider/shop/shop_page_controller_provider.dar
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
 import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
 import 'package:bpp_riverpod/app/ui/components/state/empty_item_text.dart';
+import 'package:bpp_riverpod/app/ui/components/studio_grid/studio_paged_sliver_grid.dart';
+import 'package:bpp_riverpod/app/ui/components/toast/toast.dart';
 import 'package:bpp_riverpod/app/ui/home/widget/home_grid_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class BeautyGrid extends ConsumerWidget {
-  const BeautyGrid({Key? key}) : super(key: key);
+  const BeautyGrid({
+    Key? key,
+    required this.fToast,
+  }) : super(key: key);
+
+  final FToast fToast;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return PagedSliverGrid(
-      pagingController: ref.watch(beautyPageControllerProvider),
-      showNewPageProgressIndicatorAsGridChild: false,
-      showNewPageErrorIndicatorAsGridChild: false,
-      showNoMoreItemsIndicatorAsGridChild: false,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisExtent: 188.h,
-        mainAxisSpacing: 8,
-        crossAxisSpacing: 8,
-        childAspectRatio: 100 / 150,
-      ),
+    return StudioPagedSliverGrid(
+      pageController: ref.watch(beautyPageControllerProvider),
       builderDelegate: PagedChildBuilderDelegate<ShopData>(
         itemBuilder: (context, shop, index) {
           final beauties = ref.watch(beautyListProvider);
-          final beautyState = ref.read(beautyListProvider.notifier);
 
-          // return HomeGridCard(
-          //   shop: beauties.shopDatas[index],
-          //   shopState: beautyState,
-          // );
-          return const SizedBox();
+          return HomeGridCard(
+            shop: beauties.shopDatas[index],
+            setLike: () async {
+              if (!beauties.shopDatas[index].like) {
+                showToast(fToast);
+              }
+              await ref.read(beautyListProvider.notifier).setLike(
+                    beauties.shopDatas[index].id,
+                    beauties.shopDatas[index].like,
+                  );
+            },
+          );
         },
         firstPageProgressIndicatorBuilder: (context) =>
             customLoadingIndicator(),

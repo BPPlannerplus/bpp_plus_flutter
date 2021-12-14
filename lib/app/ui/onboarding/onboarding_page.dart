@@ -51,7 +51,7 @@ class OnBoardingPage extends ConsumerWidget {
                   }),
                 ),
               ),
-              SizedBox(height: 56.h),
+              const SizedBox(height: 16),
               Expanded(
                 child: PageView(
                   onPageChanged: (index) {

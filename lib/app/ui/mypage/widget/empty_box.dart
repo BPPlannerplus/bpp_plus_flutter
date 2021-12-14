@@ -6,20 +6,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 Widget emptyBox({
-  required String img,
-  required double topPadding,
+  required String title,
+  required String subTitle,
   required bool isButton,
 }) {
   return SliverToBoxAdapter(
     child: Padding(
-      padding: EdgeInsets.only(top: topPadding),
+      padding: const EdgeInsets.only(top: 100),
       child: Center(
         child: Column(
           children: [
-            SvgPicture.asset(
-              img,
-              width: 221.w,
-            ),
+            SvgPicture.asset('assets/image/reservation_none.svg', width: 140.w),
+            const SizedBox(height: 24),
+            Text(title, style: BppTextStyle.tabText),
+            const SizedBox(height: 8),
+            Text(subTitle,
+                style: BppTextStyle.smallText
+                    .copyWith(color: const Color(0xff8c8c8c))),
             const SizedBox(height: 16),
             isButton
                 ? Consumer(

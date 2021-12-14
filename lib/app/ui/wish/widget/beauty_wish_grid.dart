@@ -5,6 +5,7 @@ import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart'
 import 'package:bpp_riverpod/app/ui/components/studio_grid/studio_paged_sliver_grid.dart';
 import 'package:bpp_riverpod/app/ui/wish/widget/no_item_card.dart';
 import 'package:bpp_riverpod/app/ui/wish/widget/wish_grid_card.dart';
+import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -17,8 +18,6 @@ class BeautyWishGrid extends ConsumerStatefulWidget {
 }
 
 class _BeautyWishGridState extends ConsumerState<BeautyWishGrid> {
-  final int _pageSize = 20;
-
   final PagingController<int, ShopData> _pagingController =
       PagingController(firstPageKey: 1);
   @override
@@ -52,7 +51,7 @@ class _BeautyWishGridState extends ConsumerState<BeautyWishGrid> {
     try {
       final newItems =
           await ref.read(shopWishRepositoryProvider).getBeautyList(pageKey++);
-      final isLastPage = newItems.shopDatas.length < _pageSize;
+      final isLastPage = newItems.shopDatas.length < pageSize;
 
       if (isLastPage) {
         _pagingController.appendLastPage(newItems.shopDatas);

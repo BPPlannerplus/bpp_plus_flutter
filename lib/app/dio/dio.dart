@@ -1,11 +1,14 @@
+import 'dart:developer' as dp;
+
 import 'package:bpp_riverpod/app/api/auth_client.dart';
 import 'package:bpp_riverpod/app/model/auth/token_data.dart';
 import 'package:bpp_riverpod/app/model/auth/user_info.dart';
 import 'package:bpp_riverpod/app/provider/auth/user_provider.dart';
+import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'dart:developer' as dp;
 
 final dioProvider = Provider<Dio>((ref) {
   final dio = Dio();
@@ -16,7 +19,7 @@ final dioProvider = Provider<Dio>((ref) {
       AuthClient(Dio()..interceptors.add(CustomLogInterceptor()));
 
   dio.interceptors.add(
-    InterceptorsWrapper(
+    QueuedInterceptorsWrapper(
       onRequest: (options, handler) async {
         dp.log('>>> onRequest <<<');
         final tokenData = ref.read(tokenDataProvider);
@@ -60,43 +63,42 @@ final dioProvider = Provider<Dio>((ref) {
             return;
           }
           dio.lock();
-          dio.interceptors.responseLock.lock();
-          dio.interceptors.errorLock.lock();
 
           await authClient
-              .refreshToken(
-            TokenRequest(
-              userId: userInfo!.uid,
-              refreshToken: token.refreshToken!,
-            ),
-          )
+              .refreshToken(TokenRequest(
+                  userId: userInfo!.uid, refreshToken: token.refreshToken!))
               .then(
-            (d) {
-              Hive.box('auth').put('token', token.refreshToken!);
-              options.headers['Authorization'] = 'Bearer ${token.accessToken}';
-            },
-          ).whenComplete(
-            () {
-              dio.unlock();
-              dio.interceptors.responseLock.unlock();
-              dio.interceptors.errorLock.unlock();
-            },
-          ).then(
-            (e) {
-              dio.fetch(options).then(
-                (r) => handler.resolve(r),
-                onError: (e) {
-                  dp.log('>>> onError on Error <<<');
-                  handler.reject(e);
+                (d) {
+                  Hive.box('auth').put('token', token.refreshToken!);
+                  options.headers['Authorization'] =
+                      'Bearer ${token.accessToken}';
+                },
+              )
+              .whenComplete(() => dio.unlock())
+              .then(
+                (e) {
+                  dio.fetch(options).then(
+                    (r) => handler.resolve(r),
+                    onError: (e) {
+                      dp.log('>>> onError onError <<<');
+                      ref.read(navigatorProvider).navigateToRemove(
+                            routeName: AppRoutes.loginPage,
+                          );
+                      handler.reject(e);
+                    },
+                  );
+                },
+              )
+              .catchError(
+                //  refreshToken 만료
+                (error, stackTrace) {
+                  dp.log('>>> onError onError onError <<<');
+                  ref.read(navigatorProvider).navigateToRemove(
+                        routeName: AppRoutes.loginPage,
+                      );
+                  handler.reject(error);
                 },
               );
-            },
-          ).catchError(
-            (error, stackTrace) {
-              dp.log('>>> onError onError onError <<<');
-              handler.reject(error);
-            },
-          );
           return;
         }
         return handler.next(error);

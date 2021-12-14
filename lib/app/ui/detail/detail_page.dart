@@ -4,6 +4,7 @@ import 'package:bpp_riverpod/app/provider/detail/shop_detail_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
 import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
 import 'package:bpp_riverpod/app/ui/components/state/error_card.dart';
+import 'package:bpp_riverpod/app/ui/components/toast/toast.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_app_bar.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_bottom_bar.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_info_page.dart';
@@ -126,7 +127,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
             bottomNavigationBar: detailBottomBar(
               onTabIcon: () async {
                 if (!shopDetailData.like) {
-                  _showToast();
+                  showToast(fToast);
                 }
                 await ref
                     .read(shopListProvider)
@@ -174,34 +175,5 @@ class _DetailPageState extends ConsumerState<DetailPage> {
         },
       ),
     );
-  }
-
-  void _showToast() {
-    fToast.removeCustomToast();
-    fToast.showToast(
-        child: Container(
-          width: 173,
-          height: 37,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(37.0),
-            color: const Color(0xff595959),
-          ),
-          child: Center(
-            child: Text(
-              '찜 목록에 추가되었습니다!',
-              style: BppTextStyle.smallText.copyWith(
-                color: const Color(0xffffffff),
-              ),
-            ),
-          ),
-        ),
-        toastDuration: const Duration(milliseconds: 500),
-        positionedToastBuilder: (context, child) {
-          return Positioned(
-            top: 37,
-            right: (MediaQuery.of(context).size.width - 173) / 2,
-            child: child,
-          );
-        });
   }
 }

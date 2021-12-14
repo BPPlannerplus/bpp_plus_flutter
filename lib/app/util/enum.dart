@@ -4,6 +4,24 @@ enum ShopType {
   waxing,
   tanning,
 }
+
+extension ShopTypeToString on ShopType {
+  String get shopTypeToName {
+    switch (this) {
+      case ShopType.stduio:
+        return '스튜디오';
+      case ShopType.beauty:
+        return '헤어메이크업';
+      case ShopType.waxing:
+        return '왁싱';
+      case ShopType.tanning:
+        return '태닝';
+      default:
+        return '';
+    }
+  }
+}
+
 enum ShopState {
   inquiry,
   confirmed,

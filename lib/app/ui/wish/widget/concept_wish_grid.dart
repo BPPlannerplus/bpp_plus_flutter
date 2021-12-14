@@ -4,6 +4,7 @@ import 'package:bpp_riverpod/app/repository/shop_wish_repository.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
 import 'package:bpp_riverpod/app/ui/wish/widget/no_item_card.dart';
+import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +20,6 @@ class ConceptWishGrid extends ConsumerStatefulWidget {
 }
 
 class _ConceptWishGridState extends ConsumerState<ConceptWishGrid> {
-  final int _pageSize = 20;
-
   final PagingController<int, Concept> _pagingController =
       PagingController(firstPageKey: 1);
 
@@ -115,7 +114,7 @@ class _ConceptWishGridState extends ConsumerState<ConceptWishGrid> {
     try {
       final newItems =
           await ref.read(shopWishRepositoryProvider).getConceptList(pageKey++);
-      final isLastPage = newItems.concepts.length < _pageSize;
+      final isLastPage = newItems.concepts.length < pageSize;
 
       if (isLastPage) {
         _pagingController.appendLastPage(newItems.concepts);

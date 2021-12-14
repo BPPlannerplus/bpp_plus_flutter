@@ -1,5 +1,4 @@
 import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
-import 'package:bpp_riverpod/app/provider/shop/shop_state.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
@@ -52,7 +51,6 @@ class HomeGridCard extends StatelessWidget {
                   padding: const EdgeInsets.all(5.0),
                   child: InkWell(
                       onTap: () {
-                        // await shopState.setLike(shop.id, shop.like);
                         setLike();
                       },
                       child: Icon(

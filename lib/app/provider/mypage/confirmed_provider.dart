@@ -26,18 +26,8 @@ class ConfirmedList extends StateNotifier<List<MypageData>> {
     read(isConfirmedLoading.state).state = true;
     final lists = await repository.getShopReservation();
     state = lists.list.where((e) => e.state == 1).toList();
-    // state.sort((a, b) {
-    //   final aa = DateTime.parse(a.reservedData!);
-    //   final bb = DateTime.parse(b.reservedData!);
-    //   return bb.difference(aa).inDays;
-    // });
     read(isConfirmedLoading.state).state = false;
     return state;
-  }
-
-  Future<dynamic> setDate(int shopId, String date) async {
-    final response = repository.setReservationDate(shopId, date);
-    return response;
   }
 
   Future<dynamic> deleteById(int shopId) async {

@@ -1,18 +1,15 @@
 import 'package:bpp_riverpod/app/model/concept/concept.dart';
 import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
+import 'package:bpp_riverpod/app/ui/components/toast/toast.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_dialog.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
-import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class ConceptCard extends StatefulWidget {
-  const ConceptCard({
-    Key? key,
-    required this.concept,
-  }) : super(key: key);
+  const ConceptCard({Key? key, required this.concept}) : super(key: key);
 
   final Concept concept;
 
@@ -63,7 +60,7 @@ class _ConceptCardState extends State<ConceptCard> {
                     .read(conceptListProvider.notifier)
                     .setLike(widget.concept.id);
                 if (!widget.concept.like) {
-                  _showToast();
+                  showToast(fToast);
                 }
               },
               child: Icon(
@@ -80,34 +77,5 @@ class _ConceptCardState extends State<ConceptCard> {
         ],
       );
     });
-  }
-
-  void _showToast() {
-    fToast.removeCustomToast();
-    fToast.showToast(
-        child: Container(
-          width: 173,
-          height: 37,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(37.0),
-            color: const Color(0xff595959),
-          ),
-          child: Center(
-            child: Text(
-              '찜 목록에 추가되었습니다!',
-              style: BppTextStyle.smallText.copyWith(
-                color: const Color(0xffffffff),
-              ),
-            ),
-          ),
-        ),
-        toastDuration: const Duration(seconds: 1),
-        positionedToastBuilder: (context, child) {
-          return Positioned(
-            top: 37,
-            right: (MediaQuery.of(context).size.width - 173) / 2,
-            child: child,
-          );
-        });
   }
 }

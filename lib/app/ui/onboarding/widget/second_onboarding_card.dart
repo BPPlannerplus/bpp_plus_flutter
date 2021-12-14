@@ -17,6 +17,9 @@ class SecondOnboardingCard extends StatelessWidget {
         const SizedBox(height: 40),
         Image.asset(
           'assets/image/onboarding_img2.png',
+          width: double.infinity,
+          height: 338.h,
+          fit: BoxFit.contain,
         ),
       ],
     );

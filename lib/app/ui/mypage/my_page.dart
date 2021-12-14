@@ -37,20 +37,15 @@ class _MyPageState extends ConsumerState<MyPage> {
     super.initState();
   }
 
-  void scrollToTop() {
-    scrollController.animateTo(
-      0,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.linear,
-    );
+  Future<void> scrollToTop() async {
+    await scrollController.animateTo(0,
+        duration: const Duration(milliseconds: 300), curve: Curves.linear);
+    ref.watch(isShowBottomBarStateProvider.state).state = true;
   }
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(myPageTabProvider, (pre, next) {
-      scrollToTop();
-      ref.watch(isShowBottomBarStateProvider.state).state = true;
-    });
+    ref.listen(myPageTabProvider, (pre, next) => scrollToTop());
 
     return SafeArea(
       child: Padding(
