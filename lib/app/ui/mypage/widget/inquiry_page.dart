@@ -316,14 +316,14 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
               ? Align(
                   alignment: Alignment.topRight,
                   child: Stack(
-                    alignment: Alignment.topCenter,
+                    alignment: Alignment.center,
                     children: [
                       SvgPicture.asset(
                         'assets/image/bubble.svg',
                         height: 48,
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 8),
+                        padding: const EdgeInsets.only(bottom: 9),
                         child: Text(
                           '예약된 일정을 입력해보세요',
                           style: BppTextStyle.smallText.copyWith(

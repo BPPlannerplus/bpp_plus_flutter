@@ -39,7 +39,7 @@ Widget reservationCard({
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 8.0, bottom: 4),
+                      padding: const EdgeInsets.only(top: 4, bottom: 0),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,10 +73,10 @@ Widget reservationCard({
                                         },
                                         child: Transform.rotate(
                                             angle: pi,
-                                            child: Icon(
+                                            child: const Icon(
                                                 Icons.arrow_back_ios_new,
-                                                color: const Color(0xff000000),
-                                                size: 12.sp)));
+                                                color: Color(0xff000000),
+                                                size: 13)));
                                   }),
                                 ),
                               ],

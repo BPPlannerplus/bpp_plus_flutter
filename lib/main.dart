@@ -65,6 +65,12 @@ class _MyAppState extends ConsumerState<MyApp> {
     return ScreenUtilInit(
       designSize: const Size(360, 640),
       builder: () => MaterialApp(
+        builder: (context, child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+            child: child!,
+          );
+        },
         title: 'BPP',
         debugShowCheckedModeBanner: false,
         initialRoute: initPage,

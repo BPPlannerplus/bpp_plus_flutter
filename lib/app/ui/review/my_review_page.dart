@@ -6,6 +6,7 @@ import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart'
 import 'package:bpp_riverpod/app/ui/components/state/error_card.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -61,16 +62,11 @@ class MyReviewPage extends ConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              shopType,
-                              style: BppTextStyle.smallText
-                                  .copyWith(color: const Color(0xff4d4d4d)),
-                            ),
+                            Text(shopType,
+                                style: BppTextStyle.smallText
+                                    .copyWith(color: const Color(0xff4d4d4d))),
                             SizedBox(height: 5.h),
-                            Text(
-                              shopName,
-                              style: BppTextStyle.tabText,
-                            )
+                            Text(shopName, style: BppTextStyle.tabText)
                           ],
                         ),
                       ),
@@ -91,18 +87,14 @@ class MyReviewPage extends ConsumerWidget {
                               direction: Axis.horizontal,
                             ),
                             const SizedBox(width: 12),
-                            Text(
-                              '${reviewDetail.score}',
-                              style: BppTextStyle.filterText,
-                            )
+                            Text('${reviewDetail.score.toDouble()}',
+                                style: BppTextStyle.filterText)
                           ],
                         ),
                       ),
                       const SizedBox(height: 18),
-                      Text(
-                        reviewDetail.contents ?? '',
-                        style: BppTextStyle.smallText,
-                      ),
+                      Text(reviewDetail.contents ?? '',
+                          style: BppTextStyle.smallText),
                       const SizedBox(height: 24),
                       _editRow(
                         changeDateFormat(reviewDetail.createdAt),
@@ -174,35 +166,29 @@ class MyReviewPage extends ConsumerWidget {
               ],
             )
           : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  width: 80,
-                  height: 32,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      await ref.read(mypageRepsitory).deleteReview(args.id);
-                      ref
-                          .read(expirationListProvider.notifier)
-                          .changeShopStateUnReviewed(id);
-                      ref.read(navigatorProvider).pop();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: const Color(0xfff2f2f2),
-                      elevation: 0,
-                    ),
-                    child: Text(
-                      '삭제',
-                      style: BppTextStyle.defaultText.copyWith(
-                          color: const Color(0xff595959), fontSize: 14),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 12),
+                    width: 80,
+                    height: 32,
+                    child: ElevatedButton(
+                        onPressed: () async {
+                          await ref.read(mypageRepsitory).deleteReview(args.id);
+                          ref
+                              .read(expirationListProvider.notifier)
+                              .changeShopStateUnReviewed(id);
+                          ref.read(navigatorProvider).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                            primary: BppColor.unSelButton, elevation: 0),
+                        child: Text('삭제',
+                            style: BppTextStyle.smallText
+                                .copyWith(color: BppColor.unSelText)))),
+                const SizedBox(height: 12),
                 Text(
                   '리뷰 수정 기간이 지났습니다',
-                  style: BppTextStyle.smallText.copyWith(
-                    color: const Color(0xffbfbfbf),
-                  ),
+                  style: BppTextStyle.smallText
+                      .copyWith(color: BppColor.unSelButtonText),
                 ),
               ],
             );
