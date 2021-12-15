@@ -1,14 +1,13 @@
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DetailPortfolioFullScreen extends StatelessWidget {
-  const DetailPortfolioFullScreen({
-    Key? key,
-    required this.profile,
-  }) : super(key: key);
+  const DetailPortfolioFullScreen({Key? key, required this.profile})
+      : super(key: key);
 
   final String profile;
 
@@ -45,7 +44,7 @@ class DetailPortfolioFullScreen extends StatelessWidget {
                     height: 40,
                     child: Icon(
                       CupertinoIcons.xmark,
-                      color: Color(0xffffffff),
+                      color: BppColor.white,
                       size: 30,
                     ),
                   ),

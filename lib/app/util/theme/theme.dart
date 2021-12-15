@@ -1,38 +1,39 @@
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 
 ThemeData theme = ThemeData(
-  primaryColor: const Color(0xffffffff),
+  primaryColor: BppColor.white,
   appBarTheme: const AppBarTheme(
-    backgroundColor: Color(0xffffffff),
+    backgroundColor: BppColor.white,
     elevation: 0,
   ),
   textSelectionTheme: const TextSelectionThemeData(
-    cursorColor: Color(0xff000000),
+    cursorColor: BppColor.black,
   ),
   inputDecorationTheme: InputDecorationTheme(
     focusedBorder: const OutlineInputBorder(
       borderSide: BorderSide(
-        color: Color(0xffe6e6e6),
+        color: BppColor.textFormBorder,
       ),
     ),
     enabledBorder: const OutlineInputBorder(
       borderSide: BorderSide(
-        color: Color(0xffe6e6e6),
+        color: BppColor.textFormBorder,
       ),
     ),
     hintStyle: BppTextStyle.smallText.copyWith(
-      color: const Color(0xffbfbfbf),
+      color: BppColor.unSelButtonText,
     ),
     border: const OutlineInputBorder(
       borderSide: BorderSide(
-        color: Color(0xffe6e6e6),
+        color: BppColor.textFormBorder,
       ),
     ),
   ),
-  canvasColor: const Color(0xffffffff),
-  scaffoldBackgroundColor: const Color(0xffffffff),
-  backgroundColor: const Color(0xffffffff),
+  canvasColor: BppColor.white,
+  scaffoldBackgroundColor: BppColor.white,
+  backgroundColor: BppColor.white,
   fontFamily: 'Noto_Sans',
 );
 

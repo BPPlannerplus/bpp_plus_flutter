@@ -1,6 +1,7 @@
 import 'package:bpp_riverpod/app/provider/detail/detail_navigation_provider.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -82,7 +83,7 @@ class DetailTopBox extends StatelessWidget {
             height: 8,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: index == 0 ? Colors.white : const Color(0xff656565),
+              color: index == 0 ? BppColor.white : const Color(0xff656565),
             ),
           ),
           const SizedBox(width: 8),
@@ -91,7 +92,7 @@ class DetailTopBox extends StatelessWidget {
             height: 8,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: index == 1 ? Colors.white : const Color(0xff656565),
+              color: index == 1 ? BppColor.white : const Color(0xff656565),
             ),
           ),
           const SizedBox(width: 8),
@@ -100,7 +101,7 @@ class DetailTopBox extends StatelessWidget {
             height: 8,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: index == 2 ? Colors.white : const Color(0xff656565),
+              color: index == 2 ? BppColor.white : const Color(0xff656565),
             ),
           ),
         ],

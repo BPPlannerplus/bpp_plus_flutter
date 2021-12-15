@@ -1,5 +1,6 @@
 import 'package:bpp_riverpod/app/provider/detail/detail_navigation_provider.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -59,7 +60,7 @@ class DetailProfilePage extends StatelessWidget {
                       height: 40,
                       child: Icon(
                         CupertinoIcons.xmark,
-                        color: Color(0xffffffff),
+                        color: BppColor.white,
                         size: 30,
                       ),
                     ),

@@ -9,8 +9,8 @@ part 'review_list.g.dart';
 @freezed
 class ReviewList with _$ReviewList {
   factory ReviewList({
+    required int count,
     @JsonKey(name: 'results') required List<Review> reviews,
-    String? next,
   }) = _ReviewList;
 
   factory ReviewList.fromJson(Map<String, dynamic> json) =>

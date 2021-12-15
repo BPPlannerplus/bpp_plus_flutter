@@ -1,3 +1,4 @@
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,7 +12,7 @@ Widget detailBottomBar({
     padding: const EdgeInsets.only(right: 16, left: 16),
     height: 68,
     width: double.infinity,
-    color: Colors.white,
+    color: BppColor.white,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -26,7 +27,7 @@ Widget detailBottomBar({
                 height: 40,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: const Color(0xffe6e6e6),
+                  color: BppColor.textFormBorder,
                 ),
               ),
               Positioned(
@@ -37,11 +38,11 @@ Widget detailBottomBar({
                   height: 38,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
+                    color: BppColor.white,
                   ),
                   child: Icon(
                     isLike ? Icons.favorite : Icons.favorite_border_outlined,
-                    color: Colors.red,
+                    color: BppColor.like,
                   ),
                 ),
               ),
@@ -56,7 +57,7 @@ Widget detailBottomBar({
               onTabButton();
             },
             style: ElevatedButton.styleFrom(
-              primary: const Color(0xFF3b75ff),
+              primary: BppColor.main,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
@@ -66,9 +67,8 @@ Widget detailBottomBar({
               child: Text(
                 '예약 및 문의하기',
                 style: BppTextStyle.defaultText.copyWith(
-                  color: const Color(0xffffffff),
+                  color: BppColor.white,
                   fontWeight: FontWeight.w600,
-                  fontSize: 16,
                 ),
               ),
             ),

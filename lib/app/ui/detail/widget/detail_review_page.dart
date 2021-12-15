@@ -1,83 +1,81 @@
-import 'package:bpp_riverpod/app/model/review/review.dart';
+import 'package:bpp_riverpod/app/provider/review/shop_review_provider.dart';
+import 'package:bpp_riverpod/app/routes/custom_arg/report_arg.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
+import 'package:bpp_riverpod/app/ui/components/state/error_card.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-// 기본 64, 2줄 112, 4줄 148`
-class DetailReviewPage extends ConsumerStatefulWidget {
-  const DetailReviewPage({
-    Key? key,
-    required this.pagingController,
-    required this.shopId,
-  }) : super(key: key);
+class DetailReviewPage extends ConsumerWidget {
+  const DetailReviewPage({Key? key, required this.shopId}) : super(key: key);
 
-  final PagingController<int, Review> pagingController;
   final int shopId;
 
   @override
-  ConsumerState<DetailReviewPage> createState() => _DetailReviewPageState();
-}
-
-class _DetailReviewPageState extends ConsumerState<DetailReviewPage> {
-  @override
-  Widget build(BuildContext context) {
-    return PagedSliverList(
-      pagingController: widget.pagingController,
-      builderDelegate: PagedChildBuilderDelegate<Review>(
-        itemBuilder: (context, review, index) {
-          final lists = widget.pagingController.itemList!;
-
-          if (lists.length == 1) {
-            return Column(
-              children: [
-                topReviewCard(review.score.toDouble()),
-                reviewCard(
-                  reviewId: review.id,
-                  rating: review.score.toDouble(),
-                  name: changeReviewNameFormat(review.userName),
-                  date: changeReviewDateFormat(review.date),
-                  text: review.contents,
-                ),
-              ],
-            );
+  Widget build(BuildContext context, WidgetRef ref) {
+    final reviewResponse = ref.watch(reviewResponseProvider(shopId));
+    return reviewResponse.when(
+        error: (error, stacktrace) => SliverToBoxAdapter(child: errorCard()),
+        loading: () => SliverToBoxAdapter(child: customLoadingIndicator()),
+        data: (data) {
+          final reviewState = ref.watch(shopReviewProvider(data));
+          if (reviewState.count == 0) {
+            return SliverToBoxAdapter(
+                child: Column(children: [topReviewCard(0), emptyReview()]));
           } else {
-            List<int> scores = lists.map((e) => e.score).toList();
-            double reviewScore = calReviewScore(scores);
+            return SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  if (reviewState.count == 1) {
+                    return Column(
+                      children: [
+                        topReviewCard(
+                            reviewState.reviews[index].score.toDouble()),
+                        reviewCard(
+                            reviewId: reviewState.reviews[index].id,
+                            rating: reviewState.reviews[index].score.toDouble(),
+                            name: changeReviewNameFormat(
+                                reviewState.reviews[index].userName),
+                            date: changeReviewDateFormat(
+                                reviewState.reviews[index].date),
+                            text: reviewState.reviews[index].contents,
+                            onReport: ref
+                                .read(shopReviewStateProvider(data).notifier)
+                                .reportReview),
+                      ],
+                    );
+                  } else {
+                    List<int> scores =
+                        reviewState.reviews.map((e) => e.score).toList();
+                    double reviewScore = calReviewScore(scores);
 
-            if (index == 0) {
-              return topReviewCard(reviewScore);
-            } else {
-              return reviewCard(
-                reviewId: review.id,
-                rating: review.score.toDouble(),
-                name: review.userName,
-                date: review.date,
-                text: review.contents,
-              );
-            }
+                    if (index == 0) {
+                      return topReviewCard(reviewScore);
+                    } else {
+                      return reviewCard(
+                          reviewId: reviewState.reviews[index].id,
+                          rating: reviewState.reviews[index].score.toDouble(),
+                          name: reviewState.reviews[index].userName,
+                          date: reviewState.reviews[index].date,
+                          text: reviewState.reviews[index].contents,
+                          onReport: ref
+                              .read(shopReviewStateProvider(data).notifier)
+                              .reportReview);
+                    }
+                  }
+                },
+                childCount: reviewState.count,
+              ),
+            );
           }
-        },
-        noItemsFoundIndicatorBuilder: (context) {
-          return Column(
-            children: [
-              topReviewCard(0),
-              emptyReview(),
-            ],
-          );
-        },
-        firstPageProgressIndicatorBuilder: (context) =>
-            customLoadingIndicator(),
-        newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),
-      ),
-    );
+        });
   }
 
   Widget topReviewCard(double score) {
@@ -89,20 +87,14 @@ class _DetailReviewPageState extends ConsumerState<DetailReviewPage> {
         children: [
           Text(
             '$score',
-            style: BppTextStyle.bigScreenText.copyWith(
-              fontSize: 30.sp,
-            ),
+            style: BppTextStyle.bigScreenText.copyWith(fontSize: 30.sp),
           ),
-          SizedBox(
-            width: 10.w,
-          ),
+          SizedBox(width: 10.w),
           RatingBarIndicator(
             rating: score.toDouble(),
-            itemBuilder: (context, index) => const Icon(
-              Icons.star,
-              color: Color(0xffffc142),
-            ),
-            unratedColor: const Color(0xffe6e6e6),
+            itemBuilder: (context, index) =>
+                const Icon(Icons.star, color: BppColor.rating),
+            unratedColor: BppColor.textFormBorder,
             itemCount: 5,
             itemSize: 25.0,
             direction: Axis.horizontal,
@@ -118,10 +110,11 @@ class _DetailReviewPageState extends ConsumerState<DetailReviewPage> {
     required String name,
     required String date,
     String? text,
+    required void Function(int reviewId) onReport,
   }) {
     return Container(
       padding: const EdgeInsets.only(top: 16),
-      color: Colors.white,
+      color: BppColor.white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,20 +124,12 @@ class _DetailReviewPageState extends ConsumerState<DetailReviewPage> {
             children: [
               Row(
                 children: [
-                  Text(
-                    name,
-                    style: BppTextStyle.filterText,
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
+                  Text(name, style: BppTextStyle.filterText),
+                  const SizedBox(width: 8),
                   Text(
                     date,
-                    style: BppTextStyle.filterText.copyWith(
-                      color: const Color(
-                        0xffbfbfbf,
-                      ),
-                    ),
+                    style: BppTextStyle.filterText
+                        .copyWith(color: BppColor.unSelButtonText),
                   ),
                 ],
               ),
@@ -154,24 +139,20 @@ class _DetailReviewPageState extends ConsumerState<DetailReviewPage> {
                   onTap: () {
                     navigator.navigateTo(
                       routeName: AppRoutes.reportPage,
-                      argument: [widget.shopId, reviewId],
+                      argument:
+                          ReportArg(reviewId: reviewId, onReport: onReport),
                     );
                   },
                   child: Text(
                     '신고',
-                    style: BppTextStyle.filterText.copyWith(
-                      color: const Color(
-                        0xffbfbfbf,
-                      ),
-                    ),
+                    style: BppTextStyle.filterText
+                        .copyWith(color: BppColor.unSelButtonText),
                   ),
                 );
               }),
             ],
           ),
-          const SizedBox(
-            height: 8,
-          ),
+          const SizedBox(height: 8),
           Container(
             height: 20,
             color: Colors.white,
@@ -180,52 +161,32 @@ class _DetailReviewPageState extends ConsumerState<DetailReviewPage> {
                 RatingBarIndicator(
                   rating: rating,
                   itemBuilder: (context, _) => SvgPicture.asset(
-                    'assets/icon/star.svg',
-                    color: const Color(0xffffc142),
-                  ),
-                  unratedColor: const Color(0xffe6e6e6),
+                      'assets/icon/star.svg',
+                      color: BppColor.rating),
+                  unratedColor: BppColor.unSelButtonText,
                   itemCount: 5,
                   itemSize: 25.0,
                   direction: Axis.horizontal,
                 ),
-                SizedBox(
-                  width: 5.w,
-                ),
-                Text(
-                  '$rating',
-                  style: BppTextStyle.filterText,
-                )
+                SizedBox(width: 5.w),
+                Text('$rating', style: BppTextStyle.filterText)
               ],
             ),
           ),
-          const SizedBox(
-            height: 16,
-          ),
+          const SizedBox(height: 16),
           Container(
-            color: Colors.white,
+            color: BppColor.white,
             child: text != null
-                ? Text(
-                    text,
-                    style: BppTextStyle.filterText,
-                  )
+                ? Text(text, style: BppTextStyle.filterText)
                 : const SizedBox(),
           ),
-          text != null
-              ? const SizedBox(
-                  height: 16,
-                )
-              : const SizedBox(),
+          text != null ? const SizedBox(height: 16) : const SizedBox(),
           Container(
-            height: 1,
-            decoration: const BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  color: Color(0xfff2f2f2),
-                  width: 2.0,
-                ),
-              ),
-            ),
-          ),
+              height: 1,
+              decoration: const BoxDecoration(
+                  border: Border(
+                      bottom:
+                          BorderSide(color: BppColor.unSelButton, width: 2.0))))
         ],
       ),
     );
@@ -238,7 +199,7 @@ class _DetailReviewPageState extends ConsumerState<DetailReviewPage> {
         child: Text(
           '아직 작성된 리뷰가 없습니다.',
           style: BppTextStyle.tabText.copyWith(
-            color: const Color(0xffbfbfbf),
+            color: BppColor.unSelButtonText,
           ),
         ),
       ),

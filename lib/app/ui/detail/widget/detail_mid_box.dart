@@ -1,4 +1,5 @@
 import 'package:bpp_riverpod/app/util/format.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 
@@ -20,12 +21,12 @@ class DetailMidBox extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
         height: 80,
-        color: Colors.white,
+        color: BppColor.white,
         child: Row(
           children: [
             CircleAvatar(
               radius: 32,
-              backgroundColor: const Color(0xffbfbfbf),
+              backgroundColor: BppColor.unSelButtonText,
               child: CircleAvatar(
                 radius: 31,
                 backgroundColor: Colors.transparent,

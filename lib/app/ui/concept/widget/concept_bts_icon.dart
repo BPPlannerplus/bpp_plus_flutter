@@ -1,4 +1,5 @@
 import 'package:bpp_riverpod/app/provider/concept/concept_filter_provider.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,17 +11,13 @@ Widget toggleIcon(String text, bool isCheck) {
           height: 28,
           width: 12.0 * text.length + 25,
           decoration: BoxDecoration(
-            color: isCheck ? const Color(0xff3B75FF) : const Color(0xfff2f2f2),
+            color: isCheck ? BppColor.main : BppColor.unSelButton,
             borderRadius: BorderRadius.circular(15),
           ),
           child: Center(
               child: Text(text,
                   style: BppTextStyle.filterText.copyWith(
-                      color: isCheck
-                          ? const Color(0xffffffff)
-                          : const Color(
-                              0xff595959,
-                            ),
+                      color: isCheck ? BppColor.white : BppColor.unSelText,
                       fontWeight: isCheck ? FontWeight.w600 : null)))));
 }
 

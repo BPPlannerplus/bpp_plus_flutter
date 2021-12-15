@@ -1,6 +1,7 @@
 import 'package:bpp_riverpod/app/provider/concept/concept_filter_provider.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_botton_sheet.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_filter_card.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,9 +20,7 @@ class ConceptAppBar extends ConsumerWidget {
       titleSpacing: 0,
       toolbarHeight: visible ? 173 : 133,
       title: Container(
-        padding: const EdgeInsets.only(
-          top: 40,
-        ),
+        padding: const EdgeInsets.only(top: 40),
         color: Colors.white,
         height: visible ? 150 : 110,
         child: Column(
@@ -47,10 +46,10 @@ class ConceptAppBar extends ConsumerWidget {
                   child: Container(
                     height: 40,
                     width: 40,
-                    color: Colors.white,
+                    color: BppColor.white,
                     child: CircleAvatar(
                       radius: 20,
-                      backgroundColor: const Color(0xfff2f2f2),
+                      backgroundColor: BppColor.unSelButton,
                       child: SvgPicture.asset(
                         'assets/icon/ic_filter.svg',
                         width: 30,
@@ -63,17 +62,11 @@ class ConceptAppBar extends ConsumerWidget {
             ),
             SizedBox(height: 12.h),
             Expanded(
-              child: Container(
-                height: 1,
-                decoration: const BoxDecoration(
-                  border: Border(
-                    top: BorderSide(
-                      color: Color(0xffe6e6e6),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+                child: Container(
+                    height: 1,
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            top: BorderSide(color: BppColor.textFormBorder))))),
             visible
                 ? Container(
                     height: 40,

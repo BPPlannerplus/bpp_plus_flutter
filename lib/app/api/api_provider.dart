@@ -4,12 +4,11 @@ import 'package:bpp_riverpod/app/api/reservation_client.dart';
 import 'package:bpp_riverpod/app/api/review_client.dart';
 import 'package:bpp_riverpod/app/api/shop_client.dart';
 import 'package:bpp_riverpod/app/dio/dio.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final authClientProvider = Provider<AuthClient>((ref) {
-  // final dio = ref.watch(dioProvider);
-  return AuthClient(Dio());
+  final dio = ref.watch(dioProvider);
+  return AuthClient(dio);
 });
 
 final shopClientProvider = Provider<ShopClient>((ref) {

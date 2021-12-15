@@ -3,6 +3,7 @@ import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class HomeGridCard extends StatelessWidget {
                     child: Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            color: const Color(0xff000000)),
+                            color: BppColor.black),
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(8),
                             child: Image.network(shop.profile,
@@ -57,17 +58,14 @@ class HomeGridCard extends StatelessWidget {
                           shop.like
                               ? CupertinoIcons.heart_fill
                               : CupertinoIcons.heart,
-                          color: shop.like
-                              ? const Color(0xffff5757)
-                              : const Color(0xffffffff),
+                          color: shop.like ? BppColor.like : BppColor.white,
                           size: 30)))
             ])),
         const SizedBox(height: 8),
         Text(shop.name, style: BppTextStyle.isEng(shop.name)),
         const SizedBox(height: 4),
         Text(shopAddrToKR[shop.address]!,
-            style: BppTextStyle.smallText
-                .copyWith(color: const Color(0xff595959))),
+            style: BppTextStyle.smallText.copyWith(color: BppColor.unSelText)),
         const SizedBox(height: 4),
         shop.minPrice != null
             ? Text(priceFormat(shop.minPrice!), style: BppTextStyle.smallText)

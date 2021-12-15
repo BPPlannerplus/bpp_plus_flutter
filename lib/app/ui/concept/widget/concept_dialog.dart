@@ -5,6 +5,7 @@ import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/ui/components/toast/toast.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +74,7 @@ class ConceptDialog extends StatelessWidget {
                             angle: pi,
                             child: const Icon(
                               Icons.arrow_back_ios_new,
-                              color: Color(0xffffffff),
+                              color: BppColor.white,
                               size: 25,
                             ),
                           ),
@@ -93,9 +94,7 @@ class ConceptDialog extends StatelessWidget {
                         c.like
                             ? CupertinoIcons.heart_fill
                             : CupertinoIcons.heart,
-                        color: c.like
-                            ? const Color(0xffff5757)
-                            : const Color(0xffffffff),
+                        color: c.like ? BppColor.like : BppColor.white,
                         size: 30,
                       ),
                     ),

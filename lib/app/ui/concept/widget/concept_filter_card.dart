@@ -1,3 +1,4 @@
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ Widget filterCard(String title) {
           height: 28,
           width: 12.0 * title.length + 25,
           decoration: BoxDecoration(
-            color: const Color(0xff3B75FF),
+            color: BppColor.main,
             borderRadius: BorderRadius.circular(16),
           ),
         ),
@@ -31,12 +32,12 @@ Widget filterCard(String title) {
                 width: 12.0 * title.length + 23,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  color: const Color(0xffffffff),
+                  color: BppColor.white,
                 ),
                 child: Center(
                     child: Text(title,
                         style: BppTextStyle.filterText.copyWith(
-                            color: const Color(0xff3B75FF),
+                            color: BppColor.main,
                             fontWeight: FontWeight.w600)))))
       ],
     ),

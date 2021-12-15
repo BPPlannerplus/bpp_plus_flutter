@@ -2,10 +2,10 @@ import 'package:bpp_riverpod/app/provider/shop/shop_filter_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 homeBottomSheet(int index) {
   return Consumer(builder: (context, ref, _) {
@@ -33,15 +33,8 @@ homeBottomSheet(int index) {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    '스튜디오 지역 선택',
-                    style: BppTextStyle.defaultText.copyWith(
-                      fontSize: 16.sp,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
+                  const Text('스튜디오 지역 선택', style: BppTextStyle.defaultText),
+                  const SizedBox(height: 16),
                   Wrap(
                     crossAxisAlignment: WrapCrossAlignment.start,
                     runSpacing: 8,
@@ -69,8 +62,7 @@ homeBottomSheet(int index) {
                     navigator.pop();
                   },
                   style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(const Color(0xff3B75FF)),
+                      backgroundColor: MaterialStateProperty.all(BppColor.main),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8)))),
@@ -79,7 +71,7 @@ homeBottomSheet(int index) {
                       child: Center(
                           child: Text('선택완료',
                               style: BppTextStyle.tabText
-                                  .copyWith(color: const Color(0xffffffff))))))
+                                  .copyWith(color: BppColor.white)))))
             ]));
   });
 }
@@ -92,14 +84,12 @@ Widget toggleIcon(String text, bool isCheck) {
           height: 32,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            color: isCheck ? const Color(0xff3B75FF) : Colors.grey.shade100,
+            color: isCheck ? BppColor.main : BppColor.unSelButton,
           ),
           child: Center(
               child: Text(text,
                   style: BppTextStyle.smallText.copyWith(
-                      color: isCheck
-                          ? const Color(0xffffffff)
-                          : const Color(0xff595959),
+                      color: isCheck ? BppColor.white : BppColor.unSelText,
                       fontWeight: isCheck ? FontWeight.w600 : null,
-                      fontSize: 14.sp)))));
+                      fontSize: 14)))));
 }

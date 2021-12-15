@@ -4,10 +4,10 @@ import 'package:bpp_riverpod/app/ui/onboarding/widget/first_onboarding_card.dart
 import 'package:bpp_riverpod/app/ui/onboarding/widget/second_onboarding_card.dart';
 import 'package:bpp_riverpod/app/ui/onboarding/widget/third_onboarding_card.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OnBoardingPage extends ConsumerWidget {
   const OnBoardingPage({Key? key}) : super(key: key);
@@ -42,9 +42,8 @@ class OnBoardingPage extends ConsumerWidget {
                       child: Text(
                         'Skip',
                         style: BppTextStyle.smallText.copyWith(
-                          color: pageIndex != 2
-                              ? const Color(0xff3b75ff)
-                              : const Color(0xffffffff),
+                          color:
+                              pageIndex != 2 ? BppColor.main : BppColor.white,
                         ),
                       ),
                     );
@@ -79,7 +78,7 @@ class OnBoardingPage extends ConsumerWidget {
             navigator.navigateTo(routeName: AppRoutes.loginPage);
           },
           style: ElevatedButton.styleFrom(
-            primary: const Color(0xff3b75ff),
+            primary: BppColor.main,
             elevation: 0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(39),
@@ -87,8 +86,7 @@ class OnBoardingPage extends ConsumerWidget {
           ),
           child: Text(
             '시작하기',
-            style:
-                BppTextStyle.tabText.copyWith(color: const Color(0xffffffff)),
+            style: BppTextStyle.tabText.copyWith(color: BppColor.white),
           ),
         ),
       );
@@ -104,8 +102,7 @@ class OnBoardingPage extends ConsumerWidget {
           height: 8,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color:
-                index == 0 ? const Color(0xff595959) : const Color(0xffbfbfbf),
+            color: index == 0 ? BppColor.unSelText : BppColor.borderColor,
           ),
         ),
         const SizedBox(width: 8),
@@ -114,8 +111,7 @@ class OnBoardingPage extends ConsumerWidget {
           height: 8,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color:
-                index == 1 ? const Color(0xff595959) : const Color(0xffbfbfbf),
+            color: index == 1 ? BppColor.unSelText : BppColor.borderColor,
           ),
         ),
         const SizedBox(width: 8),
@@ -124,8 +120,7 @@ class OnBoardingPage extends ConsumerWidget {
           height: 8,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color:
-                index == 2 ? const Color(0xff595959) : const Color(0xffbfbfbf),
+            color: index == 2 ? BppColor.unSelText : BppColor.borderColor,
           ),
         ),
       ],

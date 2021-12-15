@@ -1,9 +1,9 @@
 import 'package:bpp_riverpod/app/model/review/complain.dart';
 import 'package:bpp_riverpod/app/provider/detail/complain_provider.dart';
-import 'package:bpp_riverpod/app/provider/detail/shop_detail_page_controller.dart';
 import 'package:bpp_riverpod/app/provider/detail/report_provider.dart';
 import 'package:bpp_riverpod/app/repository/shop_detail_repository.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,12 +13,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 class ReportPage extends StatelessWidget {
   const ReportPage({
     Key? key,
-    required this.id,
+    required this.onReport,
     required this.reviewId,
   }) : super(key: key);
 
-  final int id;
   final int reviewId;
+  final void Function(int reviewId) onReport;
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +27,7 @@ class ReportPage extends StatelessWidget {
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
               centerTitle: true,
-              title: Text(
-                '리뷰 신고하기',
-                style: BppTextStyle.defaultText.copyWith(fontSize: 16.sp),
-              ),
+              title: const Text('리뷰 신고하기', style: BppTextStyle.defaultText),
               leading: Consumer(builder: (context, ref, _) {
                 final navigator = ref.watch(navigatorProvider);
                 return InkWell(
@@ -39,7 +36,7 @@ class ReportPage extends StatelessWidget {
                   },
                   child: SvgPicture.asset(
                     'assets/icon/ic_back.svg',
-                    color: const Color(0xff000000),
+                    color: BppColor.black,
                     width: 20,
                     height: 20,
                   ),
@@ -117,14 +114,7 @@ class ReportPage extends StatelessWidget {
                                                 contents: contents,
                                               ),
                                             );
-
-                                        ref
-                                            .read(
-                                                shopDetailReviewPageControllerProvider(
-                                                    id))
-                                            .itemList!
-                                            .removeWhere((element) =>
-                                                element.id == reviewId);
+                                        onReport(reviewId);
                                         navigator.pop();
                                       }
                                     : null,
@@ -134,9 +124,9 @@ class ReportPage extends StatelessWidget {
                                     (states) {
                                       if (states
                                           .contains(MaterialState.disabled)) {
-                                        return const Color(0xfff2f2f2);
+                                        return BppColor.unSelButton;
                                       }
-                                      return const Color(0xff000000);
+                                      return BppColor.black;
                                     },
                                   ),
                                   elevation: MaterialStateProperty.all(0),
@@ -150,11 +140,9 @@ class ReportPage extends StatelessWidget {
                                 child: Center(
                                     child: Text('신고하기',
                                         style: BppTextStyle.tabText.copyWith(
-                                          color: check
-                                              ? const Color(0xffffffff)
-                                              : const Color(0xffbfbfbf),
-                                          fontSize: 16,
-                                        )))));
+                                            color: check
+                                                ? BppColor.white
+                                                : BppColor.unSelButtonText)))));
                       }),
                     ]))));
   }

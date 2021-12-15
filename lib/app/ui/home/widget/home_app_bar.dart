@@ -2,6 +2,7 @@ import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_type_provider.dart';
 import 'package:bpp_riverpod/app/ui/home/widget/home_bottom_sheet.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +78,7 @@ class HomeAppBar extends StatelessWidget {
                   borderRadius: BorderRadius.all(
                     Radius.circular(30),
                   ),
-                  color: Color(0xfff2f2f2),
+                  color: BppColor.unSelButton,
                 ),
                 child: Center(
                   child: Row(
@@ -88,10 +89,7 @@ class HomeAppBar extends StatelessWidget {
                         width: 30,
                         height: 30,
                       ),
-                      const Text(
-                        '필터',
-                        style: BppTextStyle.filterText,
-                      ),
+                      const Text('필터', style: BppTextStyle.filterText),
                     ],
                   ),
                 ),
@@ -119,9 +117,7 @@ class HomeAppBar extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: tabIndex == index
-                    ? const Color(0xff3b75ff)
-                    : const Color(0xfff2f2f2),
+                color: tabIndex == index ? BppColor.main : BppColor.unSelButton,
                 width: tabIndex == index ? 2.0.h : 1.0.h,
               ),
             ),
@@ -132,9 +128,8 @@ class HomeAppBar extends StatelessWidget {
               title,
               style: tabIndex == index
                   ? BppTextStyle.tabText
-                  : BppTextStyle.defaultText.copyWith(
-                      color: const Color(0xff595959),
-                    ),
+                  : BppTextStyle.defaultText
+                      .copyWith(color: BppColor.unSelText),
             ),
           ),
         ),

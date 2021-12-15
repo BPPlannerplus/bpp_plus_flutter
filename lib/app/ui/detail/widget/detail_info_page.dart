@@ -1,6 +1,7 @@
 import 'package:bpp_riverpod/app/model/shop/shop_detail_data.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -48,7 +49,7 @@ class DetailInfoPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(
-                        color: const Color(0xffe6e6e6),
+                        color: BppColor.textFormBorder,
                         width: 1,
                       ),
                     ),
@@ -86,7 +87,7 @@ class DetailInfoPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(
-                        color: const Color(0xffe6e6e6),
+                        color: BppColor.textFormBorder,
                         width: 1,
                       ),
                     ),

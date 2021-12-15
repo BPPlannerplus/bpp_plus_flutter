@@ -22,10 +22,11 @@ class _$ReviewListTearOff {
   const _$ReviewListTearOff();
 
   _ReviewList call(
-      {@JsonKey(name: 'results') required List<Review> reviews, String? next}) {
+      {required int count,
+      @JsonKey(name: 'results') required List<Review> reviews}) {
     return _ReviewList(
+      count: count,
       reviews: reviews,
-      next: next,
     );
   }
 
@@ -39,9 +40,9 @@ const $ReviewList = _$ReviewListTearOff();
 
 /// @nodoc
 mixin _$ReviewList {
+  int get count => throw _privateConstructorUsedError;
   @JsonKey(name: 'results')
   List<Review> get reviews => throw _privateConstructorUsedError;
-  String? get next => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,7 +55,7 @@ abstract class $ReviewListCopyWith<$Res> {
   factory $ReviewListCopyWith(
           ReviewList value, $Res Function(ReviewList) then) =
       _$ReviewListCopyWithImpl<$Res>;
-  $Res call({@JsonKey(name: 'results') List<Review> reviews, String? next});
+  $Res call({int count, @JsonKey(name: 'results') List<Review> reviews});
 }
 
 /// @nodoc
@@ -67,18 +68,18 @@ class _$ReviewListCopyWithImpl<$Res> implements $ReviewListCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? count = freezed,
     Object? reviews = freezed,
-    Object? next = freezed,
   }) {
     return _then(_value.copyWith(
+      count: count == freezed
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int,
       reviews: reviews == freezed
           ? _value.reviews
           : reviews // ignore: cast_nullable_to_non_nullable
               as List<Review>,
-      next: next == freezed
-          ? _value.next
-          : next // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -89,7 +90,7 @@ abstract class _$ReviewListCopyWith<$Res> implements $ReviewListCopyWith<$Res> {
           _ReviewList value, $Res Function(_ReviewList) then) =
       __$ReviewListCopyWithImpl<$Res>;
   @override
-  $Res call({@JsonKey(name: 'results') List<Review> reviews, String? next});
+  $Res call({int count, @JsonKey(name: 'results') List<Review> reviews});
 }
 
 /// @nodoc
@@ -104,18 +105,18 @@ class __$ReviewListCopyWithImpl<$Res> extends _$ReviewListCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? count = freezed,
     Object? reviews = freezed,
-    Object? next = freezed,
   }) {
     return _then(_ReviewList(
+      count: count == freezed
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int,
       reviews: reviews == freezed
           ? _value.reviews
           : reviews // ignore: cast_nullable_to_non_nullable
               as List<Review>,
-      next: next == freezed
-          ? _value.next
-          : next // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -123,20 +124,21 @@ class __$ReviewListCopyWithImpl<$Res> extends _$ReviewListCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ReviewList implements _ReviewList {
-  _$_ReviewList({@JsonKey(name: 'results') required this.reviews, this.next});
+  _$_ReviewList(
+      {required this.count, @JsonKey(name: 'results') required this.reviews});
 
   factory _$_ReviewList.fromJson(Map<String, dynamic> json) =>
       _$$_ReviewListFromJson(json);
 
   @override
+  final int count;
+  @override
   @JsonKey(name: 'results')
   final List<Review> reviews;
-  @override
-  final String? next;
 
   @override
   String toString() {
-    return 'ReviewList(reviews: $reviews, next: $next)';
+    return 'ReviewList(count: $count, reviews: $reviews)';
   }
 
   @override
@@ -144,13 +146,13 @@ class _$_ReviewList implements _ReviewList {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ReviewList &&
-            const DeepCollectionEquality().equals(other.reviews, reviews) &&
-            (identical(other.next, next) || other.next == next));
+            (identical(other.count, count) || other.count == count) &&
+            const DeepCollectionEquality().equals(other.reviews, reviews));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(reviews), next);
+      runtimeType, count, const DeepCollectionEquality().hash(reviews));
 
   @JsonKey(ignore: true)
   @override
@@ -165,17 +167,17 @@ class _$_ReviewList implements _ReviewList {
 
 abstract class _ReviewList implements ReviewList {
   factory _ReviewList(
-      {@JsonKey(name: 'results') required List<Review> reviews,
-      String? next}) = _$_ReviewList;
+      {required int count,
+      @JsonKey(name: 'results') required List<Review> reviews}) = _$_ReviewList;
 
   factory _ReviewList.fromJson(Map<String, dynamic> json) =
       _$_ReviewList.fromJson;
 
   @override
+  int get count;
+  @override
   @JsonKey(name: 'results')
   List<Review> get reviews;
-  @override
-  String? get next;
   @override
   @JsonKey(ignore: true)
   _$ReviewListCopyWith<_ReviewList> get copyWith =>

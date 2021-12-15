@@ -4,11 +4,11 @@ import 'package:bpp_riverpod/app/ui/concept/concept_page.dart';
 import 'package:bpp_riverpod/app/ui/home/home_page.dart';
 import 'package:bpp_riverpod/app/ui/mypage/my_page.dart';
 import 'package:bpp_riverpod/app/ui/wish/wish_page.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MainPage extends ConsumerWidget {
@@ -33,8 +33,9 @@ class MainPage extends ConsumerWidget {
         duration: const Duration(milliseconds: 300),
         height: visible ? 56 : 0,
         decoration: const BoxDecoration(
-          color: Color(0xffffffff),
-          border: Border(top: BorderSide(color: Color(0xffe6e6e6), width: 1)),
+          color: BppColor.white,
+          border:
+              Border(top: BorderSide(color: BppColor.textFormBorder, width: 1)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -97,11 +98,10 @@ class MainPage extends ConsumerWidget {
                   Text(
                     title,
                     style: BppTextStyle.filterText.copyWith(
-                      color: tabIndex == index
-                          ? const Color(0xff3B75FF)
-                          : const Color(0xff595959),
-                      fontSize: 10.sp,
-                    ),
+                        color: tabIndex == index
+                            ? BppColor.main
+                            : BppColor.unSelText,
+                        fontSize: 10),
                   ),
                 ],
               ),

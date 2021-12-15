@@ -1,10 +1,10 @@
-import 'package:bpp_riverpod/app/model/auth/token_data.dart';
 import 'package:bpp_riverpod/app/model/auth/user_info.dart';
 import 'package:bpp_riverpod/app/provider/auth/login_provider.dart';
 import 'package:bpp_riverpod/app/provider/auth/user_provider.dart';
 import 'package:bpp_riverpod/app/repository/auth_repository.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,39 +21,6 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class _LoginPageState extends ConsumerState<LoginPage> {
-  Future<void> _login() async {
-    final kakaoLogin = ref.watch(flutterKakaoLogin);
-    final authRepository = ref.watch(authRepositoryProvider);
-
-    try {
-      final result = await kakaoLogin.logIn();
-      final token = result.token!.accessToken!;
-
-      // 카카오 토큰으로 유저 정보 요청
-      final userData =
-          await authRepository.kakaoLogin(LoginRequest(accessToken: token));
-
-      //  유저 정보로 자체 토큰 요청
-      final tokenData = await authRepository
-          .getNewToken(UserInfoRequest(userInfo: userData.userInfo));
-
-      // 유저 정보 업데이트
-      ref.watch(userInfoProvider.state).state = userData.userInfo;
-      ref.watch(tokenDataProvider.state).state = tokenData;
-
-      Hive.box('auth').put('token', tokenData.refreshToken);
-      Hive.box('auth').put('userInfo', userData.userInfo);
-    } on PlatformException catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Login실패'),
-          content: Text(e.toString()),
-        ),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final navigator = ref.watch(navigatorProvider);
@@ -87,5 +54,41 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         ),
       ),
     );
+  }
+
+  Future<void> _login() async {
+    final kakaoLogin = ref.watch(flutterKakaoLogin);
+    final authRepository = ref.watch(authRepositoryProvider);
+    final dio = Dio();
+
+    try {
+      final result = await kakaoLogin.logIn();
+      final token = result.token!.accessToken!;
+
+      // 카카오 토큰으로 유저 정보 요청
+      final response = await dio.post(
+          "http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com/login/rest-auth/kakao/",
+          data: {"access_token": token});
+      final userData = UserInfoResponse.fromJson(response.data);
+      Hive.box('auth').put('userInfo', userData.userInfo);
+
+      //  유저 정보로 자체 토큰 요청
+      final tokenData = await authRepository
+          .getNewToken(UserInfoRequest(userInfo: userData.userInfo));
+
+      // 유저 정보 업데이트
+      ref.watch(userInfoProvider.state).state = userData.userInfo;
+      ref.watch(tokenDataProvider.state).state = tokenData;
+
+      Hive.box('auth').put('token', tokenData.refreshToken);
+    } on PlatformException catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Login실패'),
+          content: Text(e.toString()),
+        ),
+      );
+    }
   }
 }

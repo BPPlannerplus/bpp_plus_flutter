@@ -1,3 +1,4 @@
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:flutter/material.dart';
 
 Widget customLoadingIndicator() {
@@ -6,7 +7,7 @@ Widget customLoadingIndicator() {
       height: 20,
       width: 20,
       child: CircularProgressIndicator(
-        color: Color(0xff3B75FF),
+        color: BppColor.main,
         strokeWidth: 2.0,
       ),
     ),

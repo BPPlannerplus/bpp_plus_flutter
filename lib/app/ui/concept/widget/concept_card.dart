@@ -3,6 +3,7 @@ import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
 import 'package:bpp_riverpod/app/ui/components/toast/toast.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_dialog.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -67,9 +68,7 @@ class _ConceptCardState extends State<ConceptCard> {
                 widget.concept.like
                     ? CupertinoIcons.heart_fill
                     : CupertinoIcons.heart,
-                color: widget.concept.like
-                    ? const Color(0xffff5757)
-                    : const Color(0xffffffff),
+                color: widget.concept.like ? BppColor.like : BppColor.white,
                 size: 30,
               ),
             ),

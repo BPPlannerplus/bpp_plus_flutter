@@ -13,6 +13,7 @@ import 'package:bpp_riverpod/app/ui/detail/widget/detail_portfolio_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_review_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_top_box.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -72,8 +73,6 @@ class _DetailPageState extends ConsumerState<DetailPage> {
           final shopDetailData = ref.watch(shopDetailStateProvider(shopData));
           final conceptPageController =
               ref.watch(shopDetailConceptPageControllerProvider(widget.shopId));
-          final reviewPageController =
-              ref.watch(shopDetailReviewPageControllerProvider(widget.shopId));
 
           final navigator = ref.watch(navigatorProvider);
 
@@ -85,22 +84,19 @@ class _DetailPageState extends ConsumerState<DetailPage> {
               partners: shopData.partnershipList!,
               address: shopData.address,
             ),
-            DetailReviewPage(
-              pagingController: reviewPageController,
-              shopId: shopData.id,
-            ),
+            DetailReviewPage(shopId: shopData.id),
           ];
 
           return Scaffold(
             appBar: AppBar(
-              backgroundColor: const Color(0x00000000),
+              backgroundColor: Colors.transparent,
               leading: InkWell(
                 onTap: () => navigator.pop(),
                 child: SvgPicture.asset(
                   'assets/icon/ic_back.svg',
                   color: ref.watch(detailPageLeadingProvier)
-                      ? const Color(0xffffffff)
-                      : const Color(0xff000000),
+                      ? BppColor.white
+                      : BppColor.black,
                 ),
               ),
               toolbarHeight: 40,
@@ -114,7 +110,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                 ),
                 DetailMidBox(
                   logo: shopData.logo,
-                  price: shopData.minPrice ?? 123123,
+                  price: shopData.minPrice,
                   shopName: shopData.name,
                 ),
                 const DetailAppBar(),
@@ -152,7 +148,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                             Text(
                               '이미 예약 된 스튜디오 입니다',
                               style: BppTextStyle.dialogText.copyWith(
-                                color: const Color(0xff000000),
+                                color: BppColor.black,
                               ),
                             ),
                             Consumer(builder: (context, ref, _) {

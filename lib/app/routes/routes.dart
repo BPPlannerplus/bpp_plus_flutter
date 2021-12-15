@@ -1,3 +1,4 @@
+import 'package:bpp_riverpod/app/routes/custom_arg/report_arg.dart';
 import 'package:bpp_riverpod/app/ui/detail/detail_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/detail_portfolio_full_screen.dart';
 import 'package:bpp_riverpod/app/ui/detail/detail_profile_page.dart';
@@ -72,11 +73,11 @@ class AppRouter {
           settings: settings,
         );
       case AppRoutes.reportPage:
-        final List<int> args = settings.arguments;
+        final ReportArg args = settings.arguments;
         return MaterialPageRoute<dynamic>(
           builder: (_) => ReportPage(
-            id: args[0],
-            reviewId: args[1],
+            reviewId: args.reviewId,
+            onReport: args.onReport,
           ),
           settings: settings,
         );

@@ -1,4 +1,5 @@
 import 'package:bpp_riverpod/app/provider/detail/detail_navigation_provider.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,7 +26,7 @@ class DetailAppBar extends StatelessWidget {
               decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: Color(0xfff2f2f2),
+                    color: BppColor.unSelButton,
                     width: 1.0,
                   ),
                 ),
@@ -50,35 +51,30 @@ class DetailAppBar extends StatelessWidget {
     return Consumer(builder: (context, ref, _) {
       final tabIndex = ref.watch(detailTabProvider);
       return InkWell(
-        onTap: () {
-          ref.read(detailTabProvider.state).state = index;
-        },
-        child: Container(
-          width: 15.0 * title.length,
-          height: 32,
-          padding: const EdgeInsets.only(bottom: 8),
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: tabIndex == index
-                    ? const Color(0xff3b75ff)
-                    : const Color(0xfff2f2f2),
-                width: tabIndex == index ? 2.0 : 1.0,
+          onTap: () {
+            ref.read(detailTabProvider.state).state = index;
+          },
+          child: Container(
+              width: 15.0 * title.length,
+              height: 32,
+              padding: const EdgeInsets.only(bottom: 8),
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: tabIndex == index
+                        ? BppColor.main
+                        : BppColor.unSelButton,
+                    width: tabIndex == index ? 2.0 : 1.0,
+                  ),
+                ),
               ),
-            ),
-          ),
-          child: FittedBox(
-            fit: BoxFit.fitWidth,
-            child: Text(
-              title,
-              style: ref.watch(detailTabProvider) == index
-                  ? BppTextStyle.tabText
-                  : BppTextStyle.defaultText
-                      .copyWith(color: const Color(0xff595959)),
-            ),
-          ),
-        ),
-      );
+              child: FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Text(title,
+                      style: ref.watch(detailTabProvider) == index
+                          ? BppTextStyle.tabText
+                          : BppTextStyle.defaultText
+                              .copyWith(color: BppColor.unSelText)))));
     });
   }
 }
