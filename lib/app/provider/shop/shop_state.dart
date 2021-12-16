@@ -56,5 +56,5 @@ class ShopListState extends StateNotifier<ShopList> {
 class ShopDataState extends StateNotifier<ShopData> {
   ShopDataState(ShopData state) : super(state);
 
-  setLike(int id) => state = state.copyWith(like: !state.like);
+  setLike() => state = state.copyWith(like: !state.like);
 }

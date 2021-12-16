@@ -1,6 +1,7 @@
 import 'package:bpp_riverpod/app/model/enum/shop_type.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_type_provider.dart';
+import 'package:bpp_riverpod/app/ui/components/button/tab_button.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,52 +40,46 @@ class WishAppBar extends StatelessWidget {
                                     bottom: BorderSide(
                                         color: Color(0xfff2f2f2),
                                         width: 2.0)))),
-                        Row(children: [
-                          wishTabButton('스튜디오', 0),
-                          const SizedBox(width: 16),
-                          wishTabButton('헤어스튜디오', 1),
-                          const SizedBox(width: 16),
-                          wishTabButton('태닝', 2),
-                          const SizedBox(width: 16),
-                          wishTabButton('왁싱', 3),
-                          const SizedBox(width: 16),
-                          wishTabButton('컨셉', 4)
-                        ])
+                        Consumer(builder: (context, ref, _) {
+                          final tabIndex = ref.watch(wishTabProvider);
+                          return SizedBox(
+                            height: 32,
+                            child: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                if (index == 4) {
+                                  return TabButton(
+                                    title: '컨셉',
+                                    index: index,
+                                    tap: () {
+                                      ref.read(wishTabProvider.state).state =
+                                          index;
+                                    },
+                                    tabIndex: tabIndex,
+                                  );
+                                } else {
+                                  return TabButton(
+                                    title: shopTypeToString(index),
+                                    index: index,
+                                    tap: () {
+                                      ref.read(wishTabProvider.state).state =
+                                          index;
+                                      ref
+                                          .read(shopWishTypeProvider.state)
+                                          .state = ShopType.values[index];
+                                    },
+                                    tabIndex: tabIndex,
+                                  );
+                                }
+                              },
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(width: 16),
+                              itemCount: 5,
+                            ),
+                          );
+                        }),
                       ]))
                 ]))));
-  }
-
-  Widget wishTabButton(String title, int index) {
-    return Consumer(builder: (context, ref, _) {
-      return InkWell(
-          onTap: () {
-            ref.read(wishTabProvider.state).state = index;
-            if (index != 4) {
-              ref.read(shopWishTypeProvider.state).state =
-                  ShopType.values[index];
-            }
-          },
-          child: Container(
-              width: 15.0 * title.length,
-              height: 32,
-              padding: const EdgeInsets.only(bottom: 8),
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: ref.watch(wishTabProvider) == index
-                        ? const Color(0xff3b75ff)
-                        : const Color(0xfff2f2f2),
-                    width: 2.0,
-                  ),
-                ),
-              ),
-              child: FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: Text(title,
-                      style: ref.watch(wishTabProvider) == index
-                          ? BppTextStyle.tabText
-                          : BppTextStyle.defaultText
-                              .copyWith(color: const Color(0xff595959))))));
-    });
   }
 }

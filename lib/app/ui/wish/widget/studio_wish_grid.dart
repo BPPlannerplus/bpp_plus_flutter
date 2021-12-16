@@ -1,10 +1,10 @@
 import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
 import 'package:bpp_riverpod/app/repository/shop_wish_repository.dart';
+import 'package:bpp_riverpod/app/ui/components/card/studio_card.dart';
 import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
 import 'package:bpp_riverpod/app/ui/components/studio_grid/studio_paged_sliver_grid.dart';
 import 'package:bpp_riverpod/app/ui/wish/widget/no_item_card.dart';
-import 'package:bpp_riverpod/app/ui/wish/widget/wish_grid_card.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,8 +34,15 @@ class _StudioWishGridState extends ConsumerState<StudioWishGrid> {
       builderDelegate: PagedChildBuilderDelegate<ShopData>(
         itemBuilder: (context, s, index) {
           final studio = ref.watch(shopProvider(s));
-          final studioState = ref.read(shopProvider(s).notifier);
-          return wishGridCard(shop: studio, stateRead: studioState);
+          return StudioCard(
+            shopData: studio,
+            setLike: () async {
+              await ref
+                  .read(shopWishListProvider)
+                  .setLike(studio.id, studio.like);
+              ref.read(shopProvider(s).notifier).setLike();
+            },
+          );
         },
         firstPageProgressIndicatorBuilder: (context) =>
             customLoadingIndicator(),

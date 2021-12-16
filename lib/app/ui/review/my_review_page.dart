@@ -5,9 +5,9 @@ import 'package:bpp_riverpod/app/provider/review/my_review_provider.dart';
 import 'package:bpp_riverpod/app/repository/mypage_repository.dart';
 import 'package:bpp_riverpod/app/routes/custom_arg/review_arg.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/ui/components/app_bar/custom_app_bar.dart';
 import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
 import 'package:bpp_riverpod/app/ui/components/state/error_card.dart';
-import 'package:bpp_riverpod/app/ui/review/widget/review_app_bar.dart';
 import 'package:bpp_riverpod/app/ui/review/widget/review_button_row.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
@@ -37,7 +37,7 @@ class MyReviewPage extends ConsumerWidget {
 
             return SafeArea(
               child: Scaffold(
-                appBar: reviewAppBar('내 리뷰 보기'),
+                appBar: customAppBar('내 리뷰 보기'),
                 body: Padding(
                   padding: const EdgeInsets.only(top: 24, left: 16, right: 16),
                   child: Column(

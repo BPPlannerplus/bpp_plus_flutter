@@ -2,6 +2,7 @@ import 'package:bpp_riverpod/app/model/enum/shop_type.dart';
 import 'package:bpp_riverpod/app/provider/mypage/inquiry_provider.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/ui/components/button/tab_button.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/cupertino.dart';
@@ -38,9 +39,8 @@ class MypageAppBar extends ConsumerWidget {
                     fit: BoxFit.fitHeight,
                     child: Text(
                       '${userInfo.userName}님\n환영합니다!',
-                      style: BppTextStyle.screenText.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: BppTextStyle.screenText
+                          .copyWith(fontWeight: FontWeight.w600, height: 1.3),
                     ),
                   ),
                 ),
@@ -50,9 +50,7 @@ class MypageAppBar extends ConsumerWidget {
                       routeName: AppRoutes.settingPage,
                     );
                   },
-                  child: SvgPicture.asset(
-                    'assets/icon/ic_setting.svg',
-                  ),
+                  child: SvgPicture.asset('assets/icon/ic_setting.svg'),
                 ),
               ],
             ),
@@ -73,14 +71,23 @@ class MypageAppBar extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  Row(
-                    children: [
-                      inquiryTabButton('문의내역', 0),
-                      const SizedBox(width: 16),
-                      inquiryTabButton('예약일정', 1),
-                      const SizedBox(width: 16),
-                      inquiryTabButton('예약내역', 2),
-                    ],
+                  SizedBox(
+                    height: 32,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) => TabButton(
+                        title: _mypageTabName(index),
+                        index: index,
+                        tap: () {
+                          ref.read(myPageTabProvider.state).state = index;
+                        },
+                        tabIndex: tabIndex,
+                      ),
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(width: 16),
+                      itemCount: 3,
+                    ),
                   ),
                 ],
               ),
@@ -90,10 +97,10 @@ class MypageAppBar extends ConsumerWidget {
                     padding: const EdgeInsets.only(top: 20),
                     child: Row(
                       children: [
-                        studioCard('스튜디오', 0),
-                        studioCard('헤어메이크업', 1),
-                        studioCard('왁싱', 2),
-                        studioCard('태닝', 3),
+                        _studioCard('스튜디오', 0),
+                        _studioCard('헤어메이크업', 1),
+                        _studioCard('왁싱', 2),
+                        _studioCard('태닝', 3),
                       ],
                     ),
                   )
@@ -104,7 +111,7 @@ class MypageAppBar extends ConsumerWidget {
     );
   }
 
-  Widget studioCard(String title, int index) {
+  Widget _studioCard(String title, int index) {
     return Consumer(builder: (context, ref, _) {
       final idx = ref.watch(inquiryTabProvider);
       return Padding(
@@ -143,38 +150,16 @@ class MypageAppBar extends ConsumerWidget {
     });
   }
 
-  Widget inquiryTabButton(String title, int index) {
-    return Consumer(builder: (context, ref, _) {
-      return InkWell(
-        onTap: () {
-          ref.read(myPageTabProvider.state).state = index;
-        },
-        child: Container(
-          width: 15.0 * title.length,
-          height: 32,
-          padding: const EdgeInsets.only(bottom: 8),
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: ref.watch(myPageTabProvider) == index
-                    ? const Color(0xff3b75ff)
-                    : const Color(0xfff2f2f2),
-                width: 2.0,
-              ),
-            ),
-          ),
-          child: FittedBox(
-            fit: BoxFit.fitWidth,
-            child: Text(
-              title,
-              style: ref.watch(myPageTabProvider) == index
-                  ? BppTextStyle.tabText
-                  : BppTextStyle.defaultText
-                      .copyWith(color: const Color(0xff595959)),
-            ),
-          ),
-        ),
-      );
-    });
+  String _mypageTabName(int index) {
+    switch (index) {
+      case 0:
+        return '문의내역';
+      case 1:
+        return '예약일정';
+      case 2:
+        return '예약내역';
+      default:
+        return '';
+    }
   }
 }

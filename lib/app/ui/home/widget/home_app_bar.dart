@@ -1,6 +1,7 @@
 import 'package:bpp_riverpod/app/model/enum/shop_type.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_type_provider.dart';
+import 'package:bpp_riverpod/app/ui/components/button/tab_button.dart';
 import 'package:bpp_riverpod/app/ui/home/widget/home_bottom_sheet.dart';
 import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
@@ -34,17 +35,28 @@ class HomeAppBar extends StatelessWidget {
                   border: Border(
                       bottom: BorderSide(
                           color: const Color(0xfff2f2f2), width: 1.0.h)))),
-          Row(
-            children: [
-              tabButton('스튜디오', 0),
-              const SizedBox(width: 16),
-              tabButton('헤어메이크업', 1),
-              const SizedBox(width: 16),
-              tabButton('왁싱', 2),
-              const SizedBox(width: 16),
-              tabButton('태닝', 3),
-            ],
-          ),
+          Consumer(builder: (context, ref, _) {
+            final tabIndex = ref.watch(homeTabProvider);
+            return SizedBox(
+              height: 32,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) => TabButton(
+                  title: shopTypeToString(index),
+                  index: index,
+                  tap: () {
+                    ref.read(homeTabProvider.state).state = index;
+                    ref.read(shopTypeProvider.state).state =
+                        ShopType.values[index];
+                  },
+                  tabIndex: tabIndex,
+                ),
+                separatorBuilder: (context, index) => const SizedBox(width: 16),
+                itemCount: 4,
+              ),
+            );
+          }),
         ],
       ),
       flexibleSpace: Container(
@@ -99,41 +111,5 @@ class HomeAppBar extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget tabButton(String title, int index) {
-    return Consumer(builder: (context, ref, _) {
-      final tabIndex = ref.watch(homeTabProvider);
-
-      return InkWell(
-        onTap: () {
-          ref.read(homeTabProvider.state).state = index;
-          ref.read(shopTypeProvider.state).state = ShopType.values[index];
-        },
-        child: Container(
-          width: 15.0 * title.length,
-          height: 32,
-          padding: const EdgeInsets.only(bottom: 8),
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: tabIndex == index ? BppColor.main : BppColor.unSelButton,
-                width: tabIndex == index ? 2.0.h : 1.0.h,
-              ),
-            ),
-          ),
-          child: FittedBox(
-            fit: BoxFit.fitWidth,
-            child: Text(
-              title,
-              style: tabIndex == index
-                  ? BppTextStyle.tabText
-                  : BppTextStyle.defaultText
-                      .copyWith(color: BppColor.unSelText),
-            ),
-          ),
-        ),
-      );
-    });
   }
 }

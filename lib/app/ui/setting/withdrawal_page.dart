@@ -14,7 +14,7 @@ class WithdrawalPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 40,
+          toolbarHeight: 48,
           elevation: 0,
           leading: Consumer(builder: (context, ref, _) {
             final navigator = ref.watch(navigatorProvider);
@@ -39,35 +39,21 @@ class WithdrawalPage extends StatelessWidget {
                     '회원탈퇴',
                     style: BppTextStyle.bigScreenText,
                   ),
-                  SizedBox(
-                    height: 12.h,
-                  ),
+                  SizedBox(height: 12.h),
                   Container(
                     height: 1,
                     width: 312.w,
                     color: const Color(0xffbfbfbf),
                   ),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  SvgPicture.asset(
-                    'assets/image/withdrawal_text1.svg',
-                    width: 156.w,
-                  ),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  SvgPicture.asset(
-                    'assets/image/withdrawal_text2.svg',
-                    width: 311.w,
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  SvgPicture.asset(
-                    'assets/image/withdrawal_text3.svg',
-                    width: 311.w,
-                  ),
+                  SizedBox(height: 16.h),
+                  SvgPicture.asset('assets/image/withdrawal_text1.svg',
+                      width: 156.w),
+                  SizedBox(height: 16.h),
+                  SvgPicture.asset('assets/image/withdrawal_text2.svg',
+                      width: 311.w),
+                  SizedBox(height: 5.h),
+                  SvgPicture.asset('assets/image/withdrawal_text3.svg',
+                      width: 311.w),
                 ],
               ),
               Align(
@@ -98,9 +84,7 @@ class WithdrawalPage extends StatelessWidget {
                         )
                       ],
                     ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
+                    SizedBox(height: 5.h),
                     Consumer(builder: (context, ref, _) {
                       final isWithdrawal = ref.watch(withdrawalProvier);
                       return SizedBox(

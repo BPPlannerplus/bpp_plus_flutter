@@ -2,6 +2,7 @@ import 'package:bpp_riverpod/app/provider/concept/concept_filter_provider.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_botton_sheet.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_filter_card.dart';
 import 'package:bpp_riverpod/app/util/theme/color.dart';
+import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,7 +29,10 @@ class ConceptAppBar extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SvgPicture.asset('assets/image/concept_text.svg', width: 190),
+                Text(
+                  '원하는 컨셉의\n스튜디오를 찾아보세요',
+                  style: BppTextStyle.screenText.copyWith(height: 1.2),
+                ),
                 InkWell(
                   onTap: () {
                     showModalBottomSheet(

@@ -1,6 +1,6 @@
 import 'package:bpp_riverpod/app/provider/detail/detail_navigation_provider.dart';
+import 'package:bpp_riverpod/app/ui/components/button/tab_button.dart';
 import 'package:bpp_riverpod/app/util/theme/color.dart';
-import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -32,49 +32,43 @@ class DetailAppBar extends StatelessWidget {
                 ),
               ),
             ),
-            Row(
-              children: [
-                tabButton('포트폴리오', 0),
-                const SizedBox(width: 16),
-                tabButton('상세정보', 1),
-                const SizedBox(width: 16),
-                tabButton('리뷰', 2),
-              ],
-            ),
+            Consumer(builder: (context, ref, _) {
+              final tabIndex = ref.watch(detailTabProvider);
+              return SizedBox(
+                height: 32,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) => TabButton(
+                    title: _detailTabName(index),
+                    index: index,
+                    tap: () {
+                      ref.read(detailTabProvider.state).state = index;
+                    },
+                    tabIndex: tabIndex,
+                  ),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(width: 16),
+                  itemCount: 3,
+                ),
+              );
+            }),
           ],
         ),
       ),
     );
   }
 
-  Widget tabButton(String title, int index) {
-    return Consumer(builder: (context, ref, _) {
-      final tabIndex = ref.watch(detailTabProvider);
-      return InkWell(
-          onTap: () {
-            ref.read(detailTabProvider.state).state = index;
-          },
-          child: Container(
-              width: 15.0 * title.length,
-              height: 32,
-              padding: const EdgeInsets.only(bottom: 8),
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: tabIndex == index
-                        ? BppColor.main
-                        : BppColor.unSelButton,
-                    width: tabIndex == index ? 2.0 : 1.0,
-                  ),
-                ),
-              ),
-              child: FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: Text(title,
-                      style: ref.watch(detailTabProvider) == index
-                          ? BppTextStyle.tabText
-                          : BppTextStyle.defaultText
-                              .copyWith(color: BppColor.unSelText)))));
-    });
+  String _detailTabName(int index) {
+    switch (index) {
+      case 0:
+        return '포트폴리오';
+      case 1:
+        return '상세정보';
+      case 2:
+        return '리뷰';
+      default:
+        return '';
+    }
   }
 }

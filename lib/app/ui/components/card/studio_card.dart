@@ -10,14 +10,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class HomeGridCard extends StatelessWidget {
-  const HomeGridCard({
+class StudioCard extends StatelessWidget {
+  const StudioCard({
     Key? key,
-    required this.shop,
+    required this.shopData,
     required this.setLike,
   }) : super(key: key);
 
-  final ShopData shop;
+  final ShopData shopData;
   final Function setLike;
 
   @override
@@ -35,7 +35,8 @@ class HomeGridCard extends StatelessWidget {
                 return InkWell(
                     onTap: () async {
                       await navigator.navigateTo(
-                          routeName: AppRoutes.detailPage, argument: shop.id);
+                          routeName: AppRoutes.detailPage,
+                          argument: shopData.id);
                     },
                     child: Container(
                         decoration: BoxDecoration(
@@ -43,7 +44,7 @@ class HomeGridCard extends StatelessWidget {
                             color: BppColor.black),
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: Image.network(shop.profile,
+                            child: Image.network(shopData.profile,
                                 height: 112.h,
                                 width: 160.w,
                                 fit: BoxFit.contain))));
@@ -55,20 +56,21 @@ class HomeGridCard extends StatelessWidget {
                         setLike();
                       },
                       child: Icon(
-                          shop.like
+                          shopData.like
                               ? CupertinoIcons.heart_fill
                               : CupertinoIcons.heart,
-                          color: shop.like ? BppColor.like : BppColor.white,
+                          color: shopData.like ? BppColor.like : BppColor.white,
                           size: 30)))
             ])),
         const SizedBox(height: 8),
-        Text(shop.name, style: BppTextStyle.isEng(shop.name)),
+        Text(shopData.name, style: BppTextStyle.isEng(shopData.name)),
         const SizedBox(height: 4),
-        Text(shopAddrToKR[shop.address]!,
+        Text(shopAddrToKR[shopData.address]!,
             style: BppTextStyle.smallText.copyWith(color: BppColor.unSelText)),
         const SizedBox(height: 4),
-        shop.minPrice != null
-            ? Text(priceFormat(shop.minPrice!), style: BppTextStyle.smallText)
+        shopData.minPrice != null
+            ? Text(priceFormat(shopData.minPrice!),
+                style: BppTextStyle.smallText)
             : const Text('가격 정보 없음', style: BppTextStyle.smallText),
       ],
     );

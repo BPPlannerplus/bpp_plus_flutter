@@ -2,8 +2,8 @@ import 'package:bpp_riverpod/app/model/mypage/mypage_data.dart';
 import 'package:bpp_riverpod/app/provider/mypage/expiration_provider.dart';
 import 'package:bpp_riverpod/app/provider/mypage/review_provider.dart';
 import 'package:bpp_riverpod/app/repository/mypage_repository.dart';
+import 'package:bpp_riverpod/app/ui/components/app_bar/custom_app_bar.dart';
 import 'package:bpp_riverpod/app/ui/components/button/confirm_button.dart';
-import 'package:bpp_riverpod/app/ui/review/widget/review_app_bar.dart';
 import 'package:bpp_riverpod/app/ui/review/widget/shop_info_column.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/color.dart';
@@ -23,7 +23,7 @@ class ReviewWritePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: reviewAppBar('리뷰 작성하기'),
+        appBar: customAppBar('리뷰 작성하기'),
         body: Padding(
           padding:
               const EdgeInsets.only(top: 24, right: 16, left: 16, bottom: 24),
