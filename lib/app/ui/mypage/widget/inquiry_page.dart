@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:bpp_riverpod/app/model/enum/shop_type.dart';
 import 'package:bpp_riverpod/app/model/mypage/mypage_shop_data.dart';
 import 'package:bpp_riverpod/app/provider/mypage/inquiry_provider.dart';
 import 'package:bpp_riverpod/app/provider/mypage/reservation_check_provider.dart';
@@ -9,7 +10,6 @@ import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart'
 import 'package:bpp_riverpod/app/ui/mypage/widget/empty_box.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/info_text.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/set_date_dialog.dart';
-import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/cupertino.dart';
@@ -84,22 +84,7 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            '문의중 업체 $count',
-            style: BppTextStyle.smallText,
-          ),
-          // Consumer(builder: (context, ref, _) {
-          //   final shopType = ref.watch(inquiryShopTypeProvider);
-          //   return InkWell(
-          //     onTap: () {
-          //       ref.read(inquiryListProvider.notifier).deleteAll(shopType);
-          //     },
-          //     child: const Text(
-          //       '전체 삭제',
-          //       style: BppTextStyle.filterText,
-          //     ),
-          //   );
-          // }),
+          Text('문의중 업체 $count', style: BppTextStyle.smallText),
         ],
       ),
     );
@@ -131,7 +116,7 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(shopTypeToName[shop.type]!,
+                  Text(shopTypeToString(shop.type),
                       style: BppTextStyle.defaultText),
                   const SizedBox(height: 10),
                   Row(
@@ -239,7 +224,7 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(shopTypeToName[shop.type]!,
+                        Text(shopTypeToString(shop.type),
                             style: BppTextStyle.defaultText),
                         const SizedBox(height: 10),
                         Row(

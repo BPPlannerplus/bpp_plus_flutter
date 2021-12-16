@@ -1,6 +1,6 @@
+import 'package:bpp_riverpod/app/model/enum/shop_type.dart';
 import 'package:bpp_riverpod/app/model/filter_check_pair.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_type_provider.dart';
-import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/filter_value.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

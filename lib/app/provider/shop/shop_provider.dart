@@ -1,9 +1,9 @@
+import 'package:bpp_riverpod/app/model/enum/shop_type.dart';
 import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
 import 'package:bpp_riverpod/app/model/shop/shop_list.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_state.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_type_provider.dart';
 import 'package:bpp_riverpod/app/repository/shop_repository.dart';
-import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final shopListProvider = Provider<ShopListState>(

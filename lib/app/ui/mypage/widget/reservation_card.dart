@@ -1,6 +1,9 @@
 import 'dart:math';
 
+import 'package:bpp_riverpod/app/model/enum/shop_type.dart';
+import 'package:bpp_riverpod/app/model/mypage/mypage_data.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,10 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget reservationCard({
-  required int shopId,
-  required String date,
-  required String shop,
-  required String shopName,
+  required MypageData mypageData,
   required String buttonText,
   required Widget iconWidget,
   required Function onTabButton,
@@ -44,15 +44,17 @@ Widget reservationCard({
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(date, style: BppTextStyle.defaultText),
-                            Text(shop,
+                            Text(
+                                reservationDateFormat(mypageData.reservedData!),
+                                style: BppTextStyle.defaultText),
+                            Text(shopTypeToString(mypageData.shop.type),
                                 style: BppTextStyle.smallText
                                     .copyWith(color: const Color(0xff696969))),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  shopName,
+                                  mypageData.shop.name,
                                   style: BppTextStyle.defaultText.copyWith(
                                     color: const Color(0xff010101),
                                     fontWeight: FontWeight.w600,
@@ -68,7 +70,7 @@ Widget reservationCard({
                                               .read(navigatorProvider)
                                               .navigateTo(
                                                 routeName: AppRoutes.detailPage,
-                                                argument: shopId,
+                                                argument: mypageData.shop.id,
                                               );
                                         },
                                         child: Transform.rotate(

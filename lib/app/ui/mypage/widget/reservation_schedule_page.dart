@@ -4,7 +4,6 @@ import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart'
 import 'package:bpp_riverpod/app/ui/mypage/widget/empty_box.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_card.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_detail_dialog.dart';
-import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/cupertino.dart';
@@ -104,10 +103,7 @@ class _ReservationSchedulePageState
                     padding: const EdgeInsets.only(top: 8),
                     child: Consumer(builder: (context, ref, _) {
                       return reservationCard(
-                        shopId: shopDatas[i].shop.id,
-                        date: reservationDateFormat(shopDatas[i].reservedData!),
-                        shop: shopTypeToName[shopDatas[i].shop.type]!,
-                        shopName: shopDatas[i].shop.name,
+                        mypageData: shopDatas[i],
                         buttonText: '문의하기',
                         iconWidget: SvgPicture.asset(
                           'assets/icon/ic_edit.svg',
@@ -162,10 +158,7 @@ class _ReservationSchedulePageState
                     padding: const EdgeInsets.only(top: 8),
                     child: Consumer(builder: (context, ref, _) {
                       return reservationCard(
-                        shopId: shopDatas[i].shop.id,
-                        date: reservationDateFormat(shopDatas[i].reservedData!),
-                        shop: shopTypeToName[shopDatas[i].shop.type]!,
-                        shopName: shopDatas[i].shop.name,
+                        mypageData: shopDatas[i],
                         buttonText: '문의하기',
                         iconWidget: SvgPicture.asset(
                           'assets/icon/ic_edit.svg',

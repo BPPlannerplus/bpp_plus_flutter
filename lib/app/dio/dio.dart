@@ -133,7 +133,7 @@ class CustomLogInterceptor extends Interceptor {
     dp.log('ERROR headers: [${err.requestOptions.headers}]');
     dp.log('ERROR err: [${err.error}]');
     dp.log('ERROR msg: [${err.message}]');
-    // dp.log('ERROR stack: [${err.stackTrace}]');
+    dp.log('ERROR stack: [${err.stackTrace}]');
     super.onError(err, handler);
   }
 }

@@ -1,6 +1,6 @@
+import 'package:bpp_riverpod/app/model/enum/shop_type.dart';
 import 'package:bpp_riverpod/app/model/mypage/mypage_data.dart';
 import 'package:bpp_riverpod/app/repository/mypage_repository.dart';
-import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final isInquiryLoading = StateProvider.autoDispose<bool>((ref) => true);

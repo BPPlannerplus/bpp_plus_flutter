@@ -1,4 +1,5 @@
 import 'package:bpp_riverpod/app/provider/detail/detail_navigation_provider.dart';
+import 'package:bpp_riverpod/app/routes/custom_arg/profile_arg.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/color.dart';
@@ -53,7 +54,7 @@ class DetailTopBox extends StatelessWidget {
         onTap: () {
           ref.read(navigatorProvider).navigateTo(
                 routeName: AppRoutes.detailProfilePage,
-                argument: ProfileData(
+                argument: ProfileArg(
                   profiles: profiles,
                   index: index,
                 ),

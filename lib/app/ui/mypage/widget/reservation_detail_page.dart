@@ -5,8 +5,6 @@ import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart'
 import 'package:bpp_riverpod/app/ui/mypage/widget/empty_box.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_card.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/set_date_dialog.dart';
-import 'package:bpp_riverpod/app/util/enum.dart';
-import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/cupertino.dart';
@@ -78,10 +76,7 @@ class _ReservationDetailPageState extends ConsumerState<ReservationDetailPage> {
                   child: Consumer(builder: (context, ref, _) {
                     final navigator = ref.watch(navigatorProvider);
                     return reservationCard(
-                      shopId: datas[i].shop.id,
-                      date: reservationDateFormat(datas[i].reservedData!),
-                      shop: shopTypeToName[datas[i].shop.type]!,
-                      shopName: datas[i].shop.name,
+                      mypageData: datas[i],
                       buttonText: datas[i].state == 2 ? '내 리뷰 보기' : '리뷰 작성',
                       iconWidget: Padding(
                         padding: EdgeInsets.only(top: 8, right: 8.w),
@@ -95,23 +90,13 @@ class _ReservationDetailPageState extends ConsumerState<ReservationDetailPage> {
                       onTabButton: datas[i].state == 2
                           ? () {
                               navigator.navigateTo(
-                                routeName: AppRoutes.myReviewPage,
-                                argument: ReviewArgs(
-                                    id: datas[i].id,
-                                    shopType:
-                                        shopTypeToName[datas[i].shop.type]!,
-                                    shopName: datas[i].shop.name),
-                              );
+                                  routeName: AppRoutes.myReviewPage,
+                                  argument: datas[i]);
                             }
                           : () {
                               navigator.navigateTo(
-                                routeName: AppRoutes.reviewWritePage,
-                                argument: ReviewArgs(
-                                    id: datas[i].id,
-                                    shopType:
-                                        shopTypeToName[datas[i].shop.type]!,
-                                    shopName: datas[i].shop.name),
-                              );
+                                  routeName: AppRoutes.reviewWritePage,
+                                  argument: datas[i]);
                             },
                       onTabIcon: () async {
                         showDialog(

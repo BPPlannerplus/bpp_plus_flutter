@@ -6,7 +6,7 @@ final navigatorProvider =
 
 class NavigationService {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-  Future<void> navigateTo({
+  Future<dynamic> navigateTo({
     required String routeName,
     Object? argument,
   }) {
@@ -16,7 +16,7 @@ class NavigationService {
     );
   }
 
-  Future<void> navigateToRemove({
+  Future<dynamic> navigateToRemove({
     required String routeName,
     Object? argument,
   }) {
@@ -27,7 +27,7 @@ class NavigationService {
     );
   }
 
-  void pop() {
-    return navigatorKey.currentState!.pop();
+  dynamic pop({Object? result}) {
+    return navigatorKey.currentState!.pop(result);
   }
 }

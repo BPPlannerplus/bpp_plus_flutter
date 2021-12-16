@@ -1,8 +1,8 @@
+import 'package:bpp_riverpod/app/model/enum/shop_type.dart';
 import 'package:bpp_riverpod/app/model/mypage/mypage_data.dart';
 import 'package:bpp_riverpod/app/provider/mypage/confirmed_provider.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_delete_dialog.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/set_date_dialog.dart';
-import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
@@ -48,7 +48,7 @@ Widget reservationDetailDialog({required MypageData reservationData}) {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  Text(shopTypeToName[reservationData.shop.type]!,
+                  Text(shopTypeToString(reservationData.shop.type),
                       style: BppTextStyle.smallText
                           .copyWith(color: const Color(0xff696969))),
                   const SizedBox(height: 4),

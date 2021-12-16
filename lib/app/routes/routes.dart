@@ -1,4 +1,7 @@
+import 'package:bpp_riverpod/app/model/mypage/mypage_data.dart';
+import 'package:bpp_riverpod/app/routes/custom_arg/profile_arg.dart';
 import 'package:bpp_riverpod/app/routes/custom_arg/report_arg.dart';
+import 'package:bpp_riverpod/app/routes/custom_arg/review_arg.dart';
 import 'package:bpp_riverpod/app/ui/detail/detail_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/detail_portfolio_full_screen.dart';
 import 'package:bpp_riverpod/app/ui/detail/detail_profile_page.dart';
@@ -58,7 +61,7 @@ class AppRouter {
           settings: settings,
         );
       case AppRoutes.detailProfilePage:
-        final ProfileData args = settings.arguments;
+        final ProfileArg args = settings.arguments;
         return MaterialPageRoute<dynamic>(
           builder: (_) =>
               DetailProfilePage(profiles: args.profiles, index: args.index),
@@ -92,74 +95,35 @@ class AppRouter {
           settings: settings,
         );
       case AppRoutes.reviewWritePage:
-        final ReviewArgs arg = settings.arguments;
+        final MypageData arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => ReviewWritePage(
-              reservationId: arg.id,
-              shopType: arg.shopType,
-              shopName: arg.shopName),
+          builder: (_) => ReviewWritePage(mypageData: arg),
           settings: settings,
         );
       case AppRoutes.reviewEditPage:
-        final ReviewArgs arg = settings.arguments;
+        final ReviewEditArg arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
           builder: (_) => ReviewEditPage(
-            id: arg.id,
-            shopType: arg.shopType,
-            shopName: arg.shopName,
-            score: arg.score!,
+            mypageData: arg.mypageData,
+            score: arg.score,
+            reviewId: arg.reviewId,
           ),
           settings: settings,
         );
       case AppRoutes.myReviewPage:
-        final ReviewArgs arg = settings.arguments;
+        final MypageData arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => MyReviewPage(
-              id: arg.id, shopType: arg.shopType, shopName: arg.shopName),
+          builder: (_) => MyReviewPage(mypageData: arg),
           settings: settings,
         );
       case AppRoutes.licensePage:
         return MaterialPageRoute<dynamic>(
           builder: (_) => const LicensePage(
-            applicationName: '바디플래너',
+            applicationName: '바프플래너',
             applicationVersion: '0.0.1',
           ),
           settings: settings,
         );
     }
   }
-}
-
-class MyRoute extends MaterialPageRoute {
-  MyRoute({
-    WidgetBuilder? builder,
-    dynamic settings,
-  }) : super(builder: builder!, settings: settings);
-
-  @override
-  Duration get transitionDuration => const Duration(milliseconds: 500);
-}
-
-class ProfileData {
-  final List<String> profiles;
-  final int index;
-
-  ProfileData({
-    required this.profiles,
-    required this.index,
-  });
-}
-
-class ReviewArgs {
-  final int id;
-  final String shopType;
-  final String shopName;
-  int? score;
-
-  ReviewArgs({
-    required this.id,
-    required this.shopType,
-    required this.shopName,
-    this.score,
-  });
 }

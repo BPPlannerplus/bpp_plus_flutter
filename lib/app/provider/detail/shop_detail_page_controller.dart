@@ -1,4 +1,3 @@
-import 'package:bpp_riverpod/app/model/review/review.dart';
 import 'package:bpp_riverpod/app/model/shop/shop_concept.dart';
 import 'package:bpp_riverpod/app/repository/shop_detail_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
