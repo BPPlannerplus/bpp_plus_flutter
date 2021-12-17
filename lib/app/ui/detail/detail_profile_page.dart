@@ -55,14 +55,10 @@ class DetailProfilePage extends StatelessWidget {
                     onTap: () {
                       navigator.pop();
                     },
-                    child: const SizedBox(
-                      width: 40,
-                      height: 40,
-                      child: Icon(
-                        CupertinoIcons.xmark,
-                        color: BppColor.white,
-                        size: 30,
-                      ),
+                    child: const Icon(
+                      CupertinoIcons.xmark,
+                      color: BppColor.white,
+                      size: 30,
                     ),
                   );
                 }),

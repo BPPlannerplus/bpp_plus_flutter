@@ -1,5 +1,6 @@
 import 'package:bpp_riverpod/app/model/enum/shop_type.dart';
 import 'package:bpp_riverpod/app/model/mypage/mypage_data.dart';
+import 'package:bpp_riverpod/app/provider/mypage/expiration_provider.dart';
 import 'package:bpp_riverpod/app/provider/mypage/review_detail_provider.dart';
 import 'package:bpp_riverpod/app/provider/review/my_review_provider.dart';
 import 'package:bpp_riverpod/app/repository/mypage_repository.dart';
@@ -104,10 +105,10 @@ class MyReviewPage extends ConsumerWidget {
                         deleteReveiw: () async {
                           await ref
                               .read(mypageRepsitory)
-                              .deleteReview(mypageData.id);
-                          // ref
-                          //     .read(expirationListProvider.notifier)
-                          //     .changeShopStateUnReviewed(id);
+                              .deleteReview(reviewDetail.id);
+                          ref
+                              .read(expirationListProvider.notifier)
+                              .changeShopStateUnReviewed(mypageData.id);
                           ref.read(navigatorProvider).pop();
                         },
                       ),

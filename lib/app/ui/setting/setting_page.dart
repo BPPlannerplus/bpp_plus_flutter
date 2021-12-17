@@ -2,6 +2,7 @@ import 'package:bpp_riverpod/app/provider/login_provider.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/ui/components/app_bar/custom_app_bar.dart';
+import 'package:bpp_riverpod/app/ui/components/dialog/bpp_alert_dialog.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
@@ -46,23 +47,23 @@ class SettingPage extends ConsumerWidget {
                   final kakaoLogin = ref.read(flutterKakaoLoginProvider);
                   try {
                     await kakaoLogin.logOut();
-                    Hive.box('auth').delete('token');
-                    Hive.box('auth').delete('userInfo');
+                    await Hive.box('auth').delete('token');
+                    await Hive.box('auth').delete('userInfo');
                     ref.read(bottomIndexStateProvider.state).state = 0;
+                    ref
+                        .read(navigatorProvider)
+                        .navigateToRemove(routeName: AppRoutes.loginPage);
                   } catch (e) {
                     showDialog(
                       context: context,
                       builder: (context) {
-                        return const AlertDialog(
-                          title: Text('로그 아웃 실패'),
-                          content: Text('로그 아웃에 실패했습니다\n\n다시 시도해주세요'),
+                        return bppAlertDialog(
+                          title: '로그 아웃에 실패했습니다.',
+                          confirm: () {},
                         );
                       },
                     );
                   }
-                  ref
-                      .read(navigatorProvider)
-                      .navigateToRemove(routeName: AppRoutes.loginPage);
                 },
                 child: const Text(
                   '로그아웃',

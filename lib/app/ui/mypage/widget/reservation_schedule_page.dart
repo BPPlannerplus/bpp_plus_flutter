@@ -70,7 +70,7 @@ class _ReservationSchedulePageState
           const SizedBox(width: 12),
           RichText(
               text: TextSpan(
-                  text: '$day',
+                  text: '${day + 1}',
                   style: BppTextStyle.tabText
                       .copyWith(color: const Color(0xff3b75ff), fontSize: 16),
                   children: [

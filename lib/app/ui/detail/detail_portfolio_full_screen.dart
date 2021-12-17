@@ -32,21 +32,17 @@ class DetailPortfolioFullScreen extends StatelessWidget {
             ),
             Positioned(
               top: 16,
-              right: 1,
+              right: 16,
               child: Consumer(builder: (context, ref, _) {
                 final navigator = ref.watch(navigatorProvider);
                 return InkWell(
                   onTap: () {
                     navigator.pop();
                   },
-                  child: const SizedBox(
-                    width: 40,
-                    height: 40,
-                    child: Icon(
-                      CupertinoIcons.xmark,
-                      color: BppColor.white,
-                      size: 30,
-                    ),
+                  child: const Icon(
+                    CupertinoIcons.xmark,
+                    color: BppColor.white,
+                    size: 30,
                   ),
                 );
               }),

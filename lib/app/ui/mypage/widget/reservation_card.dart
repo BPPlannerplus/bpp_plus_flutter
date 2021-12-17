@@ -55,10 +55,10 @@ Widget reservationCard({
                               children: [
                                 Text(
                                   mypageData.shop.name,
-                                  style: BppTextStyle.defaultText.copyWith(
-                                    color: const Color(0xff010101),
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                  style:
+                                      BppTextStyle.isEng(mypageData.shop.name)
+                                          .copyWith(
+                                              color: const Color(0xff010101)),
                                 ),
                                 const SizedBox(width: 4),
                                 Padding(

@@ -36,24 +36,27 @@ class StudioCard extends StatelessWidget {
               Consumer(builder: (context, ref, _) {
                 final navigator = ref.watch(navigatorProvider);
                 return InkWell(
-                    onTap: () async {
-                      await navigator.navigateTo(
-                          routeName: AppRoutes.detailPage,
-                          argument: shopData.id);
-                      if (refresh != null) {
-                        refresh!();
-                      }
-                    },
-                    child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: BppColor.black),
-                        child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: cachedImageCard(
-                                imageUrl: shopData.profile,
-                                height: 112.h,
-                                width: 160.w))));
+                  onTap: () async {
+                    await navigator.navigateTo(
+                        routeName: AppRoutes.detailPage, argument: shopData.id);
+                    if (refresh != null) {
+                      refresh!();
+                    }
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: BppColor.black),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: cachedImageCard(
+                        imageUrl: shopData.profile,
+                        height: 112.h,
+                        width: 160.w,
+                      ),
+                    ),
+                  ),
+                );
               }),
               Padding(
                   padding: const EdgeInsets.all(5.0),

@@ -38,7 +38,7 @@ class BppTextStyle {
     color: BppColor.black,
   );
   static const engShopNameText = TextStyle(
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: FontWeight.w500,
     color: BppColor.black,
     fontFamily: 'Roboto',

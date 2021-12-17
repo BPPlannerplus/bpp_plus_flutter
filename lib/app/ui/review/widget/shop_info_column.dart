@@ -27,6 +27,7 @@ class ShopInfoColumn extends StatelessWidget {
         ),
         SizedBox(height: 5.h),
         Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               shopData.name,
@@ -46,7 +47,7 @@ class ShopInfoColumn extends StatelessWidget {
                   child: const Icon(
                     Icons.arrow_back_ios_new,
                     color: Color(0xff000000),
-                    size: 18,
+                    size: 16,
                   ),
                 ),
               );
@@ -58,7 +59,7 @@ class ShopInfoColumn extends StatelessWidget {
         const SizedBox(height: 24),
         Text(
           '만족스러우셨나요?\n경험을 공유해주세요!',
-          style: BppTextStyle.tabText.copyWith(height: 1.4),
+          style: BppTextStyle.tabText.copyWith(height: 1.5),
         ),
         const SizedBox(height: 24),
       ],

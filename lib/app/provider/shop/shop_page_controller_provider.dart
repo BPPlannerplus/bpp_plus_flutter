@@ -1,3 +1,5 @@
+import 'dart:developer' as dp;
+
 import 'package:bpp_riverpod/app/model/enum/shop_type.dart';
 import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_filter_provider.dart';
@@ -40,6 +42,7 @@ final studioPageControllerProvider =
         _pagingController.appendPage(newItems.shopDatas, nextPageKey);
       }
     } catch (error) {
+      dp.log(error.toString());
       _pagingController.error = error;
     }
   }

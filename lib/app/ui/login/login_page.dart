@@ -75,8 +75,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
       // 유저 정보 업데이트
       ref.watch(userInfoProvider.state).state = userData.userInfo;
-      ref.watch(tokenDataProvider.state).state = tokenData;
-
       await Hive.box('auth').put('token', tokenData.refreshToken);
     } catch (e) {
       showDialog(

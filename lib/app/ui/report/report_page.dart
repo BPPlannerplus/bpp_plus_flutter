@@ -87,7 +87,7 @@ class ReportPage extends StatelessWidget {
                             reportText(),
                           ],
                         ),
-                        const SizedBox(height: 150),
+                        const SizedBox(height: 70),
                         ConfirmButton(
                           buttonTitle: '신고하기',
                           onPressedButton: () async {
