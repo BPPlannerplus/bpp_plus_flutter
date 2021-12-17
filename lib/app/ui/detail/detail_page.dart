@@ -2,6 +2,7 @@ import 'package:bpp_riverpod/app/provider/detail/detail_navigation_provider.dart
 import 'package:bpp_riverpod/app/provider/detail/shop_detail_page_controller.dart';
 import 'package:bpp_riverpod/app/provider/detail/shop_detail_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
+import 'package:bpp_riverpod/app/ui/components/dialog/bpp_alert_dialog.dart';
 import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
 import 'package:bpp_riverpod/app/ui/components/state/error_card.dart';
 import 'package:bpp_riverpod/app/ui/components/toast/toast.dart';
@@ -14,7 +15,6 @@ import 'package:bpp_riverpod/app/ui/detail/widget/detail_review_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_top_box.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/color.dart';
-import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -138,31 +138,9 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                   await launch(shopData.kakaoUrl);
                 } catch (e) {
                   showDialog(
-                    context: context,
-                    builder: (context) => Dialog(
-                      child: SizedBox(
-                        height: 200,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              '이미 예약 된 스튜디오 입니다',
-                              style: BppTextStyle.dialogText.copyWith(
-                                color: BppColor.black,
-                              ),
-                            ),
-                            Consumer(builder: (context, ref, _) {
-                              return ElevatedButton(
-                                onPressed: () =>
-                                    ref.read(navigatorProvider).pop(),
-                                child: const Text('확인'),
-                              );
-                            }),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
+                      context: context,
+                      builder: (context) => bppAlertDialog(
+                          title: '이미 예약된 스튜디오입니다!', confirm: () {}));
                 }
               },
               isLike: shopDetailData.like,

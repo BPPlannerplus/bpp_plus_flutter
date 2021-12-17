@@ -19,7 +19,6 @@ class WishPage extends ConsumerStatefulWidget {
 
 class _WishPageState extends ConsumerState<WishPage> {
   final scrollController = ScrollController();
-
   final List<Widget> _pages = const [
     StudioWishGrid(),
     BeautyWishGrid(),
@@ -42,31 +41,23 @@ class _WishPageState extends ConsumerState<WishPage> {
   }
 
   Future<void> scrollToTop() async {
-    await scrollController.animateTo(
-      0,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.linear,
-    );
+    await scrollController.animateTo(0,
+        duration: const Duration(milliseconds: 300), curve: Curves.linear);
     ref.watch(isShowBottomBarStateProvider.state).state = true;
   }
 
   @override
   Widget build(BuildContext context) {
     ref.listen(wishTabProvider, (pre, next) => scrollToTop());
+
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(right: 16, left: 16),
-        child: Column(
-          children: [
-            Expanded(
-              child: CustomScrollView(
-                controller: scrollController,
-                slivers: [
-                  const WishAppBar(),
-                  _pages[ref.watch(wishTabProvider)],
-                ],
-              ),
-            ),
+        child: CustomScrollView(
+          controller: scrollController,
+          slivers: [
+            const WishAppBar(),
+            _pages[ref.watch(wishTabProvider)],
           ],
         ),
       ),

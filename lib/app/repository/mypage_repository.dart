@@ -35,6 +35,12 @@ class MypageRepository {
     return response;
   }
 
+  //  예약 날짜 체크
+  Future<dynamic> checkReservation() async {
+    final response = await reservationClient.checkReservation();
+    return response;
+  }
+
   // 확정날짜 받기
   Future<dynamic> setReservationDate(int id, String date) async {
     final response = await reservationClient.setShopReservationDate(
@@ -48,6 +54,12 @@ class MypageRepository {
     return response;
   }
 
+  //  문의 전체 삭제
+  Future<dynamic> deleteAllReservation() async {
+    final response = await reservationClient.deleteAllReservation();
+    return response;
+  }
+
   // 특정 리뷰 조회
   Future<ReviewDetail> getReview(int id) async {
     final review = await reservationClient.getReview(id);
@@ -57,12 +69,7 @@ class MypageRepository {
   // 리뷰  작성
   Future<dynamic> createReview(int id, int score, String? text) async {
     final response = await reservationClient.createReview(
-      id,
-      ReviewRequest(
-        score: score,
-        contents: text,
-      ),
-    );
+        id, ReviewRequest(score: score, contents: text));
 
     return response;
   }

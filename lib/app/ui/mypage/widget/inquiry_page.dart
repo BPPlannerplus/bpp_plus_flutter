@@ -85,6 +85,18 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text('문의중 업체 $count', style: BppTextStyle.smallText),
+          Consumer(builder: (context, ref, _) {
+            // final shopType = ref.watch(inquiryShopTypeProvider);
+            return InkWell(
+              onTap: () {
+                ref.read(inquiryListProvider.notifier).deleteAll();
+              },
+              child: const Text(
+                '전체 삭제',
+                style: BppTextStyle.filterText,
+              ),
+            );
+          }),
         ],
       ),
     );

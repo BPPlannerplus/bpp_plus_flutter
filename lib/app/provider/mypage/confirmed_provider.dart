@@ -24,6 +24,7 @@ class ConfirmedList extends StateNotifier<List<MypageData>> {
 
   Future<List<MypageData>> getList() async {
     read(isConfirmedLoading.state).state = true;
+    final response = await repository.checkReservation();
     final lists = await repository.getShopReservation();
     state = lists.list.where((e) => e.state == 1).toList();
     read(isConfirmedLoading.state).state = false;

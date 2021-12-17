@@ -1,5 +1,6 @@
 import 'package:bpp_riverpod/app/model/concept/concept.dart';
 import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
+import 'package:bpp_riverpod/app/ui/components/card/cached_image_card.dart';
 import 'package:bpp_riverpod/app/ui/components/toast/toast.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_dialog.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
@@ -45,8 +46,8 @@ class _ConceptCardState extends State<ConceptCard> {
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                widget.concept.profile,
+              child: cachedImageCard(
+                imageUrl: widget.concept.profile,
                 height: double.infinity,
                 width: double.infinity,
                 fit: BoxFit.cover,

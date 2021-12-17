@@ -26,8 +26,8 @@ class ReivewListState extends StateNotifier<ReviewList> {
 
   final ShopDetailRepository repository;
 
-  void reportReview(int reviewId) async {
-    state = state.copyWith(
-        reviews: state.reviews.where((e) => e.id != reviewId).toList());
-  }
+  // void reportReview(int reviewId) async {
+  //   state = state.copyWith(
+  //       reviews: state.reviews.where((e) => e.id != reviewId).toList());
+  // }
 }

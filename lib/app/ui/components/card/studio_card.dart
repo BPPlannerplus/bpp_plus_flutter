@@ -1,5 +1,6 @@
 import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/ui/components/card/cached_image_card.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
@@ -15,10 +16,12 @@ class StudioCard extends StatelessWidget {
     Key? key,
     required this.shopData,
     required this.setLike,
+    this.refresh,
   }) : super(key: key);
 
   final ShopData shopData;
   final Function setLike;
+  final Function? refresh;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +40,9 @@ class StudioCard extends StatelessWidget {
                       await navigator.navigateTo(
                           routeName: AppRoutes.detailPage,
                           argument: shopData.id);
+                      if (refresh != null) {
+                        refresh!();
+                      }
                     },
                     child: Container(
                         decoration: BoxDecoration(
@@ -44,10 +50,10 @@ class StudioCard extends StatelessWidget {
                             color: BppColor.black),
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: Image.network(shopData.profile,
+                            child: cachedImageCard(
+                                imageUrl: shopData.profile,
                                 height: 112.h,
-                                width: 160.w,
-                                fit: BoxFit.contain))));
+                                width: 160.w))));
               }),
               Padding(
                   padding: const EdgeInsets.all(5.0),

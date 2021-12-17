@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 void showToast(FToast fToast) {
-  fToast.removeCustomToast();
+  // fToast.removeQueuedCustomToasts();
+  // fToast.removeCustomToast();
   fToast.showToast(
       child: Container(
           width: 173,
@@ -16,7 +17,7 @@ void showToast(FToast fToast) {
               child: Text('찜 목록에 추가되었습니다!',
                   style:
                       BppTextStyle.smallText.copyWith(color: BppColor.white)))),
-      toastDuration: const Duration(milliseconds: 500),
+      toastDuration: const Duration(milliseconds: 300),
       positionedToastBuilder: (context, child) {
         return Positioned(
             top: 37,

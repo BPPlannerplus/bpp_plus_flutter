@@ -40,6 +40,14 @@ abstract class ReservationClient {
     @Path() int id,
   );
 
+  //  문의중 전체 삭제
+  @DELETE('/reservations/')
+  Future<dynamic> deleteAllReservation();
+
+  //  예약확정 체크
+  @GET('/reservations/states/')
+  Future<dynamic> checkReservation();
+
   // 특정 예약의 리뷰 조회
   @GET('/reservations/{id}/reviews')
   Future<ReviewDetail> getReview(

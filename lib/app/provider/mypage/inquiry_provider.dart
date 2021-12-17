@@ -44,10 +44,11 @@ class InquiryList extends StateNotifier<List<MypageData>> {
     return response;
   }
 
-  // void deleteAll(ShopType shopType) async{
-  //   state = state.where((e) => e.shop.type != shopType.index).toList();
-  //   final reponse = await repository.deleteInquiring(id);
-  // }
+  Future<dynamic> deleteAll() async {
+    state = [];
+    final response = await repository.deleteAllReservation();
+    return response;
+  }
 
   Future<dynamic> deleteById(int shopId) async {
     state = state.where((e) => e.id != shopId).toList();

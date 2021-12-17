@@ -34,24 +34,22 @@ class DetailReviewPage extends ConsumerWidget {
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
                   if (reviewState.count == 1) {
-                    return Column(
-                      children: [
-                        topReviewCard(
-                            reviewState.reviews[index].score.toDouble()),
-                        _reviewCard(
-                            reviewId: reviewState.reviews[index - 1].id,
-                            rating:
-                                reviewState.reviews[index - 1].score.toDouble(),
-                            name: changeReviewNameFormat(
-                                reviewState.reviews[index - 1].userName),
-                            date: changeReviewDateFormat(
-                                reviewState.reviews[index - 1].date),
-                            text: reviewState.reviews[index - 1].contents,
-                            onReport: ref
-                                .read(shopReviewStateProvider(data).notifier)
-                                .reportReview),
-                      ],
-                    );
+                    if (index == 0) {
+                      return topReviewCard(
+                          reviewState.reviews[index].score.toDouble());
+                    } else {
+                      return _reviewCard(
+                        reviewId: reviewState.reviews[index - 1].id,
+                        rating: reviewState.reviews[index - 1].score.toDouble(),
+                        name: reviewState.reviews[index - 1].userName,
+                        date: reviewState.reviews[index - 1].date,
+                        text: reviewState.reviews[index - 1].contents,
+                        // onReport: ref
+                        //     .read(shopReviewStateProvider(data).notifier)
+                        //     .reportReview,
+                        onReport: (id) {},
+                      );
+                    }
                   } else {
                     List<int> scores =
                         reviewState.reviews.map((e) => e.score).toList();
@@ -61,15 +59,16 @@ class DetailReviewPage extends ConsumerWidget {
                       return topReviewCard(reviewScore);
                     } else {
                       return _reviewCard(
-                          reviewId: reviewState.reviews[index - 1].id,
-                          rating:
-                              reviewState.reviews[index - 1].score.toDouble(),
-                          name: reviewState.reviews[index - 1].userName,
-                          date: reviewState.reviews[index - 1].date,
-                          text: reviewState.reviews[index - 1].contents,
-                          onReport: ref
-                              .read(shopReviewStateProvider(data).notifier)
-                              .reportReview);
+                        reviewId: reviewState.reviews[index - 1].id,
+                        rating: reviewState.reviews[index - 1].score.toDouble(),
+                        name: reviewState.reviews[index - 1].userName,
+                        date: reviewState.reviews[index - 1].date,
+                        text: reviewState.reviews[index - 1].contents,
+                        // onReport: ref
+                        //     .read(shopReviewStateProvider(data).notifier)
+                        //     .reportReview,
+                        onReport: (id) {},
+                      );
                     }
                   }
                 },

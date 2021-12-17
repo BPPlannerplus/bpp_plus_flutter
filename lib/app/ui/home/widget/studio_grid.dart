@@ -13,10 +13,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class StudioGrid extends ConsumerWidget {
-  const StudioGrid({
-    Key? key,
-    required this.fToast,
-  }) : super(key: key);
+  const StudioGrid({Key? key, required this.fToast}) : super(key: key);
 
   final FToast fToast;
 

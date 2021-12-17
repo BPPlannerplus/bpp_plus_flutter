@@ -1,5 +1,6 @@
 import 'package:bpp_riverpod/app/model/shop/shop_concept.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/ui/components/card/cached_image_card.dart';
 import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:flutter/material.dart';
@@ -40,14 +41,19 @@ class _DetailPortfolioPageState extends ConsumerState<DetailPortfolioPage> {
       builderDelegate: PagedChildBuilderDelegate<ShopConcept>(
         itemBuilder: (context, sc, index) {
           return InkWell(
-              onTap: () {
-                navigator.navigateTo(
-                  routeName: AppRoutes.detailPortfolioPage,
-                  argument: sc.profile,
-                );
-              },
-              child:
-                  Image.network(sc.profile, height: 144.h, fit: BoxFit.fill));
+            onTap: () {
+              navigator.navigateTo(
+                routeName: AppRoutes.detailPortfolioPage,
+                argument: sc.profile,
+              );
+            },
+            child: cachedImageCard(
+              imageUrl: sc.profile,
+              height: 144.h,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+          );
         },
         noItemsFoundIndicatorBuilder: (context) => const SizedBox(
             height: 100, child: Center(child: Text('등록된 포트폴리오가 없습니다!'))),

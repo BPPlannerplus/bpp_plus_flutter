@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:bpp_riverpod/app/model/concept/concept.dart';
 import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/ui/components/card/cached_image_card.dart';
 import 'package:bpp_riverpod/app/ui/components/toast/toast.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/color.dart';
@@ -38,7 +39,13 @@ class ConceptDialog extends StatelessWidget {
             alignment: AlignmentDirectional.bottomCenter,
             children: [
               Positioned.fill(
-                  child: Image.network(concept.profile, fit: BoxFit.contain)),
+                child: cachedImageCard(
+                  imageUrl: concept.profile,
+                  fit: BoxFit.contain,
+                  height: double.infinity,
+                  width: double.infinity,
+                ),
+              ),
               Opacity(
                   opacity: 0.5,
                   child: Container(height: 40, color: Colors.grey)),

@@ -30,4 +30,11 @@ class NavigationService {
   dynamic pop({Object? result}) {
     return navigatorKey.currentState!.pop(result);
   }
+
+  Future<void> openDialog(Widget dialog) async {
+    await showDialog(
+      context: navigatorKey.currentContext!,
+      builder: (context) => dialog,
+    );
+  }
 }

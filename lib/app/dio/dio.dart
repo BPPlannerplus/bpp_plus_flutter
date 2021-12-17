@@ -5,6 +5,7 @@ import 'package:bpp_riverpod/app/model/auth/token_data.dart';
 import 'package:bpp_riverpod/app/model/auth/user_info.dart';
 import 'package:bpp_riverpod/app/provider/auth/user_provider.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/ui/components/dialog/bpp_alert_dialog.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,93 +19,90 @@ final dioProvider = Provider<Dio>((ref) {
   final authClient =
       AuthClient(Dio()..interceptors.add(CustomLogInterceptor()));
 
-  dio.interceptors.add(
-    QueuedInterceptorsWrapper(
-      onRequest: (options, handler) async {
-        dp.log('>>> onRequest <<<');
-        final tokenData = ref.read(tokenDataProvider);
-        final userInfo = Hive.box('auth').get('userInfo');
+  dio.interceptors
+      .add(QueuedInterceptorsWrapper(onRequest: (options, handler) async {
+    dp.log('>>> onRequest <<<');
+    final tokenData = ref.watch(tokenDataProvider);
+    final userInfo = Hive.box('auth').get('userInfo');
 
-        if (tokenData.accessToken.isEmpty) {
-          dio.lock();
-          authClient.newToken(UserInfoRequest(userInfo: userInfo)).then(
-            (d) {
-              ref.read(tokenDataProvider.state).state = d;
-              options.headers['Authorization'] = 'Bearer ${d.accessToken}';
-              Hive.box('auth').put('token', d.refreshToken);
-              handler.next(options);
-            },
-          ).catchError(
-            (error, stackTrace) {
-              handler.reject(error, true);
-            },
-          ).whenComplete(
-            () => dio.unlock(),
-          );
-        } else {
-          options.headers['Authorization'] = 'Bearer ${tokenData.accessToken}';
-          return handler.next(options);
-        }
-      },
-      onError: (error, handler) async {
-        dp.log('>>> onError <<<');
-        final token = ref.read(tokenDataProvider);
-        final userInfo = Hive.box('auth').get('userInfo');
+    if (tokenData.accessToken.isEmpty) {
+      dio.lock();
+      authClient.newToken(UserInfoRequest(userInfo: userInfo)).then(
+        (d) async {
+          ref.read(tokenDataProvider.state).state = d;
+          options.headers['Authorization'] = 'Bearer ${d.accessToken}';
+          await Hive.box('auth').put('token', d.refreshToken);
+          handler.next(options);
+        },
+      ).catchError(
+        (error, stackTrace) {
+          handler.reject(error, true);
+        },
+      ).whenComplete(
+        () => dio.unlock(),
+      );
+    } else {
+      options.headers['Authorization'] = 'Bearer ${tokenData.accessToken}';
+      return handler.next(options);
+    }
+  }, onError: (error, handler) async {
+    dp.log('>>> onError <<<');
+    final token = ref.read(tokenDataProvider);
+    final userInfo = Hive.box('auth').get('userInfo');
 
-        // accessToken 만료
-        if (error.response?.statusCode == 401) {
-          var options = error.response!.requestOptions;
-          if ('Bearer ${token.accessToken}' !=
-              options.headers['Authorization']) {
+    // accessToken 만료
+    if (error.response?.statusCode == 401) {
+      var options = error.response!.requestOptions;
+      if ('Bearer ${token.accessToken}' != options.headers['Authorization']) {
+        options.headers['Authorization'] = 'Bearer ${token.accessToken}';
+        dio.fetch(options).then((r) => handler.resolve(r), onError: (e) {
+          handler.reject(e);
+        });
+        return;
+      }
+      dio.lock();
+
+      await authClient
+          .refreshToken(TokenRequest(
+              userId: userInfo!.uid, refreshToken: token.refreshToken!))
+          .then((d) {
+            Hive.box('auth').put('token', token.refreshToken!);
             options.headers['Authorization'] = 'Bearer ${token.accessToken}';
+          })
+          .whenComplete(() => dio.unlock())
+          .then((e) {
             dio.fetch(options).then((r) => handler.resolve(r), onError: (e) {
+              dp.log('>>> onError onError <<<');
+              ref.read(navigatorProvider).openDialog(bppAlertDialog(
+                  title: '다시 로그인해주세요!',
+                  confirm: () {
+                    ref
+                        .watch(navigatorProvider)
+                        .navigateToRemove(routeName: AppRoutes.loginPage);
+                  }));
               handler.reject(e);
             });
-            return;
-          }
-          dio.lock();
+          })
+          .catchError(
+            //  refreshToken 만료
+            (error, stackTrace) {
+              dp.log('>>> onError onError onError <<<');
+              ref.read(navigatorProvider).openDialog(bppAlertDialog(
+                  title: '다시 로그인해주세요!',
+                  confirm: () {
+                    ref
+                        .watch(navigatorProvider)
+                        .navigateToRemove(routeName: AppRoutes.loginPage);
+                  }));
 
-          await authClient
-              .refreshToken(TokenRequest(
-                  userId: userInfo!.uid, refreshToken: token.refreshToken!))
-              .then(
-                (d) {
-                  Hive.box('auth').put('token', token.refreshToken!);
-                  options.headers['Authorization'] =
-                      'Bearer ${token.accessToken}';
-                },
-              )
-              .whenComplete(() => dio.unlock())
-              .then(
-                (e) {
-                  dio.fetch(options).then(
-                    (r) => handler.resolve(r),
-                    onError: (e) {
-                      dp.log('>>> onError onError <<<');
-                      ref.read(navigatorProvider).navigateToRemove(
-                            routeName: AppRoutes.loginPage,
-                          );
-                      handler.reject(e);
-                    },
-                  );
-                },
-              )
-              .catchError(
-                //  refreshToken 만료
-                (error, stackTrace) {
-                  dp.log('>>> onError onError onError <<<');
-                  ref.read(navigatorProvider).navigateToRemove(
-                        routeName: AppRoutes.loginPage,
-                      );
-                  handler.reject(error);
-                },
-              );
-          return;
-        }
-        return handler.next(error);
-      },
-    ),
-  );
+              handler.reject(error);
+            },
+          );
+      return;
+    }
+    return handler.next(error);
+  }));
+
   return dio;
 });
 

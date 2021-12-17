@@ -2,7 +2,9 @@ import 'package:bpp_riverpod/app/model/concept/concept.dart';
 import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
 import 'package:bpp_riverpod/app/repository/shop_wish_repository.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/ui/components/card/cached_image_card.dart';
 import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
+import 'package:bpp_riverpod/app/ui/components/toast/toast.dart';
 import 'package:bpp_riverpod/app/ui/wish/widget/no_item_card.dart';
 import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
@@ -10,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class ConceptWishGrid extends ConsumerStatefulWidget {
@@ -23,11 +26,12 @@ class _ConceptWishGridState extends ConsumerState<ConceptWishGrid> {
   final PagingController<int, Concept> _pagingController =
       PagingController(firstPageKey: 1);
 
+  final _fToast = FToast();
+
   @override
   void initState() {
-    _pagingController.addPageRequestListener((pageKey) {
-      _fetchPage(pageKey);
-    });
+    _pagingController.addPageRequestListener((pageKey) => _fetchPage(pageKey));
+    _fToast.init(context);
     super.initState();
   }
 
@@ -83,11 +87,11 @@ class _ConceptWishGridState extends ConsumerState<ConceptWishGrid> {
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                profile,
+              child: cachedImageCard(
+                imageUrl: profile,
                 height: 144.h,
                 width: double.infinity,
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
               ),
             ),
           );
@@ -96,6 +100,9 @@ class _ConceptWishGridState extends ConsumerState<ConceptWishGrid> {
           padding: const EdgeInsets.all(5.0),
           child: InkWell(
             onTap: () {
+              if (!like) {
+                showToast(_fToast);
+              }
               conceptState.setLike(id);
               ref.read(conceptListProvider.notifier).setLike(id);
             },
