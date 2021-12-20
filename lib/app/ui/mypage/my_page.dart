@@ -2,6 +2,7 @@ import 'package:bpp_riverpod/app/provider/navigation/bottom_bar_provider.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/inquiry_page.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/mypage_app_bar.dart';
+import 'package:bpp_riverpod/app/ui/mypage/widget/mypage_top_box.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_detail_page.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_schedule_page.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +57,7 @@ class _MyPageState extends ConsumerState<MyPage> {
               child: CustomScrollView(
                 controller: scrollController,
                 slivers: [
+                  const MypageTopBox(),
                   const MypageAppBar(),
                   _pages[ref.watch(myPageTabProvider)],
                 ],

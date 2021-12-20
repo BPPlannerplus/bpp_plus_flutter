@@ -5,7 +5,6 @@ import 'package:bpp_riverpod/app/ui/concept/widget/concept_bts_icon.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -57,6 +56,7 @@ conceptBottomSheet() {
                 backgroundColor: MaterialStateProperty.all(
                   const Color(0xff3B75FF),
                 ),
+                elevation: MaterialStateProperty.all(0),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),

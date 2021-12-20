@@ -11,6 +11,7 @@ import 'package:bpp_riverpod/app/ui/mypage/widget/empty_box.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/info_text.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/set_date_dialog.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -129,7 +130,8 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(shopTypeToString(shop.type),
-                      style: BppTextStyle.defaultText),
+                      style: BppTextStyle.smallText
+                          .copyWith(color: BppColor.unSelText)),
                   const SizedBox(height: 10),
                   Row(
                     children: [
@@ -138,7 +140,7 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
                               .copyWith(fontWeight: FontWeight.w700)),
                       const SizedBox(width: 4),
                       Padding(
-                        padding: const EdgeInsets.only(top: 2),
+                        padding: const EdgeInsets.only(top: 1),
                         child: InkWell(
                             onTap: () {
                               ref.read(navigatorProvider).navigateTo(
@@ -246,7 +248,7 @@ class _InquiryPageState extends ConsumerState<InquiryPage> {
                                     .copyWith(fontWeight: FontWeight.w700)),
                             const SizedBox(width: 4),
                             Padding(
-                              padding: const EdgeInsets.only(top: 2),
+                              padding: const EdgeInsets.only(top: 1),
                               child: InkWell(
                                   onTap: () {
                                     ref.read(navigatorProvider).navigateTo(

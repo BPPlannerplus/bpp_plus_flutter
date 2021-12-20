@@ -5,9 +5,9 @@ import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 Future<void> main() async {
@@ -65,19 +65,25 @@ class _MyAppState extends ConsumerState<MyApp> {
     return ScreenUtilInit(
       designSize: const Size(360, 640),
       builder: () => MaterialApp(
-        builder: (context, child) {
-          return MediaQuery(
-            data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-            child: child!,
-          );
-        },
-        title: 'BPP',
+        builder: (context, child) => MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+          child: child!,
+        ),
+        title: '바프플래너',
         debugShowCheckedModeBanner: false,
         initialRoute: initPage,
         onGenerateRoute: (settings) => AppRouter.onGenerateRoute(settings),
         navigatorKey: ref.watch(navigatorProvider).navigatorKey,
         theme: theme,
         scrollBehavior: MyBehavior(),
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('ko', 'KR'),
+        ],
       ),
     );
   }

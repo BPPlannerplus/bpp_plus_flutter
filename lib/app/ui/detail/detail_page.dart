@@ -79,7 +79,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
           var _pages = [
             DetailPortfolioPage(pagingController: conceptPageController),
             DetailInfoPage(
-              priceImg: shopData.priceImg!,
+              priceImg: shopData.priceImg,
               map: shopData.mapImg,
               partners: shopData.partnershipList!,
               address: shopData.address,

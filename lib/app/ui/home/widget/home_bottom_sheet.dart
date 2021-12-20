@@ -62,10 +62,12 @@ homeBottomSheet(int index) {
                     navigator.pop();
                   },
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(BppColor.main),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8)))),
+                    backgroundColor: MaterialStateProperty.all(BppColor.main),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8))),
+                    elevation: MaterialStateProperty.all(0),
+                  ),
                   child: SizedBox(
                       height: 48,
                       child: Center(

@@ -16,7 +16,7 @@ class DetailInfoPage extends StatelessWidget {
     required this.address,
   }) : super(key: key);
 
-  final String priceImg;
+  final String? priceImg;
   final String map;
   final List<PartnershipData> partners;
   final String address;
@@ -31,38 +31,40 @@ class DetailInfoPage extends StatelessWidget {
             children: [
               const Text('가격', style: BppTextStyle.defaultText),
               const SizedBox(height: 12),
-              Consumer(builder: (context, ref, _) {
-                final navigator = ref.watch(navigatorProvider);
-                return InkWell(
-                  onTap: () {
-                    navigator.navigateTo(
-                      routeName: AppRoutes.detailPortfolioPage,
-                      argument: priceImg,
-                    );
-                  },
-                  borderRadius: BorderRadius.circular(5),
-                  child: Container(
-                    height: 380,
-                    width: 328.w,
-                    padding: const EdgeInsets.all(2),
-                    margin: const EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(
-                        color: BppColor.textFormBorder,
-                        width: 1,
-                      ),
-                    ),
-                    child: Hero(
-                      tag: priceImg,
-                      child: Image.network(
-                        priceImg,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                );
-              }),
+              priceImg == null
+                  ? const Center(child: Text('가격 정보 없음'))
+                  : Consumer(builder: (context, ref, _) {
+                      final navigator = ref.watch(navigatorProvider);
+                      return InkWell(
+                        onTap: () {
+                          navigator.navigateTo(
+                            routeName: AppRoutes.detailPortfolioPage,
+                            argument: priceImg,
+                          );
+                        },
+                        borderRadius: BorderRadius.circular(5),
+                        child: Container(
+                          height: 380,
+                          width: 328.w,
+                          padding: const EdgeInsets.all(2),
+                          margin: const EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(
+                              color: BppColor.textFormBorder,
+                              width: 1,
+                            ),
+                          ),
+                          child: Hero(
+                            tag: priceImg!,
+                            child: Image.network(
+                              priceImg!,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
             ],
           ),
           const SizedBox(height: 24),

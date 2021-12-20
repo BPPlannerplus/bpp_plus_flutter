@@ -1,7 +1,6 @@
 import 'package:bpp_riverpod/app/provider/mypage/confirmed_provider.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,9 +14,7 @@ Widget reservationDeleteDialog(int id) {
       padding: const EdgeInsets.all(24),
       width: 296,
       height: 143,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -27,10 +24,7 @@ Widget reservationDeleteDialog(int id) {
               fontWeight: FontWeight.w700,
             ),
           ),
-          Text(
-            '한번 지우면 복구하기 어려울 수 있습니다.',
-            style: BppTextStyle.smallText.copyWith(fontSize: 14),
-          ),
+          const Text('한번 지우면 복구하기 어려울 수 있습니다.', style: BppTextStyle.smallText),
           Consumer(builder: (context, ref, _) {
             final navigator = ref.watch(navigatorProvider);
             return Row(
