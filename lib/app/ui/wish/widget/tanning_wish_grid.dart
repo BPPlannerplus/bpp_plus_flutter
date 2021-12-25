@@ -35,21 +35,22 @@ class _TanningWishGridState extends ConsumerState<TanningWishGrid> {
     return StudioPagedSliverGrid(
       pageController: _pagingController,
       builderDelegate: PagedChildBuilderDelegate<ShopData>(
-        itemBuilder: (context, s, index) {
-          final tanning = ref.watch(shopProvider(s));
+        itemBuilder: (context, shop, index) {
+          final tanning = ref.watch(shopProvider(shop));
           return StudioCard(
             shopData: tanning,
             setLike: () async {
               if (!tanning.like) {
                 showToast(_fToast);
               }
-              ref.read(shopProvider(s).notifier).setLike();
+              ref.read(shopProvider(shop).notifier).setLike();
               await ref
                   .read(shopWishRepositoryProvider)
                   .setShopLike(tanning.id, !tanning.like);
             },
+            index: index,
             detailPageCallback:
-                ref.read(shopProvider(s).notifier).setLikeCallback,
+                ref.read(shopProvider(shop).notifier).setLikeCallback,
           );
         },
         firstPageProgressIndicatorBuilder: (context) =>

@@ -1,11 +1,8 @@
-import 'dart:developer' as dev;
-
 import 'package:bpp_riverpod/app/model/enum/shop_type.dart';
 import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
-import 'package:bpp_riverpod/app/model/shop/shop_list.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_filter_provider.dart';
+import 'package:bpp_riverpod/app/provider/shop/shop_paging_state_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_type_provider.dart';
-import 'package:bpp_riverpod/app/repository/shop_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
@@ -29,12 +26,11 @@ final studioPageControllerProvider =
   final _pagingController = PagingController<int, ShopData>(firstPageKey: 1);
 
   _pagingController.addPageRequestListener(
-    (pageKey) => _fetchPage(
-      address: ref.watch(studioFilterProvider.notifier).makeFilter(),
-      getList: ref.read(shopRepositroyProvider).getStudioList,
-      pageKey: pageKey,
-      pagingController: _pagingController,
-    ),
+    (pageKey) => ref.watch(studioPagingStateProvider.notifier).getShopList(
+          page: pageKey,
+          address: ref.watch(studioFilterProvider.notifier).makeFilter(),
+          shopType: ShopType.stduio,
+        ),
   );
   return _pagingController;
 });
@@ -44,12 +40,11 @@ final beautyPageControllerProvider =
   final _pagingController = PagingController<int, ShopData>(firstPageKey: 1);
 
   _pagingController.addPageRequestListener(
-    (pageKey) => _fetchPage(
-      address: ref.watch(beautyFilterProvider.notifier).makeFilter(),
-      getList: ref.read(shopRepositroyProvider).getBeautyList,
-      pageKey: pageKey,
-      pagingController: _pagingController,
-    ),
+    (pageKey) => ref.watch(beautyPagingStateProvider.notifier).getShopList(
+          page: pageKey,
+          address: ref.watch(beautyFilterProvider.notifier).makeFilter(),
+          shopType: ShopType.beauty,
+        ),
   );
   return _pagingController;
 });
@@ -59,12 +54,11 @@ final waxingPageControllerProvider =
   final _pagingController = PagingController<int, ShopData>(firstPageKey: 1);
 
   _pagingController.addPageRequestListener(
-    (pageKey) => _fetchPage(
-      address: ref.watch(waxingFilterProvider.notifier).makeFilter(),
-      getList: ref.read(shopRepositroyProvider).getWaxingList,
-      pageKey: pageKey,
-      pagingController: _pagingController,
-    ),
+    (pageKey) => ref.watch(waxingPagingStateProvider.notifier).getShopList(
+          page: pageKey,
+          address: ref.watch(waxingFilterProvider.notifier).makeFilter(),
+          shopType: ShopType.waxing,
+        ),
   );
   return _pagingController;
 });
@@ -74,33 +68,11 @@ final tanningPageControllerProvider =
   final _pagingController = PagingController<int, ShopData>(firstPageKey: 1);
 
   _pagingController.addPageRequestListener(
-    (pageKey) => _fetchPage(
-      address: ref.watch(tanningFilterProvider.notifier).makeFilter(),
-      getList: ref.read(shopRepositroyProvider).getTanningList,
-      pageKey: pageKey,
-      pagingController: _pagingController,
-    ),
+    (pageKey) => ref.watch(tanningPagingStateProvider.notifier).getShopList(
+          page: pageKey,
+          address: ref.watch(tanningFilterProvider.notifier).makeFilter(),
+          shopType: ShopType.tanning,
+        ),
   );
   return _pagingController;
 });
-
-Future<void> _fetchPage({
-  required PagingController<int, ShopData> pagingController,
-  required int pageKey,
-  required List<String> address,
-  required Future<ShopList> Function(List<String> address, int page) getList,
-}) async {
-  try {
-    final newItems = await getList(address, pageKey++);
-    final isLastPage = newItems.next ?? 'no Data';
-
-    if (isLastPage == 'no Data') {
-      pagingController.appendLastPage(newItems.shopDatas);
-    } else {
-      pagingController.appendPage(newItems.shopDatas, pageKey);
-    }
-  } catch (error) {
-    dev.log(error.toString());
-    pagingController.error = error;
-  }
-}

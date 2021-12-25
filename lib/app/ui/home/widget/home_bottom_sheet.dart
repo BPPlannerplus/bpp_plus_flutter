@@ -1,13 +1,18 @@
+import 'package:bpp_riverpod/app/provider/navigation/bottom_bar_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_filter_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_page_controller_provider.dart';
+import 'package:bpp_riverpod/app/provider/shop/shop_paging_state_provider.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-homeBottomSheet(int index) {
-  return Consumer(builder: (context, ref, _) {
+class HomeBottomSheet extends ConsumerWidget {
+  const HomeBottomSheet({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     final filter = ref.watch(shopFilterProvider);
     final navigator = ref.watch(navigatorProvider);
     return Container(
@@ -45,9 +50,9 @@ homeBottomSheet(int index) {
                                 .read(shopFilterStateProvider)
                                 .toggleFilterState(i);
                           },
-                          child: toggleIcon(
-                            filter[i].id,
-                            filter[i].check,
+                          child: _ToggleIcon(
+                            text: filter[i].id,
+                            isCheck: filter[i].check,
                           ),
                         )
                     ],
@@ -56,7 +61,9 @@ homeBottomSheet(int index) {
               ),
               ElevatedButton(
                   onPressed: () {
+                    ref.read(shopPagingStateProvider).reset();
                     ref.read(shopPageControllerProvider).refresh();
+                    ref.read(isShowBottomBarStateProvider.state).state = true;
                     navigator.pop();
                   },
                   style: ButtonStyle(
@@ -73,23 +80,35 @@ homeBottomSheet(int index) {
                               style: BppTextStyle.tabText
                                   .copyWith(color: BppColor.white)))))
             ]));
-  });
+  }
 }
 
-Widget toggleIcon(String text, bool isCheck) {
-  return Padding(
-      padding: const EdgeInsets.only(right: 8),
-      child: Container(
-          width: 76,
-          height: 32,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            color: isCheck ? BppColor.main : BppColor.unSelButton,
-          ),
-          child: Center(
-              child: Text(text,
-                  style: BppTextStyle.smallText.copyWith(
-                      color: isCheck ? BppColor.white : BppColor.unSelText,
-                      fontWeight: isCheck ? FontWeight.w600 : null,
-                      fontSize: 14)))));
+class _ToggleIcon extends StatelessWidget {
+  const _ToggleIcon({
+    Key? key,
+    required this.text,
+    required this.isCheck,
+  }) : super(key: key);
+
+  final String text;
+  final bool isCheck;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.only(right: 8),
+        child: Container(
+            width: 76,
+            height: 32,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: isCheck ? BppColor.main : BppColor.unSelButton,
+            ),
+            child: Center(
+                child: Text(text,
+                    style: BppTextStyle.smallText.copyWith(
+                        color: isCheck ? BppColor.white : BppColor.unSelText,
+                        fontWeight: isCheck ? FontWeight.w600 : null,
+                        fontSize: 14)))));
+  }
 }

@@ -16,12 +16,14 @@ class StudioCard extends StatelessWidget {
     Key? key,
     required this.shopData,
     required this.setLike,
+    required this.index,
     required this.detailPageCallback,
   }) : super(key: key);
 
   final ShopData shopData;
   final Function setLike;
-  final void Function(bool like) detailPageCallback;
+  final void Function(int index, bool like) detailPageCallback;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class StudioCard extends StatelessWidget {
                   onTap: () async {
                     final like = await navigator.navigateTo(
                         routeName: AppRoutes.detailPage, argument: shopData.id);
-                    detailPageCallback(like);
+                    detailPageCallback(index, like);
                   },
                   child: Container(
                     decoration: BoxDecoration(

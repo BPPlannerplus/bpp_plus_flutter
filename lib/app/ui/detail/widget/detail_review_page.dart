@@ -87,7 +87,7 @@ class DetailReviewPage extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            '$score',
+            score.toStringAsFixed(1),
             style: BppTextStyle.bigScreenText.copyWith(fontSize: 30.sp),
           ),
           SizedBox(width: 10.w),

@@ -35,21 +35,22 @@ class _WaxingWishGridState extends ConsumerState<WaxingWishGrid> {
     return StudioPagedSliverGrid(
       pageController: _pagingController,
       builderDelegate: PagedChildBuilderDelegate<ShopData>(
-        itemBuilder: (context, s, index) {
-          final waxing = ref.watch(shopProvider(s));
+        itemBuilder: (context, shop, index) {
+          final waxing = ref.watch(shopProvider(shop));
           return StudioCard(
             shopData: waxing,
             setLike: () async {
               if (!waxing.like) {
                 showToast(_fToast);
               }
-              ref.read(shopProvider(s).notifier).setLike();
+              ref.read(shopProvider(shop).notifier).setLike();
               await ref
                   .read(shopWishRepositoryProvider)
                   .setShopLike(waxing.id, !waxing.like);
             },
+            index: index,
             detailPageCallback:
-                ref.read(shopProvider(s).notifier).setLikeCallback,
+                ref.read(shopProvider(shop).notifier).setLikeCallback,
           );
         },
         firstPageProgressIndicatorBuilder: (context) =>

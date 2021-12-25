@@ -1,6 +1,5 @@
 import 'package:bpp_riverpod/app/model/enum/shop_type.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
-import 'package:bpp_riverpod/app/provider/shop/shop_type_provider.dart';
 import 'package:bpp_riverpod/app/ui/components/button/tab_button.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
@@ -65,9 +64,6 @@ class WishAppBar extends StatelessWidget {
                                     tap: () {
                                       ref.read(wishTabProvider.state).state =
                                           index;
-                                      ref
-                                          .read(shopWishTypeProvider.state)
-                                          .state = ShopType.values[index];
                                     },
                                     tabIndex: tabIndex,
                                   );

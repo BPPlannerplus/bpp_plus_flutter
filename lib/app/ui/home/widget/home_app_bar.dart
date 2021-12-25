@@ -77,10 +77,7 @@ class HomeAppBar extends StatelessWidget {
                       ),
                     ),
                     context: context,
-                    builder: (_) {
-                      return homeBottomSheet(
-                          ref.read(homeTabProvider.state).state);
-                    });
+                    builder: (_) => const HomeBottomSheet());
               },
               child: Container(
                 height: 32,

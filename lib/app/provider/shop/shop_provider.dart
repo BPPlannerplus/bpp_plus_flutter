@@ -10,5 +10,6 @@ class ShopDataState extends StateNotifier<ShopData> {
 
   void setLike() => state = state.copyWith(like: !state.like);
 
-  void setLikeCallback(bool like) => state = state.copyWith(like: like);
+  void setLikeCallback(int index, bool like) =>
+      state = state.copyWith(like: like);
 }

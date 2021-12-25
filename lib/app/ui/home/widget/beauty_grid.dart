@@ -1,6 +1,6 @@
 import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
-import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
-import 'package:bpp_riverpod/app/repository/shop_repository.dart';
+import 'package:bpp_riverpod/app/model/shop/shop_list_dto.dart';
+import 'package:bpp_riverpod/app/provider/shop/shop_paging_state_provider.dart';
 import 'package:bpp_riverpod/app/ui/components/card/studio_card.dart';
 import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
 import 'package:bpp_riverpod/app/ui/components/state/empty_item_text.dart';
@@ -23,27 +23,32 @@ class BeautyGrid extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen<ShopListDto>(beautyPagingStateProvider, (prev, next) {
+      pagingController.value = PagingState(
+        itemList: next.shopData,
+        nextPageKey: next.hasNext ? next.nextPage : null,
+        error: null,
+      );
+    });
+
     return StudioPagedSliverGrid(
       pageController: pagingController,
       builderDelegate: PagedChildBuilderDelegate<ShopData>(
         itemBuilder: (context, shop, index) {
-          return Consumer(builder: (context, ref, _) {
-            final beauty = ref.watch(shopProvider(shop));
-            return StudioCard(
-              shopData: beauty,
+          return StudioCard(
+              shopData: shop,
               setLike: () async {
-                if (!beauty.like) {
+                if (!shop.like) {
                   showToast(fToast);
                 }
-                ref.read(shopProvider(shop).notifier).setLike();
-                await ref
-                    .read(shopRepositroyProvider)
-                    .setLike(beauty.id, !beauty.like);
+                ref
+                    .read(beautyPagingStateProvider.notifier)
+                    .setLike(index: index);
               },
-              detailPageCallback:
-                  ref.read(shopProvider(shop).notifier).setLikeCallback,
-            );
-          });
+              index: index,
+              detailPageCallback: ref
+                  .read(beautyPagingStateProvider.notifier)
+                  .setLikeDetailCallback);
         },
         firstPageProgressIndicatorBuilder: (context) =>
             customLoadingIndicator(),

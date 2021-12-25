@@ -38,21 +38,22 @@ class _StudioWishGridState extends ConsumerState<StudioWishGrid> {
     return StudioPagedSliverGrid(
       pageController: _pagingController,
       builderDelegate: PagedChildBuilderDelegate<ShopData>(
-        itemBuilder: (context, s, index) {
-          final studio = ref.watch(shopProvider(s));
+        itemBuilder: (context, shop, index) {
+          final studio = ref.watch(shopProvider(shop));
           return StudioCard(
             shopData: studio,
             setLike: () async {
               if (!studio.like) {
                 showToast(_fToast);
               }
-              ref.read(shopProvider(s).notifier).setLike();
+              ref.read(shopProvider(shop).notifier).setLike();
               await ref
                   .read(shopWishRepositoryProvider)
                   .setShopLike(studio.id, !studio.like);
             },
+            index: index,
             detailPageCallback:
-                ref.read(shopProvider(s).notifier).setLikeCallback,
+                ref.read(shopProvider(shop).notifier).setLikeCallback,
           );
         },
         firstPageProgressIndicatorBuilder: (context) =>
