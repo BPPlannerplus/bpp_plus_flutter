@@ -49,7 +49,7 @@ class StudioCard extends StatelessWidget {
                         color: BppColor.black),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: cachedImageCard(
+                      child: CachedImageCard(
                         imageUrl: shopData.profile,
                         height: 112.h,
                         width: 160.w,

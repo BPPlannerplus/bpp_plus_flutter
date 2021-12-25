@@ -22,16 +22,11 @@ class DetailAppBar extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-              height: 32,
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: BppColor.unSelButton,
-                    width: 1.0,
-                  ),
-                ),
-              ),
-            ),
+                height: 32,
+                decoration: const BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                            color: BppColor.unSelButton, width: 1.0)))),
             Consumer(builder: (context, ref, _) {
               final tabIndex = ref.watch(detailTabProvider);
               return SizedBox(

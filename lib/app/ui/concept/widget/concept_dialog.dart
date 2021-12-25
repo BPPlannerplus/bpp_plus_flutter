@@ -22,41 +22,28 @@ class ConceptDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(builder: (context, ref, _) {
-      final navigator = ref.watch(navigatorProvider);
-      final c = ref.watch<Concept>(conceptListProvider.select((value) => value
-          .concepts
-          .where((element) => element.id == concept.id)
-          .toList()[0]));
-
-      return Dialog(
-        insetPadding: const EdgeInsets.all(1),
-        child: Container(
-          color: Colors.black,
-          height: 387.h,
-          width: 360.w,
-          child: Stack(
-            alignment: AlignmentDirectional.bottomCenter,
-            children: [
-              Positioned.fill(
-                child: cachedImageCard(
-                  imageUrl: concept.profile,
-                  fit: BoxFit.contain,
-                  height: double.infinity,
-                  width: double.infinity,
-                ),
-              ),
-              Opacity(
-                  opacity: 0.5,
-                  child: Container(height: 40, color: Colors.grey)),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 16,
-                  right: 16,
-                  top: 2,
-                  bottom: 4,
-                ),
-                child: Row(
+    return Dialog(
+      insetPadding: const EdgeInsets.all(0),
+      child: Container(
+        color: Colors.black,
+        height: 387.h,
+        width: 360.w,
+        child: Stack(
+          alignment: AlignmentDirectional.bottomCenter,
+          children: [
+            Positioned.fill(
+                child: CachedImageCard(
+                    imageUrl: concept.profile,
+                    height: double.infinity,
+                    width: double.infinity)),
+            Opacity(
+                opacity: 0.5, child: Container(height: 40, color: Colors.grey)),
+            Padding(
+              padding:
+                  const EdgeInsets.only(left: 16, right: 16, top: 2, bottom: 4),
+              child: Consumer(builder: (context, ref, _) {
+                final navigator = ref.watch(navigatorProvider);
+                return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
@@ -71,10 +58,8 @@ class ConceptDialog extends StatelessWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(bottom: 3),
-                            child: Text(
-                              concept.shop.name,
-                              style: BppTextStyle.dialogText,
-                            ),
+                            child: Text(concept.shop.name,
+                                style: BppTextStyle.dialogText),
                           ),
                           const SizedBox(width: 5),
                           Transform.rotate(
@@ -90,28 +75,80 @@ class ConceptDialog extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        ref
-                            .read(conceptListProvider.notifier)
-                            .setLike(concept.id);
-                        if (!c.like) {
+                        if (!concept.like) {
                           showToast(fToast);
                         }
+                        ref
+                            .read(conceptListProvider.notifier)
+                            .setLike(concept.id, !concept.like);
                       },
                       child: Icon(
-                        c.like
+                        concept.like
                             ? CupertinoIcons.heart_fill
                             : CupertinoIcons.heart,
-                        color: c.like ? BppColor.like : BppColor.white,
+                        color: concept.like ? BppColor.like : BppColor.white,
                         size: 30,
                       ),
                     ),
+                    // _LikeButton(
+                    //   like: _like,
+                    //   onTap: () {
+                    //     if (!concept.like) {
+                    //       showToast(fToast);
+                    //     }
+                    //     ref
+                    //         .read(conceptListProvider.notifier)
+                    //         .setLike(concept.id, !concept.like);
+                    //   },
+                    // ),
                   ],
-                ),
-              ),
-            ],
-          ),
+                );
+              }),
+            ),
+          ],
         ),
-      );
-    });
+      ),
+    );
+  }
+}
+
+class _LikeButton extends StatefulWidget {
+  const _LikeButton({
+    Key? key,
+    required this.like,
+    required this.onTap,
+  }) : super(key: key);
+
+  final Function onTap;
+  final bool like;
+
+  @override
+  State<_LikeButton> createState() => _LikeButtonState();
+}
+
+class _LikeButtonState extends State<_LikeButton> {
+  late bool _like;
+
+  @override
+  void initState() {
+    super.initState();
+    _like = widget.like;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          _like = !_like;
+        });
+        widget.onTap();
+      },
+      child: Icon(
+        _like ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
+        color: _like ? BppColor.like : BppColor.white,
+        size: 30,
+      ),
+    );
   }
 }

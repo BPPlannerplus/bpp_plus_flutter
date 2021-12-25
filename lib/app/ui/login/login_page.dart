@@ -1,7 +1,9 @@
+import 'dart:developer' as dev;
+
+import 'package:bpp_riverpod/app/model/auth/token_data.dart';
 import 'package:bpp_riverpod/app/model/auth/user_info.dart';
 import 'package:bpp_riverpod/app/provider/auth/login_provider.dart';
 import 'package:bpp_riverpod/app/provider/auth/user_provider.dart';
-import 'package:bpp_riverpod/app/repository/auth_repository.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/ui/components/dialog/bpp_alert_dialog.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
@@ -37,8 +39,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               SvgPicture.asset('assets/image/login_img.svg', width: 225.w),
               InkWell(
                 onTap: () async {
-                  await _login();
-                  navigator.navigateToRemove(routeName: AppRoutes.mainPage);
+                  final login = await _login();
+                  if (login) {
+                    navigator.navigateToRemove(routeName: AppRoutes.mainPage);
+                  }
                 },
                 child: Image.asset(
                   'assets/image/kakao_login_large_wide .png',
@@ -53,9 +57,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     );
   }
 
-  Future<void> _login() async {
+  Future<bool> _login() async {
     final kakaoLogin = ref.watch(flutterKakaoLogin);
-    final authRepository = ref.watch(authRepositoryProvider);
     final dio = Dio();
 
     try {
@@ -64,26 +67,32 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
       // 카카오 토큰으로 유저 정보 요청
       final response = await dio.post(
-          "http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com/login/rest-auth/kakao/",
+          'http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com/login/rest-auth/kakao/',
           data: {"access_token": token});
       final userData = UserInfoResponse.fromJson(response.data);
       await Hive.box('auth').put('userInfo', userData.userInfo);
 
       //  유저 정보로 자체 토큰 요청
-      final tokenData = await authRepository
-          .getNewToken(UserInfoRequest(userInfo: userData.userInfo));
+      final tokenResponse = await dio.post(
+          'http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com/login/new-token/',
+          data: UserInfoRequest(userInfo: userData.userInfo).toJson());
 
+      final tokenData = TokenData.fromJson(tokenResponse.data);
       // 유저 정보 업데이트
       ref.watch(userInfoProvider.state).state = userData.userInfo;
-      await Hive.box('auth').put('token', tokenData.refreshToken);
+      await Hive.box('auth').put('refreshToken', tokenData.refreshToken);
+      await Hive.box('auth').put('accessToken', tokenData.accessToken);
+      return true;
     } catch (e) {
+      dev.log(e.toString());
       showDialog(
         context: context,
         builder: (context) => bppAlertDialog(
-          title: '로그인에 실패했습니다. 다시 시도해주세요!',
+          title: '다시 시도해주세요!',
           confirm: () {},
         ),
       );
+      return false;
     }
   }
 }

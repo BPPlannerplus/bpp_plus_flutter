@@ -32,7 +32,7 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
       if (_scrollController.offset >=
               _scrollController.position.maxScrollExtent &&
           !_scrollController.position.outOfRange &&
-          ref.read(conceptListReadProvider).next != 'no Data') {
+          ref.read(conceptListProvider).next != 'no Data') {
         ref
             .read(conceptListProvider.notifier)
             .getData(ref.read(conceptReqFilter));
@@ -56,11 +56,11 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
 
   @override
   Widget build(BuildContext context) {
-    final concepts = ref.watch(conceptListReadProvider).concepts;
+    final concepts = ref.watch(conceptListProvider).concepts;
 
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.only(right: 16, left: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
             Expanded(
@@ -69,7 +69,7 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
                 slivers: [
                   const ConceptAppBar(),
                   concepts.isEmpty
-                      ? ref.watch(conceptListReadProvider).next!.isNotEmpty
+                      ? ref.watch(conceptListProvider).next!.isNotEmpty
                           ? SliverToBoxAdapter(
                               child: SizedBox(
                                 height: 350,
@@ -89,7 +89,7 @@ class _ConceptPageState extends ConsumerState<ConceptPage> {
                               return ConceptCard(concept: concepts[index]);
                             }
 
-                            return ref.watch(conceptListReadProvider).next! ==
+                            return ref.watch(conceptListProvider).next! ==
                                     'no Data'
                                 ? const SizedBox()
                                 : customLoadingIndicator();

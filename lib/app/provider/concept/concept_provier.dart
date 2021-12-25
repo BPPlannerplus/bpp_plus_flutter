@@ -4,6 +4,17 @@ import 'package:bpp_riverpod/app/model/concept/concept_list.dart';
 import 'package:bpp_riverpod/app/repository/concept_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+final conceptListProvider =
+    StateNotifierProvider.autoDispose<ConceptListState, ConceptList>((ref) {
+  final repository = ref.watch(conceptRepositoryProvider);
+  return ConceptListState(repository: repository);
+});
+
+final conceptProvider = StateNotifierProvider.family
+    .autoDispose<ConceptState, Concept, Concept>((ref, concept) {
+  return ConceptState(concept);
+});
+
 class ConceptListState extends StateNotifier<ConceptList> {
   ConceptListState({required this.repository})
       : super(ConceptList(concepts: [], next: 'true'));
@@ -27,15 +38,12 @@ class ConceptListState extends StateNotifier<ConceptList> {
     return newData;
   }
 
-  void setLike(int id) {
-    final check =
-        state.concepts.where((element) => element.id == id).first.like;
+  void setLike(int id, bool like) async {
     state = state.copyWith(
-      concepts: state.concepts.map<Concept>((e) {
-        return e.id == id ? e.copyWith(like: !e.like) : e;
-      }).toList(),
-    );
-    repository.setLike(id, !check);
+        concepts: state.concepts
+            .map<Concept>((e) => e.id == id ? e.copyWith(like: like) : e)
+            .toList());
+    await repository.setLike(id, like);
   }
 
   reset(ConceptFilter filter) {
@@ -52,19 +60,3 @@ class ConceptState extends StateNotifier<Concept> {
     state = state.copyWith(like: !state.like);
   }
 }
-
-final conceptListProvider =
-    StateNotifierProvider<ConceptListState, ConceptList>((ref) {
-  final repository = ref.watch(conceptRepositoryProvider);
-  return ConceptListState(repository: repository);
-});
-
-final conceptProvider = StateNotifierProvider.family
-    .autoDispose<ConceptState, Concept, Concept>((ref, concept) {
-  return ConceptState(concept);
-});
-
-final conceptListReadProvider = Provider<ConceptList>((ref) {
-  final conceptState = ref.watch(conceptListProvider);
-  return conceptState;
-});

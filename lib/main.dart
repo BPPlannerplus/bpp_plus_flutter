@@ -51,7 +51,7 @@ class _MyAppState extends ConsumerState<MyApp> {
   }
 
   String checkToken() {
-    final token = Hive.box('auth').get('token') ?? 'no token';
+    final token = Hive.box('auth').get('refreshToken') ?? 'no token';
     if (token == 'no token') {
       return AppRoutes.onboardingPage;
     }

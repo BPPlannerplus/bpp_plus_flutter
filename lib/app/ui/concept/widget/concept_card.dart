@@ -3,7 +3,6 @@ import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
 import 'package:bpp_riverpod/app/ui/components/card/cached_image_card.dart';
 import 'package:bpp_riverpod/app/ui/components/toast/toast.dart';
 import 'package:bpp_riverpod/app/ui/concept/widget/concept_dialog.dart';
-import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,40 +29,38 @@ class _ConceptCardState extends State<ConceptCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(builder: (context, ref, _) {
-      final navigator = ref.watch(navigatorProvider);
-
-      return Stack(
-        alignment: Alignment.bottomRight,
-        children: [
-          InkWell(
-            onTap: () {
-              showDialog(
-                context: navigator.navigatorKey.currentContext!,
-                barrierColor: const Color(0xdd000000),
-                builder: (_) => ConceptDialog(concept: widget.concept),
-              );
-            },
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: cachedImageCard(
-                imageUrl: widget.concept.profile,
-                height: double.infinity,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
+    return Stack(
+      alignment: Alignment.bottomRight,
+      children: [
+        InkWell(
+          onTap: () {
+            showDialog(
+              context: context,
+              barrierColor: const Color(0xdd000000),
+              builder: (_) => ConceptDialog(concept: widget.concept),
+            );
+          },
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: CachedImageCard(
+              imageUrl: widget.concept.profile,
+              height: double.infinity,
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: InkWell(
+        ),
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Consumer(builder: (context, ref, _) {
+            return InkWell(
               onTap: () {
-                ref
-                    .read(conceptListProvider.notifier)
-                    .setLike(widget.concept.id);
                 if (!widget.concept.like) {
                   showToast(fToast);
                 }
+                ref
+                    .read(conceptListProvider.notifier)
+                    .setLike(widget.concept.id, !widget.concept.like);
               },
               child: Icon(
                 widget.concept.like
@@ -72,10 +69,10 @@ class _ConceptCardState extends State<ConceptCard> {
                 color: widget.concept.like ? BppColor.like : BppColor.white,
                 size: 30,
               ),
-            ),
-          ),
-        ],
-      );
-    });
+            );
+          }),
+        ),
+      ],
+    );
   }
 }

@@ -47,7 +47,7 @@ class _DetailPortfolioPageState extends ConsumerState<DetailPortfolioPage> {
                 argument: sc.profile,
               );
             },
-            child: cachedImageCard(
+            child: CachedImageCard(
               imageUrl: sc.profile,
               height: 144.h,
               width: double.infinity,

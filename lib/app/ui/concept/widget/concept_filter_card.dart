@@ -11,7 +11,7 @@ List<Widget> filterCards(List<String> filters) {
 
 Widget filterCard(String title) {
   if (title.isEmpty) {
-    return Container();
+    return const SizedBox();
   }
   return Padding(
     padding: const EdgeInsets.only(right: 8),

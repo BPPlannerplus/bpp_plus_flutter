@@ -1,5 +1,6 @@
 import 'package:bpp_riverpod/app/model/concept/concept.dart';
 import 'package:bpp_riverpod/app/provider/concept/concept_provier.dart';
+import 'package:bpp_riverpod/app/repository/concept_repository.dart';
 import 'package:bpp_riverpod/app/repository/shop_wish_repository.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/ui/components/card/cached_image_card.dart';
@@ -52,68 +53,21 @@ class _ConceptWishGridState extends ConsumerState<ConceptWishGrid> {
       builderDelegate: PagedChildBuilderDelegate<Concept>(
         itemBuilder: (context, concept, index) {
           final c = ref.watch(conceptProvider(concept));
-          final conceptState = ref.read(conceptProvider(concept).notifier);
-          return wishConceptCard(
-            id: c.shop.id,
-            profile: c.profile,
-            like: c.like,
-            conceptState: conceptState,
+          return _WishConceptCard(
+            concept: c,
+            setLike: () async {
+              if (!c.like) {
+                showToast(_fToast);
+              }
+              ref.read(conceptProvider(concept).notifier).setLike(c.id);
+              ref.read(conceptRepositoryProvider).setLike(c.id, !c.like);
+            },
           );
         },
         firstPageErrorIndicatorBuilder: (context) => customLoadingIndicator(),
         newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),
         noItemsFoundIndicatorBuilder: (context) => noItemCard(),
       ),
-    );
-  }
-
-  Widget wishConceptCard({
-    required int id,
-    required String profile,
-    required bool like,
-    required ConceptState conceptState,
-  }) {
-    return Stack(
-      alignment: Alignment.bottomRight,
-      children: [
-        Consumer(builder: (context, ref, _) {
-          final navigator = ref.watch(navigatorProvider);
-          return InkWell(
-            onTap: () {
-              navigator.navigateTo(
-                routeName: AppRoutes.detailPage,
-                argument: id,
-              );
-            },
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: cachedImageCard(
-                imageUrl: profile,
-                height: 144.h,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
-            ),
-          );
-        }),
-        Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: InkWell(
-            onTap: () {
-              if (!like) {
-                showToast(_fToast);
-              }
-              conceptState.setLike(id);
-              ref.read(conceptListProvider.notifier).setLike(id);
-            },
-            child: Icon(
-              like ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
-              color: like ? const Color(0xffff5757) : const Color(0xffffffff),
-              size: 30,
-            ),
-          ),
-        ),
-      ],
     );
   }
 
@@ -131,5 +85,56 @@ class _ConceptWishGridState extends ConsumerState<ConceptWishGrid> {
     } catch (error) {
       _pagingController.error = error;
     }
+  }
+}
+
+class _WishConceptCard extends ConsumerWidget {
+  const _WishConceptCard({
+    Key? key,
+    required this.concept,
+    required this.setLike,
+  }) : super(key: key);
+
+  final Concept concept;
+  final Function setLike;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final navigator = ref.watch(navigatorProvider);
+
+    return Stack(
+      alignment: Alignment.bottomRight,
+      children: [
+        InkWell(
+            onTap: () {
+              navigator.navigateTo(
+                routeName: AppRoutes.detailPage,
+                argument: concept.shop.id,
+              );
+            },
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: CachedImageCard(
+                    imageUrl: concept.profile,
+                    height: 144.h,
+                    width: double.infinity,
+                    fit: BoxFit.cover))),
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: InkWell(
+            onTap: () {
+              setLike();
+            },
+            child: Icon(
+              concept.like ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
+              color: concept.like
+                  ? const Color(0xffff5757)
+                  : const Color(0xffffffff),
+              size: 30,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
