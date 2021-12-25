@@ -1,7 +1,7 @@
 import 'package:bpp_riverpod/app/provider/detail/detail_navigation_provider.dart';
 import 'package:bpp_riverpod/app/provider/detail/shop_detail_page_controller.dart';
 import 'package:bpp_riverpod/app/provider/detail/shop_detail_provider.dart';
-import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
+import 'package:bpp_riverpod/app/repository/shop_repository.dart';
 import 'package:bpp_riverpod/app/ui/components/dialog/bpp_alert_dialog.dart';
 import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
 import 'package:bpp_riverpod/app/ui/components/state/error_card.dart';
@@ -87,63 +87,70 @@ class _DetailPageState extends ConsumerState<DetailPage> {
             DetailReviewPage(shopId: shopData.id),
           ];
 
-          return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              leading: InkWell(
-                onTap: () => navigator.pop(),
-                child: SvgPicture.asset(
-                  'assets/icon/ic_back.svg',
-                  color: ref.watch(detailPageLeadingProvier)
-                      ? BppColor.white
-                      : BppColor.black,
+          return WillPopScope(
+            onWillPop: () {
+              return navigator.pop(result: shopDetailData.like);
+            },
+            child: Scaffold(
+              appBar: AppBar(
+                backgroundColor: Colors.transparent,
+                leading: InkWell(
+                  onTap: () => navigator.pop(result: shopDetailData.like),
+                  child: SvgPicture.asset(
+                    'assets/icon/ic_back.svg',
+                    color: ref.watch(detailPageLeadingProvier)
+                        ? BppColor.white
+                        : BppColor.black,
+                  ),
                 ),
+                toolbarHeight: 40,
               ),
-              toolbarHeight: 40,
-            ),
-            extendBodyBehindAppBar: true,
-            body: CustomScrollView(
-              controller: scrollController,
-              slivers: [
-                DetailTopBox(
-                  profiles: shopData.profiles,
-                ),
-                DetailMidBox(
-                  logo: shopData.logo,
-                  price: shopData.minPrice,
-                  shopName: shopData.name,
-                ),
-                const DetailAppBar(),
-                SliverPadding(
-                  padding: const EdgeInsets.only(top: 8, right: 16, left: 16),
-                  sliver: _pages[index],
-                ),
-              ],
-            ),
-            bottomNavigationBar: detailBottomBar(
-              onTabIcon: () async {
-                if (!shopDetailData.like) {
-                  showToast(fToast);
-                }
-                await ref
-                    .read(shopListProvider)
-                    .setLike(shopData.id, shopDetailData.like);
-                ref.read(shopDetailStateProvider(shopData).notifier).setLike();
-              },
-              onTabButton: () async {
-                try {
-                  await ref
+              extendBodyBehindAppBar: true,
+              body: CustomScrollView(
+                controller: scrollController,
+                slivers: [
+                  DetailTopBox(
+                    profiles: shopData.profiles,
+                  ),
+                  DetailMidBox(
+                    logo: shopData.logo,
+                    price: shopData.minPrice,
+                    shopName: shopData.name,
+                  ),
+                  const DetailAppBar(),
+                  SliverPadding(
+                    padding: const EdgeInsets.only(top: 8, right: 16, left: 16),
+                    sliver: _pages[index],
+                  ),
+                ],
+              ),
+              bottomNavigationBar: detailBottomBar(
+                onTabIcon: () async {
+                  if (!shopDetailData.like) {
+                    showToast(fToast);
+                  }
+                  ref
                       .read(shopDetailStateProvider(shopData).notifier)
-                      .createReservation(shopData.id);
-                  await launch(shopData.kakaoUrl);
-                } catch (e) {
-                  showDialog(
-                      context: context,
-                      builder: (context) => bppAlertDialog(
-                          title: '이미 예약된 스튜디오입니다!', confirm: () {}));
-                }
-              },
-              isLike: shopDetailData.like,
+                      .setLike();
+                  await ref
+                      .read(shopRepositroyProvider)
+                      .setLike(shopDetailData.id, !shopDetailData.like);
+                },
+                onTabButton: () async {
+                  try {
+                    await ref
+                        .read(shopDetailStateProvider(shopData).notifier)
+                        .createReservation(shopData.id);
+                    await launch(shopData.kakaoUrl);
+                  } catch (e) {
+                    showDialog(
+                        context: context,
+                        builder: (context) => bppAlertDialog(
+                            title: '이미 예약된 스튜디오입니다!', confirm: () {}));
+                  }
+                },
+                isLike: shopDetailData.like,
+              ),
             ),
           );
         },

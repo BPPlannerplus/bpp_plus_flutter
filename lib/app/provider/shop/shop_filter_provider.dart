@@ -4,7 +4,7 @@ import 'package:bpp_riverpod/app/provider/shop/shop_type_provider.dart';
 import 'package:bpp_riverpod/app/util/filter_value.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final shopFilterProvider = Provider<List<FilterCheckPair>>((ref) {
+final shopFilterProvider = Provider.autoDispose<List<FilterCheckPair>>((ref) {
   final shopType = ref.watch(shopTypeProvider);
   switch (shopType) {
     case ShopType.stduio:
@@ -18,7 +18,8 @@ final shopFilterProvider = Provider<List<FilterCheckPair>>((ref) {
   }
 });
 
-final shopFilterStateProvider = Provider<ShopFilterCheckState>((ref) {
+final shopFilterStateProvider =
+    Provider.autoDispose<ShopFilterCheckState>((ref) {
   final shopType = ref.watch(shopTypeProvider);
   switch (shopType) {
     case ShopType.stduio:
@@ -55,8 +56,8 @@ class ShopFilterCheckState extends StateNotifier<List<FilterCheckPair>> {
   }
 }
 
-final studioFilterProvider =
-    StateNotifierProvider<ShopFilterCheckState, List<FilterCheckPair>>(
+final studioFilterProvider = StateNotifierProvider.autoDispose<
+    ShopFilterCheckState, List<FilterCheckPair>>(
   (ref) => ShopFilterCheckState(
       filters: shopFilterValue.entries
           .map<FilterCheckPair>(
@@ -64,8 +65,8 @@ final studioFilterProvider =
           .toList()),
 );
 
-final beautyFilterProvider =
-    StateNotifierProvider<ShopFilterCheckState, List<FilterCheckPair>>(
+final beautyFilterProvider = StateNotifierProvider.autoDispose<
+    ShopFilterCheckState, List<FilterCheckPair>>(
   (ref) => ShopFilterCheckState(
       filters: shopFilterValue.entries
           .map<FilterCheckPair>(
@@ -73,8 +74,8 @@ final beautyFilterProvider =
           .toList()),
 );
 
-final waxingFilterProvider =
-    StateNotifierProvider<ShopFilterCheckState, List<FilterCheckPair>>(
+final waxingFilterProvider = StateNotifierProvider.autoDispose<
+    ShopFilterCheckState, List<FilterCheckPair>>(
   (ref) => ShopFilterCheckState(
       filters: shopFilterValue.entries
           .map<FilterCheckPair>(
@@ -82,8 +83,8 @@ final waxingFilterProvider =
           .toList()),
 );
 
-final tanningFilterProvider =
-    StateNotifierProvider<ShopFilterCheckState, List<FilterCheckPair>>(
+final tanningFilterProvider = StateNotifierProvider.autoDispose<
+    ShopFilterCheckState, List<FilterCheckPair>>(
   (ref) => ShopFilterCheckState(
       filters: shopFilterValue.entries
           .map<FilterCheckPair>(

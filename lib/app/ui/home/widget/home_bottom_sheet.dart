@@ -1,6 +1,5 @@
 import 'package:bpp_riverpod/app/provider/shop/shop_filter_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_page_controller_provider.dart';
-import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
@@ -57,7 +56,6 @@ homeBottomSheet(int index) {
               ),
               ElevatedButton(
                   onPressed: () {
-                    ref.read(shopListProvider).reset();
                     ref.read(shopPageControllerProvider).refresh();
                     navigator.pop();
                   },

@@ -15,9 +15,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class ConceptDialog extends StatelessWidget {
-  ConceptDialog({Key? key, required this.concept}) : super(key: key);
+  ConceptDialog({Key? key, required this.concept, required this.index})
+      : super(key: key);
 
   final Concept concept;
+  final int index;
   final fToast = FToast();
 
   @override
@@ -43,6 +45,8 @@ class ConceptDialog extends StatelessWidget {
                   const EdgeInsets.only(left: 16, right: 16, top: 2, bottom: 4),
               child: Consumer(builder: (context, ref, _) {
                 final navigator = ref.watch(navigatorProvider);
+                final concepts = ref.watch(conceptListProvider).concepts;
+
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -75,79 +79,29 @@ class ConceptDialog extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        if (!concept.like) {
+                        if (!concepts[index].like) {
                           showToast(fToast);
                         }
                         ref
                             .read(conceptListProvider.notifier)
-                            .setLike(concept.id, !concept.like);
+                            .setLike(concept.id, !concepts[index].like);
                       },
                       child: Icon(
-                        concept.like
+                        concepts[index].like
                             ? CupertinoIcons.heart_fill
                             : CupertinoIcons.heart,
-                        color: concept.like ? BppColor.like : BppColor.white,
+                        color: concepts[index].like
+                            ? BppColor.like
+                            : BppColor.white,
                         size: 30,
                       ),
                     ),
-                    // _LikeButton(
-                    //   like: _like,
-                    //   onTap: () {
-                    //     if (!concept.like) {
-                    //       showToast(fToast);
-                    //     }
-                    //     ref
-                    //         .read(conceptListProvider.notifier)
-                    //         .setLike(concept.id, !concept.like);
-                    //   },
-                    // ),
                   ],
                 );
               }),
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _LikeButton extends StatefulWidget {
-  const _LikeButton({
-    Key? key,
-    required this.like,
-    required this.onTap,
-  }) : super(key: key);
-
-  final Function onTap;
-  final bool like;
-
-  @override
-  State<_LikeButton> createState() => _LikeButtonState();
-}
-
-class _LikeButtonState extends State<_LikeButton> {
-  late bool _like;
-
-  @override
-  void initState() {
-    super.initState();
-    _like = widget.like;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        setState(() {
-          _like = !_like;
-        });
-        widget.onTap();
-      },
-      child: Icon(
-        _like ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
-        color: _like ? BppColor.like : BppColor.white,
-        size: 30,
       ),
     );
   }

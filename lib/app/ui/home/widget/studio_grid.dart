@@ -1,6 +1,6 @@
 import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
-import 'package:bpp_riverpod/app/provider/shop/shop_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
+import 'package:bpp_riverpod/app/repository/shop_repository.dart';
 import 'package:bpp_riverpod/app/ui/components/card/studio_card.dart';
 import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
 import 'package:bpp_riverpod/app/ui/components/state/empty_item_text.dart';
@@ -12,31 +12,39 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-class StudioGrid extends ConsumerWidget {
-  const StudioGrid({Key? key, required this.fToast}) : super(key: key);
+class StudioGrid extends StatelessWidget {
+  const StudioGrid({
+    Key? key,
+    required this.fToast,
+    required this.pagingController,
+  }) : super(key: key);
 
   final FToast fToast;
+  final PagingController<int, ShopData> pagingController;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return StudioPagedSliverGrid(
-      pageController: ref.watch(studioPageControllerProvider),
+      pageController: pagingController,
       builderDelegate: PagedChildBuilderDelegate<ShopData>(
         itemBuilder: (context, shop, index) {
-          final studios = ref.watch(studioListProvider);
-
-          return StudioCard(
-            shopData: studios.shopDatas[index],
-            setLike: () async {
-              if (!studios.shopDatas[index].like) {
-                showToast(fToast);
-              }
-              await ref.read(studioListProvider.notifier).setLike(
-                    studios.shopDatas[index].id,
-                    studios.shopDatas[index].like,
-                  );
-            },
-          );
+          return Consumer(builder: (context, ref, _) {
+            final stduio = ref.watch(shopProvider(shop));
+            return StudioCard(
+              shopData: stduio,
+              setLike: () async {
+                if (!stduio.like) {
+                  showToast(fToast);
+                }
+                ref.read(shopProvider(shop).notifier).setLike();
+                await ref
+                    .read(shopRepositroyProvider)
+                    .setLike(stduio.id, !stduio.like);
+              },
+              detailPageCallback:
+                  ref.read(shopProvider(shop).notifier).setLikeCallback,
+            );
+          });
         },
         firstPageProgressIndicatorBuilder: (context) =>
             customLoadingIndicator(),

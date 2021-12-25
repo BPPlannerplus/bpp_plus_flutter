@@ -46,14 +46,13 @@ class _StudioWishGridState extends ConsumerState<StudioWishGrid> {
               if (!studio.like) {
                 showToast(_fToast);
               }
-              await ref
-                  .read(shopWishListProvider)
-                  .setLike(studio.id, studio.like);
               ref.read(shopProvider(s).notifier).setLike();
+              await ref
+                  .read(shopWishRepositoryProvider)
+                  .setShopLike(studio.id, !studio.like);
             },
-            refresh: () {
-              _pagingController.refresh();
-            },
+            detailPageCallback:
+                ref.read(shopProvider(s).notifier).setLikeCallback,
           );
         },
         firstPageProgressIndicatorBuilder: (context) =>

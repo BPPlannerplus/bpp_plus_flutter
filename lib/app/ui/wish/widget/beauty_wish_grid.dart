@@ -43,14 +43,13 @@ class _BeautyWishGridState extends ConsumerState<BeautyWishGrid> {
               if (!beauty.like) {
                 showToast(_fToast);
               }
-              await ref
-                  .read(shopWishListProvider)
-                  .setLike(beauty.id, beauty.like);
               ref.read(shopProvider(s).notifier).setLike();
+              await ref
+                  .read(shopWishRepositoryProvider)
+                  .setShopLike(beauty.id, !beauty.like);
             },
-            refresh: () {
-              _pagingController.refresh();
-            },
+            detailPageCallback:
+                ref.read(shopProvider(s).notifier).setLikeCallback,
           );
         },
         firstPageProgressIndicatorBuilder: (context) =>

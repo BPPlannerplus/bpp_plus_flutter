@@ -43,14 +43,13 @@ class _WaxingWishGridState extends ConsumerState<WaxingWishGrid> {
               if (!waxing.like) {
                 showToast(_fToast);
               }
-              await ref
-                  .read(shopWishListProvider)
-                  .setLike(waxing.id, waxing.like);
               ref.read(shopProvider(s).notifier).setLike();
+              await ref
+                  .read(shopWishRepositoryProvider)
+                  .setShopLike(waxing.id, !waxing.like);
             },
-            refresh: () {
-              _pagingController.refresh();
-            },
+            detailPageCallback:
+                ref.read(shopProvider(s).notifier).setLikeCallback,
           );
         },
         firstPageProgressIndicatorBuilder: (context) =>

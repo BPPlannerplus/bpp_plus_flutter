@@ -5,10 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 final conceptPageControllerProvider =
-    Provider<PagingController<int, Concept>>((ref) {
-  final _pagingController = PagingController<int, Concept>(
-    firstPageKey: 0,
-  );
+    Provider.autoDispose<PagingController<int, Concept>>((ref) {
+  final _pagingController = PagingController<int, Concept>(firstPageKey: 0);
 
   Future<void> _fetchPage(int pageKey) async {
     try {

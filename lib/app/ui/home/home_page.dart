@@ -1,5 +1,6 @@
 import 'package:bpp_riverpod/app/provider/navigation/bottom_bar_provider.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
+import 'package:bpp_riverpod/app/provider/shop/shop_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/ui/home/widget/beauty_grid.dart';
 import 'package:bpp_riverpod/app/ui/home/widget/home_app_bar.dart';
 import 'package:bpp_riverpod/app/ui/home/widget/home_box_adapter.dart';
@@ -47,11 +48,28 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     ref.listen(homeTabProvider, (pre, next) => scrollToTop());
 
+    final studioPagingController = ref.watch(studioPageControllerProvider);
+    final beautyPagingController = ref.watch(beautyPageControllerProvider);
+    final waxingPagingController = ref.watch(waxingPageControllerProvider);
+    final tanningPagingController = ref.watch(tanningPageControllerProvider);
+
     final _pages = [
-      StudioGrid(fToast: fToast),
-      BeautyGrid(fToast: fToast),
-      WaxingGrid(fToast: fToast),
-      TanningGrid(fToast: fToast),
+      StudioGrid(
+        fToast: fToast,
+        pagingController: studioPagingController,
+      ),
+      BeautyGrid(
+        fToast: fToast,
+        pagingController: beautyPagingController,
+      ),
+      WaxingGrid(
+        fToast: fToast,
+        pagingController: waxingPagingController,
+      ),
+      TanningGrid(
+        fToast: fToast,
+        pagingController: tanningPagingController,
+      ),
     ];
 
     return Padding(

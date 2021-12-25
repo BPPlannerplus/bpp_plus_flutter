@@ -3,6 +3,43 @@ import 'package:bpp_riverpod/app/model/filter_check_pair.dart';
 import 'package:bpp_riverpod/app/util/filter_value.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+final conceptFilterCheckProvider = StateNotifierProvider.autoDispose<
+    ConceptCheckPairStateList, List<List<FilterCheckPair>>>(
+  (ref) => ConceptCheckPairStateList(),
+);
+
+final conceptFilter = StateProvider.autoDispose<ConceptFilter>(
+  (ref) => ConceptFilter(
+    headNum: [],
+    gender: [],
+    background: [],
+    prop: [],
+    cloth: [],
+  ),
+);
+
+final conceptReqFilter = StateProvider.autoDispose<ConceptFilter>(
+  (ref) => ConceptFilter(
+    headNum: [],
+    gender: [],
+    background: [],
+    prop: [],
+    cloth: [],
+  ),
+);
+
+final concpetFilterEmptyProvider = Provider.autoDispose<bool>((ref) {
+  final conceptFilters = ref.watch(conceptFilter);
+  if (conceptFilters.headNum.isEmpty &&
+      conceptFilters.gender.isEmpty &&
+      conceptFilters.background.isEmpty &&
+      conceptFilters.prop.isEmpty &&
+      conceptFilters.cloth.isEmpty) {
+    return false;
+  }
+  return true;
+});
+
 class ConceptCheckPairStateList
     extends StateNotifier<List<List<FilterCheckPair>>> {
   ConceptCheckPairStateList()
@@ -117,40 +154,3 @@ class ConceptCheckPairStateList
     return filter;
   }
 }
-
-final conceptFilterCheckProvider = StateNotifierProvider<
-    ConceptCheckPairStateList, List<List<FilterCheckPair>>>(
-  (ref) => ConceptCheckPairStateList(),
-);
-
-final conceptFilter = StateProvider<ConceptFilter>(
-  (ref) => ConceptFilter(
-    headNum: [],
-    gender: [],
-    background: [],
-    prop: [],
-    cloth: [],
-  ),
-);
-
-final conceptReqFilter = StateProvider<ConceptFilter>(
-  (ref) => ConceptFilter(
-    headNum: [],
-    gender: [],
-    background: [],
-    prop: [],
-    cloth: [],
-  ),
-);
-
-final concpetFilterEmptyProvider = Provider<bool>((ref) {
-  final conceptFilters = ref.watch(conceptFilter);
-  if (conceptFilters.headNum.isEmpty &&
-      conceptFilters.gender.isEmpty &&
-      conceptFilters.background.isEmpty &&
-      conceptFilters.prop.isEmpty &&
-      conceptFilters.cloth.isEmpty) {
-    return false;
-  }
-  return true;
-});

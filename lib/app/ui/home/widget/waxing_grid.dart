@@ -1,6 +1,6 @@
 import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
-import 'package:bpp_riverpod/app/provider/shop/shop_page_controller_provider.dart';
 import 'package:bpp_riverpod/app/provider/shop/shop_provider.dart';
+import 'package:bpp_riverpod/app/repository/shop_repository.dart';
 import 'package:bpp_riverpod/app/ui/components/card/studio_card.dart';
 import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
 import 'package:bpp_riverpod/app/ui/components/state/empty_item_text.dart';
@@ -11,34 +11,39 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-class WaxingGrid extends ConsumerWidget {
+class WaxingGrid extends StatelessWidget {
   const WaxingGrid({
     Key? key,
     required this.fToast,
+    required this.pagingController,
   }) : super(key: key);
 
   final FToast fToast;
+  final PagingController<int, ShopData> pagingController;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return StudioPagedSliverGrid(
-      pageController: ref.watch(waxingPageControllerProvider),
+      pageController: pagingController,
       builderDelegate: PagedChildBuilderDelegate<ShopData>(
         itemBuilder: (context, shop, index) {
-          final waxing = ref.watch(waxingListProvider);
-
-          return StudioCard(
-            shopData: waxing.shopDatas[index],
-            setLike: () async {
-              if (!waxing.shopDatas[index].like) {
-                showToast(fToast);
-              }
-              await ref.read(waxingListProvider.notifier).setLike(
-                    waxing.shopDatas[index].id,
-                    waxing.shopDatas[index].like,
-                  );
-            },
-          );
+          return Consumer(builder: (context, ref, _) {
+            final waxing = ref.watch(shopProvider(shop));
+            return StudioCard(
+              shopData: waxing,
+              setLike: () async {
+                if (!waxing.like) {
+                  showToast(fToast);
+                }
+                ref.read(shopProvider(shop).notifier).setLike();
+                await ref
+                    .read(shopRepositroyProvider)
+                    .setLike(waxing.id, !waxing.like);
+              },
+              detailPageCallback:
+                  ref.read(shopProvider(shop).notifier).setLikeCallback,
+            );
+          });
         },
         firstPageProgressIndicatorBuilder: (context) =>
             customLoadingIndicator(),

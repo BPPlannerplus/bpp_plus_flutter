@@ -16,12 +16,12 @@ class StudioCard extends StatelessWidget {
     Key? key,
     required this.shopData,
     required this.setLike,
-    this.refresh,
+    required this.detailPageCallback,
   }) : super(key: key);
 
   final ShopData shopData;
   final Function setLike;
-  final Function? refresh;
+  final void Function(bool like) detailPageCallback;
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +37,9 @@ class StudioCard extends StatelessWidget {
                 final navigator = ref.watch(navigatorProvider);
                 return InkWell(
                   onTap: () async {
-                    await navigator.navigateTo(
+                    final like = await navigator.navigateTo(
                         routeName: AppRoutes.detailPage, argument: shopData.id);
-                    if (refresh != null) {
-                      refresh!();
-                    }
+                    detailPageCallback(like);
                   },
                   child: Container(
                     decoration: BoxDecoration(

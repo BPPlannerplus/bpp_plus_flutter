@@ -43,14 +43,13 @@ class _TanningWishGridState extends ConsumerState<TanningWishGrid> {
               if (!tanning.like) {
                 showToast(_fToast);
               }
-              await ref
-                  .read(shopWishListProvider)
-                  .setLike(tanning.id, tanning.like);
               ref.read(shopProvider(s).notifier).setLike();
+              await ref
+                  .read(shopWishRepositoryProvider)
+                  .setShopLike(tanning.id, !tanning.like);
             },
-            refresh: () {
-              _pagingController.refresh();
-            },
+            detailPageCallback:
+                ref.read(shopProvider(s).notifier).setLikeCallback,
           );
         },
         firstPageProgressIndicatorBuilder: (context) =>

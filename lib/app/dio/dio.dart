@@ -1,6 +1,5 @@
 import 'dart:developer' as dp;
 
-import 'package:bpp_riverpod/app/api/auth_client.dart';
 import 'package:bpp_riverpod/app/model/auth/token_data.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/ui/components/dialog/bpp_alert_dialog.dart';
@@ -12,10 +11,9 @@ import 'package:hive_flutter/adapters.dart';
 final dioProvider = Provider<Dio>((ref) {
   final dio = Dio();
 
-  dio.interceptors.add(CustomLogInterceptor());
+  final authDio = Dio();
 
-  final authClient =
-      AuthClient(Dio()..interceptors.add(CustomLogInterceptor()));
+  dio.interceptors.add(CustomLogInterceptor());
 
   dio.interceptors.add(
     QueuedInterceptorsWrapper(
@@ -34,33 +32,34 @@ final dioProvider = Provider<Dio>((ref) {
         if (error.response?.statusCode == 401) {
           dp.log('>>> accessToken 재요청 <<<');
           var options = error.response!.requestOptions;
-          dio.lock();
 
-          await authClient
-              .refreshToken(TokenRequest(
-                  userId: userInfo!.uid, refreshToken: refreshToken))
+          authDio
+              .post(
+                  'http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com/login/token/refresh/',
+                  data: TokenRequest(
+                          userId: userInfo!.pk, refreshToken: refreshToken!)
+                      .toJson())
               .then(
-                (d) async {
-                  options.headers['Authorization'] = 'Bearer ${d.accessToken}';
-                  await Hive.box('auth').put('accessToken', d.accessToken);
-                },
-              )
-              .whenComplete(() => dio.unlock())
-              .then((e) => dio.fetch(options).then((r) => handler.resolve(r)))
-              .catchError(
-                //  refreshToken 만료
-                (error, stackTrace) {
-                  dp.log('>>> refreshToken 만료 <<<');
-                  ref.read(navigatorProvider).openDialog(bppAlertDialog(
-                      title: '다시 로그인해주세요!',
-                      confirm: () {
-                        ref
-                            .watch(navigatorProvider)
-                            .navigateToRemove(routeName: AppRoutes.loginPage);
-                      }));
-                  handler.reject(error);
-                },
-              );
+            (d) async {
+              final tokenData = TokenData.fromJson(d.data);
+
+              options.headers['Authorization'] =
+                  'Bearer ${tokenData.accessToken}';
+              await Hive.box('auth').put('accessToken', tokenData.accessToken);
+              dio.fetch(options).then((r) => handler.resolve(r));
+            },
+          ).catchError(
+            //  refreshToken 만료
+            (error, stackTrace) {
+              dp.log('>>> refreshToken 만료 <<<');
+              ref.read(navigatorProvider).openDialog(
+                  bppAlertDialog(title: '다시 로그인해주세요!', confirm: () {}));
+              ref
+                  .watch(navigatorProvider)
+                  .navigateToRemove(routeName: AppRoutes.loginPage);
+              handler.reject(error);
+            },
+          );
           return;
         }
         return handler.next(error);

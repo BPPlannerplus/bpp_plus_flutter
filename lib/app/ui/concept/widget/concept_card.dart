@@ -10,9 +10,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class ConceptCard extends StatefulWidget {
-  const ConceptCard({Key? key, required this.concept}) : super(key: key);
+  const ConceptCard({Key? key, required this.concept, required this.index})
+      : super(key: key);
 
   final Concept concept;
+  final int index;
 
   @override
   _ConceptCardState createState() => _ConceptCardState();
@@ -37,7 +39,8 @@ class _ConceptCardState extends State<ConceptCard> {
             showDialog(
               context: context,
               barrierColor: const Color(0xdd000000),
-              builder: (_) => ConceptDialog(concept: widget.concept),
+              builder: (_) =>
+                  ConceptDialog(concept: widget.concept, index: widget.index),
             );
           },
           child: ClipRRect(
