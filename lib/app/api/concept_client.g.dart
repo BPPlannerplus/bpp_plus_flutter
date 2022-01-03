@@ -8,7 +8,7 @@ part of 'concept_client.dart';
 
 class _ConceptClient implements ConceptClient {
   _ConceptClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com';
+    baseUrl ??= 'https://bpplaner.shop';
   }
 
   final Dio _dio;

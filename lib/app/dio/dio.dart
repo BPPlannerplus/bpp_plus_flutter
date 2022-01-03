@@ -34,8 +34,7 @@ final dioProvider = Provider<Dio>((ref) {
           var options = error.response!.requestOptions;
 
           authDio
-              .post(
-                  'http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com/login/token/refresh/',
+              .post('https://bpplaner.shop/login/token/refresh/',
                   data: TokenRequest(
                           userId: userInfo!.pk, refreshToken: refreshToken!)
                       .toJson())

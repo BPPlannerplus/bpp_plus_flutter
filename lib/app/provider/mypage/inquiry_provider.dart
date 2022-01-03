@@ -11,7 +11,7 @@ final isInquiryEmptyProvider = Provider.autoDispose<bool>((ref) {
 });
 
 final inquiryShopTypeProvider =
-    StateProvider.autoDispose<ShopType>((ref) => ShopType.stduio);
+    StateProvider.autoDispose<ShopType>((ref) => ShopType.studio);
 
 final inquiryListProvider =
     StateNotifierProvider.autoDispose<InquiryList, List<MypageData>>((ref) {
@@ -45,9 +45,13 @@ class InquiryList extends StateNotifier<List<MypageData>> {
   }
 
   Future<dynamic> deleteByShopType(ShopType shopType) async {
-    state = [];
-    final response = await repository
-        .deleteReservationByShopType(shopType.name.toLowerCase());
+    state = state
+        .where(
+          (element) => element.shop.type != shopType.index,
+        )
+        .toList();
+    final response =
+        await repository.deleteReservationByShopType(shopType.name);
     return response;
   }
 

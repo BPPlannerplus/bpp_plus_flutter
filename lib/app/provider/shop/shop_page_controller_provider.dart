@@ -10,13 +10,13 @@ final shopPageControllerProvider =
     Provider.autoDispose<PagingController<int, ShopData>>((ref) {
   final shopType = ref.watch(shopTypeProvider);
   switch (shopType) {
-    case ShopType.stduio:
+    case ShopType.studio:
       return ref.watch(studioPageControllerProvider);
-    case ShopType.beauty:
+    case ShopType.beautyshop:
       return ref.watch(beautyPageControllerProvider);
-    case ShopType.waxing:
+    case ShopType.waxingshop:
       return ref.watch(waxingPageControllerProvider);
-    case ShopType.tanning:
+    case ShopType.tanningshop:
       return ref.watch(tanningPageControllerProvider);
   }
 });
@@ -29,7 +29,7 @@ final studioPageControllerProvider =
     (pageKey) => ref.watch(studioPagingStateProvider.notifier).getShopList(
           page: pageKey,
           address: ref.watch(studioFilterProvider.notifier).makeFilter(),
-          shopType: ShopType.stduio,
+          shopType: ShopType.studio,
         ),
   );
   return _pagingController;
@@ -43,7 +43,7 @@ final beautyPageControllerProvider =
     (pageKey) => ref.watch(beautyPagingStateProvider.notifier).getShopList(
           page: pageKey,
           address: ref.watch(beautyFilterProvider.notifier).makeFilter(),
-          shopType: ShopType.beauty,
+          shopType: ShopType.beautyshop,
         ),
   );
   return _pagingController;
@@ -57,7 +57,7 @@ final waxingPageControllerProvider =
     (pageKey) => ref.watch(waxingPagingStateProvider.notifier).getShopList(
           page: pageKey,
           address: ref.watch(waxingFilterProvider.notifier).makeFilter(),
-          shopType: ShopType.waxing,
+          shopType: ShopType.waxingshop,
         ),
   );
   return _pagingController;
@@ -71,7 +71,7 @@ final tanningPageControllerProvider =
     (pageKey) => ref.watch(tanningPagingStateProvider.notifier).getShopList(
           page: pageKey,
           address: ref.watch(tanningFilterProvider.notifier).makeFilter(),
-          shopType: ShopType.tanning,
+          shopType: ShopType.tanningshop,
         ),
   );
   return _pagingController;

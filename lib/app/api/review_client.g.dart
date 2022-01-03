@@ -8,7 +8,7 @@ part of 'review_client.dart';
 
 class _ReviewClient implements ReviewClient {
   _ReviewClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com';
+    baseUrl ??= 'https://bpplaner.shop';
   }
 
   final Dio _dio;

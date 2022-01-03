@@ -1,10 +1,14 @@
+import 'package:bpp_riverpod/app/provider/login_provider.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
+import 'package:bpp_riverpod/app/repository/auth_repository.dart';
+import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class WithdrawalPage extends StatelessWidget {
   const WithdrawalPage({Key? key}) : super(key: key);
@@ -93,29 +97,34 @@ class WithdrawalPage extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: isWithdrawal
                               ? () async {
-                                  // final kakaoLogin =
-                                  //     ref.read(flutterKakaoLoginProvider);
-                                  // try {
-                                  //   await ref.read(authRepositoryProvider).withdraw();
-                                  //   await kakaoLogin.unlink();
-                                  //   Hive.box('auth').delete('token');
-                                  //   Hive.box('auth').delete('userInfo');
-                                  //   ref.read(navigationProvier.state).state = 0;
-                                  // } catch (e) {
-                                  //   showDialog(
-                                  //     context: context,
-                                  //     builder: (context) {
-                                  //       return const AlertDialog(
-                                  //         title: Text('회원 탈퇴 실패'),
-                                  //         content:
-                                  //             Text('회원탈퇴에 실패했습니다\n\n다시 시도해주세요'),
-                                  //       );
-                                  //     },
-                                  //   );
-                                  // }
-                                  // ref.read(navigatorProvider).navigateToRemove(
-                                  //       routeName: AppRoutes.onboardingPage,
-                                  //     );
+                                  final kakaoLogin =
+                                      ref.read(flutterKakaoLoginProvider);
+                                  try {
+                                    await ref
+                                        .read(authRepositoryProvider)
+                                        .withdraw();
+                                    await kakaoLogin.unlink();
+                                    Hive.box('auth').delete('token');
+                                    Hive.box('auth').delete('userInfo');
+                                    ref
+                                        .read(bottomIndexStateProvider.state)
+                                        .state = 0;
+                                  } catch (e) {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return const AlertDialog(
+                                          title: Text('회원 탈퇴 실패'),
+                                          content: Text(
+                                            '회원탈퇴에 실패했습니다\n\n다시 시도해주세요',
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
+                                  ref.read(navigatorProvider).navigateToRemove(
+                                        routeName: AppRoutes.onboardingPage,
+                                      );
                                 }
                               : null,
                           style: ButtonStyle(

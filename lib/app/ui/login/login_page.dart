@@ -1,5 +1,6 @@
 import 'dart:developer' as dev;
 
+import 'package:bpp_riverpod/app/dio/dio.dart';
 import 'package:bpp_riverpod/app/model/auth/token_data.dart';
 import 'package:bpp_riverpod/app/model/auth/user_info.dart';
 import 'package:bpp_riverpod/app/provider/auth/login_provider.dart';
@@ -60,6 +61,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   Future<bool> _login() async {
     final kakaoLogin = ref.watch(flutterKakaoLogin);
     final dio = Dio();
+    dio.interceptors.add(CustomLogInterceptor());
 
     try {
       final result = await kakaoLogin.logIn();
@@ -67,14 +69,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
       // 카카오 토큰으로 유저 정보 요청
       final response = await dio.post(
-          'http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com/login/rest-auth/kakao/',
+          'https://bpplaner.shop/login/rest-auth/kakao/',
           data: {"access_token": token});
       final userData = UserInfoResponse.fromJson(response.data);
       await Hive.box('auth').put('userInfo', userData.userInfo);
 
       //  유저 정보로 자체 토큰 요청
       final tokenResponse = await dio.post(
-          'http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com/login/new-token/',
+          'https://bpplaner.shop/login/new-token/',
           data: UserInfoRequest(userInfo: userData.userInfo).toJson());
 
       final tokenData = TokenData.fromJson(tokenResponse.data);

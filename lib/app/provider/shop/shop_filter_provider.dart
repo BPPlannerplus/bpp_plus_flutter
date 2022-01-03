@@ -7,13 +7,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final shopFilterProvider = Provider.autoDispose<List<FilterCheckPair>>((ref) {
   final shopType = ref.watch(shopTypeProvider);
   switch (shopType) {
-    case ShopType.stduio:
+    case ShopType.studio:
       return ref.watch(studioFilterProvider);
-    case ShopType.beauty:
+    case ShopType.beautyshop:
       return ref.watch(beautyFilterProvider);
-    case ShopType.waxing:
+    case ShopType.waxingshop:
       return ref.watch(waxingFilterProvider);
-    case ShopType.tanning:
+    case ShopType.tanningshop:
       return ref.watch(tanningFilterProvider);
   }
 });
@@ -22,13 +22,13 @@ final shopFilterStateProvider =
     Provider.autoDispose<ShopFilterCheckState>((ref) {
   final shopType = ref.watch(shopTypeProvider);
   switch (shopType) {
-    case ShopType.stduio:
+    case ShopType.studio:
       return ref.watch(studioFilterProvider.notifier);
-    case ShopType.beauty:
+    case ShopType.beautyshop:
       return ref.watch(beautyFilterProvider.notifier);
-    case ShopType.waxing:
+    case ShopType.waxingshop:
       return ref.watch(waxingFilterProvider.notifier);
-    case ShopType.tanning:
+    case ShopType.tanningshop:
       return ref.watch(tanningFilterProvider.notifier);
   }
 });

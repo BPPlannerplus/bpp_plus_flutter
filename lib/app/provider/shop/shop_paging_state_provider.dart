@@ -9,13 +9,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final shopPagingStateProvider = Provider.autoDispose<ShopPaigingState>((ref) {
   final shopType = ref.watch(shopTypeProvider);
   switch (shopType) {
-    case ShopType.stduio:
+    case ShopType.studio:
       return ref.watch(studioPagingStateProvider.notifier);
-    case ShopType.beauty:
+    case ShopType.beautyshop:
       return ref.watch(beautyPagingStateProvider.notifier);
-    case ShopType.waxing:
+    case ShopType.waxingshop:
       return ref.watch(waxingPagingStateProvider.notifier);
-    case ShopType.tanning:
+    case ShopType.tanningshop:
       return ref.watch(tanningPagingStateProvider.notifier);
   }
 });
@@ -64,16 +64,16 @@ class ShopPaigingState extends StateNotifier<ShopListDto> {
     late ShopList response;
 
     switch (shopType) {
-      case ShopType.stduio:
+      case ShopType.studio:
         response = await shopRepository.getStudioList(address, page++);
         break;
-      case ShopType.beauty:
+      case ShopType.beautyshop:
         response = await shopRepository.getBeautyList(address, page++);
         break;
-      case ShopType.waxing:
+      case ShopType.waxingshop:
         response = await shopRepository.getWaxingList(address, page++);
         break;
-      case ShopType.tanning:
+      case ShopType.tanningshop:
         response = await shopRepository.getTanningList(address, page++);
         break;
     }

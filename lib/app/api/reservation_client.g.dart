@@ -8,7 +8,7 @@ part of 'reservation_client.dart';
 
 class _ReservationClient implements ReservationClient {
   _ReservationClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com';
+    baseUrl ??= 'https://bpplaner.shop';
   }
 
   final Dio _dio;
@@ -78,29 +78,14 @@ class _ReservationClient implements ReservationClient {
   }
 
   @override
-  Future<dynamic> deleteAllReservation() async {
+  Future<dynamic> deleteReservationByShopType(shopType) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'shop_type': shopType};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'DELETE', headers: _headers, extra: _extra)
             .compose(_dio.options, '/reservations/',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data;
-    return value;
-  }
-
-  @override
-  Future<dynamic> checkReservation() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch(_setStreamType<dynamic>(
-        Options(method: 'GET', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/reservations/states/',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data;

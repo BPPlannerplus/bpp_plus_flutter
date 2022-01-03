@@ -1,20 +1,20 @@
 enum ShopType {
-  stduio,
-  beauty,
-  waxing,
-  tanning,
+  studio,
+  beautyshop,
+  waxingshop,
+  tanningshop,
 }
 
 extension ShopTypeToString on ShopType {
   String get shopTypeToName {
     switch (this) {
-      case ShopType.stduio:
+      case ShopType.studio:
         return '스튜디오';
-      case ShopType.beauty:
+      case ShopType.beautyshop:
         return '헤어메이크업';
-      case ShopType.waxing:
+      case ShopType.waxingshop:
         return '왁싱';
-      case ShopType.tanning:
+      case ShopType.tanningshop:
         return '태닝';
       default:
         return '';

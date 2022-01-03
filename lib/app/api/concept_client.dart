@@ -5,8 +5,7 @@ import 'package:retrofit/retrofit.dart';
 
 part 'concept_client.g.dart';
 
-@RestApi(
-    baseUrl: "http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com")
+@RestApi(baseUrl: 'https://bpplaner.shop')
 abstract class ConceptClient {
   factory ConceptClient(
     Dio dio, {

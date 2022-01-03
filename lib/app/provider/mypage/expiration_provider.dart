@@ -24,7 +24,6 @@ class ExpirationList extends StateNotifier<List<MypageData>> {
 
   Future<List<MypageData>> getList() async {
     read(isExpirationLoading.state).state = true;
-    await repository.checkReservation();
     final lists = await repository.getShopReservation();
 
     state = lists.list.where((e) => e.state == 2 || e.state == 3).toList();

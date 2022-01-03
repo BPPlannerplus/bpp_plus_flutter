@@ -129,7 +129,8 @@ class _ReservedList extends StatelessWidget {
                                       argument: datas[i]);
                                 },
                           onTabIcon: () async {
-                            showDialog(
+                            // TODO: 샵 예약 후 날짜 선택으로 수정
+                            await showDialog(
                               context: context,
                               builder: (context) => SetDateDialog(
                                 reservationId: datas[i].id,

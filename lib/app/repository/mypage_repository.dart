@@ -35,12 +35,6 @@ class MypageRepository {
     return response;
   }
 
-  //  예약 날짜 체크
-  Future<dynamic> checkReservation() async {
-    final response = await reservationClient.checkReservation();
-    return response;
-  }
-
   // 확정날짜 받기
   Future<dynamic> setReservationDate(int id, String date) async {
     final response = await reservationClient.setShopReservationDate(
@@ -56,7 +50,8 @@ class MypageRepository {
 
   //  문의 전체 삭제
   Future<dynamic> deleteReservationByShopType(String shopType) async {
-    final response = await reservationClient.deleteAllReservation();
+    final response =
+        await reservationClient.deleteReservationByShopType(shopType);
     return response;
   }
 

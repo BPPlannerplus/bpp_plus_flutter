@@ -7,8 +7,7 @@ import 'package:retrofit/retrofit.dart';
 
 part 'reservation_client.g.dart';
 
-@RestApi(
-    baseUrl: 'http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com')
+@RestApi(baseUrl: 'https://bpplaner.shop')
 abstract class ReservationClient {
   factory ReservationClient(
     Dio dio, {
@@ -42,11 +41,9 @@ abstract class ReservationClient {
 
   //  문의중 전체 삭제
   @DELETE('/reservations/')
-  Future<dynamic> deleteAllReservation();
-
-  //  예약확정 체크
-  @GET('/reservations/states/')
-  Future<dynamic> checkReservation();
+  Future<dynamic> deleteReservationByShopType(
+    @Query('shop_type') String shopType,
+  );
 
   // 특정 예약의 리뷰 조회
   @GET('/reservations/{id}/reviews')

@@ -8,7 +8,7 @@ part of 'auth_client.dart';
 
 class _AuthClient implements AuthClient {
   _AuthClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://ec2-54-180-83-124.ap-northeast-2.compute.amazonaws.com';
+    baseUrl ??= 'https://bpplaner.shop';
   }
 
   final Dio _dio;
