@@ -108,6 +108,7 @@ class _ReservedList extends StatelessWidget {
                         return ReservationCard(
                           mypageData: datas[i],
                           buttonText: datas[i].state == 2 ? '내 리뷰 보기' : '리뷰 작성',
+                          isButton: datas[i].state != 4,
                           iconWidget: Padding(
                             padding: EdgeInsets.only(top: 8, right: 8.w),
                             child: Text(

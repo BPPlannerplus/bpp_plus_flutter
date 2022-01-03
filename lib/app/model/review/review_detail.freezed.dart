@@ -27,7 +27,8 @@ class _$ReviewDetailTearOff {
       @JsonKey(name: 'updated_at') required String updatedDt,
       required int score,
       String? contents,
-      required String date}) {
+      required String date,
+      required bool editable}) {
     return _ReviewDetail(
       id: id,
       createdAt: createdAt,
@@ -35,6 +36,7 @@ class _$ReviewDetailTearOff {
       score: score,
       contents: contents,
       date: date,
+      editable: editable,
     );
   }
 
@@ -56,6 +58,7 @@ mixin _$ReviewDetail {
   int get score => throw _privateConstructorUsedError;
   String? get contents => throw _privateConstructorUsedError;
   String get date => throw _privateConstructorUsedError;
+  bool get editable => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -74,7 +77,8 @@ abstract class $ReviewDetailCopyWith<$Res> {
       @JsonKey(name: 'updated_at') String updatedDt,
       int score,
       String? contents,
-      String date});
+      String date,
+      bool editable});
 }
 
 /// @nodoc
@@ -93,6 +97,7 @@ class _$ReviewDetailCopyWithImpl<$Res> implements $ReviewDetailCopyWith<$Res> {
     Object? score = freezed,
     Object? contents = freezed,
     Object? date = freezed,
+    Object? editable = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -119,6 +124,10 @@ class _$ReviewDetailCopyWithImpl<$Res> implements $ReviewDetailCopyWith<$Res> {
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String,
+      editable: editable == freezed
+          ? _value.editable
+          : editable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -136,7 +145,8 @@ abstract class _$ReviewDetailCopyWith<$Res>
       @JsonKey(name: 'updated_at') String updatedDt,
       int score,
       String? contents,
-      String date});
+      String date,
+      bool editable});
 }
 
 /// @nodoc
@@ -157,6 +167,7 @@ class __$ReviewDetailCopyWithImpl<$Res> extends _$ReviewDetailCopyWithImpl<$Res>
     Object? score = freezed,
     Object? contents = freezed,
     Object? date = freezed,
+    Object? editable = freezed,
   }) {
     return _then(_ReviewDetail(
       id: id == freezed
@@ -183,6 +194,10 @@ class __$ReviewDetailCopyWithImpl<$Res> extends _$ReviewDetailCopyWithImpl<$Res>
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String,
+      editable: editable == freezed
+          ? _value.editable
+          : editable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -196,7 +211,8 @@ class _$_ReviewDetail implements _ReviewDetail {
       @JsonKey(name: 'updated_at') required this.updatedDt,
       required this.score,
       this.contents,
-      required this.date});
+      required this.date,
+      required this.editable});
 
   factory _$_ReviewDetail.fromJson(Map<String, dynamic> json) =>
       _$$_ReviewDetailFromJson(json);
@@ -215,10 +231,12 @@ class _$_ReviewDetail implements _ReviewDetail {
   final String? contents;
   @override
   final String date;
+  @override
+  final bool editable;
 
   @override
   String toString() {
-    return 'ReviewDetail(id: $id, createdAt: $createdAt, updatedDt: $updatedDt, score: $score, contents: $contents, date: $date)';
+    return 'ReviewDetail(id: $id, createdAt: $createdAt, updatedDt: $updatedDt, score: $score, contents: $contents, date: $date, editable: $editable)';
   }
 
   @override
@@ -234,12 +252,14 @@ class _$_ReviewDetail implements _ReviewDetail {
             (identical(other.score, score) || other.score == score) &&
             (identical(other.contents, contents) ||
                 other.contents == contents) &&
-            (identical(other.date, date) || other.date == date));
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.editable, editable) ||
+                other.editable == editable));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, createdAt, updatedDt, score, contents, date);
+  int get hashCode => Object.hash(
+      runtimeType, id, createdAt, updatedDt, score, contents, date, editable);
 
   @JsonKey(ignore: true)
   @override
@@ -259,7 +279,8 @@ abstract class _ReviewDetail implements ReviewDetail {
       @JsonKey(name: 'updated_at') required String updatedDt,
       required int score,
       String? contents,
-      required String date}) = _$_ReviewDetail;
+      required String date,
+      required bool editable}) = _$_ReviewDetail;
 
   factory _ReviewDetail.fromJson(Map<String, dynamic> json) =
       _$_ReviewDetail.fromJson;
@@ -278,6 +299,8 @@ abstract class _ReviewDetail implements ReviewDetail {
   String? get contents;
   @override
   String get date;
+  @override
+  bool get editable;
   @override
   @JsonKey(ignore: true)
   _$ReviewDetailCopyWith<_ReviewDetail> get copyWith =>

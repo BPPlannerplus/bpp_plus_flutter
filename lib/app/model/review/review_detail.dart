@@ -14,6 +14,7 @@ class ReviewDetail with _$ReviewDetail {
     required int score,
     String? contents,
     required String date,
+    required bool editable,
   }) = _ReviewDetail;
 
   factory ReviewDetail.fromJson(Map<String, dynamic> json) =>

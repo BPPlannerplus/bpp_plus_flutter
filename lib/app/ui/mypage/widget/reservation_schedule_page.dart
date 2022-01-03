@@ -72,7 +72,7 @@ class _ReservationSchedulePageState
         const SizedBox(width: 12),
         RichText(
           text: TextSpan(
-            text: '${day + 1}',
+            text: '$day',
             style: BppTextStyle.tabText
                 .copyWith(color: const Color(0xff3b75ff), fontSize: 16),
             children: [
@@ -117,6 +117,7 @@ class _ReservationSchedulePageState
                         return ReservationCard(
                           mypageData: shopDatas[i],
                           buttonText: '문의하기',
+                          isButton: true,
                           iconWidget: SvgPicture.asset(
                             'assets/icon/ic_edit.svg',
                             width: 40,
@@ -171,6 +172,7 @@ class _ReservationSchedulePageState
                     padding: const EdgeInsets.only(top: 8),
                     child: Consumer(builder: (context, ref, _) {
                       return ReservationCard(
+                        isButton: true,
                         mypageData: shopDatas[i],
                         buttonText: '문의하기',
                         iconWidget: SvgPicture.asset(

@@ -14,6 +14,7 @@ _$_ReviewDetail _$$_ReviewDetailFromJson(Map<String, dynamic> json) =>
       score: json['score'] as int,
       contents: json['contents'] as String?,
       date: json['date'] as String,
+      editable: json['editable'] as bool,
     );
 
 Map<String, dynamic> _$$_ReviewDetailToJson(_$_ReviewDetail instance) =>
@@ -24,6 +25,7 @@ Map<String, dynamic> _$$_ReviewDetailToJson(_$_ReviewDetail instance) =>
       'score': instance.score,
       'contents': instance.contents,
       'date': instance.date,
+      'editable': instance.editable,
     };
 
 _$_ReviewContent _$$_ReviewContentFromJson(Map<String, dynamic> json) =>

@@ -1,6 +1,5 @@
 import 'package:bpp_riverpod/app/model/mypage/mypage_data.dart';
 import 'package:bpp_riverpod/app/ui/review/widget/my_review_button.dart';
-import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +12,7 @@ class ReviewButtonRow extends StatelessWidget {
     required this.date,
     required this.updateReview,
     required this.deleteReveiw,
+    required this.isEdit,
   }) : super(key: key);
 
   final String date;
@@ -20,11 +20,11 @@ class ReviewButtonRow extends StatelessWidget {
   final MypageData mypageData;
   final Function updateReview;
   final Function deleteReveiw;
+  final bool isEdit;
 
   @override
   Widget build(BuildContext context) {
-    final bool _canEdit = -1 * calRemainigDay(date) < 15;
-    return _canEdit
+    return isEdit
         ? Row(
             children: [
               MyReviewButton(

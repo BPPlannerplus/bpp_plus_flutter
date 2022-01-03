@@ -18,6 +18,7 @@ class ReservationCard extends StatelessWidget {
     required this.iconWidget,
     required this.onTabButton,
     required this.onTabIcon,
+    required this.isButton,
   }) : super(key: key);
 
   final MypageData mypageData;
@@ -25,6 +26,7 @@ class ReservationCard extends StatelessWidget {
   final Widget iconWidget;
   final Function onTabButton;
   final Function onTabIcon;
+  final bool isButton;
 
   @override
   Widget build(BuildContext context) {
@@ -117,26 +119,29 @@ class ReservationCard extends StatelessWidget {
                     },
                     child: iconWidget,
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 12.w),
-                    child: SizedBox(
-                      height: 33,
-                      width: buttonText == '내 리뷰 보기' ? 104 : 88,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          onTabButton();
-                        },
-                        style: ElevatedButton.styleFrom(
-                            primary: const Color(0xfff2f2f2), elevation: 0),
-                        child: Text(
-                          buttonText,
-                          style: BppTextStyle.smallText.copyWith(
-                            color: const Color(0xff595959),
+                  isButton
+                      ? Padding(
+                          padding: EdgeInsets.only(right: 12.w),
+                          child: SizedBox(
+                            height: 33,
+                            width: buttonText == '내 리뷰 보기' ? 104 : 88,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                onTabButton();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  primary: const Color(0xfff2f2f2),
+                                  elevation: 0),
+                              child: Text(
+                                buttonText,
+                                style: BppTextStyle.smallText.copyWith(
+                                  color: const Color(0xff595959),
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
-                  ),
+                        )
+                      : const SizedBox(),
                 ],
               ),
             ],

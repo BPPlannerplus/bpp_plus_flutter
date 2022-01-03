@@ -12,7 +12,15 @@ String reservationDateFormat(String date) {
 }
 
 int calRemainigDay(String date) {
-  return DateTime.parse(date).difference(DateTime.now()).inDays;
+  return DateTime.parse(date)
+      .difference(
+        DateTime(
+          DateTime.now().year,
+          DateTime.now().month,
+          DateTime.now().day,
+        ),
+      )
+      .inDays;
 }
 
 String changeDateFormat(String date) =>

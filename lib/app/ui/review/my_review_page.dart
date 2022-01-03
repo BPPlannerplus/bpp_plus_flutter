@@ -88,6 +88,7 @@ class MyReviewPage extends ConsumerWidget {
                         date: changeDateFormat(reviewDetail.createdAt),
                         mypageData: mypageData,
                         score: reviewDetail.score,
+                        isEdit: reviewDetail.editable,
                         updateReview: () async {
                           final review =
                               await ref.read(navigatorProvider).navigateTo(
