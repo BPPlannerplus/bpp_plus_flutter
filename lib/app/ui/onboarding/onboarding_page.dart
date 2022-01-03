@@ -1,5 +1,6 @@
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/ui/components/card/circle_status_card.dart';
 import 'package:bpp_riverpod/app/ui/onboarding/widget/first_onboarding_card.dart';
 import 'package:bpp_riverpod/app/ui/onboarding/widget/second_onboarding_card.dart';
 import 'package:bpp_riverpod/app/ui/onboarding/widget/third_onboarding_card.dart';
@@ -59,71 +60,45 @@ class OnBoardingPage extends ConsumerWidget {
                   children: _pages,
                 ),
               ),
-              pageIndex == 2 ? _startButton() : _circleStatus(pageIndex),
+              pageIndex == 2
+                  ? const _StartButton()
+                  : CircleStatusCard(
+                      index: pageIndex,
+                      selColor: BppColor.unSelText,
+                      unSelColor: BppColor.borderColor,
+                    ),
             ],
           ),
         ),
       ),
     );
   }
+}
 
-  Widget _startButton() {
-    return Consumer(builder: (context, ref, _) {
-      final navigator = ref.watch(navigatorProvider);
-      return SizedBox(
-        height: 48,
-        width: 244,
-        child: ElevatedButton(
-          onPressed: () {
-            navigator.navigateTo(routeName: AppRoutes.loginPage);
-          },
-          style: ElevatedButton.styleFrom(
-            primary: BppColor.main,
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(39),
-            ),
-          ),
-          child: Text(
-            '시작하기',
-            style: BppTextStyle.tabText.copyWith(color: BppColor.white),
+class _StartButton extends ConsumerWidget {
+  const _StartButton({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final navigator = ref.watch(navigatorProvider);
+    return SizedBox(
+      height: 48,
+      width: 244,
+      child: ElevatedButton(
+        onPressed: () {
+          navigator.navigateTo(routeName: AppRoutes.loginPage);
+        },
+        style: ElevatedButton.styleFrom(
+          primary: BppColor.main,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(39),
           ),
         ),
-      );
-    });
-  }
-
-  Widget _circleStatus(int index) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          width: 8,
-          height: 8,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: index == 0 ? BppColor.unSelText : BppColor.borderColor,
-          ),
+        child: Text(
+          '시작하기',
+          style: BppTextStyle.tabText.copyWith(color: BppColor.white),
         ),
-        const SizedBox(width: 8),
-        Container(
-          width: 8,
-          height: 8,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: index == 1 ? BppColor.unSelText : BppColor.borderColor,
-          ),
-        ),
-        const SizedBox(width: 8),
-        Container(
-          width: 8,
-          height: 8,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: index == 2 ? BppColor.unSelText : BppColor.borderColor,
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

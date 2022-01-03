@@ -44,9 +44,10 @@ class InquiryList extends StateNotifier<List<MypageData>> {
     return response;
   }
 
-  Future<dynamic> deleteAll() async {
+  Future<dynamic> deleteByShopType(ShopType shopType) async {
     state = [];
-    final response = await repository.deleteAllReservation();
+    final response = await repository
+        .deleteReservationByShopType(shopType.name.toLowerCase());
     return response;
   }
 

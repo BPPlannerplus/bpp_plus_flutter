@@ -32,30 +32,31 @@ class ReportPage extends StatelessWidget {
         body: Padding(
           padding:
               const EdgeInsets.only(top: 16, right: 16, left: 16, bottom: 24),
-          child: LayoutBuilder(builder: (context, constraints) {
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: Consumer(
-                  builder: (context, ref, _) {
-                    final check = ref.watch(isReportCheckProvider);
-                    final navigator = ref.watch(navigatorProvider);
-                    final checks = ref.watch(reportCheckProvider);
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: Consumer(
+                    builder: (context, ref, _) {
+                      final check = ref.watch(isReportCheckProvider);
+                      final navigator = ref.watch(navigatorProvider);
+                      final checks = ref.watch(reportCheckProvider);
 
-                    final reason = ref.watch(complaingReasonProvider);
-                    final contents = ref.watch(complaingContentsProvider);
+                      final reason = ref.watch(complaingReasonProvider);
+                      final contents = ref.watch(complaingContentsProvider);
 
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('신고하시는 이유를 선택해주세요',
-                                style: BppTextStyle.tabText),
-                            SizedBox(height: 16.h),
-                            for (int i = 0; i < 5; i++)
-                              reportRow(
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text('신고하시는 이유를 선택해주세요',
+                                  style: BppTextStyle.tabText),
+                              SizedBox(height: 16.h),
+                              for (int i = 0; i < 5; i++)
+                                ReportRow(
                                   index: i,
                                   check: checks[i],
                                   title: complainTitle(i),
@@ -67,47 +68,50 @@ class ReportPage extends StatelessWidget {
                                         .read(
                                             complaingReasonStateProvider.state)
                                         .state = complainrReason(i);
-                                  }),
-                            SizedBox(
-                              height: 128,
-                              child: TextField(
-                                maxLines: 6,
-                                style: BppTextStyle.smallText,
-                                decoration: const InputDecoration(
-                                    hintText: '신고하시는 이유를 입력해주세요'),
-                                onChanged: (text) {
-                                  ref
-                                      .read(
-                                          complaingContentsStateProvider.state)
-                                      .state = text;
-                                },
+                                  },
+                                ),
+                              SizedBox(
+                                height: 128,
+                                child: TextField(
+                                  maxLines: 6,
+                                  style: BppTextStyle.smallText,
+                                  decoration: const InputDecoration(
+                                      hintText: '신고하시는 이유를 입력해주세요'),
+                                  onChanged: (text) {
+                                    ref
+                                        .read(complaingContentsStateProvider
+                                            .state)
+                                        .state = text;
+                                  },
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 16.h),
-                            reportText(),
-                          ],
-                        ),
-                        const SizedBox(height: 70),
-                        ConfirmButton(
-                          buttonTitle: '신고하기',
-                          onPressedButton: () async {
-                            await ref.read(shopDetailRepository).reportReview(
-                                  reviewId,
-                                  Complain(reason: reason, contents: contents),
-                                );
-                            onReport(reviewId);
-                            navigator.pop();
-                          },
-                          check: !check,
-                          activeButtonColor: BppColor.black,
-                        ),
-                      ],
-                    );
-                  },
+                              SizedBox(height: 16.h),
+                              const ReportText(),
+                            ],
+                          ),
+                          const SizedBox(height: 70),
+                          ConfirmButton(
+                            buttonTitle: '신고하기',
+                            onPressedButton: () async {
+                              await ref.read(shopDetailRepository).reportReview(
+                                    reviewId,
+                                    Complain(
+                                        reason: reason, contents: contents),
+                                  );
+                              onReport(reviewId);
+                              navigator.pop();
+                            },
+                            check: !check,
+                            activeButtonColor: BppColor.black,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
-              ),
-            );
-          }),
+              );
+            },
+          ),
         ),
       ),
     );

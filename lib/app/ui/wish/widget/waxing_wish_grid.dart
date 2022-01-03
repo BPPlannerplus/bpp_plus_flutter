@@ -6,7 +6,7 @@ import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart'
 import 'package:bpp_riverpod/app/ui/components/studio_grid/studio_paged_sliver_grid.dart';
 import 'package:bpp_riverpod/app/ui/components/toast/toast.dart';
 import 'package:bpp_riverpod/app/ui/wish/widget/no_item_card.dart';
-import 'package:bpp_riverpod/app/util/enum.dart';
+import 'package:bpp_riverpod/app/util/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -56,7 +56,7 @@ class _WaxingWishGridState extends ConsumerState<WaxingWishGrid> {
         firstPageProgressIndicatorBuilder: (context) =>
             customLoadingIndicator(),
         newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),
-        noItemsFoundIndicatorBuilder: (context) => noItemCard(),
+        noItemsFoundIndicatorBuilder: (context) => const NoItemCard(),
       ),
     );
   }

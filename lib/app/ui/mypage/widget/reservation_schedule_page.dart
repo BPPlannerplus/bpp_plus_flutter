@@ -39,7 +39,7 @@ class _ReservationSchedulePageState
     } else {
       final shopDatas = ref.watch(confirmedListProvider.notifier).makeList();
       return confirmList.isEmpty
-          ? emptyBox(
+          ? const EmptyBox(
               isButton: false,
               title: '아직 예약한 스튜디오가 없어요.',
               subTitle: '예약 날짜를 입력하고 예약을 관리해보세요')
@@ -59,26 +59,35 @@ class _ReservationSchedulePageState
 
   Widget reservationDivider(int day) {
     return Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Padding(
-              padding: EdgeInsets.all(6.0),
-              child:
-                  CircleAvatar(radius: 4, backgroundColor: Color(0xff4c81ff))),
-          const SizedBox(width: 12),
-          RichText(
-              text: TextSpan(
-                  text: '${day + 1}',
-                  style: BppTextStyle.tabText
-                      .copyWith(color: const Color(0xff3b75ff), fontSize: 16),
-                  children: [
-                TextSpan(
-                    text: '일 남았어요!',
-                    style: BppTextStyle.tabText
-                        .copyWith(color: const Color(0xff595959), fontSize: 16))
-              ]))
-        ]);
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const Padding(
+          padding: EdgeInsets.all(6.0),
+          child: CircleAvatar(
+            radius: 4,
+            backgroundColor: Color(0xff4c81ff),
+          ),
+        ),
+        const SizedBox(width: 12),
+        RichText(
+          text: TextSpan(
+            text: '${day + 1}',
+            style: BppTextStyle.tabText
+                .copyWith(color: const Color(0xff3b75ff), fontSize: 16),
+            children: [
+              TextSpan(
+                text: '일 남았어요!',
+                style: BppTextStyle.tabText.copyWith(
+                  color: const Color(0xff595959),
+                  fontSize: 16,
+                ),
+              )
+            ],
+          ),
+        )
+      ],
+    );
   }
 
   Widget reservationCards(List<MypageData> shopDatas) {
@@ -96,29 +105,34 @@ class _ReservationSchedulePageState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                      width: 1, height: 120, color: const Color(0xff000000)),
+                    width: 1,
+                    height: 120,
+                    color: const Color(0xff000000),
+                  ),
                   const SizedBox(width: 22),
                   Padding(
                     padding: const EdgeInsets.only(top: 8),
-                    child: Consumer(builder: (context, ref, _) {
-                      return reservationCard(
-                        mypageData: shopDatas[i],
-                        buttonText: '문의하기',
-                        iconWidget: SvgPicture.asset(
-                          'assets/icon/ic_edit.svg',
-                          width: 40,
-                        ),
-                        onTabButton: () async {
-                          await launch(shopDatas[i].shop.kakaoUrl);
-                        },
-                        onTabIcon: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) => reservationDetailDialog(
-                                  reservationData: shopDatas[i]));
-                        },
-                      );
-                    }),
+                    child: Consumer(
+                      builder: (context, ref, _) {
+                        return ReservationCard(
+                          mypageData: shopDatas[i],
+                          buttonText: '문의하기',
+                          iconWidget: SvgPicture.asset(
+                            'assets/icon/ic_edit.svg',
+                            width: 40,
+                          ),
+                          onTabButton: () async {
+                            await launch(shopDatas[i].shop.kakaoUrl);
+                          },
+                          onTabIcon: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) => ReservationDetailDialog(
+                                    reservationData: shopDatas[i]));
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -156,7 +170,7 @@ class _ReservationSchedulePageState
                   Padding(
                     padding: const EdgeInsets.only(top: 8),
                     child: Consumer(builder: (context, ref, _) {
-                      return reservationCard(
+                      return ReservationCard(
                         mypageData: shopDatas[i],
                         buttonText: '문의하기',
                         iconWidget: SvgPicture.asset(
@@ -169,7 +183,7 @@ class _ReservationSchedulePageState
                         onTabIcon: () {
                           showDialog(
                               context: context,
-                              builder: (context) => reservationDetailDialog(
+                              builder: (context) => ReservationDetailDialog(
                                   reservationData: shopDatas[i]));
                         },
                       );

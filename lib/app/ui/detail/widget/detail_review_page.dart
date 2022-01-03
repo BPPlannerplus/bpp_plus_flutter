@@ -1,17 +1,14 @@
 import 'package:bpp_riverpod/app/provider/review/shop_review_provider.dart';
-import 'package:bpp_riverpod/app/routes/custom_arg/report_arg.dart';
-import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
 import 'package:bpp_riverpod/app/ui/components/state/error_card.dart';
+import 'package:bpp_riverpod/app/ui/detail/widget/review_card.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
-import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class DetailReviewPage extends ConsumerWidget {
   const DetailReviewPage({Key? key, required this.shopId}) : super(key: key);
@@ -38,7 +35,7 @@ class DetailReviewPage extends ConsumerWidget {
                       return topReviewCard(
                           reviewState.reviews[index].score.toDouble());
                     } else {
-                      return _reviewCard(
+                      return ReviewCard(
                         reviewId: reviewState.reviews[index - 1].id,
                         rating: reviewState.reviews[index - 1].score.toDouble(),
                         name: reviewState.reviews[index - 1].userName,
@@ -58,7 +55,7 @@ class DetailReviewPage extends ConsumerWidget {
                     if (index == 0) {
                       return topReviewCard(reviewScore);
                     } else {
-                      return _reviewCard(
+                      return ReviewCard(
                         reviewId: reviewState.reviews[index - 1].id,
                         rating: reviewState.reviews[index - 1].score.toDouble(),
                         name: reviewState.reviews[index - 1].userName,
@@ -118,92 +115,4 @@ class DetailReviewPage extends ConsumerWidget {
       ),
     );
   }
-}
-
-Widget _reviewCard({
-  required int reviewId,
-  required double rating,
-  required String name,
-  required String date,
-  String? text,
-  required void Function(int reviewId) onReport,
-}) {
-  return Container(
-    padding: const EdgeInsets.only(top: 16),
-    color: BppColor.white,
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Text(changeReviewNameFormat(name),
-                    style: BppTextStyle.filterText),
-                const SizedBox(width: 8),
-                Text(
-                  changeReviewDateFormat(date),
-                  style: BppTextStyle.filterText
-                      .copyWith(color: BppColor.unSelButtonText),
-                ),
-              ],
-            ),
-            Consumer(builder: (context, ref, _) {
-              final navigator = ref.watch(navigatorProvider);
-              return InkWell(
-                onTap: () {
-                  navigator.navigateTo(
-                    routeName: AppRoutes.reportPage,
-                    argument: ReportArg(reviewId: reviewId, onReport: onReport),
-                  );
-                },
-                child: Text(
-                  '신고',
-                  style: BppTextStyle.filterText
-                      .copyWith(color: BppColor.unSelButtonText),
-                ),
-              );
-            }),
-          ],
-        ),
-        const SizedBox(height: 8),
-        Container(
-          height: 20,
-          color: Colors.white,
-          child: Row(
-            children: [
-              RatingBarIndicator(
-                rating: rating,
-                itemBuilder: (context, _) => SvgPicture.asset(
-                    'assets/icon/star.svg',
-                    color: BppColor.rating),
-                unratedColor: BppColor.unSelButtonText,
-                itemCount: 5,
-                itemSize: 25.0,
-                direction: Axis.horizontal,
-              ),
-              SizedBox(width: 5.w),
-              Text('$rating', style: BppTextStyle.filterText)
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-        Container(
-          color: BppColor.white,
-          child: text != null
-              ? Text(text, style: BppTextStyle.filterText)
-              : const SizedBox(),
-        ),
-        text != null ? const SizedBox(height: 16) : const SizedBox(),
-        Container(
-            height: 1,
-            decoration: const BoxDecoration(
-                border: Border(
-                    bottom:
-                        BorderSide(color: BppColor.unSelButton, width: 2.0))))
-      ],
-    ),
-  );
 }

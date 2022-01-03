@@ -7,8 +7,8 @@ import 'package:bpp_riverpod/app/ui/components/card/cached_image_card.dart';
 import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
 import 'package:bpp_riverpod/app/ui/components/toast/toast.dart';
 import 'package:bpp_riverpod/app/ui/wish/widget/no_item_card.dart';
-import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/app/util/values.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -66,7 +66,7 @@ class _ConceptWishGridState extends ConsumerState<ConceptWishGrid> {
         },
         firstPageErrorIndicatorBuilder: (context) => customLoadingIndicator(),
         newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),
-        noItemsFoundIndicatorBuilder: (context) => noItemCard(),
+        noItemsFoundIndicatorBuilder: (context) => const NoItemCard(),
       ),
     );
   }

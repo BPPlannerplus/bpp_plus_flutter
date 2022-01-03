@@ -6,40 +6,61 @@ List<Widget> filterCards(List<String> filters) {
   if (filters.isEmpty) {
     return [];
   }
-  return [for (var i = 0; i < filters.length; i++) filterCard(filters[i])];
+  return [
+    for (var i = 0; i < filters.length; i++)
+      FilterCard(
+        title: filters[i],
+      )
+  ];
 }
 
-Widget filterCard(String title) {
-  if (title.isEmpty) {
-    return const SizedBox();
-  }
-  return Padding(
-    padding: const EdgeInsets.only(right: 8),
-    child: Stack(
-      alignment: Alignment.center,
-      children: [
-        Container(
-          height: 28,
-          width: 12.0 * title.length + 25,
-          decoration: BoxDecoration(
-            color: BppColor.main,
-            borderRadius: BorderRadius.circular(16),
+class FilterCard extends StatelessWidget {
+  const FilterCard({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    if (title.isEmpty) {
+      return const SizedBox();
+    }
+    return Padding(
+      padding: const EdgeInsets.only(right: 8),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            height: 28,
+            width: 12.0 * title.length + 25,
+            decoration: BoxDecoration(
+              color: BppColor.main,
+              borderRadius: BorderRadius.circular(16),
+            ),
           ),
-        ),
-        Positioned(
+          Positioned(
             child: Container(
-                height: 26,
-                width: 12.0 * title.length + 23,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  color: BppColor.white,
+              height: 26,
+              width: 12.0 * title.length + 23,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                color: BppColor.white,
+              ),
+              child: Center(
+                child: Text(
+                  title,
+                  style: BppTextStyle.filterText.copyWith(
+                    color: BppColor.main,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-                child: Center(
-                    child: Text(title,
-                        style: BppTextStyle.filterText.copyWith(
-                            color: BppColor.main,
-                            fontWeight: FontWeight.w600)))))
-      ],
-    ),
-  );
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

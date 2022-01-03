@@ -1,6 +1,6 @@
 import 'package:bpp_riverpod/app/model/concept/concept_filter.dart';
 import 'package:bpp_riverpod/app/model/filter_check_pair.dart';
-import 'package:bpp_riverpod/app/util/filter_value.dart';
+import 'package:bpp_riverpod/app/util/values.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final conceptFilterCheckProvider = StateNotifierProvider.autoDispose<

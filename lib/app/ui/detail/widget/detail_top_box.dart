@@ -1,6 +1,7 @@
 import 'package:bpp_riverpod/app/provider/detail/detail_navigation_provider.dart';
 import 'package:bpp_riverpod/app/routes/custom_arg/profile_arg.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/ui/components/card/circle_status_card.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:flutter/material.dart';
@@ -32,80 +33,68 @@ class DetailTopBox extends StatelessWidget {
                   ref.read(detailPageProvider.state).state = index;
                 },
                 children: [
-                  imageBox(img: profiles[0], index: 0),
-                  imageBox(img: profiles[1], index: 1),
-                  imageBox(img: profiles[2], index: 2),
+                  _ImageBox(
+                    img: profiles[0],
+                    index: 0,
+                    profiles: profiles,
+                  ),
+                  _ImageBox(
+                    img: profiles[1],
+                    index: 1,
+                    profiles: profiles,
+                  ),
+                  _ImageBox(
+                    img: profiles[2],
+                    index: 2,
+                    profiles: profiles,
+                  ),
                 ],
               ),
-              _circleStatus(ref.watch(detailPageProvider)),
+              CircleStatusCard(
+                index: ref.watch(detailPageProvider),
+                selColor: BppColor.white,
+                unSelColor: const Color(0xff656565),
+              ),
             ],
           );
         }),
       ),
     );
   }
+}
 
-  Widget imageBox({
-    required String img,
-    required int index,
-  }) {
-    return Consumer(builder: (context, ref, _) {
-      return InkWell(
-        onTap: () {
-          ref.read(navigatorProvider).navigateTo(
-                routeName: AppRoutes.detailProfilePage,
-                argument: ProfileArg(
-                  profiles: profiles,
-                  index: index,
-                ),
-              );
-        },
-        child: SizedBox.expand(
-          child: Hero(
-            tag: 'profile$index',
-            child: Image.network(
-              img,
-              fit: BoxFit.cover,
-            ),
+class _ImageBox extends ConsumerWidget {
+  const _ImageBox({
+    Key? key,
+    required this.img,
+    required this.index,
+    required this.profiles,
+  }) : super(key: key);
+
+  final String img;
+  final int index;
+  final List<String> profiles;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return InkWell(
+      onTap: () {
+        ref.read(navigatorProvider).navigateTo(
+              routeName: AppRoutes.detailProfilePage,
+              argument: ProfileArg(
+                profiles: profiles,
+                index: index,
+              ),
+            );
+      },
+      child: SizedBox.expand(
+        child: Hero(
+          tag: 'profile$index',
+          child: Image.network(
+            img,
+            fit: BoxFit.cover,
           ),
         ),
-      );
-    });
-  }
-
-  Widget _circleStatus(int index) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: 8,
-            height: 8,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: index == 0 ? BppColor.white : const Color(0xff656565),
-            ),
-          ),
-          const SizedBox(width: 8),
-          Container(
-            width: 8,
-            height: 8,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: index == 1 ? BppColor.white : const Color(0xff656565),
-            ),
-          ),
-          const SizedBox(width: 8),
-          Container(
-            width: 8,
-            height: 8,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: index == 2 ? BppColor.white : const Color(0xff656565),
-            ),
-          ),
-        ],
       ),
     );
   }

@@ -1,3 +1,5 @@
+const pageSize = 20;
+
 Map<String, String> shopFilterValue = {
   '강남구': 'gangnam',
   '강동구': 'gangdong',
@@ -5,6 +7,14 @@ Map<String, String> shopFilterValue = {
   '마포구': 'mapo',
   '서초구': 'seocho',
   '양천구': 'yangchun'
+};
+Map<String, String> shopAddrToKR = {
+  'gangnam': '강남구',
+  'gangdong': '강동구',
+  'gwangjin': '광진구',
+  'mapo': '마포구',
+  'seocho': '서초구',
+  'yangchun': '양천구',
 };
 
 Map<String, String> conceptFilterHeadCountValue = {

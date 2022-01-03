@@ -1,4 +1,5 @@
 import 'package:bpp_riverpod/app/provider/detail/detail_navigation_provider.dart';
+import 'package:bpp_riverpod/app/ui/components/card/circle_status_card.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:flutter/cupertino.dart';
@@ -40,9 +41,18 @@ class DetailProfilePage extends StatelessWidget {
                         .jumpToPage(pageIndex);
                   },
                   children: [
-                    _imgPage(0),
-                    _imgPage(1),
-                    _imgPage(2),
+                    _ImgPage(
+                      index: 0,
+                      profile: profiles[0],
+                    ),
+                    _ImgPage(
+                      index: 1,
+                      profile: profiles[1],
+                    ),
+                    _ImgPage(
+                      index: 2,
+                      profile: profiles[2],
+                    ),
                   ],
                 ),
               ),
@@ -66,7 +76,11 @@ class DetailProfilePage extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.only(bottom: 16),
                 alignment: Alignment.bottomCenter,
-                child: _circleStatus(ref.watch(detailPageProvider)),
+                child: CircleStatusCard(
+                  index: ref.watch(detailPageProvider),
+                  selColor: Colors.white,
+                  unSelColor: const Color(0xff656565),
+                ),
               ),
             ],
           );
@@ -74,57 +88,28 @@ class DetailProfilePage extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _imgPage(int index) {
+class _ImgPage extends StatelessWidget {
+  const _ImgPage({
+    Key? key,
+    required this.index,
+    required this.profile,
+  }) : super(key: key);
+
+  final int index;
+  final String profile;
+
+  @override
+  Widget build(BuildContext context) {
     return SizedBox.expand(
       child: Hero(
         tag: 'profile$index',
         child: Image.network(
-          profiles[index],
+          profile,
           height: 480.h,
           fit: BoxFit.contain,
         ),
-      ),
-    );
-  }
-
-  Widget _circleStatus(int index) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: 8,
-            height: 8,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: index == 0 ? Colors.white : const Color(0xff656565),
-            ),
-          ),
-          const SizedBox(
-            width: 8,
-          ),
-          Container(
-            width: 8,
-            height: 8,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: index == 1 ? Colors.white : const Color(0xff656565),
-            ),
-          ),
-          const SizedBox(
-            width: 8,
-          ),
-          Container(
-            width: 8,
-            height: 8,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: index == 2 ? Colors.white : const Color(0xff656565),
-            ),
-          ),
-        ],
       ),
     );
   }

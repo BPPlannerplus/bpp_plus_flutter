@@ -1,3 +1,4 @@
+import 'package:bpp_riverpod/app/ui/components/card/circle_avatar_card.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
@@ -24,14 +25,9 @@ class DetailMidBox extends StatelessWidget {
         color: BppColor.white,
         child: Row(
           children: [
-            CircleAvatar(
-              radius: 32,
+            CircleAvatarCard(
               backgroundColor: BppColor.unSelButtonText,
-              child: CircleAvatar(
-                radius: 31,
-                backgroundColor: Colors.transparent,
-                backgroundImage: NetworkImage(logo),
-              ),
+              img: logo,
             ),
             const SizedBox(width: 16),
             Column(

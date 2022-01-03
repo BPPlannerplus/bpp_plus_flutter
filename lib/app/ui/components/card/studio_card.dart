@@ -1,11 +1,11 @@
 import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
 import 'package:bpp_riverpod/app/ui/components/card/cached_image_card.dart';
-import 'package:bpp_riverpod/app/util/enum.dart';
 import 'package:bpp_riverpod/app/util/format.dart';
 import 'package:bpp_riverpod/app/util/navigation_service.dart';
 import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:bpp_riverpod/app/util/theme/text_style.dart';
+import 'package:bpp_riverpod/app/util/values.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -72,15 +72,30 @@ class StudioCard extends StatelessWidget {
                           size: 30)))
             ])),
         const SizedBox(height: 8),
-        Text(shopData.name, style: BppTextStyle.isEng(shopData.name)),
+        Text(
+          shopData.name,
+          style: BppTextStyle.isEng(
+            shopData.name,
+          ),
+        ),
         const SizedBox(height: 4),
-        Text(shopAddrToKR[shopData.address]!,
-            style: BppTextStyle.smallText.copyWith(color: BppColor.unSelText)),
+        Text(
+          shopAddrToKR[shopData.address]!,
+          style: BppTextStyle.smallText.copyWith(
+            color: BppColor.unSelText,
+          ),
+        ),
         const SizedBox(height: 4),
         shopData.minPrice != null
-            ? Text(priceFormat(shopData.minPrice!),
+            ? Text(
+                priceFormat(
+                  shopData.minPrice!,
+                ),
                 style: BppTextStyle.smallText)
-            : const Text('가격 정보 없음', style: BppTextStyle.smallText),
+            : const Text(
+                '가격 정보 없음',
+                style: BppTextStyle.smallText,
+              ),
       ],
     );
   }

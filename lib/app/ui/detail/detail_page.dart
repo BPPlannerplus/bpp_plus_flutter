@@ -88,9 +88,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
           ];
 
           return WillPopScope(
-            onWillPop: () {
-              return navigator.pop(result: shopDetailData.like);
-            },
+            onWillPop: () => navigator.pop(result: shopDetailData.like),
             child: Scaffold(
               appBar: AppBar(
                 backgroundColor: Colors.transparent,
@@ -119,12 +117,16 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                   ),
                   const DetailAppBar(),
                   SliverPadding(
-                    padding: const EdgeInsets.only(top: 8, right: 16, left: 16),
+                    padding: const EdgeInsets.only(
+                      top: 8,
+                      right: 16,
+                      left: 16,
+                    ),
                     sliver: _pages[index],
                   ),
                 ],
               ),
-              bottomNavigationBar: detailBottomBar(
+              bottomNavigationBar: DetailBottomBar(
                 onTabIcon: () async {
                   if (!shopDetailData.like) {
                     showToast(fToast);
@@ -144,9 +146,12 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                     await launch(shopData.kakaoUrl);
                   } catch (e) {
                     showDialog(
-                        context: context,
-                        builder: (context) => bppAlertDialog(
-                            title: '이미 예약된 스튜디오입니다!', confirm: () {}));
+                      context: context,
+                      builder: (context) => bppAlertDialog(
+                        title: '이미 예약된 스튜디오입니다!',
+                        confirm: () {},
+                      ),
+                    );
                   }
                 },
                 isLike: shopDetailData.like,

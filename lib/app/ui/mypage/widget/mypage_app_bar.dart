@@ -31,11 +31,16 @@ class MypageAppBar extends ConsumerWidget {
             Stack(
               children: [
                 Container(
-                    height: 32,
-                    decoration: const BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                                color: Color(0xfff2f2f2), width: 2.0)))),
+                  height: 32,
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Color(0xfff2f2f2),
+                        width: 2.0,
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 32,
                   child: ListView.separated(
@@ -60,11 +65,23 @@ class MypageAppBar extends ConsumerWidget {
                 ? Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: Row(
-                      children: [
-                        _studioCard('스튜디오', 0),
-                        _studioCard('헤어메이크업', 1),
-                        _studioCard('왁싱', 2),
-                        _studioCard('태닝', 3),
+                      children: const [
+                        _StudioCard(
+                          title: '스튜디오',
+                          index: 0,
+                        ),
+                        _StudioCard(
+                          title: '헤어메이크업',
+                          index: 1,
+                        ),
+                        _StudioCard(
+                          title: '왁싱',
+                          index: 2,
+                        ),
+                        _StudioCard(
+                          title: '태닝',
+                          index: 3,
+                        ),
                       ],
                     ),
                   )
@@ -73,43 +90,6 @@ class MypageAppBar extends ConsumerWidget {
         ),
       ),
     );
-  }
-
-  Widget _studioCard(String title, int index) {
-    return Consumer(builder: (context, ref, _) {
-      final idx = ref.watch(inquiryTabProvider);
-      return Padding(
-        padding: const EdgeInsets.only(right: 8),
-        child: InkWell(
-          onTap: () {
-            ref.read(inquiryTabProvider.state).state = index;
-            ref.read(inquiryShopTypeProvider.state).state =
-                ShopType.values[index];
-          },
-          child: Container(
-            height: 28,
-            width: 13.0 * title.length + 20,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(16)),
-              color: idx == index
-                  ? const Color(0xff3b75ff)
-                  : const Color(0xfff2f2f2),
-            ),
-            child: Center(
-              child: Text(
-                title,
-                style: BppTextStyle.filterText.copyWith(
-                  color: idx == index
-                      ? const Color(0xffffffff)
-                      : const Color(0xff525252),
-                  fontWeight: idx == index ? FontWeight.w600 : null,
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
-    });
   }
 
   String _mypageTabName(int index) {
@@ -123,5 +103,52 @@ class MypageAppBar extends ConsumerWidget {
       default:
         return '';
     }
+  }
+}
+
+class _StudioCard extends ConsumerWidget {
+  const _StudioCard({
+    Key? key,
+    required this.title,
+    required this.index,
+  }) : super(key: key);
+
+  final String title;
+  final int index;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final idx = ref.watch(inquiryTabProvider);
+    return Padding(
+      padding: const EdgeInsets.only(right: 8),
+      child: InkWell(
+        onTap: () {
+          ref.read(inquiryTabProvider.state).state = index;
+          ref.read(inquiryShopTypeProvider.state).state =
+              ShopType.values[index];
+        },
+        child: Container(
+          height: 28,
+          width: 13.0 * title.length + 20,
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(16)),
+            color: idx == index
+                ? const Color(0xff3b75ff)
+                : const Color(0xfff2f2f2),
+          ),
+          child: Center(
+            child: Text(
+              title,
+              style: BppTextStyle.filterText.copyWith(
+                color: idx == index
+                    ? const Color(0xffffffff)
+                    : const Color(0xff525252),
+                fontWeight: idx == index ? FontWeight.w600 : null,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

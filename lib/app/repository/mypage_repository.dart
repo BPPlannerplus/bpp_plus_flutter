@@ -55,7 +55,7 @@ class MypageRepository {
   }
 
   //  문의 전체 삭제
-  Future<dynamic> deleteAllReservation() async {
+  Future<dynamic> deleteReservationByShopType(String shopType) async {
     final response = await reservationClient.deleteAllReservation();
     return response;
   }

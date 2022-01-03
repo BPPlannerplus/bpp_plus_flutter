@@ -50,9 +50,9 @@ final dioProvider = Provider<Dio>((ref) {
             },
           ).catchError(
             //  refreshToken 만료
-            (error, stackTrace) {
+            (error, stackTrace) async {
               dp.log('>>> refreshToken 만료 <<<');
-              ref.read(navigatorProvider).openDialog(
+              await ref.read(navigatorProvider).openDialog(
                   bppAlertDialog(title: '다시 로그인해주세요!', confirm: () {}));
               ref
                   .watch(navigatorProvider)

@@ -43,7 +43,7 @@ class ConceptAppBar extends ConsumerWidget {
                       ),
                       context: context,
                       isScrollControlled: true,
-                      builder: (_) => conceptBottomSheet(),
+                      builder: (_) => const ConceptBottomSheet(),
                     );
                   },
                   child: Container(
@@ -65,11 +65,17 @@ class ConceptAppBar extends ConsumerWidget {
             ),
             SizedBox(height: 12.h),
             Expanded(
-                child: Container(
-                    height: 1,
-                    decoration: const BoxDecoration(
-                        border: Border(
-                            top: BorderSide(color: BppColor.textFormBorder))))),
+              child: Container(
+                height: 1,
+                decoration: const BoxDecoration(
+                  border: Border(
+                    top: BorderSide(
+                      color: BppColor.textFormBorder,
+                    ),
+                  ),
+                ),
+              ),
+            ),
             visible
                 ? Container(
                     height: 40,
