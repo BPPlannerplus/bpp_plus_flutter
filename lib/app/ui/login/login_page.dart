@@ -1,6 +1,3 @@
-import 'dart:developer' as dev;
-
-import 'package:bpp_riverpod/app/dio/dio.dart';
 import 'package:bpp_riverpod/app/model/auth/token_data.dart';
 import 'package:bpp_riverpod/app/model/auth/user_info.dart';
 import 'package:bpp_riverpod/app/provider/auth/login_provider.dart';
@@ -61,7 +58,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   Future<bool> _login() async {
     final kakaoLogin = ref.watch(flutterKakaoLogin);
     final dio = Dio();
-    dio.interceptors.add(CustomLogInterceptor());
 
     try {
       final result = await kakaoLogin.logIn();
@@ -86,7 +82,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       await Hive.box('auth').put('accessToken', tokenData.accessToken);
       return true;
     } catch (e) {
-      dev.log(e.toString());
       showDialog(
         context: context,
         builder: (context) => bppAlertDialog(
