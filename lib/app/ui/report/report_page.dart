@@ -67,7 +67,7 @@ class ReportPage extends StatelessWidget {
                                     ref
                                         .read(
                                             complaingReasonStateProvider.state)
-                                        .state = complainrReason(i);
+                                        .state = complainReason(i);
                                   },
                                 ),
                               SizedBox(

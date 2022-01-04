@@ -1,5 +1,6 @@
 import 'package:bpp_riverpod/app/model/mypage/mypage_response.dart';
 import 'package:bpp_riverpod/app/model/mypage/reservation_request.dart';
+import 'package:bpp_riverpod/app/model/mypage/reservation_response.dart';
 import 'package:bpp_riverpod/app/model/review/review.dart';
 import 'package:bpp_riverpod/app/model/review/review_detail.dart';
 import 'package:dio/dio.dart';
@@ -22,7 +23,7 @@ abstract class ReservationClient {
 
   // 샵 문의중 추가
   @POST('/reservations/shops/{id}')
-  Future<dynamic> setShopReservation(
+  Future<ReservationResponse> setShopReservation(
     @Path() int id,
   );
 

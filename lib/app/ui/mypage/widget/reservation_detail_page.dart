@@ -1,6 +1,9 @@
 import 'package:bpp_riverpod/app/model/mypage/mypage_data.dart';
 import 'package:bpp_riverpod/app/provider/mypage/expiration_provider.dart';
+import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
+import 'package:bpp_riverpod/app/repository/mypage_repository.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/ui/components/dialog/bpp_alert_dialog.dart';
 import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/empty_box.dart';
 import 'package:bpp_riverpod/app/ui/mypage/widget/reservation_card.dart';
@@ -130,14 +133,28 @@ class _ReservedList extends StatelessWidget {
                                       argument: datas[i]);
                                 },
                           onTabIcon: () async {
-                            // TODO: 샵 예약 후 날짜 선택으로 수정
-                            await showDialog(
-                              context: context,
-                              builder: (context) => SetDateDialog(
-                                reservationId: datas[i].id,
-                                confirm: (id, date) {},
-                              ),
-                            );
+                            try {
+                              final reservationId = await ref
+                                  .read(mypageRepsitory)
+                                  .reservationShop(datas[i].shop.id);
+                              await showDialog(
+                                context: context,
+                                builder: (context) => SetDateDialog(
+                                  reservationId: reservationId,
+                                  confirm: (id, date) {
+                                    ref.read(myPageTabProvider.state).state = 1;
+                                  },
+                                ),
+                              );
+                            } catch (e) {
+                              showDialog(
+                                context: context,
+                                builder: (context) => bppAlertDialog(
+                                  title: '이미 예약된 스튜디오입니다!',
+                                  confirm: () {},
+                                ),
+                              );
+                            }
                           },
                         );
                       },

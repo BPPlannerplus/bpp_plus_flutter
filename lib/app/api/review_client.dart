@@ -24,11 +24,6 @@ abstract class ReviewClient {
     @Body() ReviewContent reviewContent,
   );
 
-  @DELETE('/reviews/{id}')
-  Future<dynamic> deleteReview(
-    @Path() int id,
-  );
-
   @POST('/reviews/{id}/complains/')
   Future<dynamic> reportReview(
     @Path() int id,

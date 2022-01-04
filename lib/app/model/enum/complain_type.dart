@@ -17,7 +17,7 @@ String complainTitle(int index) {
   }
 }
 
-String complainrReason(int index) {
+String complainReason(int index) {
   switch (index) {
     case 0:
       return 'abues';

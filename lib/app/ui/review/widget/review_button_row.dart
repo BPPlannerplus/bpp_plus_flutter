@@ -11,7 +11,6 @@ class ReviewButtonRow extends StatelessWidget {
     required this.score,
     required this.date,
     required this.updateReview,
-    required this.deleteReveiw,
     required this.isEdit,
   }) : super(key: key);
 
@@ -19,45 +18,21 @@ class ReviewButtonRow extends StatelessWidget {
   final int score;
   final MypageData mypageData;
   final Function updateReview;
-  final Function deleteReveiw;
   final bool isEdit;
 
   @override
   Widget build(BuildContext context) {
     return isEdit
-        ? Row(
-            children: [
-              MyReviewButton(
-                title: '수정',
-                onTapButton: () {
-                  updateReview();
-                },
-              ),
-              const SizedBox(width: 12),
-              MyReviewButton(
-                title: '삭제',
-                onTapButton: () {
-                  deleteReveiw();
-                },
-              ),
-            ],
+        ? MyReviewButton(
+            title: '수정',
+            onTapButton: () {
+              updateReview();
+            },
           )
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              MyReviewButton(
-                title: '삭제',
-                onTapButton: () {
-                  deleteReveiw();
-                },
-              ),
-              const SizedBox(height: 12),
-              Text(
-                '리뷰 수정 기간이 지났습니다',
-                style: BppTextStyle.smallText
-                    .copyWith(color: BppColor.unSelButtonText),
-              ),
-            ],
+        : Text(
+            '리뷰 수정 기간이 지났습니다',
+            style: BppTextStyle.smallText
+                .copyWith(color: BppColor.unSelButtonText),
           );
   }
 }

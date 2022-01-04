@@ -23,6 +23,12 @@ class MypageRepository {
   final ReservationClient reservationClient;
   final ReviewClient reviewClient;
 
+  // 다시 문의하기 에약
+  Future<int> reservationShop(int shopId) async {
+    final response = await reservationClient.setShopReservation(shopId);
+    return response.reservationId;
+  }
+
   // 샵 문의 중 조회
   Future<MypageResponse> getShopInquiring() async {
     final response = await reservationClient.getShopReservations(true);
@@ -74,11 +80,5 @@ class MypageRepository {
     final reviewDetail =
         await reviewClient.updateReview(id, ReviewContent(contents: text));
     return reviewDetail;
-  }
-
-  // 리뷰 삭제
-  Future<dynamic> deleteReview(int id) async {
-    final response = await reviewClient.deleteReview(id);
-    return response;
   }
 }
