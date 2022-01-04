@@ -1,24 +1,29 @@
-import 'package:bpp_riverpod/app/model/shop_detail_data.dart';
-import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
-import 'package:bpp_riverpod/app/provider/shop_detail_provider.dart';
+import 'package:bpp_riverpod/app/provider/detail/detail_navigation_provider.dart';
+import 'package:bpp_riverpod/app/provider/detail/shop_detail_page_controller.dart';
+import 'package:bpp_riverpod/app/provider/detail/shop_detail_provider.dart';
+import 'package:bpp_riverpod/app/repository/shop_repository.dart';
+import 'package:bpp_riverpod/app/ui/components/dialog/bpp_alert_dialog.dart';
+import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
+import 'package:bpp_riverpod/app/ui/components/state/error_card.dart';
+import 'package:bpp_riverpod/app/ui/components/toast/toast.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_app_bar.dart';
+import 'package:bpp_riverpod/app/ui/detail/widget/detail_bottom_bar.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_info_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_mid_box.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_portfolio_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_review_page.dart';
 import 'package:bpp_riverpod/app/ui/detail/widget/detail_top_box.dart';
-import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailPage extends ConsumerStatefulWidget {
-  const DetailPage({
-    Key? key,
-    required this.index,
-    required this.shopId,
-  }) : super(key: key);
+  const DetailPage({Key? key, required this.shopId}) : super(key: key);
 
-  final int index;
   final int shopId;
 
   @override
@@ -27,14 +32,24 @@ class DetailPage extends ConsumerStatefulWidget {
 
 class _DetailPageState extends ConsumerState<DetailPage> {
   final scrollController = ScrollController();
+  final fToast = FToast();
+
+  @override
+  void initState() {
+    scrollController.addListener(() {
+      if (scrollController.offset.toInt() > 250) {
+        ref.read(detailPageLeadingProvier.state).state = false;
+      } else {
+        ref.read(detailPageLeadingProvier.state).state = true;
+      }
+    });
+
+    super.initState();
+  }
 
   void scrollToTop() {
-    scrollController.animateTo(
-      // 345,
-      0,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.linear,
-    );
+    scrollController.animateTo(0,
+        duration: const Duration(milliseconds: 300), curve: Curves.linear);
   }
 
   @override
@@ -45,142 +60,101 @@ class _DetailPageState extends ConsumerState<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(detailTabProvider, (_) {
-      scrollToTop();
-    });
+    ref.listen<int>(detailTabProvider, (pre, next) => scrollToTop());
 
     final index = ref.watch(detailTabProvider);
-    final detailData = ref.watch(
-      shopDetailProvider(
-        DetailIndex(
-          index: widget.index,
-          shopId: widget.shopId,
-        ),
-      ),
-    );
+    final detailData = ref.watch(shopDetailProvider(widget.shopId));
 
     return SafeArea(
       child: detailData.when(
-        loading: (pre) => const Scaffold(
-          body: Center(
-            child: CircularProgressIndicator(),
-          ),
-        ),
-        error: (error, stack, pre) => Scaffold(
-          body: Center(
-            child: Text(
-              error.toString(),
-              style: const TextStyle(
-                fontSize: 32,
-              ),
-            ),
-          ),
-        ),
+        loading: () => Scaffold(body: customLoadingIndicator()),
+        error: (error, stack) => Scaffold(body: errorCard()),
         data: (shopData) {
           final shopDetailData = ref.watch(shopDetailStateProvider(shopData));
-          if (ref.read(shopConceptsProvider(0)).shopConcepts.isEmpty) {
-            ref.read(shopConceptsProvider(0).notifier).getData();
-          }
+          final conceptPageController =
+              ref.watch(shopDetailConceptPageControllerProvider(widget.shopId));
+
+          final navigator = ref.watch(navigatorProvider);
 
           var _pages = [
-            DetailPortfolioPage(
-              shopConcepts: ref.watch(shopConceptsProvider(0)),
-              getData: ref.read(shopConceptsProvider(0).notifier).getData,
-            ),
+            DetailPortfolioPage(pagingController: conceptPageController),
             DetailInfoPage(
               priceImg: shopData.priceImg,
               map: shopData.mapImg,
-              partners: shopData.partnershipList,
+              partners: shopData.partnershipList!,
+              address: shopData.address,
             ),
-            const DetailReviewPage(),
+            DetailReviewPage(shopId: shopData.id),
           ];
 
-          return Scaffold(
-            body: CustomScrollView(
-              controller: scrollController,
-              slivers: [
-                DetailTopBox(
-                  profiles: shopData.profiles,
-                ),
-                DetailMidBox(
-                  logo: shopData.logo,
-                  price: shopData.minPrice,
-                  shopName: shopData.name,
-                ),
-                const DetailAppBar(),
-                SliverPadding(
-                  padding: const EdgeInsets.only(top: 8, right: 16, left: 16),
-                  sliver: _pages[index.state],
-                ),
-              ],
-            ),
-            bottomNavigationBar: Container(
-              padding: const EdgeInsets.only(right: 16, left: 16),
-              height: 68,
-              width: double.infinity,
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      ref
-                          .read(shopDetailStateProvider(shopData).notifier)
-                          .setLike();
-                    },
-                    child: Stack(
-                      children: [
-                        Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: const Color(0xffe6e6e6),
-                          ),
-                        ),
-                        Positioned(
-                          top: 1,
-                          left: 1,
-                          child: Container(
-                            width: 38,
-                            height: 38,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                            ),
-                            child: Icon(
-                              shopDetailData.like
-                                  ? Icons.favorite_border_outlined
-                                  : Icons.add,
-                              color: Colors.red,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+          return WillPopScope(
+            onWillPop: () => navigator.pop(result: shopDetailData.like),
+            child: Scaffold(
+              appBar: AppBar(
+                backgroundColor: Colors.transparent,
+                leading: InkWell(
+                  onTap: () => navigator.pop(result: shopDetailData.like),
+                  child: SvgPicture.asset(
+                    'assets/icon/ic_back.svg',
+                    color: ref.watch(detailPageLeadingProvier)
+                        ? BppColor.white
+                        : BppColor.black,
                   ),
-                  const SizedBox(
-                    width: 14,
+                ),
+                toolbarHeight: 40,
+              ),
+              extendBodyBehindAppBar: true,
+              body: CustomScrollView(
+                controller: scrollController,
+                slivers: [
+                  DetailTopBox(
+                    profiles: shopData.profiles,
                   ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      primary: const Color(0xFF3b75ff),
+                  DetailMidBox(
+                    logo: shopData.logo,
+                    price: shopData.minPrice,
+                    shopName: shopData.name,
+                  ),
+                  const DetailAppBar(),
+                  SliverPadding(
+                    padding: const EdgeInsets.only(
+                      top: 8,
+                      right: 16,
+                      left: 16,
                     ),
-                    child: SizedBox(
-                      height: 40,
-                      width: 272,
-                      child: Center(
-                        child: Text(
-                          '예약 및 문의하기',
-                          style: BppTextStyle.screenText.copyWith(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
+                    sliver: _pages[index],
                   ),
                 ],
+              ),
+              bottomNavigationBar: DetailBottomBar(
+                onTabIcon: () async {
+                  if (!shopDetailData.like) {
+                    showToast(fToast);
+                  }
+                  ref
+                      .read(shopDetailStateProvider(shopData).notifier)
+                      .setLike();
+                  await ref
+                      .read(shopRepositroyProvider)
+                      .setLike(shopDetailData.id, !shopDetailData.like);
+                },
+                onTabButton: () async {
+                  try {
+                    await ref
+                        .read(shopDetailStateProvider(shopData).notifier)
+                        .createReservation(shopData.id);
+                    await launch(shopData.kakaoUrl);
+                  } catch (e) {
+                    showDialog(
+                      context: context,
+                      builder: (context) => bppAlertDialog(
+                        title: '이미 예약된 스튜디오입니다!',
+                        confirm: () {},
+                      ),
+                    );
+                  }
+                },
+                isLike: shopDetailData.like,
               ),
             ),
           );

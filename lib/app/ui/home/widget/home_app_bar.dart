@@ -1,6 +1,10 @@
+import 'package:bpp_riverpod/app/model/enum/shop_type.dart';
 import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
+import 'package:bpp_riverpod/app/provider/shop/shop_type_provider.dart';
+import 'package:bpp_riverpod/app/ui/components/button/tab_button.dart';
 import 'package:bpp_riverpod/app/ui/home/widget/home_bottom_sheet.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
+import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,25 +26,36 @@ class HomeAppBar extends StatelessWidget {
       toolbarHeight: 56,
       collapsedHeight: 56,
       centerTitle: false,
-      title: Row(
+      title: Stack(
         children: [
-          tabButton('스튜디오', context, 0),
-          tabButton('헤어메이크업', context, 1),
-          tabButton('왁싱', context, 2),
-          tabButton('태닝', context, 3),
-          Expanded(
-            child: Container(
-              height: 48,
+          Container(
+              height: 32,
               decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: const Color(0xfff2f2f2),
-                    width: 2.0.h,
-                  ),
+                  border: Border(
+                      bottom: BorderSide(
+                          color: const Color(0xfff2f2f2), width: 1.0.h)))),
+          Consumer(builder: (context, ref, _) {
+            final tabIndex = ref.watch(homeTabProvider);
+            return SizedBox(
+              height: 32,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) => TabButton(
+                  title: shopTypeToString(index),
+                  index: index,
+                  tap: () {
+                    ref.read(homeTabProvider.state).state = index;
+                    ref.read(shopTypeProvider.state).state =
+                        ShopType.values[index];
+                  },
+                  tabIndex: tabIndex,
                 ),
+                separatorBuilder: (context, index) => const SizedBox(width: 16),
+                itemCount: 4,
               ),
-            ),
-          ),
+            );
+          }),
         ],
       ),
       flexibleSpace: Container(
@@ -55,17 +70,14 @@ class HomeAppBar extends StatelessWidget {
               ),
               onTap: () {
                 showModalBottomSheet(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      topRight: Radius.circular(8),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                        topRight: Radius.circular(8),
+                      ),
                     ),
-                  ),
-                  context: context,
-                  builder: (_) {
-                    return homeBottomSheet(ref.read(homeTabProvider).state);
-                  },
-                );
+                    context: context,
+                    builder: (_) => const HomeBottomSheet());
               },
               child: Container(
                 height: 32,
@@ -74,26 +86,18 @@ class HomeAppBar extends StatelessWidget {
                   borderRadius: BorderRadius.all(
                     Radius.circular(30),
                   ),
-                  color: Color(0xfff2f2f2),
+                  color: BppColor.unSelButton,
                 ),
                 child: Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SvgPicture.asset(
-                        'assets/icon/Frame.svg',
+                        'assets/icon/ic_filter.svg',
                         width: 30,
                         height: 30,
-                        color: const Color(0xff3b75ff),
                       ),
-                      const Text(
-                        '필터',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      const Text('필터', style: BppTextStyle.filterText),
                     ],
                   ),
                 ),
@@ -103,44 +107,5 @@ class HomeAppBar extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget tabButton(String title, BuildContext context, int index) {
-    return Consumer(builder: (context, ref, _) {
-      return InkWell(
-        onTap: () {
-          ref.watch(homeTabProvider).state = index;
-        },
-        child: Container(
-          width: 15.0 * title.length,
-          height: 48,
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: ref.watch(homeTabProvider).state == index
-                    ? const Color(0xff3b75ff)
-                    : const Color(0xfff2f2f2),
-                width: 2.0.h,
-              ),
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(
-              bottom: 5,
-            ),
-            child: Center(
-              child: Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
-    });
   }
 }

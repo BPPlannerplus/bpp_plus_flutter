@@ -1,107 +1,95 @@
-import 'package:bpp_riverpod/app/ui/main_page.dart';
-import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/model/auth/token_data.dart';
+import 'package:bpp_riverpod/app/model/auth/user_info.dart';
+import 'package:bpp_riverpod/app/provider/auth/login_provider.dart';
+import 'package:bpp_riverpod/app/provider/auth/user_provider.dart';
+import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/ui/components/dialog/bpp_alert_dialog.dart';
+import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:video_player/video_player.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  late VideoPlayerController _videoPlayerController;
-
-  @override
-  void initState() {
-    super.initState();
-    _videoPlayerController =
-        VideoPlayerController.asset('assets/video/login.mp4')
-          ..initialize().then((_) {
-            _videoPlayerController.play();
-            _videoPlayerController.setLooping(true);
-          });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _videoPlayerController.dispose();
-  }
-
+class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   Widget build(BuildContext context) {
+    final navigator = ref.watch(navigatorProvider);
+
     return SafeArea(
       child: Scaffold(
-        body: Stack(
-          children: [
-            SizedBox.expand(
-              child: FittedBox(
-                fit: BoxFit.fill,
-                child: SizedBox(
-                  width: _videoPlayerController.value.size.width,
-                  height: _videoPlayerController.value.size.height,
-                  child: VideoPlayer(_videoPlayerController),
-                ),
-              ),
-            ),
-            Positioned(
-              top: 133.h,
-              left: 21.w,
-              child: RichText(
-                text: TextSpan(
-                  style: BppTextStyle.bigScreenText.copyWith(
-                    color: const Color(0xffffffff),
-                    fontWeight: FontWeight.w400,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: '바디플래너',
-                      style: BppTextStyle.bigScreenText.copyWith(
-                        color: const Color(0xffffffff),
-                      ),
-                    ),
-                    const TextSpan(
-                      text: '에서\n바디프로필을 한눈에',
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 56,
-              left: 16.w,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushAndRemoveUntil<dynamic>(
-                      context,
-                      MaterialPageRoute<dynamic>(
-                        builder: (_) => const MainPage(),
-                      ),
-                      (route) => false);
+        body: Padding(
+          padding:
+              const EdgeInsets.only(top: 133, left: 40, right: 40, bottom: 56),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SvgPicture.asset('assets/image/login_img.svg', width: 225.w),
+              InkWell(
+                onTap: () async {
+                  final login = await _login();
+                  if (login) {
+                    navigator.navigateToRemove(routeName: AppRoutes.mainPage);
+                  }
                 },
-                style: ElevatedButton.styleFrom(
-                  primary: const Color(
-                    0xfffee500,
-                  ),
-                ),
-                child: SizedBox(
-                  height: 44.h,
+                child: Image.asset(
+                  'assets/image/kakao_login_large_wide .png',
                   width: 296.w,
-                  child: const Center(
-                    child: Text(
-                      '카카오 로그인',
-                      style: BppTextStyle.screenText,
-                    ),
-                  ),
+                  height: 44.h,
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  Future<bool> _login() async {
+    final kakaoLogin = ref.watch(flutterKakaoLogin);
+    final dio = Dio();
+
+    try {
+      final result = await kakaoLogin.logIn();
+      final token = result.token!.accessToken!;
+
+      // 카카오 토큰으로 유저 정보 요청
+      final response = await dio.post(
+          'https://bpplaner.shop/login/rest-auth/kakao/',
+          data: {"access_token": token});
+      final userData = UserInfoResponse.fromJson(response.data);
+      await Hive.box('auth').put('userInfo', userData.userInfo);
+
+      //  유저 정보로 자체 토큰 요청
+      final tokenResponse = await dio.post(
+          'https://bpplaner.shop/login/new-token/',
+          data: UserInfoRequest(userInfo: userData.userInfo).toJson());
+
+      final tokenData = TokenData.fromJson(tokenResponse.data);
+      // 유저 정보 업데이트
+      ref.watch(userInfoProvider.state).state = userData.userInfo;
+      await Hive.box('auth').put('refreshToken', tokenData.refreshToken);
+      await Hive.box('auth').put('accessToken', tokenData.accessToken);
+      return true;
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => bppAlertDialog(
+          title: '다시 시도해주세요!',
+          confirm: () {},
+        ),
+      );
+      return false;
+    }
   }
 }

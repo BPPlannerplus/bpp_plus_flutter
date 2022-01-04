@@ -1,29 +1,60 @@
+import 'package:bpp_riverpod/app/model/shop/shop_data.dart';
+import 'package:bpp_riverpod/app/model/shop/shop_list_dto.dart';
+import 'package:bpp_riverpod/app/provider/shop/shop_paging_state_provider.dart';
+import 'package:bpp_riverpod/app/ui/components/card/studio_card.dart';
+import 'package:bpp_riverpod/app/ui/components/state/custom_load_indicator.dart';
+import 'package:bpp_riverpod/app/ui/components/state/empty_item_text.dart';
+import 'package:bpp_riverpod/app/ui/components/studio_grid/studio_paged_sliver_grid.dart';
+import 'package:bpp_riverpod/app/ui/components/toast/toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-class TanningGrid extends StatelessWidget {
-  const TanningGrid({Key? key}) : super(key: key);
+class TanningGrid extends ConsumerWidget {
+  const TanningGrid({
+    Key? key,
+    required this.fToast,
+    required this.pagingController,
+  }) : super(key: key);
+
+  final FToast fToast;
+  final PagingController<int, ShopData> pagingController;
 
   @override
-  Widget build(BuildContext context) {
-    return SliverGrid(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisExtent: 188,
-        mainAxisSpacing: 5,
-        crossAxisSpacing: 5,
-      ),
-      delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int index) {
-          return Container(
-            alignment: Alignment.center,
-            color: Colors.yellow[100 * (index % 9)],
-            child: Text(
-              'Tanning Item ${index + 1}',
-              style: const TextStyle(fontSize: 20),
-            ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen<ShopListDto>(tanningPagingStateProvider, (prev, next) {
+      pagingController.value = PagingState(
+        itemList: next.shopData,
+        nextPageKey: next.hasNext ? next.nextPage : null,
+        error: null,
+      );
+    });
+    return StudioPagedSliverGrid(
+      pageController: pagingController,
+      builderDelegate: PagedChildBuilderDelegate<ShopData>(
+        itemBuilder: (context, shop, index) {
+          return StudioCard(
+            shopData: shop,
+            setLike: () async {
+              if (!shop.like) {
+                showToast(fToast);
+              }
+              ref
+                  .read(tanningPagingStateProvider.notifier)
+                  .setLike(index: index);
+            },
+            index: index,
+            detailPageCallback: ref
+                .read(tanningPagingStateProvider.notifier)
+                .setLikeDetailCallback,
           );
         },
-        childCount: 100,
+        firstPageProgressIndicatorBuilder: (context) =>
+            customLoadingIndicator(),
+        newPageProgressIndicatorBuilder: (context) => customLoadingIndicator(),
+        noItemsFoundIndicatorBuilder: (context) =>
+            emptyItemText('해당 스튜디오가 존재하지 않습니다!'),
       ),
     );
   }

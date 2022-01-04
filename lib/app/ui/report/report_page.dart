@@ -1,103 +1,119 @@
-import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/model/enum/complain_type.dart';
+import 'package:bpp_riverpod/app/model/review/complain.dart';
+import 'package:bpp_riverpod/app/provider/detail/complain_provider.dart';
+import 'package:bpp_riverpod/app/provider/detail/report_provider.dart';
+import 'package:bpp_riverpod/app/repository/shop_detail_repository.dart';
+import 'package:bpp_riverpod/app/ui/components/app_bar/custom_app_bar.dart';
+import 'package:bpp_riverpod/app/ui/components/button/confirm_button.dart';
+import 'package:bpp_riverpod/app/ui/report/widget/report_row.dart';
+import 'package:bpp_riverpod/app/ui/report/widget/report_text.dart';
+import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
+import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReportPage extends StatelessWidget {
-  const ReportPage({Key? key}) : super(key: key);
+  const ReportPage({
+    Key? key,
+    required this.onReport,
+    required this.reviewId,
+  }) : super(key: key);
+
+  final int reviewId;
+  final void Function(int reviewId) onReport;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                Row(
-                  children: const [
-                    Icon(Icons.arrow_back),
-                    Text(
-                      '리뷰 신고하기',
-                      style: BppTextStyle.defaultText,
-                    ),
-                  ],
-                ),
-                const Text(
-                  '신고하시는 이유를 선택해주세요',
-                  style: BppTextStyle.tabText,
-                ),
-                reportRow('음란, 욕설 등 부적절한 내용', true),
-                reportRow('부적절한 홍보 또는 광고 내용', true),
-                reportRow('개인 정보 노출', false),
-                reportRow('불법 정보 기재', false),
-                reportRow('기타(직접 입력)', false),
-                const SizedBox(
-                  height: 128,
-                  child: TextField(
-                    maxLines: 8,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
+        appBar: customAppBar('리뷰 신고하기'),
+        body: Padding(
+          padding:
+              const EdgeInsets.only(top: 16, right: 16, left: 16, bottom: 24),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: Consumer(
+                    builder: (context, ref, _) {
+                      final check = ref.watch(isReportCheckProvider);
+                      final navigator = ref.watch(navigatorProvider);
+                      final checks = ref.watch(reportCheckProvider);
+
+                      final reason = ref.watch(complaingReasonProvider);
+                      final contents = ref.watch(complaingContentsProvider);
+
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text('신고하시는 이유를 선택해주세요',
+                                  style: BppTextStyle.tabText),
+                              SizedBox(height: 16.h),
+                              for (int i = 0; i < 5; i++)
+                                ReportRow(
+                                  index: i,
+                                  check: checks[i],
+                                  title: complainTitle(i),
+                                  checking: () {
+                                    ref
+                                        .read(reportCheckProvider.notifier)
+                                        .checking(i);
+                                    ref
+                                        .read(
+                                            complaingReasonStateProvider.state)
+                                        .state = complainReason(i);
+                                  },
+                                ),
+                              SizedBox(
+                                height: 128,
+                                child: TextField(
+                                  maxLines: 6,
+                                  style: BppTextStyle.smallText,
+                                  decoration: const InputDecoration(
+                                      hintText: '신고하시는 이유를 입력해주세요'),
+                                  onChanged: (text) {
+                                    ref
+                                        .read(complaingContentsStateProvider
+                                            .state)
+                                        .state = text;
+                                  },
+                                ),
+                              ),
+                              SizedBox(height: 16.h),
+                              const ReportText(),
+                            ],
+                          ),
+                          const SizedBox(height: 70),
+                          ConfirmButton(
+                            buttonTitle: '신고하기',
+                            onPressedButton: () async {
+                              await ref.read(shopDetailRepository).reportReview(
+                                    reviewId,
+                                    Complain(
+                                        reason: reason, contents: contents),
+                                  );
+                              onReport(reviewId);
+                              navigator.pop();
+                            },
+                            check: !check,
+                            activeButtonColor: BppColor.black,
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ),
-                const SizedBox(height: 8),
-                Container(
-                  height: 56,
-                  width: double.infinity,
-                  color: Colors.grey.shade200,
-                  child: const Center(
-                    child: Text(
-                      '허위 신고 시 서비스 활동이 제한 될 수 있으니 신중하게\n신고해주시기 바랍니다.',
-                      style: BppTextStyle.smallText,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 100),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith(
-                      (states) {
-                        if (states.contains(MaterialState.disabled)) {
-                          return Colors.grey;
-                        }
-                        return Colors.black;
-                      },
-                    ),
-                  ),
-                  child: SizedBox(
-                    width: 328,
-                    height: 48,
-                    child: Center(
-                      child: Text(
-                        '신고하기',
-                        style: BppTextStyle.tabText.copyWith(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
+              );
+            },
           ),
         ),
       ),
-    );
-  }
-
-  Widget reportRow(String title, bool isCheck) {
-    return Row(
-      children: [
-        Icon(
-          Icons.circle_notifications,
-          color: isCheck ? Colors.black : Colors.purple,
-        ),
-        Text(
-          title,
-          style: BppTextStyle.filterText,
-        ),
-      ],
     );
   }
 }

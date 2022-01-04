@@ -1,16 +1,19 @@
-import 'package:bpp_riverpod/app/util/text_style.dart';
+import 'package:bpp_riverpod/app/ui/components/card/circle_avatar_card.dart';
+import 'package:bpp_riverpod/app/util/format.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
+import 'package:bpp_riverpod/app/util/theme/text_style.dart';
 import 'package:flutter/material.dart';
 
 class DetailMidBox extends StatelessWidget {
   const DetailMidBox({
     Key? key,
     required this.shopName,
-    required this.price,
+    this.price,
     required this.logo,
   }) : super(key: key);
 
   final String shopName;
-  final int price;
+  final int? price;
   final String logo;
 
   @override
@@ -19,33 +22,27 @@ class DetailMidBox extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
         height: 80,
-        color: Colors.white,
+        color: BppColor.white,
         child: Row(
           children: [
-            CircleAvatar(
-              radius: 32,
-              backgroundColor: const Color(0xffc4c4c4),
-              child: Image.network(
-                logo,
-                fit: BoxFit.contain,
-              ),
+            CircleAvatarCard(
+              backgroundColor: BppColor.unSelButtonText,
+              img: logo,
             ),
-            const SizedBox(
-              width: 16,
-            ),
+            const SizedBox(width: 16),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   shopName,
-                  style: BppTextStyle.screenText,
+                  style: BppTextStyle.screenText.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 4),
                 Text(
-                  '$price',
+                  price != null ? priceFormat(price!) : '가격 정보 없음',
                   style: BppTextStyle.defaultText,
                 ),
               ],

@@ -1,142 +1,87 @@
+import 'package:bpp_riverpod/app/model/auth/user_info.dart';
+import 'package:bpp_riverpod/app/provider/auth/login_provider.dart';
 import 'package:bpp_riverpod/app/routes/routes.dart';
+import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/app/util/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+Future<void> main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(UserInfoAdapter());
+  await Hive.openBox('auth');
+  SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(statusBarColor: Color(0xffe0e0e0)));
+
   runApp(
-    ProviderScope(
-      child: const MyApp(),
-      observers: [
-        Logger(),
-      ],
+    const ProviderScope(
+      child: MyApp(),
     ),
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
+  String initRoute = AppRoutes.loginPage;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 0), () async {
+      initKakao();
+    });
+  }
+
+  void initKakao() async {
+    final kakaoLogin = ref.watch(flutterKakaoLogin);
+    await kakaoLogin.init('728c87e40ccd496fb94f1000585da2df');
+  }
+
+  String checkToken() {
+    final token = Hive.box('auth').get('refreshToken') ?? 'no token';
+    if (token == 'no token') {
+      return AppRoutes.onboardingPage;
+    }
+    return AppRoutes.mainPage;
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final initPage = checkToken();
+
     return ScreenUtilInit(
       designSize: const Size(360, 640),
       builder: () => MaterialApp(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
-        initialRoute: AppRoutes.loginPage,
-        onGenerateRoute: (settings) => AppRouter.onGenerateRoute(settings),
-        theme: ThemeData(
-          primaryColor: const Color(0xffffffff),
-          canvasColor: const Color(0xffffffff),
-          scaffoldBackgroundColor: const Color(0xffffffff),
-          backgroundColor: const Color(0xffffffff),
+        builder: (context, child) => MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+          child: child!,
         ),
+        title: '바프플래너',
+        debugShowCheckedModeBanner: false,
+        initialRoute: initPage,
+        onGenerateRoute: (settings) => AppRouter.onGenerateRoute(settings),
+        navigatorKey: ref.watch(navigatorProvider).navigatorKey,
+        theme: theme,
+        scrollBehavior: MyBehavior(),
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('ko', 'KR'),
+        ],
       ),
     );
   }
 }
-
-class Logger extends ProviderObserver {
-  @override
-  void didUpdateProvider(
-    ProviderBase provider,
-    Object? previousValue,
-    Object? newValue,
-    ProviderContainer container,
-  ) {
-    // ignore: avoid_print
-    print('''
-{
-    "provider": "${provider.name ?? provider.runtimeType}",
-}
-''');
-  }
-
-  @override
-  void didDisposeProvider(
-    ProviderBase provider,
-    ProviderContainer containers,
-  ) {
-    // ignore: avoid_print
-    print('''
-{
-    "providerDispose": "${provider.name ?? provider.runtimeType}",
-}
-''');
-    super.didDisposeProvider(provider, containers);
-  }
-}
-
-// class TestPage extends StatelessWidget {
-//   const TestPage({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: SingleChildScrollView(
-//         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-//         child: ConstrainedBox(
-//           constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height),
-//           child: Stack(
-//             children: [
-//               Positioned.fill(
-//                 child: Container(
-//                   color: Colors.blue.withOpacity(.3),
-//                 ),
-//               ),
-//               Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Container(
-//                     height: 180,
-//                     color: Colors.red,
-//                     child: Center(child: Text('TOP AREA')),
-//                   ),
-//                   Container(
-//                     height: 80,
-//                     transform: Matrix4.translationValues(0, -30, 0),
-//                     margin: EdgeInsets.symmetric(horizontal: 16),
-//                     decoration: BoxDecoration(color: Colors.white, boxShadow: kElevationToShadow[3]),
-//                     child: Row(
-//                       children: [
-//                         Spacer(),
-//                         RaisedButton(onPressed: () {}),
-//                         RaisedButton(onPressed: () {}),
-//                         RaisedButton(onPressed: () {}),
-//                         Spacer(),
-//                       ],
-//                     ),
-//                   ),
-//                   Container(
-//                     child: Column(
-//                       children: [
-//                         ListTile(title: Text('hello'),),
-//                         ListTile(title: Text('hello'),),
-//                         ListTile(title: Text('hello'),),
-//                         ListTile(title: Text('hello'),),
-//                         ListTile(title: Text('hello'),),
-//                         ListTile(title: Text('hello'),),
-//                         ListTile(title: Text('hello'),),
-//                         ListTile(title: Text('hello'),),
-//                         ListTile(title: Text('hello'),),
-//                         ListTile(title: Text('hello'),),
-//                         ListTile(title: Text('hello'),),
-//                         ListTile(title: Text('hello'),),
-//                         ListTile(title: Text('hello'),),
-//                         ListTile(title: Text('hello'),),
-//                         ListTile(title: Text('hello'),),
-//                         ListTile(title: Text('last element'),),
-//                       ],
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-

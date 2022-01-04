@@ -1,4 +1,8 @@
-import 'package:bpp_riverpod/app/provider/navigation_provider.dart';
+import 'package:bpp_riverpod/app/provider/detail/detail_navigation_provider.dart';
+import 'package:bpp_riverpod/app/ui/components/card/circle_status_card.dart';
+import 'package:bpp_riverpod/app/util/navigation_service.dart';
+import 'package:bpp_riverpod/app/util/theme/color.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,22 +35,23 @@ class DetailProfilePage extends StatelessWidget {
                     initialPage: index,
                   ),
                   onPageChanged: (pageIndex) {
-                    ref.read(detailPageProvider).state = pageIndex;
+                    ref.read(detailPageProvider.state).state = pageIndex;
+                    ref
+                        .read(detailPageControllerProvider)
+                        .jumpToPage(pageIndex);
                   },
                   children: [
-                    SizedBox.expand(
-                      child: Image.network(
-                        profiles[0],
-                        height: 480.h,
-                      ),
+                    _ImgPage(
+                      index: 0,
+                      profile: profiles[0],
                     ),
-                    Image.network(
-                      profiles[1],
-                      height: 480.h,
+                    _ImgPage(
+                      index: 1,
+                      profile: profiles[1],
                     ),
-                    Image.network(
-                      profiles[2],
-                      height: 480.h,
+                    _ImgPage(
+                      index: 2,
+                      profile: profiles[2],
                     ),
                   ],
                 ),
@@ -54,25 +59,28 @@ class DetailProfilePage extends StatelessWidget {
               Positioned(
                 top: 16,
                 right: 16,
-                child: InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: const SizedBox(
-                    width: 40,
-                    height: 40,
-                    child: Icon(
-                      Icons.cancel,
-                      color: Colors.white,
+                child: Consumer(builder: (context, ref, _) {
+                  final navigator = ref.watch(navigatorProvider);
+                  return InkWell(
+                    onTap: () {
+                      navigator.pop();
+                    },
+                    child: const Icon(
+                      CupertinoIcons.xmark,
+                      color: BppColor.white,
                       size: 30,
                     ),
-                  ),
-                ),
+                  );
+                }),
               ),
               Container(
                 padding: const EdgeInsets.only(bottom: 16),
                 alignment: Alignment.bottomCenter,
-                child: _circleStatus(ref.watch(detailPageProvider).state),
+                child: CircleStatusCard(
+                  index: ref.watch(detailPageProvider),
+                  selColor: Colors.white,
+                  unSelColor: const Color(0xff656565),
+                ),
               ),
             ],
           );
@@ -80,44 +88,28 @@ class DetailProfilePage extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _circleStatus(int index) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: 8,
-            height: 8,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: index == 0 ? Colors.white : const Color(0xff656565),
-            ),
-          ),
-          const SizedBox(
-            width: 8,
-          ),
-          Container(
-            width: 8,
-            height: 8,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: index == 1 ? Colors.white : const Color(0xff656565),
-            ),
-          ),
-          const SizedBox(
-            width: 8,
-          ),
-          Container(
-            width: 8,
-            height: 8,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: index == 2 ? Colors.white : const Color(0xff656565),
-            ),
-          ),
-        ],
+class _ImgPage extends StatelessWidget {
+  const _ImgPage({
+    Key? key,
+    required this.index,
+    required this.profile,
+  }) : super(key: key);
+
+  final int index;
+  final String profile;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox.expand(
+      child: Hero(
+        tag: 'profile$index',
+        child: Image.network(
+          profile,
+          height: 480.h,
+          fit: BoxFit.contain,
+        ),
       ),
     );
   }
