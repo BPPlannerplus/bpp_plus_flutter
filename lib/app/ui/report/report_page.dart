@@ -93,7 +93,6 @@ class ReportPage extends StatelessWidget {
                           ConfirmButton(
                             buttonTitle: '신고하기',
                             onPressedButton: () async {
-                              // TODO: 리뷰 신고 오류, 클라쪽에서 500
                               await ref.read(shopDetailRepository).reportReview(
                                     reviewId,
                                     Complain(

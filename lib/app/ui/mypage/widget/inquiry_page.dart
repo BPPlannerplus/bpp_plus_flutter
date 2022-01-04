@@ -89,7 +89,6 @@ class _TitleRow extends StatelessWidget {
         children: [
           Text('문의중 업체 $count', style: BppTextStyle.smallText),
           Consumer(builder: (context, ref, _) {
-            //  TODO: 샵 전체 삭제 수정, 클라쪽에서 500에러
             final shopType = ref.watch(inquiryShopTypeProvider);
             return InkWell(
               onTap: () {
