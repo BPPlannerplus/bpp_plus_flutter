@@ -50,10 +50,13 @@ class DetailTopBox extends StatelessWidget {
                   ),
                 ],
               ),
-              CircleStatusCard(
-                index: ref.watch(detailPageProvider),
-                selColor: BppColor.white,
-                unSelColor: const Color(0xff656565),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: CircleStatusCard(
+                  index: ref.watch(detailPageProvider),
+                  selColor: BppColor.white,
+                  unSelColor: const Color(0xff656565),
+                ),
               ),
             ],
           );
