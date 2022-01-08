@@ -86,14 +86,14 @@ class StudioCard extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 4),
-        shopData.minPrice != null
+        shopData.minPrice != null && shopData.minPrice != 0
             ? Text(
                 priceFormat(
                   shopData.minPrice!,
                 ),
                 style: BppTextStyle.smallText)
             : const Text(
-                '가격 정보 없음',
+                '가격 문의',
                 style: BppTextStyle.smallText,
               ),
       ],

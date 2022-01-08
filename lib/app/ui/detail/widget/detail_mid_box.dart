@@ -42,7 +42,7 @@ class DetailMidBox extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  price != null ? priceFormat(price!) : '가격 정보 없음',
+                  price != null && price != 0 ? priceFormat(price!) : '가격 문의',
                   style: BppTextStyle.defaultText,
                 ),
               ],
